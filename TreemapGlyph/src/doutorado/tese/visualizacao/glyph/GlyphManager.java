@@ -110,7 +110,7 @@ public final class GlyphManager {
             treemapItem.getNumero().paint(g);
         }
     }
-        
+
     public int prepareTextura(Rectangle bounds, String textura, TreeMapItem treemapItem) {
         Textura t = new Textura(bounds, textura);
         if (treemapItem != null) {
@@ -265,7 +265,7 @@ public final class GlyphManager {
                     break;
                 case 1:
                     features[Constantes.AREA_CIRCULO_COLORIDO] = dadosDistintos != null ? prepareSegundaDimensao(col, item, dadosDistintos)
-                            : prepareCorForma(item.getBounds(), Color.decode(getShufflerColors()[0]), null);
+                            : prepareCorForma(item.getBounds(), Color.decode(Constantes.getCorGlyphs()[0]), null);
                     features[Constantes.PRESENCA_COR_FORMA] = Constantes.PRESENTE;
                     break;
                 case 2:
@@ -316,7 +316,7 @@ public final class GlyphManager {
         } else {
             for (int j = 0; j < Constantes.getCor().length; j++) {
                 if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                    return prepareCorForma(item.getBounds(), Color.decode(getShufflerColors()[j]), item);
+                    return prepareCorForma(item.getBounds(), Color.decode(Constantes.getCorGlyphs()[j]), item);
                 }
             }
         }
@@ -388,14 +388,17 @@ public final class GlyphManager {
 
     public Glyph setLayerInGlyph(String varVisual, TreeMapItem item, int dimensao) {
         Glyph glyph = null;
-        
+
         String colunaEscolhida = atributosEscolhidos.get(dimensao).toString();
         Coluna col = ManipuladorArquivo.getColuna(colunaEscolhida);
         List<String> dadosDistintos = colunaDadosDist.get(colunaEscolhida);
 
         switch (varVisual) {
+            case "Texture":
+                glyph = prepareDimensaoTexturaDinamica(col, item, dadosDistintos);
+                break;
             case "Color":
-                glyph = defineColor();
+                glyph = prepareDimensaoCorDinamica(col, item, dadosDistintos);
                 break;
             case "Number":
 //                glyph = defineRandomColorOvelerlap();
@@ -405,9 +408,6 @@ public final class GlyphManager {
                 break;
             case "Shape":
                 glyph = defineShape();
-                break;
-            case "Texture":
-                glyph = prepareDimensaoTexturaDinamica(col, item, dadosDistintos);
                 break;
 //            case "Overlap":
 //                glyph = new Overlap();
@@ -423,7 +423,7 @@ public final class GlyphManager {
 
         return glyph;
     }
-    
+
     public Glyph prepareDimensaoTexturaDinamica(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.TIPO_TEXTURA.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
@@ -433,7 +433,24 @@ public final class GlyphManager {
         return null;
     }
 
-    private Glyph defineColor() {
+    public Glyph prepareDimensaoCorDinamica(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+        if (col.getDescription() == Metadados.Descricao.CONTINUOUS) {
+            ColorInterpolator interpolator = new ColorInterpolator();
+            interpolator.config(col.maiorMenorValues[0], col.maiorMenorValues[1], Color.orange, Color.decode("#4682B4"));
+            Color cor = interpolator.interpolate(Double.parseDouble(item.getMapaDetalhesItem().get(col)));
+            return defineColor(cor);
+        } else {
+            for (int j = 0; j < Constantes.getCorGlyphs().length; j++) {
+                if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
+                    Color cor = Color.decode(Constantes.getCorGlyphs()[j]);
+                    return defineColor(cor);
+                }
+            }
+        }
+        return null;
+    }
+
+    private Glyph defineColor(Color color) {
 //        if (getCores() == null) {
 //            definirConjuntoCores(quantValoresVarVisuais);
 //        }
@@ -448,7 +465,7 @@ public final class GlyphManager {
 //            cor.setGlyphResposta(true);
 //        }
 
-        cor.setCor(Color.decode(Constantes.getCorGlyphs()[0]));
+        cor.setCor(color);
 //        cor.setPectSobreposicao(perctOverlap);
         cor.setPectSobreposicao(0.65f);
         cor.setOverlappingActivated(overlappingActivated);
@@ -499,7 +516,7 @@ public final class GlyphManager {
 //            texturaSorteada = random;
 //            textura.setGlyphResposta(true);
 //        }
-        
+
         textura.setNomeTextura(nomeTextura);
 //        textura.setPectSobreposicao(perctOverlap);
         textura.setPectSobreposicao(0.65f);
@@ -523,7 +540,7 @@ public final class GlyphManager {
         letra.setOverlappingActivated(overlappingActivated);
         return glyph;
     }
-    
+
     private void limparGlyphsTreemapItem(TreeMapItem item) {
         item.setTextura(null);
         item.setCorForma(null);
@@ -531,9 +548,11 @@ public final class GlyphManager {
         item.setLetra(null);
         item.setNumero(null);
     }
-    
+
     /**
-     * Mapeia as dimenssões 0 - textura, 1 - cor, 2 - forma, 3 - letra, 4 - numero
+     * Mapeia as dimenssões 0 - textura, 1 - cor, 2 - forma, 3 - letra, 4 -
+     * numero
+     *
      * @param varVisual nome da var visual
      * @return int representando a dimensao
      */
@@ -578,13 +597,6 @@ public final class GlyphManager {
     public void setRootNodeZoom(TMNodeModelRoot rootNodeZoom) {
         this.rootNodeZoom = rootNodeZoom;
 //        System.out.println("Root Node Zoom: "+this.rootNodeZoom.getRoot().getTitle());
-    }
-
-    /**
-     * @return the shufflerColors
-     */
-    public static String[] getShufflerColors() {
-        return shufflerColors;
     }
 
     /**

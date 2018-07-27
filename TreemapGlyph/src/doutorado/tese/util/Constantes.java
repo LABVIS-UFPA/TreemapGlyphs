@@ -121,7 +121,7 @@ public class Constantes {
     }
 
     /**
-     * Vetor de cores usado no segundo nivel de glyphs e na dimensao cores do
+     * Vetor de cores usado na dimensao cores do
      * treemap
      *
      * @return
@@ -131,6 +131,7 @@ public class Constantes {
     }
 
     /**
+     * Vetor usado no segundo nivel de glyphs
      * @return the corGlyphs
      */
     public static String[] getCorGlyphs() {

@@ -14,6 +14,7 @@ import doutorado.tese.visualizacao.glyph.texture.Textura;
  *
  * @author Anderson Soares
  */
+@Deprecated
 public class Glyph_old {
     private Textura textura;
     private FormaGeometrica corForma;

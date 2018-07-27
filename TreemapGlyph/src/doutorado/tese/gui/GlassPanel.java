@@ -50,7 +50,7 @@ public class GlassPanel extends JPanel {
         setLayout(new GroupLayout(this));
         callListner();
 //        glyphManager.setPerctOverlap(quantOlverlap);
-        quantValoresVarVisuais = 5;
+        quantValoresVarVisuais = 8;
     }
 
     public GlassPanel(Rectangle bounds) {
