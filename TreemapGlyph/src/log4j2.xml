@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" name="XMLConfigTest" packages="org.apache.logging.log4j.test">
+    <Properties>
+        <Property name="filename">logTreemapGlyphs.log</Property>
+    </Properties>
+    <ThresholdFilter level="trace"/>
+ 
+    <Appenders>
+        <Console name="STDOUT">
+            <PatternLayout pattern="%m MDC%X%n"/>
+        </Console>
+        <Console name="FLOW">
+            <!-- this pattern outputs class name and line number -->
+            <PatternLayout pattern="%C{1}.%M %m %ex%n"/>
+            <filters>
+                <MarkerFilter marker="FLOW" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                <MarkerFilter marker="EXCEPTION" onMatch="ACCEPT" onMismatch="DENY"/>
+            </filters>
+        </Console>
+        <File name="File" fileName="${filename}" append="false">
+            <PatternLayout>
+                <pattern>%d %p %C{1.} [%t] %m%n</pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+ 
+    <Loggers>
+        <Logger name="org.apache.logging.log4j.test1" level="debug" additivity="false">
+            <ThreadContextMapFilter>
+                <KeyValuePair key="test" value="123"/>
+            </ThreadContextMapFilter>
+            <AppenderRef ref="STDOUT"/>
+            <!--<AppenderRef ref="FLOW"/>-->
+        </Logger>
+ 
+        <Logger name="org.apache.logging.log4j.test2" level="debug" additivity="false">
+            <Property name="user">${sys:user.name}</Property>
+            <AppenderRef ref="File">
+                <ThreadContextMapFilter>
+                    <KeyValuePair key="test" value="123"/>
+                </ThreadContextMapFilter>
+            </AppenderRef>
+            <AppenderRef ref="STDOUT" level="error"/>
+            <!--<AppenderRef ref="FLOW" level="error"/>-->
+        </Logger>
+ 
+        <Logger name="org.apache.logging.log4j.test3" level="info">
+            <AppenderRef ref="STDOUT"/>        
+            <!--<AppenderRef ref="FLOW"/>-->   
+        </Logger>
+    
+        <Root level="trace">
+            <AppenderRef ref="File"/>
+            <AppenderRef ref="FLOW"/>   
+        </Root>
+    </Loggers>
+ 
+</Configuration>

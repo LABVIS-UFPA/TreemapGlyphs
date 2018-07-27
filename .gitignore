@@ -1,0 +1,8 @@
+**/dist
+**/build
+**/nbproject
+*.class
+*.properties
+*result*.txt
+TreemapGlyph/nbproject/private/private.properties
+*.log
