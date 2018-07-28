@@ -16,6 +16,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -93,6 +94,26 @@ public class TreeMapItem extends TreeMapNode {
             }
         } else {
             return false;
+        }
+    }
+    
+    /**
+     * Metodo que retorna todos a composicao de um glyph, desde um glyph
+     * concreto ate a ultima camada do glyph. Dessa forma, o metodo retorna, de
+     * forma recursiva uma lista contendo todos os glyphs filhos (familia) de um
+     * dado glyph.
+     *
+     * @param glyph objeto de pesquisa da familia
+     * @param familia lista que ira armazenar a familia do obj pesquisado
+     * @return lista contendo a familia do obj glyph pesquisado.
+     */
+    public List<Glyph> getGlyphFamily(Glyph glyph, List<Glyph> familia) {
+        familia.add(glyph);
+        boolean semFilhos = glyph.getChildren().isEmpty();
+        if (!semFilhos) {
+            return getGlyphFamily(glyph.getChild(), familia);
+        } else {
+            return familia;
         }
     }
     

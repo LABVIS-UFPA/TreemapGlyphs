@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author Anderson Soares
  */
-public abstract class Glyph implements Cloneable{
+public abstract class Glyph implements Cloneable {
 
     private Glyph child;
     private Rectangle bounds;
@@ -28,19 +28,26 @@ public abstract class Glyph implements Cloneable{
     private boolean glyphResposta;
     private boolean hasLetter;
     private String letter;
+    protected int[] xPoints;
+    protected int[] yPoints;
+    private String number;
+    private boolean hasNumber;
+    private boolean activatedDecisionTree;
 
     public Glyph() {
     }
-    
+
     public void paint(Graphics2D g2d) {
         if (getChild() != null) {
-            if(getTexturePaint() != null){
+            if (getTexturePaint() != null) {
                 g2d.setPaint(getTexturePaint());
             }
             if (getClipShape() != null) {
                 g2d.clip(getClipShape());
             }
-            getChild().paint(g2d);
+//            if (!activatedDecisionTree) {
+                getChild().paint(g2d);
+//            }
         }
     }
 
@@ -81,7 +88,7 @@ public abstract class Glyph implements Cloneable{
             this.getChild().getChildren(children);
         }
     }
-    
+
     protected void verificarRetangulo(int[] point) {
         if (point[0] > point[1]) {
             point[0] = point[1];
@@ -89,7 +96,11 @@ public abstract class Glyph implements Cloneable{
             point[1] = point[0];
         }
     }
-    
+
+    public int getArea() {
+        return xPoints[1] * yPoints[1];
+    }
+
     public List<Glyph> getChildren() {
         return children;
     }
@@ -99,7 +110,7 @@ public abstract class Glyph implements Cloneable{
     }
 
     public abstract Shape getClipShape();
-    
+
     public abstract Paint getTexturePaint();
 
     public float getPectSobreposicao() {
@@ -133,7 +144,7 @@ public abstract class Glyph implements Cloneable{
     public String toString() {
         return this.getClass().getSimpleName();
     }
-    
+
     public abstract String getVarValue();
 
     /**
@@ -167,7 +178,7 @@ public abstract class Glyph implements Cloneable{
     public void setGlyphResposta(boolean glyphResposta) {
         this.glyphResposta = glyphResposta;
     }
-    
+
     @Override
     public Glyph clone() throws CloneNotSupportedException {
         try {
@@ -193,6 +204,14 @@ public abstract class Glyph implements Cloneable{
         this.hasLetter = hasLetter;
     }
 
+    public boolean hasNumber() {
+        return hasNumber;
+    }
+
+    public void usingNumber(boolean hasNumber) {
+        this.hasNumber = hasNumber;
+    }
+
     /**
      * @return the letter
      */
@@ -206,6 +225,13 @@ public abstract class Glyph implements Cloneable{
     public void setLetter(String letter) {
         this.letter = letter;
     }
-    
-    
+
+    void setNumber(String numeroUtilizado) {
+        number = numeroUtilizado;
+    }
+
+    void setDecisionTreeActivate(boolean activatedDT) {
+        this.activatedDecisionTree = activatedDT;
+    }
+
 }

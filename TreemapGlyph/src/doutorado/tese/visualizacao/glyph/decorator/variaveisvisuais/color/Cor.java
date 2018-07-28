@@ -20,8 +20,6 @@ import java.awt.TexturePaint;
  */
 public class Cor extends Glyph {
 
-    private int[] xPoints;
-    private int[] yPoints;
     private Color cor;
 
     @Override

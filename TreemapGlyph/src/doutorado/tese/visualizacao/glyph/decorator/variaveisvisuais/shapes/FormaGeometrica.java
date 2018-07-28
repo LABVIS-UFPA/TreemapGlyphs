@@ -7,7 +7,6 @@ package doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes;
 
 import doutorado.tese.visualizacao.glyph.strategy.variaveisvisuais.shapes.DrawBehavior;
 import doutorado.tese.visualizacao.glyph.Glyph;
-import doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.visualizacao.glyph.strategy.variaveisvisuais.shapes.Retangulo;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -103,8 +102,9 @@ public class FormaGeometrica extends Glyph {
         this.drawBehavior = drawBehavior;
     }
 
+    @Override
     public int getArea() {
-        return 0;
+        return drawBehavior.getArea();
     }
 
     @Override

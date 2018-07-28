@@ -15,6 +15,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.font.FontRenderContext;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -22,47 +24,37 @@ import java.awt.Shape;
  */
 public class Numeral extends Glyph {
 
-    private int[] xPoints;
-    private int[] yPoints;
-    private String numero;
     private String letra;
     private boolean letraAtiva = false;
     private Font fonte;
-    private boolean legenda;
-    private int heightNumero;
+    
+    private Rectangle newBounds;
+    private Shape shapeNumero;
     private int widthNumero;
+    private int heightNumero;
+    private int x, y;
+    private boolean ativo = false;
 
     public Numeral() {
     }
 
     @Override
-    public void paint(Graphics2D g) {
-        int fontSize = Math.round(getBounds().width * 0.7f);
+    public void paint(Graphics2D g2d) {
+        int fontSize = Math.round(newBounds.height * 1.2f);
         setFonte(new Font("Arial black", Font.PLAIN, fontSize));
-        drawNumero(g);
-        super.paint(g);
-    }
-
-    private void drawNumero(Graphics2D g2d) {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
         g2d.setFont(getFonte());
 
-        //calculode centro das letras
-        Point centroLetra = calcularFontMetrics(g2d);
-        int x = centroLetra.x;
-        int y = centroLetra.y;
-
+        g2d.setColor(new Color(255, 255, 255, 0));
+        g2d.fillRect(newBounds.x, newBounds.y, newBounds.width, newBounds.height);
         g2d.setColor(Color.white);
-        g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
-        g2d.setColor(Color.black);
-        g2d.drawString(getNumero(), x, y);
+        shapeNumero = getShapeNumero(letra);
+        g2d.draw(shapeNumero);
 
-        if (legenda) {
-            g2d.setColor(Color.black);
-            g2d.setFont(getFonte());
-            g2d.drawString(getNumero(), calcularFontMetrics(g2d).x, calcularFontMetrics(g2d).y);
-        }
+        g2d.setColor(Color.black);
+        g2d.fill(shapeNumero);
+
+        super.paint(g2d);
     }
 
     /**
@@ -72,16 +64,13 @@ public class Numeral extends Glyph {
      */
     private Point calcularFontMetrics(Graphics2D g2d) {
         FontMetrics metrics = g2d.getFontMetrics(getFonte());
-
         heightNumero = metrics.getHeight();
-        widthNumero = metrics.stringWidth(getNumero());
-
-        int pX = getBounds().x + (getBounds().width - widthNumero) / 2;
-        int pY = getBounds().y + ((getBounds().height - heightNumero) / 2) + metrics.getAscent();
-
+        widthNumero = metrics.stringWidth(getLetra());
+        int pX = Math.round(getBounds().x + (getBounds().width - widthNumero) / 2);
+        int pY = Math.round(getBounds().y + ((getBounds().height - heightNumero) / 2) + metrics.getAscent());
         return new Point(pX, pY);
     }
-    
+
     @Override
     public void setBounds(Rectangle rect) {
         super.setBounds(rect);
@@ -94,8 +83,10 @@ public class Numeral extends Glyph {
         points[0] = getBounds().width;
         points[1] = getBounds().height;
 
-        int width = Math.round(points[0] * 0.95f);
-        int height = Math.round(points[1] * 0.95f);
+        verificarRetangulo(points);
+
+        int width = Math.round(points[0] * getPectSobreposicao());
+        int height = Math.round(points[1] * getPectSobreposicao());
 
         xPoints = new int[2];
         yPoints = new int[2];
@@ -105,6 +96,29 @@ public class Numeral extends Glyph {
 
         xPoints[1] = width;
         yPoints[1] = height;
+        newBounds = new Rectangle(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
+    }
+
+    @Override
+    public Shape getClipShape() {
+        if (isOverlappingActivated()) {
+            return this.getBounds();
+        } else {
+            return shapeNumero;
+        }
+    }
+
+    public Shape getShapeNumero(String letra) {
+        BufferedImage textImage = new BufferedImage(
+                getBounds().width,
+                getBounds().height,
+                BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = textImage.createGraphics();
+        FontRenderContext frc = g2d.getFontRenderContext();
+        Point centroLetra = calcularFontMetrics(g2d);
+        x = centroLetra.x;
+        y = centroLetra.y;
+        return getFonte().createGlyphVector(frc, letra).getOutline(x, y);
     }
 
     /**
@@ -121,72 +135,39 @@ public class Numeral extends Glyph {
         this.fonte = fonte;
     }
 
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    /**
-     * @return the ativo
-     */
-//    public boolean isAtivo() {
-//        return ativo;
-//    }
-
-    /**
-     * @param ativo the ativo to set
-     */
-//    public void setAtivo(boolean ativo) {
-//        this.ativo = ativo;
-//    }
-
-    public int getArea() {
-        return heightNumero * widthNumero;
-    }
-
-    /**
-     * @return the letra
-     */
     public String getLetra() {
         return letra;
     }
 
-    /**
-     * @param letra the letra to set
-     */
     public void setLetra(String letra) {
         this.letra = letra;
     }
 
     /**
-     * @return the letraAtiva
+     * @return the ativo
      */
-    public boolean isLetraAtiva() {
-        return letraAtiva;
+    public boolean isAtivo() {
+        return ativo;
     }
 
     /**
-     * @param letraAtiva the letraAtiva to set
+     * @param ativo the ativo to set
      */
-    public void setLetraAtiva(boolean letraAtiva) {
-        this.letraAtiva = letraAtiva;
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
-    @Override
-    public Shape getClipShape() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getArea() {
+        return heightNumero * widthNumero;
     }
 
     @Override
     public Paint getTexturePaint() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
     @Override
     public String getVarValue() {
-        return getNumero();
+        return getLetra();
     }
 }

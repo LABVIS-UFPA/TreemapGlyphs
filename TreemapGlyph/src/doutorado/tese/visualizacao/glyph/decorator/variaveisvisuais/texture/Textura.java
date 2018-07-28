@@ -24,8 +24,6 @@ import java.awt.image.WritableRaster;
  */
 public class Textura extends Glyph {
 
-    private int[] xPoints;
-    private int[] yPoints;
     private String nomeTextura;
     TMPatternFactory textura;
     private Color cor;
@@ -51,10 +49,6 @@ public class Textura extends Glyph {
     public void setBounds(Rectangle rect) {
         super.setBounds(rect);
         montarRetangulo();
-    }
-
-    public int getArea() {
-        return xPoints[1] * yPoints[1];
     }
 
     private void montarRetangulo() {
