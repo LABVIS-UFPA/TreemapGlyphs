@@ -25,12 +25,12 @@ public class GeometryFactory {
 
         public enum GLYPH_FORMAS {
             CRUZ("CRUZ"),
-            ELLIPSE("ELLIPSE"),
-            HEXAGONO("HEXAGONO"),
             LOSANGO("LOSANGO"),
-            PENTAGONO("PENTAGONO"),
             TRAPEZIO("TRAPEZIO"),
+            PENTAGONO("PENTAGONO"),
+            HEXAGONO("HEXAGONO"),
             RETANGULO("RETANGULO"),
+            ELLIPSE("ELLIPSE"),
             CIRCULO("CIRCULO");
 
             private final String nome;

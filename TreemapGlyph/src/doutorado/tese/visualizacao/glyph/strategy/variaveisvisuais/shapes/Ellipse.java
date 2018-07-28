@@ -10,8 +10,8 @@ import java.awt.geom.Path2D;
 
 public class Ellipse implements DrawBehavior {
 
-    private double[] xPoints;
-    private double[] yPoints;
+    private int[] xPoints;
+    private int[] yPoints;
     private Rectangle bounds;
     private Path2D p;
 
@@ -21,7 +21,7 @@ public class Ellipse implements DrawBehavior {
     @Override
     public void paint(Graphics2D g2d) {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-               
+
         g2d.setColor(Color.white);
         g2d.fill(p);
         g2d.setColor(Color.black);
@@ -40,31 +40,31 @@ public class Ellipse implements DrawBehavior {
 
     private void montarEllipse() {
         Rectangle rect = getBounds();
-        
+
         int[] points = new int[2];
 
         points[0] = getBounds().width;
         points[1] = getBounds().height;
-        
+
         tornarGlyphQuadrado(points);
 
         int width = (int) Math.round(points[0] * percentSobreposicao);
         int height = (int) Math.round(points[1] * percentSobreposicao);
 
-        p = new Path2D.Double();       
-        p.append(new Ellipse2D.Double(rect.x + 2, rect.y + height / 4, width, height / 1.5 ), true);        
+        p = new Path2D.Double();
+        p.append(new Ellipse2D.Double(rect.x + 2, rect.y + height / 3, width, height / 1.5), true);
     }
-    
-    public Rectangle getBounds(){
+
+    public Rectangle getBounds() {
         return this.bounds;
     }
-    
+
     @Override
-    public void setBounds(Rectangle bounds){
+    public void setBounds(Rectangle bounds) {
         this.bounds = bounds;
         montarEllipse();
     }
-    
+
     @Override
     public int getArea() {
         return (int) (xPoints[1] * yPoints[1]);

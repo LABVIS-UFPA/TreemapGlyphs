@@ -6,12 +6,13 @@
 package doutorado.tese.legenda;
 
 import doutorado.tese.util.Constantes;
-import doutorado.tese.util.Metadados;
-import doutorado.tese.visualizacao.glyph.alfabeto.Letra;
-import doutorado.tese.visualizacao.glyph.formasgeometricas.FormaGeometrica;
-import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
+import doutorado.tese.visualizacao.glyph.Glyph;
+import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.letters.Letra;
+import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes.FormaGeometrica;
+import doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
+import doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
 import doutorado.tese.visualizacao.glyph.numeros.Numeral;
-import doutorado.tese.visualizacao.glyph.texture.Textura;
+import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.texture.Textura;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
@@ -33,7 +34,7 @@ public class IconeLegenda implements Icon {
     private String valor;
 
     private BasicStroke stroke = new BasicStroke(4);
-    private GeometryFactory.FORMAS.GLYPH_FORMAS valorForma;
+    private FORMAS.GLYPH_FORMAS valorForma;
 
     public void paintIcon(Component c, Graphics g, int x, int y) {
         Graphics2D g2d = (Graphics2D) g.create();
@@ -41,29 +42,59 @@ public class IconeLegenda implements Icon {
         Rectangle bounds = new Rectangle(x, y, width, height);
         switch (dimensao) {
             case Constantes.COR_TREEMAP:
-                FormaGeometrica corTreemap = GeometryFactory.create(bounds, Color.decode(valor), GeometryFactory.FORMAS.GLYPH_FORMAS.RETANGULO);
-                corTreemap.paint(g);
+//                FormaGeometrica corTreemap = GeometryFactory.create(bounds, Color.decode(valor), GeometryFactory.FORMAS.GLYPH_FORMAS.RETANGULO);
+//                corTreemap.paint(g);
+//                g.setColor(Color.decode(valor));
+//                g.fillRect(x, y, width, height);
+                Glyph iconColorTreemap = new FormaGeometrica();
+                FormaGeometrica shape = (FormaGeometrica) iconColorTreemap;
+                shape.setDrawBehavior(GeometryFactory.create(FORMAS.GLYPH_FORMAS.RETANGULO));
+                shape.setPectSobreposicao(0.65f);
+                shape.setOverlappingActivated(true);
+                shape.setCorLegenda(Color.decode(valor));
+                shape.setBounds(bounds);
+                shape.paint(g2d);
                 break;
             case 0:
-                Textura t = new Textura(bounds, valor);
-                t.paint(g);
+                Glyph glyph = new Textura(Color.GRAY, Color.WHITE);
+                Textura textura = (Textura) glyph;
+                textura.setNomeTextura(valor);
+                textura.setPectSobreposicao(0.84f);
+                textura.setOverlappingActivated(true);
+                textura.setBounds(bounds);
+                textura.paint(g2d);
                 break;
             case 1:
                 if (valor == null) {
                     //TODO Criar legenda de cores continuas. 
-               } else {
-                    FormaGeometrica f = GeometryFactory.create(bounds, Color.decode(valor), GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO);
-                    f.paint(g);
+                } else {
+                    Glyph iconRectColor = new FormaGeometrica();
+                    FormaGeometrica shapeColor = (FormaGeometrica) iconRectColor;
+                    shapeColor.setDrawBehavior(GeometryFactory.create(FORMAS.GLYPH_FORMAS.RETANGULO));
+                    shapeColor.setPectSobreposicao(0.65f);
+                    shapeColor.setOverlappingActivated(true);
+                    shapeColor.setCorLegenda(Color.decode(valor));
+                    shapeColor.setBounds(bounds);
+                    shapeColor.paint(g2d);
                 }
                 break;
             case 2:
-                FormaGeometrica forma = GeometryFactory.create(bounds, null, valorForma);
-                forma.paint(g);
+                Glyph iconGlyph = new FormaGeometrica();
+                FormaGeometrica shapeIcon = (FormaGeometrica) iconGlyph;
+                shapeIcon.setDrawBehavior(GeometryFactory.create(valorForma));
+                shapeIcon.setPectSobreposicao(0.65f);
+                shapeIcon.setOverlappingActivated(true);
+                shapeIcon.setBounds(bounds);
+                shapeIcon.paint(g2d);
                 break;
             case 3:
-                Letra letra = new Letra(bounds, valor, true);
-                letra.setFonte(new Font("Arial", Font.PLAIN, 12));
-                letra.paint(g);
+                Glyph glyphLetra = new Letra();
+                Letra letra = (Letra) glyphLetra;
+                letra.setLetra(valor);
+                letra.setPectSobreposicao(0.65f);
+                letra.setOverlappingActivated(true);
+                letra.setBounds(bounds);
+                letra.paint(g2d);
                 break;
             case 4:
                 Numeral num = new Numeral(bounds, valor, true);
@@ -107,7 +138,7 @@ public class IconeLegenda implements Icon {
         this.valor = valor;
     }
 
-    void setValorIcon(GeometryFactory.FORMAS.GLYPH_FORMAS forma) {
+    void setValorIcon(FORMAS.GLYPH_FORMAS forma) {
         this.valorForma = forma;
     }
 }

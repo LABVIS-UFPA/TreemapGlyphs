@@ -9,7 +9,7 @@ import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.util.Metadados;
-import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
+import doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -107,7 +107,7 @@ public class LegendaVisualizacao {
                     }
                     break;
                 case 2:
-                    icon.setValorIcon(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[i]);
+                    icon.setValorIcon(FORMAS.GLYPH_FORMAS.values()[i]);
                     break;
                 case 3:
                     icon.setValorIcon(Constantes.LETRAS_ALFABETO[i]);

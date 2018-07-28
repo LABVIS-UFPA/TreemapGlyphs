@@ -26,6 +26,8 @@ public abstract class Glyph implements Cloneable{
     public Boolean selectedByUser = false;
     private boolean overlappingActivated = false;
     private boolean glyphResposta;
+    private boolean hasLetter;
+    private String letter;
 
     public Glyph() {
     }
@@ -175,6 +177,34 @@ public abstract class Glyph implements Cloneable{
             System.err.println("Cloning not allowed.");
             return this;
         }
+    }
+
+    /**
+     * @return the hasLetter
+     */
+    public boolean hasLetter() {
+        return hasLetter;
+    }
+
+    /**
+     * @param hasLetter the hasLetter to set
+     */
+    public void usingLetter(boolean hasLetter) {
+        this.hasLetter = hasLetter;
+    }
+
+    /**
+     * @return the letter
+     */
+    public String getLetter() {
+        return letter;
+    }
+
+    /**
+     * @param letter the letter to set
+     */
+    public void setLetter(String letter) {
+        this.letter = letter;
     }
     
     

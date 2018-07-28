@@ -400,14 +400,14 @@ public final class GlyphManager {
             case "Color":
                 glyph = prepareDimensaoCorDinamica(col, item, dadosDistintos);
                 break;
-            case "Number":
-//                glyph = defineRandomColorOvelerlap();
+            case "Shape":
+                glyph = prepareDimensaoShapeDinamico(col, item, dadosDistintos);
                 break;
             case "Letter":
-                glyph = defineLetter();
+                glyph = prepareDimensaoLetterDinamico(col, item, dadosDistintos);
                 break;
-            case "Shape":
-                glyph = defineShape();
+            case "Number":
+//                glyph = defineRandomColorOvelerlap();
                 break;
 //            case "Overlap":
 //                glyph = new Overlap();
@@ -449,93 +449,63 @@ public final class GlyphManager {
         }
         return null;
     }
-
-    private Glyph defineColor(Color color) {
-//        if (getCores() == null) {
-//            definirConjuntoCores(quantValoresVarVisuais);
-//        }
-//        int random = (int) (Math.random() * quantValoresVarVisuais);
-//        while (random == corSorteada) {
-//            random = (int) (Math.random() * quantValoresVarVisuais);
-//        }
-        Glyph glyph = new Cor();
-        Cor cor = (Cor) glyph;
-//        if (corSorteada == -1) {
-//            corSorteada = random;
-//            cor.setGlyphResposta(true);
-//        }
-
-        cor.setCor(color);
-//        cor.setPectSobreposicao(perctOverlap);
-        cor.setPectSobreposicao(0.65f);
-        cor.setOverlappingActivated(overlappingActivated);
-        return glyph;
+    
+    public Glyph prepareDimensaoShapeDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+        for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
+            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
+                return defineShape(doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j]);
+            }
+        }
+        return null;
     }
-
-    private Glyph defineShape() {
-//        if (getFormaGeometricas() == null) {
-//            definirConjuntoFormas(quantValoresVarVisuais);
-//        }
-//        int random = (int) (Math.random() * quantValoresVarVisuais);
-//        while (random == formaSorteada) {
-//            random = (int) (Math.random() * quantValoresVarVisuais);
-//        }
-        Glyph glyph = new doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes.FormaGeometrica();
-        doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes.FormaGeometrica forma
-                = (doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes.FormaGeometrica) glyph;
-//        if (formaSorteada == -1) {
-//            formaSorteada = random;
-//            forma.setGlyphResposta(true);
-//        }
-//        if (getFormaGeometricas().length != 0) {
-//            forma.setDrawBehavior(doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes.GeometryFactory.create(getFormaGeometricas()[random]));
-//        }else{
-//            quantValoresVarVisuais = 8;
-//            random = (int) (Math.random() * quantValoresVarVisuais);
-        forma.setDrawBehavior(doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.
-                create(doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS.GLYPH_FORMAS.values()[0]));
-//        }
-//        forma.setPectSobreposicao(perctOverlap);
-        forma.setPectSobreposicao(0.65f);
-        forma.setOverlappingActivated(overlappingActivated);
-        return glyph;
+    
+    public Glyph prepareDimensaoLetterDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+        for (int j = 0; j < Constantes.LETRAS_ALFABETO.length; j++) {
+            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
+                Glyph result = defineLetter(Constantes.LETRAS_ALFABETO[j]);
+                result.usingLetter(true);
+                letraUtilizada = Constantes.LETRAS_ALFABETO[j];
+                result.setLetter(letraUtilizada);
+                return result;
+            }
+        }
+        return null;
     }
-
+    
     private Glyph defineTexture(String nomeTextura) {
-//        if (getTexturas() == null) {
-//            definirConjuntoTexturas(quantValoresVarVisuais);
-//        }
-//        int random = (int) (Math.random() * quantValoresVarVisuais);
-//        while (random == texturaSorteada) {
-//            random = (int) (Math.random() * quantValoresVarVisuais);
-//        }
         Glyph glyph = new doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.texture.Textura(Color.GRAY, Color.WHITE);
         doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.texture.Textura textura
                 = (doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.texture.Textura) glyph;
-//        if (texturaSorteada == -1) {
-//            texturaSorteada = random;
-//            textura.setGlyphResposta(true);
-//        }
-
         textura.setNomeTextura(nomeTextura);
-//        textura.setPectSobreposicao(perctOverlap);
         textura.setPectSobreposicao(0.65f);
         textura.setOverlappingActivated(overlappingActivated);
         return glyph;
     }
 
-    private Glyph defineLetter() {
-//        int random = (int) (Math.random() * quantValoresVarVisuais);
-//        while (random == letraSorteada) {
-//            random = (int) (Math.random() * quantValoresVarVisuais);
-//        }
+    private Glyph defineColor(Color color) {
+        Glyph glyph = new Cor();
+        Cor cor = (Cor) glyph;
+        cor.setCor(color);
+        cor.setPectSobreposicao(0.65f);
+        cor.setOverlappingActivated(overlappingActivated);
+        return glyph;
+    }
+
+    private Glyph defineShape(doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS.GLYPH_FORMAS forma) {
+        Glyph glyph = new doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes.FormaGeometrica();
+        doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes.FormaGeometrica shape
+                = (doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes.FormaGeometrica) glyph;
+        shape.setDrawBehavior(doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.
+                create(forma));
+        shape.setPectSobreposicao(0.65f);
+        shape.setOverlappingActivated(overlappingActivated);
+        return glyph;
+    }
+
+    private Glyph defineLetter(String letter) {
         Glyph glyph = new doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.letters.Letra();
         doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.letters.Letra letra = (doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.letters.Letra) glyph;
-//        if (letraSorteada == -1) {
-//            letraSorteada = random;
-//            letra.setGlyphResposta(true);
-//        }
-        letra.setLetra(Constantes.LETRAS_ALFABETO[0]);
+        letra.setLetra(letter);
         letra.setPectSobreposicao(0.65f);
         letra.setOverlappingActivated(overlappingActivated);
         return glyph;

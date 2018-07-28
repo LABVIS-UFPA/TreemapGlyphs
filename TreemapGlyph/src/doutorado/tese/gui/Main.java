@@ -439,6 +439,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         atributo5Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         atributo5Glyph.setEnabled(false);
+        atributo5Glyph.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                atributo5GlyphItemStateChanged(evt);
+            }
+        });
 
         botaoGerarGlyphs.setText("View Glyphs");
         botaoGerarGlyphs.setEnabled(false);
@@ -796,22 +801,19 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_fileMenuItemActionPerformed
 
     private void atributo4GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo4GlyphItemStateChanged
-//        loadVariaveisGlyph(getListaAtributosCategoricos(5), atributo5Glyph);
-//        atributo5Glyph.setEnabled(true);
+        botaoGerarGlyphs.setEnabled(true);
     }//GEN-LAST:event_atributo4GlyphItemStateChanged
 
     private void atributo3GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo3GlyphItemStateChanged
-//        loadVariaveisGlyph(getListaAtributosCategoricos(4), atributo4Glyph);
-//        atributo4Glyph.setEnabled(true);
+        botaoGerarGlyphs.setEnabled(true);
     }//GEN-LAST:event_atributo3GlyphItemStateChanged
 
     private void atributo2GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo2GlyphItemStateChanged
-//        loadVariaveisGlyph(getListaAtributosCategoricos(3), atributo3Glyph);
-//        atributo3Glyph.setEnabled(true);
+        botaoGerarGlyphs.setEnabled(true);
     }//GEN-LAST:event_atributo2GlyphItemStateChanged
 
     private void atributo1GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo1GlyphItemStateChanged
-//        atributo2Glyph.setEnabled(true);
+        botaoGerarGlyphs.setEnabled(true);
     }//GEN-LAST:event_atributo1GlyphItemStateChanged
 
     private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
@@ -819,7 +821,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisEscolidasList.getModel());
         glyphPanel.setManipulador(manipulador);
         glyphPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
-       
+
         //Acoes para desenhar os glyphs
         glyphPanel.setBounds(painelEsquerda.getBounds());
         glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());
@@ -838,12 +840,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             glyphPanel.setTMView(view);
 
             varVisuaisList.setEnabled(true);
-            atributo1Glyph.setEnabled(true);
-            atributo2Glyph.setEnabled(true);
-            atributo3Glyph.setEnabled(true);
-            atributo4Glyph.setEnabled(true);
-            atributo5Glyph.setEnabled(true);
-            botaoGerarGlyphs.setEnabled(true);
+
             layerPane.add(glyphPanel, new Integer(1), 0);
         } else {
             limparCacheGlyphs();
@@ -1090,7 +1087,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_varVisuaisListValueChanged
 
     private void inserirVarVisualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirVarVisualButtonActionPerformed
-        List<Object> newListaAtribTreemap = new ArrayList<>();
+        List<Object> newListaVarVisuais = new ArrayList<>();
         List<Object> atributosEscolhidos = new ArrayList<>();
         for (int i = 0; i < varVisuaisEscolidasList.getModel().getSize(); i++) {
             String elementAt = varVisuaisEscolidasList.getModel().getElementAt(i);
@@ -1101,16 +1098,17 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         loadVariaveisEscolhidasList(atributosEscolhidos.toArray(), varVisuaisEscolidasList);
         varVisuaisEscolidasList.setEnabled(true);
 //        botaoConfiVarVisuais.setEnabled(true);
+        habilitarVarVisuaisUtilizadasGUI(varVisuaisList.getSelectedValuesList());
 
         //remover o conteudo da lista de atributos original
         ListModel<String> modelOriginal = varVisuaisList.getModel();
         List<String> selectedValuesList = varVisuaisList.getSelectedValuesList();
         for (int i = 0; i < modelOriginal.getSize(); i++) {
             if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
-                newListaAtribTreemap.add(modelOriginal.getElementAt(i));
+                newListaVarVisuais.add(modelOriginal.getElementAt(i));
             }
         }
-        loadVarVisuais(newListaAtribTreemap.toArray());
+        loadVarVisuais(newListaVarVisuais.toArray());
     }//GEN-LAST:event_inserirVarVisualButtonActionPerformed
 
     private void removerVarVisualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerVarVisualButtonActionPerformed
@@ -1124,6 +1122,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         atributos.addAll(varVisuaisEscolidasList.getSelectedValuesList());
 //        atributos.sort(null);
         loadVarVisuais(atributos.toArray());
+        desabilitarVarVisuaisUtilizadasGUI(varVisuaisEscolidasList.getSelectedValuesList());
 
         //remover o conteudo da lista de hierarquia treemap
         ListModel<String> modelGlyphs = varVisuaisEscolidasList.getModel();
@@ -1157,13 +1156,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             removerVarVisualButton.setEnabled(false);
             cimaButton.setEnabled(false);
             baixoButton.setEnabled(false);
-//            botaoConfiVarVisuais.setEnabled(false);
-//            msgFeedback.setVisible(false);
         }
-        if (varVisuaisEscolidasList.getModel().getSize() >= 1) {
-//            botaoConfiVarVisuais.setEnabled(true);
-        } else {
-//            botaoConfiVarVisuais.setEnabled(false);
+        if(varVisuaisEscolidasList.getModel().getSize() < 1){
+            botaoGerarGlyphs.setEnabled(false);
         }
     }//GEN-LAST:event_varVisuaisEscolidasListValueChanged
 
@@ -1203,6 +1198,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
         loadVariaveisEscolhidasList(novaLista.toArray(), varVisuaisEscolidasList);
     }//GEN-LAST:event_baixoButtonActionPerformed
+
+    private void atributo5GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo5GlyphItemStateChanged
+        botaoGerarGlyphs.setEnabled(true);
+    }//GEN-LAST:event_atributo5GlyphItemStateChanged
 
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
         ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
@@ -1403,6 +1402,55 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     }
 
+    private void habilitarVarVisuaisUtilizadasGUI(List<String> variaveis) {
+        for (String var : variaveis) {
+            switch (var) {
+                case "Texture":
+                    atributo1Glyph.setEnabled(true);
+                    break;
+                case "Color":
+                    atributo2Glyph.setEnabled(true);
+                    break;
+                case "Shape":
+                    atributo3Glyph.setEnabled(true);
+                    break;
+                case "Letter":
+                    atributo4Glyph.setEnabled(true);
+                    break;
+                case "Number":
+                    atributo5Glyph.setEnabled(true);
+                    break;
+            }
+        }
+    }
+
+    private void desabilitarVarVisuaisUtilizadasGUI(List<String> variaveis) {
+        for (String var : variaveis) {
+            switch (var) {
+                case "Texture":
+                    atributo1Glyph.setEnabled(false);
+                    atributo1Glyph.setSelectedIndex(0);
+                    break;
+                case "Color":
+                    atributo2Glyph.setEnabled(false);
+                    atributo2Glyph.setSelectedIndex(0);
+                    break;
+                case "Shape":
+                    atributo3Glyph.setEnabled(false);
+                    atributo3Glyph.setSelectedIndex(0);
+                    break;
+                case "Letter":
+                    atributo4Glyph.setEnabled(false);
+                    atributo4Glyph.setSelectedIndex(0);
+                    break;
+                case "Number":
+                    atributo5Glyph.setEnabled(false);
+                    atributo5Glyph.setSelectedIndex(0);
+                    break;
+            }
+        }
+    }
+
     class Task extends SwingWorker<Void, Void> {
 
         /*
@@ -1476,11 +1524,19 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     logger.info("Definindo a descrição das colunas.");
                     for (int i = 0; i < manipulador.getColunas().length; i++) {
                         Coluna c = manipulador.getColunas()[i];
-                        c.configurarDescricao(manipulador.getDadosColuna(manipulador.getCabecalho()[i]));
+                        if (c != null) {
+                            c.configurarDescricao(manipulador.getDadosColuna(manipulador.getCabecalho()[i]));
+                        } else {
+                            throw new Exception();
+                        }
                     }
                 } catch (Exception e) {
                     logger.error("Erro ao definir a descrição das colunas. \n", e);
+                    JOptionPane.showMessageDialog(null, "Ocorreu um erro na leitura do seu arquivo. \nPor favor,"
+                            + "Verifique se seu arquivo está configurado corretamente \n"
+                            + "e tente novamente.", "Há um problema em seu arquivo!.", JOptionPane.ERROR_MESSAGE);
                     e.printStackTrace();
+                    break;
                 }
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Definindo a descrição das colunas: " + porcentagem + "%");

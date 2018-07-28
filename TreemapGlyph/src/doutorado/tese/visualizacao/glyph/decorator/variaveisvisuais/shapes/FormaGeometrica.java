@@ -7,6 +7,9 @@ package doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes;
 
 import doutorado.tese.visualizacao.glyph.strategy.variaveisvisuais.shapes.DrawBehavior;
 import doutorado.tese.visualizacao.glyph.Glyph;
+import doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
+import doutorado.tese.visualizacao.glyph.strategy.variaveisvisuais.shapes.Retangulo;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Polygon;
@@ -21,6 +24,7 @@ public class FormaGeometrica extends Glyph {
 
     private Rectangle bounds;
     private DrawBehavior drawBehavior;
+    private Color corLegenda;
 
     public FormaGeometrica() {
         this.drawBehavior = new DrawBehavior() {
@@ -84,6 +88,11 @@ public class FormaGeometrica extends Glyph {
     public void setBounds(Rectangle bounds) {
         super.setBounds(bounds);
         drawBehavior.setBounds(bounds);
+        if(this.drawBehavior instanceof Retangulo){
+            Retangulo retanguloLegenda = (Retangulo) this.drawBehavior;
+            retanguloLegenda.setIsLegenda(true);
+            retanguloLegenda.setCor(corLegenda);
+        }
     }
 
     public DrawBehavior getDrawBehavior() {
@@ -129,6 +138,10 @@ public class FormaGeometrica extends Glyph {
     @Override
     public String getVarValue() {
         return getDrawBehavior().toString();
+    }
+
+    public void setCorLegenda(Color cor) {
+        corLegenda = cor;
     }
 
 }
