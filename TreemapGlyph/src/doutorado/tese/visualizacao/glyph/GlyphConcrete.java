@@ -46,5 +46,10 @@ public class GlyphConcrete extends Glyph {
         return "";
     }
 
+    @Override
+    public Object whoAmI() {
+        return this.getClass();
+    }
+
 
 }

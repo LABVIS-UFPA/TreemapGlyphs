@@ -46,6 +46,11 @@ public class Textura extends Glyph {
     }
 
     @Override
+    public Object whoAmI() {
+        return this.getClass();
+    }
+    
+    @Override
     public void setBounds(Rectangle rect) {
         super.setBounds(rect);
         montarRetangulo();

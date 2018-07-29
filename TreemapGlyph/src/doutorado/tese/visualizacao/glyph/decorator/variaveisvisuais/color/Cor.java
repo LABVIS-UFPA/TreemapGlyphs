@@ -72,6 +72,11 @@ public class Cor extends Glyph {
         yPoints[1] = height;
     }
     
+    @Override
+    public Object whoAmI() {
+        return this.getClass();
+    }
+    
     /**
      * @return the cor
      */

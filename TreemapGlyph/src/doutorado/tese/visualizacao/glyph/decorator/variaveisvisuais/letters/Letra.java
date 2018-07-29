@@ -101,6 +101,11 @@ public class Letra extends Glyph {
     }
 
     @Override
+    public Object whoAmI() {
+        return this.getClass();
+    }
+    
+    @Override
     public Shape getClipShape() {
         if (isOverlappingActivated()) {
             return this.getBounds();

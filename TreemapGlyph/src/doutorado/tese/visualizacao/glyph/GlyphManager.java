@@ -81,104 +81,10 @@ public final class GlyphManager {
         this.decisionTreeActivate = decisionTreeActivate;
     }
 
-//    public void paintTextura(Graphics g, TreeMapItem treemapItem) {
-//        if (treemapItem.getTextura() != null) {
-//            treemapItem.getTextura().paint(g);
-//        }
-//    }
-//
-//    public void paintCorForma(Graphics g, TreeMapItem treemapItem) {
-//        if (treemapItem.getCorForma() != null) {
-//            treemapItem.getCorForma().paint(g);
-//        }
-//
-//    }
-//
-//    public void paintFormaGeometrica(Graphics g, TreeMapItem treemapItem) {
-//        if (treemapItem.getFormaGeometrica() != null) {
-//            treemapItem.getFormaGeometrica().paint(g);
-//        }
-//    }
-//
-//    public void paintLetrasAlfabeto(Graphics g, TreeMapItem treemapItem) {
-//        if (treemapItem.getLetra() != null) {
-//            treemapItem.getLetra().paint(g);
-//        }
-//    }
-//
-//    public void paintNumeros(Graphics g, TreeMapItem treemapItem) {
-//        if (treemapItem.getNumero() != null) {
-//            treemapItem.getNumero().paint(g);
-//        }
-//    }
-//    public int prepareTextura(Rectangle bounds, String textura, TreeMapItem treemapItem) {
-//        Textura t = new Textura(bounds, textura);
-//        if (treemapItem != null) {
-//            treemapItem.setTextura(t);
-//        }
-//        return t.getArea();
-//    }
-//
-//    public int prepareCorForma(Rectangle bounds, Color cor, TreeMapItem treemapItem) {
-//        FormaGeometrica corForma = GeometryFactory.create(bounds, cor, GeometryFactory.FORMAS.GLYPH_FORMAS.CIRCULO);
-//        corForma.setColor(cor);
-//        if (treemapItem != null) {
-//            treemapItem.setCorForma(corForma);
-//        }
-//        return corForma.getArea();
-//    }
-//
-//    public int prepareFormaGeometrica(Rectangle bounds, GeometryFactory.FORMAS.GLYPH_FORMAS nomeForma, TreeMapItem treemapItem) {
-////        System.out.println("++++ "+nomeForma+"\t"+bounds);
-//        FormaGeometrica formaGeometrica = GeometryFactory.create(bounds, null, nomeForma);
-//        if (treemapItem != null) {
-//            treemapItem.setFormaGeometrica(formaGeometrica);
-//        }
-//        return formaGeometrica.getArea();
-//    }
-//
-//    public int prepareLetrasAlfabeto(Rectangle bounds, String simbolo, TreeMapItem treemapItem) {
-//        Letra letra = new Letra(bounds, simbolo, false);
-//        if (treemapItem != null) {
-//            treemapItem.setLetra(letra);
-//        }
-//        return letra.getArea();
-//    }
-//
-//    /**
-//     * Metodo responsavel por instanciar um glyphs do tipo NUMERAL. Esse metodo
-//     * concatena o glyph do tipo LETRA, caso tenha sido ativado, ao glyphs
-//     * NUMERAL.
-//     *
-//     * @param bounds
-//     * @param simbolo
-//     * @param letra
-//     * @return
-//     */
-//    public int prepareNumeros(Rectangle bounds, String letra, String simbolo, TreeMapItem treemapItem) {
-//        Numeral numero = new Numeral(bounds, letra + simbolo, false);
-//        if (treemapItem != null) {
-//            treemapItem.setNumero(numero);
-//        }
-//        return numero.getArea();
-//    }
-//
-//    /**
-//     * Metodo responsavel por instanciar um glyphs do tipo NUMERAL.
-//     *
-//     * @param bounds
-//     * @param simbolo
-//     * @return
-//     */
-//    public int prepareNumeros(Rectangle bounds, String simbolo, TreeMapItem treemapItem) {
-//        Numeral numero = new Numeral(bounds, simbolo, false);
-//        if (treemapItem != null) {
-//            treemapItem.setNumero(numero);
-//        }
-//        return numero.getArea();
-//    }
     public void prepare2Draw() {
         if (getRootNodeZoom() != null) {
+//            System.out.println("getRootNodeZoom() =  "+getRootNodeZoom().getRoot().getTitle()+
+//            "\tbounds: "+getRootNodeZoom().getRoot().getArea().toString());
             prepareGlyphsInTreeMapItems(getRootNodeZoom().getRoot());
         }
     }
@@ -187,8 +93,6 @@ public final class GlyphManager {
         Graphics2D g2d = (Graphics2D) g;
         if (nodo instanceof TMNodeModelComposite) {//se for TreeMap Level
             TMNodeModelComposite pai = (TMNodeModelComposite) nodo;
-            TMNode node = pai.getNode();
-
             for (TMNodeModel n : pai.getChildrenList()) {
                 paintAnalyser(g2d, n);
             }
@@ -196,18 +100,12 @@ public final class GlyphManager {
             TMNodeEncapsulator nodeEncapsulator = (TMNodeEncapsulator) nodo.getNode();
             TreeMapItem item = (TreeMapItem) nodeEncapsulator.getNode();
             ArrayList<Glyph> list = new ArrayList<>();
+            item.getGlyph().setDecisionTreeActivate(decisionTreeActivate);
             item.getGlyph().paint(g2d);
             item.getGlyph().getChildren(list);
-            item.getGlyph().setDecisionTreeActivate(decisionTreeActivate);
             g2d.setClip(0, 0, bounds.width, bounds.height);
 //            if (!decisionTreeActivate || item.getWhat2Draw()[0] == 1) {
-//                for (Glyph glyph : item.getGlyph().getChildren()) {
-//                    if(glyph instanceof Textura){
-//                        item.getGlyph().getChild().paint(g2d);
-//                    }else if(glyph instanceof Cor){
-//                        
-//                    }
-//                }
+//                paintTextura(g, item);
 //            }
 //            if (!decisionTreeActivate || item.getWhat2Draw()[1] == 1) {
 //                paintCorForma(g, item);
@@ -239,7 +137,11 @@ public final class GlyphManager {
         } else {//se for um treemap Item ele vai desenhar os glyphs
             TMNodeEncapsulator nodeEncapsulator = (TMNodeEncapsulator) nodo.getNode();
             TreeMapItem treemapItem = (TreeMapItem) nodeEncapsulator.getNode();
-            prepareDimension2DrawGlyph(treemapItem);
+//            prepareDimension2DrawGlyph(treemapItem);
+            configLayers(treemapItem);
+//            System.out.println("item name: "+treemapItem.getLabel()+
+//                    " - Glyph pai: "+treemapItem.getGlyph().toString()+" - "+treemapItem.getGlyph().getBounds() +
+//                    " Filho: "+treemapItem.getGlyph().getChild().toString()+" - "+treemapItem.getGlyph().getChild().getBounds());
         }
     }
 
@@ -304,63 +206,6 @@ public final class GlyphManager {
 //        item.getWhat2Draw()[Constantes.PRESENCA_NUMERO] = DecisionTreeClassifier.predict(features)[4];
     }
 
-//    public int prepareDimensaoTextura(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-//        for (int j = 0; j < Constantes.TIPO_TEXTURA.length; j++) {
-//            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-//                return prepareTextura(item.getBounds(), Constantes.TIPO_TEXTURA[j], item);
-//            }
-//        }
-//        return 0;
-//    }
-//
-//    public int prepareSegundaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-//        if (col.getDescription() == Metadados.Descricao.CONTINUOUS) {
-//            ColorInterpolator interpolator = new ColorInterpolator();
-//            interpolator.config(col.maiorMenorValues[0], col.maiorMenorValues[1], Color.orange, Color.decode("#4682B4"));
-//            Color cor = interpolator.interpolate(Double.parseDouble(item.getMapaDetalhesItem().get(col)));
-//            return prepareCorForma(item.getBounds(), cor, item);
-//        } else {
-//            for (int j = 0; j < Constantes.getCor().length; j++) {
-//                if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-//                    return prepareCorForma(item.getBounds(), Color.decode(Constantes.getCorGlyphs()[j]), item);
-//                }
-//            }
-//        }
-//        return 0;
-//    }
-//
-//    public int prepareTerceiraDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-//        for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
-//            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-//                return prepareFormaGeometrica(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j], item);
-//            }
-//        }
-//        return 0;
-//    }
-//
-//    public int prepareQuartaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-//        for (int j = 0; j < Constantes.LETRAS_ALFABETO.length; j++) {
-//            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-//                int result = prepareLetrasAlfabeto(item.getBounds(), Constantes.LETRAS_ALFABETO[j], item);
-//                letraUtilizada = Constantes.LETRAS_ALFABETO[j];
-//                return result;
-//            }
-//        }
-//        return 0;
-//    }
-//
-//    public int prepareQuintaDimensao(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-//        for (int j = 0; j < Constantes.NUMEROS.length; j++) {
-//            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-//                if (dimensao4Ativada) {
-//                    return prepareNumeros(item.getBounds(), letraUtilizada, Constantes.NUMEROS[j], item);
-//                } else {
-//                    return prepareNumeros(item.getBounds(), Constantes.NUMEROS[j], item);
-//                }
-//            }
-//        }
-//        return 0;
-//    }
     private double[] getFeatures(TreeMapItem item, double[] features) {
         limparGlyphsTreemapItem(item);
         features[Constantes.FEATURE_LARGURA] = item.getBounds().width;
@@ -387,12 +232,12 @@ public final class GlyphManager {
                 features[Constantes.PRESENCA_FORMA] = Constantes.PRESENTE;
             } else if (glyph instanceof Letra) {
                 features[Constantes.AREA_LETRA] = ((Letra) glyph).getArea();
-                features[Constantes.PRESENCA_LETRA] = Constantes.PRESENTE;                
-            } else if (glyph instanceof Numeral){
+                features[Constantes.PRESENCA_LETRA] = Constantes.PRESENTE;
+            } else if (glyph instanceof Numeral) {
                 features[Constantes.AREA_NUMERO] = ((Numeral) glyph).getArea();
-                features[Constantes.PRESENCA_NUMERO] = Constantes.PRESENTE;                
+                features[Constantes.PRESENCA_NUMERO] = Constantes.PRESENTE;
             }
-        });        
+        });
         item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = DecisionTreeClassifier.predict(features)[0];
         item.getWhat2Draw()[Constantes.PRESENCA_COR_FORMA] = DecisionTreeClassifier.predict(features)[1];
         item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = DecisionTreeClassifier.predict(features)[2];
@@ -425,10 +270,10 @@ public final class GlyphManager {
 //            System.out.println(list.toString());
         }
         father.setBounds(father.getBounds());
-
-        double[] features = new double[15];
-        getFeatures(item, features);
-
+        if (decisionTreeActivate) {
+            double[] features = new double[15];
+            getFeatures(item, features);
+        }
         if (item.hasGlyphResposta(father)) {
             item.setPossuiGlyphResposta(true);
         }
@@ -465,33 +310,42 @@ public final class GlyphManager {
     public Glyph prepareDimensaoTexturaDinamica(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.TIPO_TEXTURA.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                return defineTexture(Constantes.TIPO_TEXTURA[j]);
+                Glyph textura = defineTexture(Constantes.TIPO_TEXTURA[j]);
+                textura.setNodeTreemap(item);
+                return textura;
             }
         }
         return null;
     }
 
     public Glyph prepareDimensaoCorDinamica(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+        Glyph glyphCor = null;
         if (col.getDescription() == Metadados.Descricao.CONTINUOUS) {
             ColorInterpolator interpolator = new ColorInterpolator();
             interpolator.config(col.maiorMenorValues[0], col.maiorMenorValues[1], Color.orange, Color.decode("#4682B4"));
             Color cor = interpolator.interpolate(Double.parseDouble(item.getMapaDetalhesItem().get(col)));
-            return defineColor(cor);
+            glyphCor = defineColor(cor);
+            glyphCor.setNodeTreemap(item);
+            return glyphCor;
         } else {
             for (int j = 0; j < Constantes.getCorGlyphs().length; j++) {
                 if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                     Color cor = Color.decode(Constantes.getCorGlyphs()[j]);
-                    return defineColor(cor);
+                    glyphCor = defineColor(cor);
+                    glyphCor.setNodeTreemap(item);
+                    return glyphCor;
                 }
             }
         }
-        return null;
+        return glyphCor;
     }
 
     public Glyph prepareDimensaoShapeDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                return defineShape(doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j]);
+                Glyph shape = defineShape(doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j]);
+                shape.setNodeTreemap(item);
+                return shape;
             }
         }
         return null;
@@ -504,6 +358,7 @@ public final class GlyphManager {
                 result.usingLetter(true);
                 letraUtilizada = Constantes.LETRAS_ALFABETO[j];
                 result.setLetter(letraUtilizada);
+                result.setNodeTreemap(item);
                 return result;
             }
         }
@@ -517,6 +372,7 @@ public final class GlyphManager {
                 result.usingNumber(true);
                 numeroUtilizado = Constantes.NUMEROS[j];
                 result.setNumber(numeroUtilizado);
+                result.setNodeTreemap(item);
                 return result;
             }
         }

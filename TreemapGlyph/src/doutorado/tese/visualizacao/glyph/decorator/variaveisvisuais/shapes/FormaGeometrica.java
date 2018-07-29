@@ -79,6 +79,11 @@ public class FormaGeometrica extends Glyph {
     }
 
     @Override
+    public Object whoAmI() {
+        return this.getClass();
+    }
+    
+    @Override
     public Rectangle getBounds() {
         return bounds;
     }

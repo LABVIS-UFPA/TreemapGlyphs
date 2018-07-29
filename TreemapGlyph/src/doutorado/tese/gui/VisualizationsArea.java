@@ -157,15 +157,16 @@ public class VisualizationsArea {
     }
 
     /**
-     * Metodo que define o tamanho de cada no da arvore do treemap.
-     * Este metodo tambem define o tamanho dos glyphs dos TreeMapItems.
+     * Metodo que define o tamanho de cada no da arvore do treemap. Este metodo
+     * tambem define o tamanho dos glyphs dos TreeMapItems.
+     *
      * @param item
-     * @param nodoPaiModel 
+     * @param nodoPaiModel
      */
     public void setAreaNodesTree(TMModelNode item, TMNodeModel nodoPaiModel) {
         TreeMapNode nodo = (TreeMapNode) item;
 
-        if (nodoPaiModel instanceof TMNodeModelComposite) {
+        if (nodoPaiModel instanceof TMNodeModelComposite) {//treemapLevel
             for (int i = 0; i < nodo.getChildren().size(); i++) {
 
                 TreeMapNode filho = nodo.getChildren().get(i);
@@ -179,7 +180,7 @@ public class VisualizationsArea {
                 }
                 setAreaNodesTree(filho, filhoModel);
             }
-        }
+        } 
     }
 
     public void setHierarchy(String[] hierarquia) {

@@ -11,9 +11,6 @@ import doutorado.tese.visualizacao.glyph.alfabeto.Letra;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.FormaGeometrica;
 import doutorado.tese.visualizacao.glyph.numeros.Numeral;
 import doutorado.tese.visualizacao.glyph.texture.Textura;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +29,6 @@ public class TreeMapItem extends TreeMapNode {
     private Letra letra;
     private Numeral numero;
     private boolean possuiGlyphResposta;
-
     
     public TreeMapItem(double size, int order) {
         this.size = size;

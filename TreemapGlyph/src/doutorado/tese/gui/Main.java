@@ -1157,7 +1157,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             cimaButton.setEnabled(false);
             baixoButton.setEnabled(false);
         }
-        if(varVisuaisEscolidasList.getModel().getSize() < 1){
+        if (varVisuaisEscolidasList.getModel().getSize() < 1) {
             botaoGerarGlyphs.setEnabled(false);
         }
     }//GEN-LAST:event_varVisuaisEscolidasListValueChanged
@@ -1359,11 +1359,28 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             glyphPanel.setVisible(false);
             layerPane.remove(glyphPanel);
             glyphPanel = null;
+
+            varVisuaisList.setEnabled(false);
+            varVisuaisEscolidasList.setEnabled(false);
+            Object[] vazio = {};
+            DefaultComboBoxModel emptyList = new DefaultComboBoxModel(vazio);
+            varVisuaisEscolidasList.setModel(emptyList);
+            varVisuaisList.setModel(emptyList);
+            Object[] newList = new Object[5];
+            newList[0] = "Texture";
+            newList[1] = "Color";
+            newList[2] = "Shape";
+            newList[3] = "Letter";
+            newList[4] = "Number";
+            DefaultComboBoxModel model = new DefaultComboBoxModel(newList);
+            varVisuaisList.setModel(model);
+
             atributo1Glyph.setEnabled(false);
             atributo2Glyph.setEnabled(false);
             atributo3Glyph.setEnabled(false);
             atributo4Glyph.setEnabled(false);
             atributo5Glyph.setEnabled(false);
+
             painelLegendaVis.removeAll();
             painelLegendaVis.repaint();
         }

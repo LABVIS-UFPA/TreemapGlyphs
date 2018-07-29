@@ -7,6 +7,7 @@ package doutorado.tese.io;
 
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
+import doutorado.tese.visualizacao.glyph.Glyph;
 import doutorado.tese.visualizacao.glyph.GlyphConcrete;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import java.io.BufferedReader;
@@ -281,7 +282,9 @@ public class ManipuladorArquivo {
             TreeMapItem itemLocal = null;
             try {
                 itemLocal = new TreeMapItem(1, 0);
-                itemLocal.setGlyph(new GlyphConcrete());
+                Glyph glyphConcrete = new GlyphConcrete();
+                glyphConcrete.setNodeTreemap(itemLocal);
+                itemLocal.setGlyph(glyphConcrete);
             } catch (Exception e) {
                 e.printStackTrace();
             }
