@@ -243,6 +243,7 @@ public final class GlyphManager {
         item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = DecisionTreeClassifier.predict(features)[2];
         item.getWhat2Draw()[Constantes.PRESENCA_LETRA] = DecisionTreeClassifier.predict(features)[3];
         item.getWhat2Draw()[Constantes.PRESENCA_NUMERO] = DecisionTreeClassifier.predict(features)[4];
+        item.getWhat2Draw()[Constantes.PRESENCA_STAR] = DecisionTreeClassifier.predict(features)[5];
         return features;
     }
 
@@ -303,6 +304,9 @@ public final class GlyphManager {
             case "Number":
                 glyph = prepareDimensaoNumberDinamico(col, item, dadosDistintos);
                 break;
+            case "Star":
+                glyph =  prepareDimensaoStarGlyphDinamico(col, item, dadosDistintos);
+                break;
         }
         return glyph;
     }
@@ -350,7 +354,20 @@ public final class GlyphManager {
         }
         return null;
     }
-
+    
+    // acionarStarGlyph(List<String> variaveisStarGlyph)
+    public Glyph prepareDimensaoStarGlyphDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
+            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
+                Glyph shape = defineShape(doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j]);
+                shape.setNodeTreemap(item);
+                return shape;
+            }
+        }
+        return null;
+        
+    }
+    
     public Glyph prepareDimensaoLetterDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.LETRAS_ALFABETO.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
@@ -450,6 +467,9 @@ public final class GlyphManager {
             case "Number":
                 dimensao = 4;
                 break;
+            case "Star":
+                dimensao = 5;
+                break;
             default:
                 throw new AssertionError();
         }
@@ -459,14 +479,12 @@ public final class GlyphManager {
     public void configGlyphDesingModel(boolean overlappingActivated) {
         this.overlappingActivated = overlappingActivated;
     }
-
     /**
      * @return the rootNodeZoom
      */
     public TMNodeModelRoot getRootNodeZoom() {
         return rootNodeZoom;
     }
-
     /**
      * @param rootNodeZoom the rootNodeZoom to set
      */
@@ -474,7 +492,6 @@ public final class GlyphManager {
         this.rootNodeZoom = rootNodeZoom;
 //        System.out.println("Root Node Zoom: "+this.rootNodeZoom.getRoot().getTitle());
     }
-
     /**
      * @return the variaveisVisuaisEscolhidas
      */
