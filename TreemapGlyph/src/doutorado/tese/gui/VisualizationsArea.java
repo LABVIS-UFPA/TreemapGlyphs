@@ -248,7 +248,7 @@ public class VisualizationsArea {
     }
 
     /**
-     * @return the colunasDetalhesDemanda
+     * @return the colunasDetalhesDemand
      */
     public String[] getColunasDetalhesDemanda() {
         return colunasDetalhesDemanda;

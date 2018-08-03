@@ -77,13 +77,16 @@ public class Constantes {
         "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
     };
     public static final int LIMITE_TESTES = 100;
+    public static int PRESENCA_STAR;
 
     public enum NivelGlyph {
         NIVEL_1(1),
         NIVEL_2(2),
         NIVEL_3(3),
         NIVEL_4(4),
-        NIVEL_5(5);
+        NIVEL_5(5), 
+        NIVEL_6(6);
+        
 
         private final int nivelGlyph;
 

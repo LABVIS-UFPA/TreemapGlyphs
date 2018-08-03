@@ -73,6 +73,18 @@ public class GlassPanel extends JPanel {
             }
         });
     }
+    
+    public void setAtributosContinuos(List<Object> atributosEscolhidos) {
+        glyphManager = new GlyphManager(getManipulador(), atributosEscolhidos, view.getBounds());
+        glyphManager.setUseDecisionTree(decisioTree);
+        glyphManager.setRootNodeZoom(view.getRootAnderson());
+        setGlyphOverlappingModel(true);
+        logger.info("Acionando prepare2Draw() a partir do setAtributosEscolhidos() - Root: " + glyphManager.getRootNodeZoom());
+        //Aqui prepara para desenhar os glyphs da primeira versao
+//        glyphManager.prepare2Draw();
+        //Aqui prepara para desenhar os glyphs da nova versao
+        setCofigItensGrid();
+     }
 
     public void setAtributosEscolhidos(List<Object> atributosEscolhidos) {
         glyphManager = new GlyphManager(getManipulador(), atributosEscolhidos, view.getBounds());
