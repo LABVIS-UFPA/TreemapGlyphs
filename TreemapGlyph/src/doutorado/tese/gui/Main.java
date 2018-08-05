@@ -481,6 +481,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         });
 
         checkGlyph.setText("Glyph");
+        checkGlyph.setToolTipText("");
         checkGlyph.setEnabled(false);
         checkGlyph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1082,23 +1083,23 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void inserirBotao_treemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotao_treemapActionPerformed
         List<Object> newListaVarVisuais = new ArrayList<>();
         List<Object> atributosEscolhidos = new ArrayList<>();
-        for (int i = 0; i < listaAtributos2.getModel().getSize(); i++) {
-            String elementAt = listaAtributos2.getModel().getElementAt(i);
+        for (int i = 0; i < colunasHierarquicasList2.getModel().getSize(); i++) {
+            String elementAt = colunasHierarquicasList2.getModel().getElementAt(i);
             atributosEscolhidos.add(elementAt);
         }
-        atributosEscolhidos.addAll(listaAtributos1.getSelectedValuesList());
-        reloadListGUI(atributosEscolhidos.toArray(), listaAtributos2);
-        listaAtributos2.setEnabled(true);
+        atributosEscolhidos.addAll(colunasHierarquicasList.getSelectedValuesList());
+        reloadListGUI(atributosEscolhidos.toArray(), colunasHierarquicasList2);
+        colunasHierarquicasList2.setEnabled(true);
 
         //remover o conteudo da lista de atributos original
-        ListModel<String> modelOriginal = listaAtributos1.getModel();
-        List<String> selectedValuesList = listaAtributos1.getSelectedValuesList();
+        ListModel<String> modelOriginal = colunasHierarquicasList.getModel();
+        List<String> selectedValuesList = colunasHierarquicasList.getSelectedValuesList();
         for (int i = 0; i < modelOriginal.getSize(); i++) {
             if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
                 newListaVarVisuais.add(modelOriginal.getElementAt(i));
             }
         }
-        reloadListGUI(newListaVarVisuais.toArray(), listaAtributos1);
+        reloadListGUI(newListaVarVisuais.toArray(), colunasHierarquicasList);
     }//GEN-LAST:event_inserirBotao_treemapActionPerformed
 
     private void colunasHierarquicasListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasHierarquicasListValueChanged
@@ -1129,9 +1130,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         atualizarLegendaTreemap(itemCor);
         checkGlyph.setEnabled(true);
         checkStarGlyph1.setEnabled(true);
-        botaoGerarStarGlyphs.setEnabled(true); 
-        inserirVarVisualButton2.setEnabled(true);
-        removerVarVisualButton2.setEnabled(true);
+       
         limparCacheGlyphs();
     }//GEN-LAST:event_botaoGerarVisualizacaoActionPerformed
 
@@ -1249,7 +1248,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 newListaVarVisuais.add(modelOriginal.getElementAt(i));
             }
         }
-        loadVarVisuais(newListaVarVisuais.toArray());
+        reloadListGUI(newListaVarVisuais.toArray(), varVisuaisList);
+        //loadVarVisuais(newListaVarVisuais.toArray());
     }//GEN-LAST:event_inserirVarVisualButtonActionPerformed
 
     private void removerVarVisualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerVarVisualButtonActionPerformed
@@ -1359,12 +1359,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_corTreemapComboBoxActionPerformed
 
     private void checkStarGlyph1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkStarGlyph1ActionPerformed
-         Constantes.setShowGlyph(true);
+        botaoGerarStarGlyphs.setEnabled(true); 
+        inserirVarVisualButton2.setEnabled(true);
+        removerVarVisualButton2.setEnabled(true); 
+        Constantes.setShowGlyph(true);
             glyphPanel = new GlassPanel();
             glyphPanel.setTMView(view);
-
             varVisuaisList.setEnabled(true);
-
             layerPane.add(glyphPanel, new Integer(1), 0);
     }//GEN-LAST:event_checkStarGlyph1ActionPerformed
 
@@ -1453,24 +1454,19 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         painelLegenda.setEditable(false);
     }
       
-      
     private void botaoGerarStarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarStarGlyphsActionPerformed
-         //acoes para configurar os glyphs                
-        variaveisVisuaisEscolhidas = parseListModelString2Array(listaAtributos2.getModel());
-        glyphPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
+     //acoes para configurar os glyphs                
+        AtributosContinuos = parseListModelString2Array(listaAtributos2.getModel());
+        String[] selectStar = {"star"};
         glyphPanel.setManipulador(manipulador);
-        String[] minharola = {"star"};
-        ArrayList<Object> star = getAtributosContinouos();
-        glyphPanel.setVariaveisVisuaisEscolhidas(minharola);
-
+    
+        glyphPanel.setVariaveisVisuaisEscolhidas(selectStar);
+        glyphPanel.setAtributosBaseEscolhidos(AtributosContinuos);
+        
         //Acoes para desenhar os glyphs
-//        glyphPanel.setBounds(painelEsquerda.getBounds());
-//        glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());
-         ArrayList<Object> atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
-     
-         glyphPanel.setAtributosEscolhidos(star);
-         glyphPanel.setVisible(true);
-         glyphPanel.repaint();
+        //glyphPanel.setBounds(painelEsquerda.getBounds());
+        glyphPanel.setVisible(true);
+        glyphPanel.repaint();
         
 //        atualizarLegendaGlyphs(atributosEscolhidosGlyph);
         
@@ -1540,10 +1536,15 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_baixoButton2ActionPerformed
 
     private void listaAtributos1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaAtributos1ValueChanged
-        // TODO add your handling code here:
+           if (listaAtributos1.getSelectedValuesList().size() >= 1) {
+            inserirVarVisualButton2.setEnabled(true);
+        } else {
+            inserirVarVisualButton2.setEnabled(false);
+        }
     }//GEN-LAST:event_listaAtributos1ValueChanged
-
+ 
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
+
         ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
         atributosEscolhidosGlyph.add(atributo1Glyph.getSelectedItem());
         atributosEscolhidosGlyph.add(atributo2Glyph.getSelectedItem());
@@ -1554,12 +1555,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         return atributosEscolhidosGlyph;
     }
     
-    private ArrayList<Object> getAtributosContinouos() {
-        ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
-        atributosEscolhidosGlyph.add(listaAtributos2);
-        System.out.println(": "+listaAtributos2);
-        return atributosEscolhidosGlyph;
-    }
       
     /**
      * @param args the command line arguments
@@ -1685,7 +1680,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private TMView view;
     private VisualizationsArea visualizationTreemap;
     private String[] variaveisVisuaisEscolhidas;
-
+    private String[] AtributosContinuos;
     private ManipuladorArquivo manipulador;
     private File selectedFile;
     private Task task;

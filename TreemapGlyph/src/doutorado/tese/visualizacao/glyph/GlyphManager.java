@@ -17,13 +17,11 @@ import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes.Forma
 import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.texture.Textura;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
-import glyph.starglyph.EixoPolarStarGlyph;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import net.bouthier.treemapAWT.TMNode;
@@ -39,7 +37,6 @@ import net.bouthier.treemapAWT.TMNodeModelRoot;
 public final class GlyphManager {
 
     private ManipuladorArquivo manipulador;
-    private String[] atributosBaseEscolhidos;
     private List<Object> atributosEscolhidos;
     private HashMap<String, List<String>> colunaDadosDist;
     private TMNodeModelRoot rootNodeZoom;
@@ -246,7 +243,6 @@ public final class GlyphManager {
         item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = DecisionTreeClassifier.predict(features)[2];
         item.getWhat2Draw()[Constantes.PRESENCA_LETRA] = DecisionTreeClassifier.predict(features)[3];
         item.getWhat2Draw()[Constantes.PRESENCA_NUMERO] = DecisionTreeClassifier.predict(features)[4];
-        item.getWhat2Draw()[Constantes.PRESENCA_STAR] = DecisionTreeClassifier.predict(features)[5];
         return features;
     }
 
@@ -307,13 +303,6 @@ public final class GlyphManager {
             case "Number":
                 glyph = prepareDimensaoNumberDinamico(col, item, dadosDistintos);
                 break;
-            case "star":
-                glyph =  configureStarGlyph(col, item, dadosDistintos);
-                System.out.println("fggg");
-                break;
-            default:
-                System.out.println("minha rola");
-                break;
         }
         return glyph;
     }
@@ -328,7 +317,7 @@ public final class GlyphManager {
         }
         return null;
     }
-    
+
     public Glyph prepareDimensaoCorDinamica(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         Glyph glyphCor = null;
         if (col.getDescription() == Metadados.Descricao.CONTINUOUS) {
@@ -361,43 +350,7 @@ public final class GlyphManager {
         }
         return null;
     }
-    
-//    private Glyph configureStarGlyph(ItemGrid item) {
-//        glyph.starglyph.StarGlyph starGlyph = new glyph.starglyph.StarGlyph(Arrays.asList(atributosBaseEscolhidos));
-//        starGlyph.setQuantVar(atributosBaseEscolhidos.length);
-//        starGlyph.setPectSobreposicao(0.85f);
-//        starGlyph.setOverlappingActivated(true);
-//        for (int i = 0; i < getAtributosBaseEscolhidos().length; i++) {
-//            String nomeColunaEscolhida = getAtributosBaseEscolhidos()[i];
-//            Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
-//            double dado = Double.parseDouble(item.getMapaDadosItem().get(coluna));
-//            double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
-//            starGlyph.getEixosPolares()[i] = new EixoPolarStarGlyph(dado, dadoMaxVal);            
-//        }
-//        return starGlyph;
-//    }
 
-    public Glyph configureStarGlyph(Coluna col,TreeMapItem item, List<String> dadosDistintos) {
-        glyph.starglyph.StarGlyph starGlyph = new glyph.starglyph.StarGlyph(Arrays.asList(atributosBaseEscolhidos));
-        starGlyph.setQuantVar(atributosBaseEscolhidos.length);
-        starGlyph.setPectSobreposicao(0.85f);
-        starGlyph.setOverlappingActivated(true);
-        for (int i = 0; i < getAtributosBaseEscolhidos().length; i++) {
-            String nomeColunaEscolhida = getAtributosBaseEscolhidos()[i];
-            Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
-            double dado = Double.parseDouble(item.getMapaDetalhesItem().get(col));
-            double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
-            starGlyph.getEixosPolares()[i] = new EixoPolarStarGlyph(dado, dadoMaxVal); 
-//            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(i))) {
-//                Glyph shape = defineShape(doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS.GLYPH_FORMAS.values()[i]);
-//                shape.setNodeTreemap(item);
-//            }
-        }
-        return starGlyph;
-    }
-    // acionarStarGlyph(List<String> variaveisStarGlyph)
-// ...............................................................................................................................................................................................................................................................................................................................................................................................--
-    
     public Glyph prepareDimensaoLetterDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.LETRAS_ALFABETO.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
@@ -497,34 +450,23 @@ public final class GlyphManager {
             case "Number":
                 dimensao = 4;
                 break;
-            case "Star":
-                dimensao = 5;
-                break;
             default:
                 throw new AssertionError();
         }
         return dimensao;
     }
 
-    public String[] getAtributosBaseEscolhidos() {
-        return atributosBaseEscolhidos;
-    }
-
-    public void setAtributosBaseEscolhidos(String[] atributosBaseEscolhidos) {
-        this.atributosBaseEscolhidos = atributosBaseEscolhidos;
-    }
-
-    
-    
     public void configGlyphDesingModel(boolean overlappingActivated) {
         this.overlappingActivated = overlappingActivated;
     }
+
     /**
      * @return the rootNodeZoom
      */
     public TMNodeModelRoot getRootNodeZoom() {
         return rootNodeZoom;
     }
+
     /**
      * @param rootNodeZoom the rootNodeZoom to set
      */
@@ -532,6 +474,7 @@ public final class GlyphManager {
         this.rootNodeZoom = rootNodeZoom;
 //        System.out.println("Root Node Zoom: "+this.rootNodeZoom.getRoot().getTitle());
     }
+
     /**
      * @return the variaveisVisuaisEscolhidas
      */

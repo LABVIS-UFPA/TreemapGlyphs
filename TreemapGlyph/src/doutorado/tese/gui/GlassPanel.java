@@ -40,6 +40,7 @@ public class GlassPanel extends JPanel {
     private float quantOlverlap;
     private int quantValoresVarVisuais;
     private boolean overlappingActivated;
+    private String[] atributosBaseEscolhidos;
 
     /**
      * Construtor chamado ao selecionar o checkbox indicando que os glyphs serao
@@ -72,6 +73,10 @@ public class GlassPanel extends JPanel {
                 glyphManager.prepare2Draw();//chamado para redesenhar os glyphs no drill-down
             }
         });
+    }
+    
+    public void setAtributosBaseEscolhidos(String[] atributosBaseEscolhidos) {
+        this.atributosBaseEscolhidos = atributosBaseEscolhidos;
     }
     
     public void setAtributosContinuos(List<Object> atributosEscolhidos) {
