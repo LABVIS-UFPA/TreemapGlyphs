@@ -13,7 +13,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
 import net.bouthier.treemapAWT.TMNodeModelRoot;
@@ -68,7 +70,8 @@ public class GlassPanel extends JPanel {
             @Override
             public void onDrawFinished(String text) {
                 logger.info("Acionando onDrawFinished()", text);
-                glyphManager.setRootNodeZoom(view.getRootAnderson());
+'
+        glyphManager.setRootNodeZoom(view.getRootAnderson());
                 logger.info("Acionando prepare2Draw() a partir do onDrawFinished() - Root: " + glyphManager.getRootNodeZoom());
                 glyphManager.prepare2Draw();//chamado para redesenhar os glyphs no drill-down
             }
@@ -78,18 +81,21 @@ public class GlassPanel extends JPanel {
     public void setAtributosBaseEscolhidos(String[] atributosBaseEscolhidos) {
         this.atributosBaseEscolhidos = atributosBaseEscolhidos;
     }
-    
-    public void setAtributosContinuos(List<Object> atributosEscolhidos) {
-        glyphManager = new GlyphManager(getManipulador(), atributosEscolhidos, view.getBounds());
-        glyphManager.setUseDecisionTree(decisioTree);
-        glyphManager.setRootNodeZoom(view.getRootAnderson());
-        setGlyphOverlappingModel(true);
-        logger.info("Acionando prepare2Draw() a partir do setAtributosEscolhidos() - Root: " + glyphManager.getRootNodeZoom());
-        //Aqui prepara para desenhar os glyphs da primeira versao
-//        glyphManager.prepare2Draw();
-        //Aqui prepara para desenhar os glyphs da nova versao
-        setCofigItensGrid();
-     }
+/**
+ * usado apenas no starglyph
+ * @param atributosEscolhidos 
+ */
+//    public void setAtributosContinuos(List<Object> atributosEscolhidos) {
+//        glyphManager = new GlyphManager(getManipulador(), atributosEscolhidos, view.getBounds());
+//        glyphManager.setUseDecisionTree(decisioTree);
+//        glyphManager.setRootNodeZoom(view.getRootAnderson());
+//        setGlyphOverlappingModel(true);
+//        logger.info("Acionando prepare2Draw() a partir do setAtributosEscolhidos() - Root: " + glyphManager.getRootNodeZoom());
+//        //Aqui prepara para desenhar os glyphs da primeira versao
+////        glyphManager.prepare2Draw();
+//        //Aqui prepara para desenhar os glyphs da nova versao
+//        setCofigItensGrid();
+//     }
 
     public void setAtributosEscolhidos(List<Object> atributosEscolhidos) {
         glyphManager = new GlyphManager(getManipulador(), atributosEscolhidos, view.getBounds());
@@ -120,7 +126,9 @@ public class GlassPanel extends JPanel {
         for (TreeMapItem itemTreemap : getManipulador().getItensTreemap()) {
             glyphManager.setQuantValoresVarVisuais(quantValoresVarVisuais);
 //            glyphManager.setPerctOverlap(quantOlverlap);
+            glyphManager.setAtributosBaseEscolhidos(atributosBaseEscolhidos);
             glyphManager.configLayers(itemTreemap);
+            
             if (itemTreemap.isPossuiGlyphResposta()) {
                 getGabarito().add(itemTreemap);
             }

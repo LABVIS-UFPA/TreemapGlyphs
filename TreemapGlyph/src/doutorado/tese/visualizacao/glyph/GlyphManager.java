@@ -17,11 +17,13 @@ import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes.Forma
 import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.texture.Textura;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
+import glyph.starglyph.EixoPolarStarGlyph;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import net.bouthier.treemapAWT.TMNode;
@@ -52,6 +54,7 @@ public final class GlyphManager {
     private Rectangle bounds;
     private boolean overlappingActivated;
     private String numeroUtilizado;
+    private String[] atributosBaseEscolhidos;
 
     public GlyphManager() {
         this.configs = new HashMap<>();
@@ -243,6 +246,7 @@ public final class GlyphManager {
         item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = DecisionTreeClassifier.predict(features)[2];
         item.getWhat2Draw()[Constantes.PRESENCA_LETRA] = DecisionTreeClassifier.predict(features)[3];
         item.getWhat2Draw()[Constantes.PRESENCA_NUMERO] = DecisionTreeClassifier.predict(features)[4];
+//        item.getWhat2Draw()[Constantes.PRESENCA_STAR] = DecisionTreeClassifier.predict(features)[5];
         return features;
     }
 
@@ -269,6 +273,10 @@ public final class GlyphManager {
 //            }
 //            System.out.println(list.toString());
         }
+        if (getVariaveisVisuaisEscolhidas()[0].equals("star")) {
+            Glyph child = setLayerInGlyph("Star", item, -1);
+            father.appendChild(child);
+        }
         father.setBounds(father.getBounds());
         if (decisionTreeActivate) {
             double[] features = new double[15];
@@ -280,13 +288,21 @@ public final class GlyphManager {
         return item;
     }
 
+    public void setAtributosBaseEscolhidos(String[] atributosBaseEscolhidos) {
+        this.atributosBaseEscolhidos = atributosBaseEscolhidos;
+    }
+
     public Glyph setLayerInGlyph(String varVisual, TreeMapItem item, int dimensao) {
         Glyph glyph = null;
+        String colunaEscolhida = null;
+        Coluna col = null;
+        List<String> dadosDistintos = null;
 
-        String colunaEscolhida = atributosEscolhidos.get(dimensao).toString();
-        Coluna col = ManipuladorArquivo.getColuna(colunaEscolhida);
-        List<String> dadosDistintos = colunaDadosDist.get(colunaEscolhida);
-
+        if (dimensao != -1) {
+            colunaEscolhida = atributosEscolhidos.get(dimensao).toString();
+            col = ManipuladorArquivo.getColuna(colunaEscolhida);
+            dadosDistintos = colunaDadosDist.get(colunaEscolhida);
+        }
         switch (varVisual) {
             case "Texture":
                 glyph = prepareDimensaoTexturaDinamica(col, item, dadosDistintos);
@@ -303,8 +319,29 @@ public final class GlyphManager {
             case "Number":
                 glyph = prepareDimensaoNumberDinamico(col, item, dadosDistintos);
                 break;
+            case "Star":
+                glyph = configureStarGlyph(item);
+                break;
+            default:
+                System.out.println("error ");
+                break;
         }
         return glyph;
+    }
+
+    private Glyph configureStarGlyph(TreeMapItem item) {
+        glyph.starglyph.StarGlyph starGlyph = new glyph.starglyph.StarGlyph(Arrays.asList(atributosBaseEscolhidos));
+        starGlyph.setQuantVar(atributosBaseEscolhidos.length);
+        starGlyph.setPectSobreposicao(0.85f);
+        starGlyph.setOverlappingActivated(true);
+        for (int i = 0; i < atributosBaseEscolhidos.length; i++) {
+            String nomeColunaEscolhida = atributosBaseEscolhidos[i];
+            Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
+            double dado = Double.parseDouble(item.getMapaDetalhesItem().get(coluna));
+            double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
+            starGlyph.getEixosPolares()[i] = new EixoPolarStarGlyph(dado, dadoMaxVal);
+        }
+        return starGlyph;
     }
 
     public Glyph prepareDimensaoTexturaDinamica(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
@@ -351,6 +388,19 @@ public final class GlyphManager {
         return null;
     }
 
+    // acionarStarGlyph(List<String> variaveisStarGlyph)
+//    public Glyph prepareDimensaoStarGlyphDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+//         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
+//            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
+//                Glyph shape = defineShape(doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j]);
+//                shape.setNodeTreemap(item);
+//                return ;
+//            }
+//        }
+//        return null;
+//        
+//    }
+//    
     public Glyph prepareDimensaoLetterDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.LETRAS_ALFABETO.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
@@ -448,6 +498,9 @@ public final class GlyphManager {
                 dimensao = 3;
                 break;
             case "Number":
+                dimensao = 4;
+                break;
+            case "Star":
                 dimensao = 4;
                 break;
             default:

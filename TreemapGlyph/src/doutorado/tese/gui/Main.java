@@ -348,7 +348,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Treemap", abaTreemap);
@@ -436,6 +436,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 atributo2GlyphItemStateChanged(evt);
             }
         });
+        atributo2Glyph.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atributo2GlyphActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Shape:");
 
@@ -459,6 +464,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         atributo4Glyph.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 atributo4GlyphItemStateChanged(evt);
+            }
+        });
+        atributo4Glyph.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atributo4GlyphActionPerformed(evt);
             }
         });
 
@@ -575,7 +585,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(35, 35, 35)
                 .addComponent(jLabel15)
-                .addGap(32, 32, 32)
+                .addGap(35, 35, 35)
                 .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -808,7 +818,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                     .addComponent(jScrollPane6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(updateDetailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                .addComponent(updateDetailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -822,7 +832,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         );
         abaFiltrosLayout.setVerticalGroup(
             abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 386, Short.MAX_VALUE)
+            .addGap(0, 389, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Filter", abaFiltros);
@@ -852,7 +862,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(legendaBarraRolage, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
+                .addComponent(legendaBarraRolage, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
         );
 
         jSplitPane1.setRightComponent(painelDireita);
@@ -1455,47 +1465,20 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
       
     private void botaoGerarStarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarStarGlyphsActionPerformed
-     //acoes para configurar os glyphs                
+     //acoes para configurar os glyphs   
+     
+         manipulador = new ManipuladorArquivo();
+        manipulador.montarColunas(manipulador.getCabecalho(), manipulador.getTipos());
         AtributosContinuos = parseListModelString2Array(listaAtributos2.getModel());
         String[] selectStar = {"star"};
         glyphPanel.setManipulador(manipulador);
-    
         glyphPanel.setVariaveisVisuaisEscolhidas(selectStar);
         glyphPanel.setAtributosBaseEscolhidos(AtributosContinuos);
         
         //Acoes para desenhar os glyphs
-        //glyphPanel.setBounds(painelEsquerda.getBounds());
+        glyphPanel.setBounds(painelEsquerda.getBounds());
         glyphPanel.setVisible(true);
         glyphPanel.repaint();
-        
-//        atualizarLegendaGlyphs(atributosEscolhidosGlyph);
-        
-        
-//        manipulador = new ManipuladorArquivo();
-//        manipulador.getExtensionFile("carros_teste56.txt");
-//        manipulador.lerArquivo(new File("C:\\Users\\Elvis (LABVIS)\\Documents\\src_StarGlyph\\StarGlyph\\src\\glyph\\carros_teste56.txt"));
-//        
-//        manipulador.montarColunas(manipulador.getCabecalho(), manipulador.getTipos());
-//        //manipulador.carregarItensGrid();
-//        for (int i = 0; i < manipulador.getColunas().length; i++) {
-//            Coluna c = manipulador.getColunas()[i];
-//            c.configurarDescricao(manipulador.getDadosColuna(manipulador.getCabecalho()[i]));
-//        }
-//        
-//        //atributosBaseEscolhidos = parseListModelString2Array(listaAtributos2.getModel());
-//        //atributosBaseEscolhidos = parseListModelString2Array(listaAtributos2.getModel());
-//        //gridPanel.setScala(1.5);
-//        //gridPanel.setGridSize(7, 8);
-//        //gridPanel.setItensGrid(manipulador.getItens());
-//        //gridPanel.setAtributosBaseEscolhidos(atributosBaseEscolhidos);
-//        //gridPanel.loadMatrizGlyphs();
-//
-//        //gridPanel.setCofigItensGrid();
-//        //prepararLegendaStarGlyph(Arrays.asList(atributosBaseEscolhidos));
-//        //gridPanel.repaint();
-//        int[] selectedValuesList = listaAtributos2.getSelectedIndices();
-//        System.out.println((listaAtributos2.getSelectedIndices().toString()));
-//        System.out.println("click star");
     }//GEN-LAST:event_botaoGerarStarGlyphsActionPerformed
 
     private void cimaButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaButton2ActionPerformed
@@ -1542,6 +1525,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             inserirVarVisualButton2.setEnabled(false);
         }
     }//GEN-LAST:event_listaAtributos1ValueChanged
+
+    private void atributo4GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo4GlyphActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo4GlyphActionPerformed
+
+    private void atributo2GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo2GlyphActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo2GlyphActionPerformed
  
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
 
@@ -1736,7 +1727,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             atributo3Glyph.setEnabled(false);
             atributo4Glyph.setEnabled(false);
             atributo5Glyph.setEnabled(false);
-          
 
             painelLegendaVis.removeAll();
             painelLegendaVis.repaint();
@@ -1824,7 +1814,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     break;
                 case "Number":
                     atributo5Glyph.setEnabled(false);
-                    atributo5Glyph.setSelectedIndex(0);  
+                    atributo5Glyph.setSelectedIndex(0); 
+                    break;
             }
         }
     }
@@ -1943,9 +1934,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_3, true), atributo3Glyph);
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_4, true), atributo4Glyph);
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_5, true), atributo5Glyph);
-  
-
-
+              
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis glyph: " + porcentagem + "%");
                 break;
@@ -1963,6 +1952,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 for (String cabecalho : manipulador.getCabecalho()) {
                     coresTreemap.add(cabecalho);
                 }
+                loadItensStarGlyph(coresTreemap.toArray());
                 loadItensCoresTreemap(coresTreemap.toArray());
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis cores Treemap: " + porcentagem + "%");
@@ -2009,9 +1999,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
         colunasHierarquicasList.setModel(model);
         colunasHierarquicasList.setEnabled(true);
-        listaAtributos1.setModel(model);
-        listaAtributos1.setEnabled(true);
-     
     }
 
     private void loadItensDetalhes(Object[] objs) {
@@ -2024,6 +2011,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
         colunasDetalhesList1.setModel(model);
         colunasDetalhesList1.setEnabled(true);
+        listaAtributos1.setModel(model);
+        listaAtributos1.setEnabled(true);
+    }
+    
+    private void loadItensStarGlyph(Object[] objs) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
+        listaAtributos1.setModel(model);
+        listaAtributos1.setEnabled(true);
     }
     
     private void loadItensCoresTreemap(Object[] objs) {
