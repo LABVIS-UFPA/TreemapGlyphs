@@ -466,7 +466,7 @@
                                               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
-                                              <Component id="checkGlyph" min="-2" pref="107" max="-2" attributes="0"/>
+                                              <Component id="checkLayeredGlyph" min="-2" pref="107" max="-2" attributes="0"/>
                                               <EmptySpace max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -546,7 +546,7 @@
                                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="checkGlyph" min="-2" max="-2" attributes="0"/>
+                                      <Component id="checkLayeredGlyph" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -831,14 +831,14 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarGlyphsActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JCheckBox" name="checkGlyph">
+                    <Component class="javax.swing.JCheckBox" name="checkLayeredGlyph">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Layered Glyph"/>
                         <Property name="toolTipText" type="java.lang.String" value=""/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkGlyphActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkLayeredGlyphActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -871,15 +871,15 @@
                                       <Component id="jScrollPane11" pref="98" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="removerVarVisualButton2" min="-2" pref="43" max="-2" attributes="0"/>
-                                          <Component id="inserirVarVisualButton2" pref="0" max="32767" attributes="0"/>
+                                          <Component id="removerAtributoStarGlyphButton" min="-2" pref="43" max="-2" attributes="0"/>
+                                          <Component id="inserirAtributoStarGlyphButton" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jScrollPane9" min="-2" pref="96" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="cimaButton2" min="-2" pref="42" max="-2" attributes="0"/>
-                                          <Component id="baixoButton2" min="-2" pref="42" max="-2" attributes="0"/>
+                                          <Component id="cimaAtributoStarGlyphButton" min="-2" pref="42" max="-2" attributes="0"/>
+                                          <Component id="baixoAtributoStarGlyphButton" min="-2" pref="42" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -896,14 +896,14 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jScrollPane11" min="-2" pref="91" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="cimaButton2" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="cimaAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                      <Component id="baixoButton2" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="baixoAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="inserirVarVisualButton2" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="inserirAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                      <Component id="removerVarVisualButton2" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Component id="removerAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jScrollPane9" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
@@ -936,7 +936,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarStarGlyphsActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="inserirVarVisualButton2">
+                    <Component class="javax.swing.JButton" name="inserirAtributoStarGlyphButton">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/icon/setaDir.png"/>
@@ -944,10 +944,10 @@
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirVarVisualButton2ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirAtributoStarGlyphButtonActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="removerVarVisualButton2">
+                    <Component class="javax.swing.JButton" name="removerAtributoStarGlyphButton">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/icon/setaEsq.png"/>
@@ -955,7 +955,7 @@
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerVarVisualButton2ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerAtributoStarGlyphButtonActionPerformed"/>
                       </Events>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane9">
@@ -971,6 +971,7 @@
                               <StringArray count="0"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" value=""/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listaAtributosStarGlyph2ValueChanged"/>
@@ -988,7 +989,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTextPane" name="painelLegenda">
+                        <Component class="javax.swing.JTextPane" name="painelStarGlyphLegenda">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -1000,7 +1001,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JButton" name="cimaButton2">
+                    <Component class="javax.swing.JButton" name="cimaAtributoStarGlyphButton">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/icon/setaUp.png"/>
@@ -1008,10 +1009,10 @@
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cimaButton2ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cimaAtributoStarGlyphButtonActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="baixoButton2">
+                    <Component class="javax.swing.JButton" name="baixoAtributoStarGlyphButton">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/icon/setaDown.png"/>
@@ -1019,7 +1020,7 @@
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="baixoButton2ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="baixoAtributoStarGlyphButtonActionPerformed"/>
                       </Events>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane11">
@@ -1034,6 +1035,7 @@
                             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                               <StringArray count="0"/>
                             </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
                             <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listaAtributosStarGlyph1ValueChanged"/>

@@ -17,7 +17,8 @@ import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes.Forma
 import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.texture.Textura;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
-import glyph.starglyph.EixoPolarStarGlyph;
+import doutorado.tese.visualizacao.glyph.decorator.starglyph.StarGlyph;
+import doutorado.tese.visualizacao.glyph.decorator.starglyph.EixoPolarStarGlyph;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -26,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import net.bouthier.treemapAWT.TMNode;
 import net.bouthier.treemapAWT.TMNodeEncapsulator;
 import net.bouthier.treemapAWT.TMNodeModel;
 import net.bouthier.treemapAWT.TMNodeModelComposite;
@@ -53,8 +53,9 @@ public final class GlyphManager {
     private int quantValoresVarVisuais;
     private Rectangle bounds;
     private boolean overlappingActivated;
+    private boolean starGlyphActivated;
     private String numeroUtilizado;
-    private String[] atributosBaseEscolhidos;
+    private List<String> atributosEscolhidosStarGlyph;
 
     public GlyphManager() {
         this.configs = new HashMap<>();
@@ -107,21 +108,6 @@ public final class GlyphManager {
             item.getGlyph().paint(g2d);
             item.getGlyph().getChildren(list);
             g2d.setClip(0, 0, bounds.width, bounds.height);
-//            if (!decisionTreeActivate || item.getWhat2Draw()[0] == 1) {
-//                paintTextura(g, item);
-//            }
-//            if (!decisionTreeActivate || item.getWhat2Draw()[1] == 1) {
-//                paintCorForma(g, item);
-//            }
-//            if (!decisionTreeActivate || item.getWhat2Draw()[2] == 1) {
-//                paintFormaGeometrica(g, item);
-//            }
-//            if (!decisionTreeActivate || item.getWhat2Draw()[3] == 1) {
-//                paintLetrasAlfabeto(g, item);
-//            }
-//            if (!decisionTreeActivate || item.getWhat2Draw()[4] == 1) {
-//                paintNumeros(g, item);
-//            }
         }
     }
 
@@ -201,14 +187,26 @@ public final class GlyphManager {
     public TreeMapItem configLayers(TreeMapItem item) {
         Glyph father = item.getGlyph();
         father.killAllChild();
-        for (String varVisual : getVariaveisVisuaisEscolhidas()) {
+//        for (String varVisual : getVariaveisVisuaisEscolhidas()) {
+//            int dimensao = mapearVarVisual2Dimensao(varVisual);
+//            Glyph child = setLayerInGlyph(varVisual, item, dimensao);
+//            father.appendChild(child);
+//        }
+        for (int i = 0; i < getVariaveisVisuaisEscolhidas().length; i++) {
+            String varVisual = getVariaveisVisuaisEscolhidas()[i];
             int dimensao = mapearVarVisual2Dimensao(varVisual);
             Glyph child = setLayerInGlyph(varVisual, item, dimensao);
             father.appendChild(child);
+            if (i == getVariaveisVisuaisEscolhidas().length - 1) {//se ja estiver na ultima camada
+                if (starGlyphActivated) {
+                    Glyph childStarGlyph = setLayerInGlyph("Star", item, -1);
+                    father.appendChild(childStarGlyph);
+                }
+            }
         }
-        if (getVariaveisVisuaisEscolhidas()[0].equals("star")) {
-            Glyph child = setLayerInGlyph("Star", item, -1);
-            father.appendChild(child);
+        if (getVariaveisVisuaisEscolhidas().length == 0) {
+            Glyph childStarGlyph = setLayerInGlyph("Star", item, -1);
+            father.appendChild(childStarGlyph);
         }
         father.setBounds(father.getBounds());
         if (decisionTreeActivate) {
@@ -219,10 +217,6 @@ public final class GlyphManager {
             item.setPossuiGlyphResposta(true);
         }
         return item;
-    }
-
-    public void setAtributosBaseEscolhidos(String[] atributosBaseEscolhidos) {
-        this.atributosBaseEscolhidos = atributosBaseEscolhidos;
     }
 
     public Glyph setLayerInGlyph(String varVisual, TreeMapItem item, int dimensao) {
@@ -263,12 +257,12 @@ public final class GlyphManager {
     }
 
     private Glyph configureStarGlyph(TreeMapItem item) {
-        glyph.starglyph.StarGlyph starGlyph = new glyph.starglyph.StarGlyph(Arrays.asList(atributosBaseEscolhidos));
-        starGlyph.setQuantVar(atributosBaseEscolhidos.length);
+        StarGlyph starGlyph = new StarGlyph(getAtributosEscolhidosStarGlyph());
+        starGlyph.setQuantVar(getAtributosEscolhidosStarGlyph().size());
         starGlyph.setPectSobreposicao(0.85f);
         starGlyph.setOverlappingActivated(true);
-        for (int i = 0; i < atributosBaseEscolhidos.length; i++) {
-            String nomeColunaEscolhida = atributosBaseEscolhidos[i];
+        for (int i = 0; i < getAtributosEscolhidosStarGlyph().size(); i++) {
+            String nomeColunaEscolhida = getAtributosEscolhidosStarGlyph().get(i);
             Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
             double dado = Double.parseDouble(item.getMapaDetalhesItem().get(coluna));
             double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
@@ -464,5 +458,34 @@ public final class GlyphManager {
 
     public void setQuantValoresVarVisuais(int quantValoresVarVisuais) {
         this.quantValoresVarVisuais = quantValoresVarVisuais;
+    }
+
+    /**
+     * @return the starGlyphActivated
+     */
+    public boolean isStarGlyphActivated() {
+        return starGlyphActivated;
+    }
+
+    /**
+     * @param starGlyphActivated the starGlyphActivated to set
+     */
+    public void setStarGlyphActivated(boolean starGlyphActivated) {
+        this.starGlyphActivated = starGlyphActivated;
+    }
+
+    /**
+     * @return the atributosEscolhidosStarGlyph
+     */
+    public List<String> getAtributosEscolhidosStarGlyph() {
+        return atributosEscolhidosStarGlyph;
+    }
+
+    /**
+     * @param atributosEscolhidosStarGlyph the atributosEscolhidosStarGlyph to
+     * set
+     */
+    public void setAtributosEscolhidosStarGlyph(List<String> atributosEscolhidosStarGlyph) {
+        this.atributosEscolhidosStarGlyph = atributosEscolhidosStarGlyph;
     }
 }

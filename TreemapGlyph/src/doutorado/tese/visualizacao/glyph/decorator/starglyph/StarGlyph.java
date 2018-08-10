@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package glyph.starglyph;
+package doutorado.tese.visualizacao.glyph.decorator.starglyph;
 
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Constantes;

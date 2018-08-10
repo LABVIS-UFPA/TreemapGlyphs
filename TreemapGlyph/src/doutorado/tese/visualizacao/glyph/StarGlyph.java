@@ -22,6 +22,7 @@ import javax.swing.JLabel;
  *
  * @author Anderson
  */
+@Deprecated
 public class StarGlyph extends JLabel{
 
     private Rectangle rect;

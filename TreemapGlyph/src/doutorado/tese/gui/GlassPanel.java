@@ -13,9 +13,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
 import net.bouthier.treemapAWT.TMNodeModelRoot;
@@ -37,12 +35,13 @@ public class GlassPanel extends JPanel {
     private TMNodeModelRoot nodeModelRoot;
     private TMView view;
     private boolean decisioTree;
+    private boolean starGlyphActivated;
     private String[] variaveisVisuaisEscolhidas;
     private ArrayList<TreeMapItem> gabarito;
     private float quantOlverlap;
     private int quantValoresVarVisuais;
     private boolean overlappingActivated;
-    private String[] atributosBaseEscolhidos;
+    private String[] atributosEscolhidosStarGlyph;
 
     /**
      * Construtor chamado ao selecionar o checkbox indicando que os glyphs serao
@@ -78,31 +77,18 @@ public class GlassPanel extends JPanel {
         });
     }
 
-    public void setAtributosBaseEscolhidos(String[] atributosBaseEscolhidos) {
-        this.atributosBaseEscolhidos = atributosBaseEscolhidos;
+    public void setAtributosEscolhidosStarGlyph(String[] atributosEscolhidosStarGlyph) {
+        this.atributosEscolhidosStarGlyph = atributosEscolhidosStarGlyph;
     }
-
-    /**
-     * usado apenas no starglyph
-     *
-     * @param atributosEscolhidos
-     */
-//    public void setAtributosContinuos(List<Object> atributosEscolhidos) {
-//        glyphManager = new GlyphManager(getManipulador(), atributosEscolhidos, view.getBounds());
-//        glyphManager.setUseDecisionTree(decisioTree);
-//        glyphManager.setRootNodeZoom(view.getRootAnderson());
-//        setGlyphOverlappingModel(true);
-//        logger.info("Acionando prepare2Draw() a partir do setAtributosEscolhidos() - Root: " + glyphManager.getRootNodeZoom());
-//        //Aqui prepara para desenhar os glyphs da primeira versao
-////        glyphManager.prepare2Draw();
-//        //Aqui prepara para desenhar os glyphs da nova versao
-//        setCofigItensGrid();
-//     }
 
     public void setAtributosEscolhidos(List<Object> atributosEscolhidos) {
         glyphManager = new GlyphManager(getManipulador(), atributosEscolhidos, view.getBounds());
         glyphManager.setUseDecisionTree(decisioTree);
         glyphManager.setRootNodeZoom(view.getRootAnderson());
+        glyphManager.setStarGlyphActivated(starGlyphActivated);
+        if (starGlyphActivated) {
+            glyphManager.setAtributosEscolhidosStarGlyph(Arrays.asList(atributosEscolhidosStarGlyph));
+        }
         setGlyphOverlappingModel(true);
         logger.info("Acionando prepare2Draw() a partir do setAtributosEscolhidos() - Root: " + glyphManager.getRootNodeZoom());
         //Aqui prepara para desenhar os glyphs da primeira versao
@@ -124,11 +110,10 @@ public class GlassPanel extends JPanel {
     public ArrayList<TreeMapItem> setCofigItensGrid() {
         gabarito = new ArrayList();
         glyphManager.setVariaveisVisuaisEscolhidas(getVariaveisVisuaisEscolhidas());
+        glyphManager.setQuantValoresVarVisuais(quantValoresVarVisuais);
 
         for (TreeMapItem itemTreemap : getManipulador().getItensTreemap()) {
-            glyphManager.setQuantValoresVarVisuais(quantValoresVarVisuais);
 //            glyphManager.setPerctOverlap(quantOlverlap);
-            glyphManager.setAtributosBaseEscolhidos(atributosBaseEscolhidos);
             glyphManager.configLayers(itemTreemap);
 
             if (itemTreemap.isPossuiGlyphResposta()) {
@@ -206,5 +191,19 @@ public class GlassPanel extends JPanel {
      */
     public void setGabarito(ArrayList<TreeMapItem> gabarito) {
         this.gabarito = gabarito;
+    }
+
+    /**
+     * @return the starGlyphActivated
+     */
+    public boolean isStarGlyphActivated() {
+        return starGlyphActivated;
+    }
+
+    /**
+     * @param starGlyphActivated the starGlyphActivated to set
+     */
+    public void setStarGlyphActivated(boolean starGlyphActivated) {
+        this.starGlyphActivated = starGlyphActivated;
     }
 }

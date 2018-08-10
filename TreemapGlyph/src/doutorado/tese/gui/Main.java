@@ -124,18 +124,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jLabel11 = new javax.swing.JLabel();
         atributo5Glyph = new javax.swing.JComboBox<>();
         botaoGerarGlyphs = new javax.swing.JButton();
-        checkGlyph = new javax.swing.JCheckBox();
+        checkLayeredGlyph = new javax.swing.JCheckBox();
         abaStarGlyphs = new javax.swing.JPanel();
         checkStarGlyph = new javax.swing.JCheckBox();
         botaoGerarStarGlyphs = new javax.swing.JButton();
-        inserirVarVisualButton2 = new javax.swing.JButton();
-        removerVarVisualButton2 = new javax.swing.JButton();
+        inserirAtributoStarGlyphButton = new javax.swing.JButton();
+        removerAtributoStarGlyphButton = new javax.swing.JButton();
         jScrollPane9 = new javax.swing.JScrollPane();
         listaAtributosStarGlyph2 = new javax.swing.JList<>();
         jScrollPane10 = new javax.swing.JScrollPane();
-        painelLegenda = new javax.swing.JTextPane();
-        cimaButton2 = new javax.swing.JButton();
-        baixoButton2 = new javax.swing.JButton();
+        painelStarGlyphLegenda = new javax.swing.JTextPane();
+        cimaAtributoStarGlyphButton = new javax.swing.JButton();
+        baixoAtributoStarGlyphButton = new javax.swing.JButton();
         jScrollPane11 = new javax.swing.JScrollPane();
         listaAtributosStarGlyph1 = new javax.swing.JList<>();
         abaDetalhes = new javax.swing.JPanel();
@@ -490,12 +490,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        checkGlyph.setText("Layered Glyph");
-        checkGlyph.setToolTipText("");
-        checkGlyph.setEnabled(false);
-        checkGlyph.addActionListener(new java.awt.event.ActionListener() {
+        checkLayeredGlyph.setText("Layered Glyph");
+        checkLayeredGlyph.setToolTipText("");
+        checkLayeredGlyph.setEnabled(false);
+        checkLayeredGlyph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkGlyphActionPerformed(evt);
+                checkLayeredGlyphActionPerformed(evt);
             }
         });
 
@@ -512,7 +512,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                                 .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                                 .addGap(55, 55, 55))
                             .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                                .addComponent(checkGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(checkLayeredGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63))
@@ -569,7 +569,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addGap(21, 21, 21)
                         .addComponent(jLabel14))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaConfigGlyphsLayout.createSequentialGroup()
-                        .addComponent(checkGlyph)
+                        .addComponent(checkLayeredGlyph)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel13)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -632,23 +632,24 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        inserirVarVisualButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaDir.png"))); // NOI18N
-        inserirVarVisualButton2.setEnabled(false);
-        inserirVarVisualButton2.addActionListener(new java.awt.event.ActionListener() {
+        inserirAtributoStarGlyphButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaDir.png"))); // NOI18N
+        inserirAtributoStarGlyphButton.setEnabled(false);
+        inserirAtributoStarGlyphButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inserirVarVisualButton2ActionPerformed(evt);
+                inserirAtributoStarGlyphButtonActionPerformed(evt);
             }
         });
 
-        removerVarVisualButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaEsq.png"))); // NOI18N
-        removerVarVisualButton2.setEnabled(false);
-        removerVarVisualButton2.addActionListener(new java.awt.event.ActionListener() {
+        removerAtributoStarGlyphButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaEsq.png"))); // NOI18N
+        removerAtributoStarGlyphButton.setEnabled(false);
+        removerAtributoStarGlyphButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removerVarVisualButton2ActionPerformed(evt);
+                removerAtributoStarGlyphButtonActionPerformed(evt);
             }
         });
 
         listaAtributosStarGlyph2.setToolTipText("");
+        listaAtributosStarGlyph2.setEnabled(false);
         listaAtributosStarGlyph2.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listaAtributosStarGlyph2ValueChanged(evt);
@@ -656,26 +657,27 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         });
         jScrollPane9.setViewportView(listaAtributosStarGlyph2);
 
-        painelLegenda.setEditable(false);
-        painelLegenda.setBorder(javax.swing.BorderFactory.createTitledBorder("Subtitle StarGlyph"));
-        jScrollPane10.setViewportView(painelLegenda);
+        painelStarGlyphLegenda.setEditable(false);
+        painelStarGlyphLegenda.setBorder(javax.swing.BorderFactory.createTitledBorder("Subtitle StarGlyph"));
+        jScrollPane10.setViewportView(painelStarGlyphLegenda);
 
-        cimaButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaUp.png"))); // NOI18N
-        cimaButton2.setEnabled(false);
-        cimaButton2.addActionListener(new java.awt.event.ActionListener() {
+        cimaAtributoStarGlyphButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaUp.png"))); // NOI18N
+        cimaAtributoStarGlyphButton.setEnabled(false);
+        cimaAtributoStarGlyphButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cimaButton2ActionPerformed(evt);
+                cimaAtributoStarGlyphButtonActionPerformed(evt);
             }
         });
 
-        baixoButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaDown.png"))); // NOI18N
-        baixoButton2.setEnabled(false);
-        baixoButton2.addActionListener(new java.awt.event.ActionListener() {
+        baixoAtributoStarGlyphButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaDown.png"))); // NOI18N
+        baixoAtributoStarGlyphButton.setEnabled(false);
+        baixoAtributoStarGlyphButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                baixoButton2ActionPerformed(evt);
+                baixoAtributoStarGlyphButtonActionPerformed(evt);
             }
         });
 
+        listaAtributosStarGlyph1.setEnabled(false);
         listaAtributosStarGlyph1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listaAtributosStarGlyph1ValueChanged(evt);
@@ -701,14 +703,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(removerVarVisualButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inserirVarVisualButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(removerAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inserirAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cimaButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(baixoButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         abaStarGlyphsLayout.setVerticalGroup(
@@ -720,13 +722,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(abaStarGlyphsLayout.createSequentialGroup()
-                        .addComponent(cimaButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
-                        .addComponent(baixoButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(abaStarGlyphsLayout.createSequentialGroup()
-                        .addComponent(inserirVarVisualButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(inserirAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
-                        .addComponent(removerVarVisualButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(removerAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -935,7 +937,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             limparResquiciosBasesAnteriores();
-            checkGlyph.setEnabled(false);
+            checkLayeredGlyph.setEnabled(false);
             checkStarGlyph.setEnabled(false);
             selectedFile = chooser.getSelectedFile();
             progressoBarra.setVisible(true);
@@ -985,8 +987,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         atualizarLegendaGlyphs(atributosEscolhidosGlyph);
     }//GEN-LAST:event_botaoGerarGlyphsActionPerformed
 
-    private void checkGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkGlyphActionPerformed
-        if (checkGlyph.isSelected()) {
+    private void checkLayeredGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLayeredGlyphActionPerformed
+        if (checkLayeredGlyph.isSelected()) {
             Constantes.setShowGlyph(true);
             glyphPanel = new GlassPanel();
             glyphPanel.setTMView(view);
@@ -997,7 +999,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         } else {
             limparCacheGlyphs();
         }
-    }//GEN-LAST:event_checkGlyphActionPerformed
+    }//GEN-LAST:event_checkLayeredGlyphActionPerformed
 
     private void checkLegendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLegendaActionPerformed
         if (checkLegenda.isSelected()) {
@@ -1141,7 +1143,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         progressoBarra.setVisible(false);
         atualizarLegendaTreemap(itemCor);
-        checkGlyph.setEnabled(true);
+        checkLayeredGlyph.setEnabled(true);
         checkStarGlyph.setEnabled(true);
 
         limparCacheGlyphs();
@@ -1370,17 +1372,21 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_corTreemapComboBoxActionPerformed
 
     private void checkStarGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkStarGlyphActionPerformed
-        botaoGerarStarGlyphs.setEnabled(true);
-        inserirVarVisualButton2.setEnabled(true);
-        removerVarVisualButton2.setEnabled(true);
-        Constantes.setShowGlyph(true);
-        glyphPanel = new GlassPanel();
-        glyphPanel.setTMView(view);
-        varVisuaisList1.setEnabled(true);
-        layerPane.add(glyphPanel, new Integer(1), 0);
+        if (checkStarGlyph.isSelected()) {
+            Constantes.setShowGlyph(true);
+            if (glyphPanel == null) {
+                glyphPanel = new GlassPanel();
+                glyphPanel.setTMView(view);
+
+                layerPane.add(glyphPanel, new Integer(1), 0);
+            }
+            listaAtributosStarGlyph1.setEnabled(true);
+        } else {
+            limparCacheGlyphs();
+        }
     }//GEN-LAST:event_checkStarGlyphActionPerformed
 
-    private void removerVarVisualButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerVarVisualButton2ActionPerformed
+    private void removerAtributoStarGlyphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerAtributoStarGlyphButtonActionPerformed
         List<Object> newListaAtribTreemap = new ArrayList<>();
         List<Object> atributos = new ArrayList<>();
 
@@ -1389,6 +1395,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             atributos.add(elementAt);
         }
         atributos.addAll(listaAtributosStarGlyph2.getSelectedValuesList());
+        atributos.sort(null);
         reloadListGUI(atributos.toArray(), listaAtributosStarGlyph1);
 
         //remover o conteudo da lista de hierarquia treemap
@@ -1403,10 +1410,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         if (listaAtributosStarGlyph2.getModel().getSize() == 0) {
             listaAtributosStarGlyph2.setEnabled(false);
+            botaoGerarStarGlyphs.setEnabled(false);
+        } else {
+            botaoGerarStarGlyphs.setEnabled(true);
         }
-    }//GEN-LAST:event_removerVarVisualButton2ActionPerformed
+    }//GEN-LAST:event_removerAtributoStarGlyphButtonActionPerformed
 
-    private void inserirVarVisualButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirVarVisualButton2ActionPerformed
+    private void inserirAtributoStarGlyphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirAtributoStarGlyphButtonActionPerformed
         List<Object> newListaVarVisuais = new ArrayList<>();
         List<Object> atributosEscolhidos = new ArrayList<>();
         for (int i = 0; i < listaAtributosStarGlyph2.getModel().getSize(); i++) {
@@ -1426,52 +1436,53 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         }
         reloadListGUI(newListaVarVisuais.toArray(), listaAtributosStarGlyph1);
-
-    }//GEN-LAST:event_inserirVarVisualButton2ActionPerformed
+        botaoGerarStarGlyphs.setEnabled(true);
+    }//GEN-LAST:event_inserirAtributoStarGlyphButtonActionPerformed
 
     private void listaAtributosStarGlyph2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaAtributosStarGlyph2ValueChanged
         if (listaAtributosStarGlyph2.getSelectedValuesList().size() >= 1) {
-            removerVarVisualButton.setEnabled(true);
+            removerAtributoStarGlyphButton.setEnabled(true);
             if (listaAtributosStarGlyph2.getSelectedIndex() > 0) {
-                cimaButton.setEnabled(true);
+                cimaAtributoStarGlyphButton.setEnabled(true);
             } else {
-                cimaButton.setEnabled(false);
+                cimaAtributoStarGlyphButton.setEnabled(false);
             }
             if (listaAtributosStarGlyph2.getSelectedIndex() < listaAtributosStarGlyph2.getModel().getSize() - 1) {
-                baixoButton.setEnabled(true);
+                baixoAtributoStarGlyphButton.setEnabled(true);
             } else {
-                baixoButton.setEnabled(false);
+                baixoAtributoStarGlyphButton.setEnabled(false);
             }
         } else {
-            removerVarVisualButton.setEnabled(false);
-            cimaButton.setEnabled(false);
-            baixoButton.setEnabled(false);
+            removerAtributoStarGlyphButton.setEnabled(false);
+            cimaAtributoStarGlyphButton.setEnabled(false);
+            baixoAtributoStarGlyphButton.setEnabled(false);
         }
-        //        if (listaAtributos2.getModel().getSize() < 1) {
-        //            botaoGerarGlyphs.setEnabled(false);
-        //        }else{
-        //            botaoGerarGlyphs.setEnabled(true);
-        //        }
     }//GEN-LAST:event_listaAtributosStarGlyph2ValueChanged
 
     private void botaoGerarStarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarStarGlyphsActionPerformed
-        //acoes para configurar os glyphs   
-
-        manipulador = new ManipuladorArquivo();
-        manipulador.montarColunas(manipulador.getCabecalho(), manipulador.getTipos());
-        atributosContinuos = parseListModelString2Array(listaAtributosStarGlyph2.getModel());
-        String[] selectStar = {"star"};
         glyphPanel.setManipulador(manipulador);
-        glyphPanel.setVariaveisVisuaisEscolhidas(selectStar);
-        glyphPanel.setAtributosBaseEscolhidos(atributosContinuos);
 
+        glyphPanel.setStarGlyphActivated(checkStarGlyph.isSelected());
+        
+        variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
+        glyphPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
+        
+        atributosEscolhidosStarGlyph = parseListModelString2Array(listaAtributosStarGlyph2.getModel());
+        glyphPanel.setAtributosEscolhidosStarGlyph(atributosEscolhidosStarGlyph);
+        
         //Acoes para desenhar os glyphs
         glyphPanel.setBounds(painelEsquerda.getBounds());
+        glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());
+        ArrayList<Object> atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
+        glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
         glyphPanel.setVisible(true);
         glyphPanel.repaint();
+
+        atualizarLegendaGlyphs(atributosEscolhidosGlyph);
+        prepararLegendaStarGlyph(Arrays.asList(atributosEscolhidosStarGlyph));
     }//GEN-LAST:event_botaoGerarStarGlyphsActionPerformed
 
-    private void cimaButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaButton2ActionPerformed
+    private void cimaAtributoStarGlyphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaAtributoStarGlyphButtonActionPerformed
         List<String> novaLista = new ArrayList<>();
         int[] selectedValuesList = listaAtributosStarGlyph2.getSelectedIndices();
         for (int i = 0; i < listaAtributosStarGlyph2.getModel().getSize(); i++) {
@@ -1484,9 +1495,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         }
         reloadListGUI(novaLista.toArray(), listaAtributosStarGlyph2);
-    }//GEN-LAST:event_cimaButton2ActionPerformed
+    }//GEN-LAST:event_cimaAtributoStarGlyphButtonActionPerformed
 
-    private void baixoButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baixoButton2ActionPerformed
+    private void baixoAtributoStarGlyphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baixoAtributoStarGlyphButtonActionPerformed
         List<String> novaLista = new ArrayList<>(listaAtributosStarGlyph2.getModel().getSize());
         for (int i = 0; i < listaAtributosStarGlyph2.getModel().getSize(); i++) {
             novaLista.add(listaAtributosStarGlyph2.getModel().getElementAt(i));
@@ -1506,13 +1517,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         }
         reloadListGUI(novaLista.toArray(), listaAtributosStarGlyph2);
-    }//GEN-LAST:event_baixoButton2ActionPerformed
+    }//GEN-LAST:event_baixoAtributoStarGlyphButtonActionPerformed
 
     private void listaAtributosStarGlyph1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaAtributosStarGlyph1ValueChanged
         if (listaAtributosStarGlyph1.getSelectedValuesList().size() >= 1) {
-            inserirVarVisualButton2.setEnabled(true);
+            inserirAtributoStarGlyphButton.setEnabled(true);
         } else {
-            inserirVarVisualButton2.setEnabled(false);
+            inserirAtributoStarGlyphButton.setEnabled(false);
         }
     }//GEN-LAST:event_listaAtributosStarGlyph1ValueChanged
 
@@ -1581,18 +1592,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JComboBox<String> atributo3Glyph;
     private javax.swing.JComboBox<String> atributo4Glyph;
     private javax.swing.JComboBox<String> atributo5Glyph;
+    private javax.swing.JButton baixoAtributoStarGlyphButton;
     private javax.swing.JButton baixoBotao_treemap;
     private javax.swing.JButton baixoButton;
-    private javax.swing.JButton baixoButton2;
     private javax.swing.JButton botaoGerarGlyphs;
     private javax.swing.JButton botaoGerarStarGlyphs;
     private javax.swing.JButton botaoGerarVisualizacao;
-    private javax.swing.JCheckBox checkGlyph;
+    private javax.swing.JCheckBox checkLayeredGlyph;
     private javax.swing.JCheckBox checkLegenda;
     private javax.swing.JCheckBox checkStarGlyph;
+    private javax.swing.JButton cimaAtributoStarGlyphButton;
     private javax.swing.JButton cimaBotao_treemap;
     private javax.swing.JButton cimaButton;
-    private javax.swing.JButton cimaButton2;
     private javax.swing.JList<String> colunasDetalhesList1;
     private javax.swing.JList<String> colunasDetalhesList2;
     private javax.swing.JList<String> colunasHierarquicasList1;
@@ -1602,10 +1613,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JMenu decisionTreeMenu;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem fileMenuItem;
+    private javax.swing.JButton inserirAtributoStarGlyphButton;
     private javax.swing.JButton inserirBotao_detalhes;
     private javax.swing.JButton inserirBotao_treemap;
     private javax.swing.JButton inserirVarVisualButton;
-    private javax.swing.JButton inserirVarVisualButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1638,13 +1649,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JList<String> listaAtributosStarGlyph2;
     private javax.swing.JPanel painelDireita;
     private javax.swing.JPanel painelEsquerda;
-    private javax.swing.JTextPane painelLegenda;
     private javax.swing.JPanel painelLegendaVis;
+    private javax.swing.JTextPane painelStarGlyphLegenda;
     private javax.swing.JProgressBar progressoBarra;
+    private javax.swing.JButton removerAtributoStarGlyphButton;
     private javax.swing.JButton removerBotao_detalhes;
     private javax.swing.JButton removerBotao_treemap;
     private javax.swing.JButton removerVarVisualButton;
-    private javax.swing.JButton removerVarVisualButton2;
     private javax.swing.JComboBox<String> tamanhoTreemapComboBox;
     private javax.swing.JButton updateDetailsButton;
     private javax.swing.JList<String> varVisuaisList1;
@@ -1660,7 +1671,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private TMView view;
     private VisualizationsArea visualizationTreemap;
     private String[] variaveisVisuaisEscolhidas;
-    private String[] atributosContinuos;
+    private String[] atributosEscolhidosStarGlyph;
     private List<String> continuousAttributes;
     private List<String> categoricalAttributes;
     private ManipuladorArquivo manipulador;
@@ -1697,34 +1708,41 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             layerPane.remove(glyphPanel);
             glyphPanel = null;
 
-            varVisuaisList1.setEnabled(false);
-            varVisuaisList2.setEnabled(false);
-            Object[] vazio = {};
-            DefaultComboBoxModel emptyList = new DefaultComboBoxModel(vazio);
-            varVisuaisList2.setModel(emptyList);
-            varVisuaisList1.setModel(emptyList);
-            Object[] newList = new Object[5];
-            newList[0] = "Texture";
-            newList[1] = "Color";
-            newList[2] = "Shape";
-            newList[3] = "Letter";
-            newList[4] = "Number";
-            DefaultComboBoxModel model = new DefaultComboBoxModel(newList);
-            varVisuaisList1.setModel(model);
+            if (checkLayeredGlyph.isSelected()) {
+                checkLayeredGlyph.setSelected(false);
+                checkStarGlyph.setSelected(false);
+                varVisuaisList1.setEnabled(false);
+                varVisuaisList2.setEnabled(false);
+                Object[] vazio = {};
+                DefaultComboBoxModel emptyList = new DefaultComboBoxModel(vazio);
+                varVisuaisList2.setModel(emptyList);
+                varVisuaisList1.setModel(emptyList);
+                Object[] newList = new Object[5];
+                newList[0] = "Texture";
+                newList[1] = "Color";
+                newList[2] = "Shape";
+                newList[3] = "Letter";
+                newList[4] = "Number";
+                DefaultComboBoxModel model = new DefaultComboBoxModel(newList);
+                varVisuaisList1.setModel(model);
+                atributo1Glyph.setEnabled(false);
+                atributo2Glyph.setEnabled(false);
+                atributo3Glyph.setEnabled(false);
+                atributo4Glyph.setEnabled(false);
+                atributo5Glyph.setEnabled(false);
+            }
 
-            atributo1Glyph.setEnabled(false);
-            atributo2Glyph.setEnabled(false);
-            atributo3Glyph.setEnabled(false);
-            atributo4Glyph.setEnabled(false);
-            atributo5Glyph.setEnabled(false);
+            if (checkStarGlyph.isSelected()) {
+                checkStarGlyph.setSelected(false);
+                listaAtributosStarGlyph1.setEnabled(false);
+                listaAtributosStarGlyph2.setEnabled(false);
+                painelStarGlyphLegenda.removeAll();
+            }
 
             painelLegendaVis.removeAll();
             painelLegendaVis.repaint();
         }
-        if (checkGlyph.isSelected()) {
-            checkGlyph.setSelected(false);
-            checkStarGlyph.setSelected(false);
-        }
+
     }
 
     private void loadAtributosDetalhes() {
@@ -2011,7 +2029,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void loadItensStarGlyph(Object[] objs) {
         reloadListGUI(objs, listaAtributosStarGlyph1);
-        listaAtributosStarGlyph1.setEnabled(true);
     }
 
     private void loadItensCoresTreemap(Object[] objs) {
@@ -2140,12 +2157,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
     private void prepararLegendaStarGlyph(List<String> itensVariaveisStarGlyph) {
-        painelLegenda.setEditable(true);
-        painelLegenda.setText("");
+        painelStarGlyphLegenda.setEditable(true);
+        painelStarGlyphLegenda.setText("");
         for (int i = 0; i < itensVariaveisStarGlyph.size(); i++) {
-            appendToPane(painelLegenda, itensVariaveisStarGlyph.get(i) + "\n", Color.decode(Constantes.getCor()[i]));
+            appendToPane(painelStarGlyphLegenda, itensVariaveisStarGlyph.get(i) + "\n", Color.decode(Constantes.getCor()[i]));
         }
-        painelLegenda.setEditable(false);
+        painelStarGlyphLegenda.setEditable(false);
     }
 
     /**
