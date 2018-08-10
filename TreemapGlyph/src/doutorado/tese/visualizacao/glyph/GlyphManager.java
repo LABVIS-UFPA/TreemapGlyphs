@@ -148,67 +148,6 @@ public final class GlyphManager {
         }
     }
 
-    public void prepareDimension2DrawGlyph(TreeMapItem item) {
-//        double[] features = new double[15];
-//        limparGlyphsTreemapItem(item);
-//        features[Constantes.FEATURE_LARGURA] = item.getBounds().width;
-//        features[Constantes.FEATURE_ALTURA] = item.getBounds().height;
-//        features[Constantes.PRESENCA_COR_TREEMAP] = item.getColor().equals(Constantes.ALICE_BLUE) ? Constantes.AUSENTE : Constantes.PRESENTE;
-//        features[Constantes.FEATURE_AREA] = features[Constantes.FEATURE_LARGURA] * features[Constantes.FEATURE_ALTURA];
-//
-//        double aspect = features[Constantes.FEATURE_ALTURA] > features[Constantes.FEATURE_LARGURA]
-//                ? features[Constantes.FEATURE_LARGURA] / features[Constantes.FEATURE_ALTURA]
-//                : features[Constantes.FEATURE_ALTURA] / features[Constantes.FEATURE_LARGURA];
-//
-//        features[Constantes.FEATURE_ASPECT] = aspect;
-//        for (int dimensao = 0; dimensao < atributosEscolhidos.size(); dimensao++) {
-//            String colunaEscolhida = atributosEscolhidos.get(dimensao).toString();
-//            Coluna col = ManipuladorArquivo.getColuna(colunaEscolhida);
-//            List<String> dadosDistintos = colunaDadosDist.get(colunaEscolhida);
-//            if (atributosEscolhidos.get(dimensao).equals("---")) {
-//                dadosDistintos = null;
-//            }
-//            switch (dimensao) {
-//                case 0:
-//                    features[Constantes.AREA_TEXTURA] = dadosDistintos != null ? prepareDimensaoTextura(col, item, dadosDistintos)
-//                            : prepareTextura(item.getBounds(), Constantes.TIPO_TEXTURA[0], null);
-//                    features[Constantes.PRESENCA_TEXTURA] = Constantes.PRESENTE;
-//                    break;
-//                case 1:
-//                    features[Constantes.AREA_CIRCULO_COLORIDO] = dadosDistintos != null ? prepareSegundaDimensao(col, item, dadosDistintos)
-//                            : prepareCorForma(item.getBounds(), Color.decode(Constantes.getCorGlyphs()[0]), null);
-//                    features[Constantes.PRESENCA_COR_FORMA] = Constantes.PRESENTE;
-//                    break;
-//                case 2:
-//                    features[Constantes.AREA_SHAPE] = dadosDistintos != null ? prepareTerceiraDimensao(col, item, dadosDistintos)
-//                            : prepareFormaGeometrica(item.getBounds(), GeometryFactory.FORMAS.GLYPH_FORMAS.values()[0], null);
-//                    features[Constantes.PRESENCA_FORMA] = Constantes.PRESENTE;
-//                    break;
-//                case 3:
-//                    if (!atributosEscolhidos.get(dimensao).equals("---")) {
-//                        dimensao4Ativada = true;
-//                        letraUtilizada = "";
-//                    }
-//                    features[Constantes.AREA_LETRA] = dadosDistintos != null ? prepareQuartaDimensao(col, item, dadosDistintos)
-//                            : prepareLetrasAlfabeto(item.getBounds(), Constantes.LETRAS_ALFABETO[0], null);
-//                    features[Constantes.PRESENCA_LETRA] = Constantes.PRESENTE;
-//                    break;
-//                case 4:
-//                    features[Constantes.AREA_NUMERO] = dadosDistintos != null ? prepareQuintaDimensao(col, item, dadosDistintos)
-//                            : prepareNumeros(item.getBounds(), Constantes.NUMEROS[0], null);
-//                    features[Constantes.PRESENCA_NUMERO] = Constantes.PRESENTE;
-//                    break;
-//                default:
-//                    System.err.println("Nao foi possível calcular a dimensão.");
-//            }
-//        }
-//        item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = DecisionTreeClassifier.predict(features)[0];
-//        item.getWhat2Draw()[Constantes.PRESENCA_COR_FORMA] = DecisionTreeClassifier.predict(features)[1];
-//        item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = DecisionTreeClassifier.predict(features)[2];
-//        item.getWhat2Draw()[Constantes.PRESENCA_LETRA] = DecisionTreeClassifier.predict(features)[3];
-//        item.getWhat2Draw()[Constantes.PRESENCA_NUMERO] = DecisionTreeClassifier.predict(features)[4];
-    }
-
     private double[] getFeatures(TreeMapItem item, double[] features) {
         limparGlyphsTreemapItem(item);
         features[Constantes.FEATURE_LARGURA] = item.getBounds().width;
@@ -266,12 +205,6 @@ public final class GlyphManager {
             int dimensao = mapearVarVisual2Dimensao(varVisual);
             Glyph child = setLayerInGlyph(varVisual, item, dimensao);
             father.appendChild(child);
-//            ArrayList<Glyph> list = new ArrayList<>();
-//            father.getChildren(list);
-//            if (father.child.getClass().getSimpleName().equals("Textura")) {
-//                System.out.println("Cor Textura: "+((Textura) father.child).getCor());
-//            }
-//            System.out.println(list.toString());
         }
         if (getVariaveisVisuaisEscolhidas()[0].equals("star")) {
             Glyph child = setLayerInGlyph("Star", item, -1);
@@ -388,19 +321,6 @@ public final class GlyphManager {
         return null;
     }
 
-    // acionarStarGlyph(List<String> variaveisStarGlyph)
-//    public Glyph prepareDimensaoStarGlyphDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-//         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
-//            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-//                Glyph shape = defineShape(doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j]);
-//                shape.setNodeTreemap(item);
-//                return ;
-//            }
-//        }
-//        return null;
-//        
-//    }
-//    
     public Glyph prepareDimensaoLetterDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.LETRAS_ALFABETO.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {

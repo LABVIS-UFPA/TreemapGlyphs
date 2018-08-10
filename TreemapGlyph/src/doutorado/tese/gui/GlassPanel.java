@@ -70,21 +70,23 @@ public class GlassPanel extends JPanel {
             @Override
             public void onDrawFinished(String text) {
                 logger.info("Acionando onDrawFinished()", text);
-'
-        glyphManager.setRootNodeZoom(view.getRootAnderson());
+
+                glyphManager.setRootNodeZoom(view.getRootAnderson());
                 logger.info("Acionando prepare2Draw() a partir do onDrawFinished() - Root: " + glyphManager.getRootNodeZoom());
                 glyphManager.prepare2Draw();//chamado para redesenhar os glyphs no drill-down
             }
         });
     }
-    
+
     public void setAtributosBaseEscolhidos(String[] atributosBaseEscolhidos) {
         this.atributosBaseEscolhidos = atributosBaseEscolhidos;
     }
-/**
- * usado apenas no starglyph
- * @param atributosEscolhidos 
- */
+
+    /**
+     * usado apenas no starglyph
+     *
+     * @param atributosEscolhidos
+     */
 //    public void setAtributosContinuos(List<Object> atributosEscolhidos) {
 //        glyphManager = new GlyphManager(getManipulador(), atributosEscolhidos, view.getBounds());
 //        glyphManager.setUseDecisionTree(decisioTree);
@@ -128,19 +130,19 @@ public class GlassPanel extends JPanel {
 //            glyphManager.setPerctOverlap(quantOlverlap);
             glyphManager.setAtributosBaseEscolhidos(atributosBaseEscolhidos);
             glyphManager.configLayers(itemTreemap);
-            
+
             if (itemTreemap.isPossuiGlyphResposta()) {
                 getGabarito().add(itemTreemap);
             }
         }
         return getGabarito();
     }
-    
+
     public void setGlyphOverlappingModel(boolean overlappingActivated) {
         this.overlappingActivated = overlappingActivated;
         glyphManager.configGlyphDesingModel(this.overlappingActivated);
     }
-    
+
     public boolean getGlyphOverlappingModel() {
         return overlappingActivated;
     }
