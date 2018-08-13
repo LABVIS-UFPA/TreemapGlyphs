@@ -846,8 +846,8 @@
                 <Container class="javax.swing.JPanel" name="abaStarGlyphs">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="StarGlyph">
-                        <Property name="tabTitle" type="java.lang.String" value="StarGlyph"/>
+                      <JTabbedPaneConstraints tabName="Glyph Continuo">
+                        <Property name="tabTitle" type="java.lang.String" value="Glyph Continuo"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -856,27 +856,28 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="checkStarGlyph" min="-2" pref="90" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="207" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                       <Component id="jScrollPane10" min="-2" pref="180" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="botaoGerarStarGlyphs" max="32767" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="botaoGerarStarGlyphs" pref="99" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jScrollPane11" pref="98" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="continuosSelect" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jScrollPane11" pref="0" max="32767" attributes="0"/>
+                                          <Component id="checkStarGlyph" alignment="1" max="32767" attributes="0"/>
+                                      </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="removerAtributoStarGlyphButton" min="-2" pref="43" max="-2" attributes="0"/>
-                                          <Component id="inserirAtributoStarGlyphButton" pref="0" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="inserirAtributoStarGlyphButton" min="-2" pref="43" max="-2" attributes="0"/>
+                                          <Component id="removerAtributoStarGlyphButton" alignment="1" min="-2" pref="43" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jScrollPane9" min="-2" pref="96" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="cimaAtributoStarGlyphButton" min="-2" pref="42" max="-2" attributes="0"/>
                                           <Component id="baixoAtributoStarGlyphButton" min="-2" pref="42" max="-2" attributes="0"/>
@@ -893,24 +894,30 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="checkStarGlyph" min="-2" pref="23" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="continuosSelect" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="inserirAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="removerAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Component id="jScrollPane9" min="-2" pref="90" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="cimaAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="baixoAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
                                   <Component id="jScrollPane11" min="-2" pref="91" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="cimaAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                      <Component id="baixoAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="inserirAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                      <Component id="removerAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jScrollPane9" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane10" min="-2" pref="82" max="-2" attributes="0"/>
                                   <Component id="botaoGerarStarGlyphs" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane10" min="-2" pref="116" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -920,7 +927,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JCheckBox" name="checkStarGlyph">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Star Glyph"/>
+                        <Property name="text" type="java.lang.String" value="Glyph Continuo"/>
                         <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
@@ -1046,6 +1053,23 @@
                         </Component>
                       </SubComponents>
                     </Container>
+                    <Component class="javax.swing.JComboBox" name="continuosSelect">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Star&quot;,&quot;Pie&quot;,&quot;Bar&quot; })" type="code"/>
+                        </Property>
+                        <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="false" type="code"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="continuosSelectItemStateChanged"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="continuosSelectActionPerformed"/>
+                      </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                      </AuxValues>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="abaDetalhes">

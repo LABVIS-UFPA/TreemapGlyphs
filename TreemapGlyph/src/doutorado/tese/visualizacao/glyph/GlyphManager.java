@@ -56,6 +56,7 @@ public final class GlyphManager {
     private boolean starGlyphActivated;
     private String numeroUtilizado;
     private List<String> atributosEscolhidosStarGlyph;
+    private String[] glyphContinuoEscolhido;
 
     public GlyphManager() {
         this.configs = new HashMap<>();
@@ -87,6 +88,9 @@ public final class GlyphManager {
 
     public void prepare2Draw() {
         if (getRootNodeZoom() != null) {
+//            System.out.println("getRootNodeZoom() =  "+getRootNodeZoom().getRoot().getTitle()+
+//            System.out.println("getRootNodeZoom() =  "+getRootNodeZoom().getRoot().getTitle()+
+
 //            System.out.println("getRootNodeZoom() =  "+getRootNodeZoom().getRoot().getTitle()+
 //            "\tbounds: "+getRootNodeZoom().getRoot().getArea().toString());
             prepareGlyphsInTreeMapItems(getRootNodeZoom().getRoot());
@@ -187,11 +191,9 @@ public final class GlyphManager {
     public TreeMapItem configLayers(TreeMapItem item) {
         Glyph father = item.getGlyph();
         father.killAllChild();
-//        for (String varVisual : getVariaveisVisuaisEscolhidas()) {
-//            int dimensao = mapearVarVisual2Dimensao(varVisual);
-//            Glyph child = setLayerInGlyph(varVisual, item, dimensao);
-//            father.appendChild(child);
-//        }
+        String[] glyphContinuo = getGlyphContinuoEscolhido();
+        //System.out.println("+"+glyphContinuo[0]);
+      
         for (int i = 0; i < getVariaveisVisuaisEscolhidas().length; i++) {
             String varVisual = getVariaveisVisuaisEscolhidas()[i];
             int dimensao = mapearVarVisual2Dimensao(varVisual);
@@ -199,13 +201,13 @@ public final class GlyphManager {
             father.appendChild(child);
             if (i == getVariaveisVisuaisEscolhidas().length - 1) {//se ja estiver na ultima camada
                 if (starGlyphActivated) {
-                    Glyph childStarGlyph = setLayerInGlyph("Star", item, -1);
+                    Glyph childStarGlyph = setLayerInGlyph(glyphContinuo[0], item, -1);
                     father.appendChild(childStarGlyph);
                 }
             }
         }
         if (getVariaveisVisuaisEscolhidas().length == 0) {
-            Glyph childStarGlyph = setLayerInGlyph("Star", item, -1);
+            Glyph childStarGlyph = setLayerInGlyph(glyphContinuo[0], item, -1);
             father.appendChild(childStarGlyph);
         }
         father.setBounds(father.getBounds());
@@ -248,6 +250,12 @@ public final class GlyphManager {
                 break;
             case "Star":
                 glyph = configureStarGlyph(item);
+                break;
+            case "Bar":
+                System.out.println("barchart");
+                break;
+            case "Pie":
+                System.out.println("pie chart");
                 break;
             default:
                 System.out.println("error ");
@@ -442,6 +450,14 @@ public final class GlyphManager {
 //        System.out.println("Root Node Zoom: "+this.rootNodeZoom.getRoot().getTitle());
     }
 
+    public String[] getGlyphContinuoEscolhido() {
+        return glyphContinuoEscolhido;
+    }
+
+    public void setGlyphContinuoEscolhido(String[] glyphContinuoEscolhido) {
+        this.glyphContinuoEscolhido = glyphContinuoEscolhido;
+    }
+    
     /**
      * @return the variaveisVisuaisEscolhidas
      */

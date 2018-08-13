@@ -37,6 +37,7 @@ public class GlassPanel extends JPanel {
     private boolean decisioTree;
     private boolean starGlyphActivated;
     private String[] variaveisVisuaisEscolhidas;
+    private String[] glyphContinuoEscolhido;
     private ArrayList<TreeMapItem> gabarito;
     private float quantOlverlap;
     private int quantValoresVarVisuais;
@@ -109,6 +110,7 @@ public class GlassPanel extends JPanel {
      */
     public ArrayList<TreeMapItem> setCofigItensGrid() {
         gabarito = new ArrayList();
+        glyphManager. setGlyphContinuoEscolhido(getGlyphContinuoEscolhido());
         glyphManager.setVariaveisVisuaisEscolhidas(getVariaveisVisuaisEscolhidas());
         glyphManager.setQuantValoresVarVisuais(quantValoresVarVisuais);
 
@@ -178,6 +180,16 @@ public class GlassPanel extends JPanel {
     public void setVariaveisVisuaisEscolhidas(String[] variaveisVisuaisEscolhidas) {
         this.variaveisVisuaisEscolhidas = variaveisVisuaisEscolhidas;
     }
+
+    public String[] getGlyphContinuoEscolhido() {
+        return glyphContinuoEscolhido;
+    }
+
+    public void setGlyphContinuoEscolhido(String[] glyphContinuoEscolhido) {
+        this.glyphContinuoEscolhido = glyphContinuoEscolhido;
+    }
+    
+    
 
     /**
      * @return the gabarito

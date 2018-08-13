@@ -138,6 +138,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         baixoAtributoStarGlyphButton = new javax.swing.JButton();
         jScrollPane11 = new javax.swing.JScrollPane();
         listaAtributosStarGlyph1 = new javax.swing.JList<>();
+        continuosSelect = new javax.swing.JComboBox<>();
         abaDetalhes = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -616,7 +617,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         jTabbedPane1.addTab("Config Glyphs", abaConfigGlyphs);
 
-        checkStarGlyph.setText("Star Glyph");
+        checkStarGlyph.setText("Glyph Continuo");
         checkStarGlyph.setEnabled(false);
         checkStarGlyph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -685,29 +686,43 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         });
         jScrollPane11.setViewportView(listaAtributosStarGlyph1);
 
+        continuosSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Star","Pie","Bar" }));
+        continuosSelect.setEnabled(false);
+        continuosSelect.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                continuosSelectItemStateChanged(evt);
+            }
+        });
+        continuosSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                continuosSelectActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout abaStarGlyphsLayout = new javax.swing.GroupLayout(abaStarGlyphs);
         abaStarGlyphs.setLayout(abaStarGlyphsLayout);
         abaStarGlyphsLayout.setHorizontalGroup(
             abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaStarGlyphsLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
                 .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(abaStarGlyphsLayout.createSequentialGroup()
-                        .addComponent(checkStarGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 207, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaStarGlyphsLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
                         .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoGerarStarGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(botaoGerarStarGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaStarGlyphsLayout.createSequentialGroup()
-                        .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                        .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(continuosSelect, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(checkStarGlyph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(removerAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inserirAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inserirAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(removerAtributoStarGlyphButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(2, 2, 2)
                         .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -719,25 +734,29 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addContainerGap()
                 .addComponent(checkStarGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(continuosSelect)
+                .addGap(10, 10, 10)
                 .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(abaStarGlyphsLayout.createSequentialGroup()
-                        .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(abaStarGlyphsLayout.createSequentialGroup()
-                        .addComponent(inserirAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(removerAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaStarGlyphsLayout.createSequentialGroup()
+                            .addComponent(inserirAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(removerAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(abaStarGlyphsLayout.createSequentialGroup()
+                                .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoGerarStarGlyphs)
-                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoGerarStarGlyphs))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("StarGlyph", abaStarGlyphs);
+        jTabbedPane1.addTab("Glyph Continuo", abaStarGlyphs);
 
         jLabel6.setText("Available Attributes:");
 
@@ -972,10 +991,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
         //acoes para configurar os glyphs
+        
         variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
         glyphPanel.setManipulador(manipulador);
         glyphPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
-
+        glyphPanel.setGlyphContinuoEscolhido(atributosEscolhidosStarGlyph);
         //Acoes para desenhar os glyphs
         glyphPanel.setBounds(painelEsquerda.getBounds());
         glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());
@@ -1374,6 +1394,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void checkStarGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkStarGlyphActionPerformed
         if (checkStarGlyph.isSelected()) {
             Constantes.setShowGlyph(true);
+            continuosSelect.setEnabled(true);
             if (glyphPanel == null) {
                 glyphPanel = new GlassPanel();
                 glyphPanel.setTMView(view);
@@ -1461,12 +1482,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void botaoGerarStarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarStarGlyphsActionPerformed
         glyphPanel.setManipulador(manipulador);
-
         glyphPanel.setStarGlyphActivated(checkStarGlyph.isSelected());
-        
+      
+        glyphPanel.setGlyphContinuoEscolhido(getEscolhidosGlyph());
         variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
         glyphPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
-        
         atributosEscolhidosStarGlyph = parseListModelString2Array(listaAtributosStarGlyph2.getModel());
         glyphPanel.setAtributosEscolhidosStarGlyph(atributosEscolhidosStarGlyph);
         
@@ -1535,6 +1555,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         // TODO add your handling code here:
     }//GEN-LAST:event_atributo2GlyphActionPerformed
 
+    private void continuosSelectItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_continuosSelectItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_continuosSelectItemStateChanged
+
+    private void continuosSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continuosSelectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_continuosSelectActionPerformed
+
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
 
         ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
@@ -1546,7 +1574,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         return atributosEscolhidosGlyph;
     }
+    
+    private String[] getEscolhidosGlyph() {
+        String[] atributosEscolhidosGlyph = new String[1];
+        atributosEscolhidosGlyph[0] = (String) continuosSelect.getSelectedItem();
 
+        return atributosEscolhidosGlyph;
+    }
     /**
      * @param args the command line arguments
      */
@@ -1608,6 +1642,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JList<String> colunasDetalhesList2;
     private javax.swing.JList<String> colunasHierarquicasList1;
     private javax.swing.JList<String> colunasHierarquicasList2;
+    private javax.swing.JComboBox<String> continuosSelect;
     private javax.swing.JComboBox<String> corTreemapComboBox;
     private javax.swing.JCheckBoxMenuItem decisionTreeActivate;
     private javax.swing.JMenu decisionTreeMenu;
@@ -1672,6 +1707,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private VisualizationsArea visualizationTreemap;
     private String[] variaveisVisuaisEscolhidas;
     private String[] atributosEscolhidosStarGlyph;
+    private String[] selectContinuos;
     private List<String> continuousAttributes;
     private List<String> categoricalAttributes;
     private ManipuladorArquivo manipulador;

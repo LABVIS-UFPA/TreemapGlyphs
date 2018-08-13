@@ -5,41 +5,72 @@
  */
 package doutorado.tese.visualizacao.glyph.decorator.starglyph;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.geom.Arc2D;
 
 /**
  *
  * @author Anderson Soares
  */
-public class EixoPolarStarGlyph {
 
+
+
+public class Chart {
+  
+  class Slice {
+  double value;
+  Color color;
+
+  public Slice(double value) {
+    this.value = value;
+  
+  }
+} 
     private double[] pontos;
     private Rectangle rect;
     private Point center;
     private double dadoMaxVal;
     private double dado;
 
-    public EixoPolarStarGlyph(double dado, double dadoMaxVal) {
+    public Chart(double dado, double dadoMaxVal) {
         this.dado = dado;
         this.dadoMaxVal = dadoMaxVal;
     }
-
+    
     public void paint(Graphics2D g2d) {
-        desenharEixoPolar(g2d);
+        desenharPieChart(g2d);
     }
-
-    private void desenharEixoPolar(Graphics g) {
-//        double[] pontos = parsePolar2Cartesiana(anguloAlfa, r);
+    
+    private void desenharPieChart(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g.drawLine(definePolo(getCenter()).x, definePolo(getCenter()).y,
-                (int) Math.round(getPontos()[0] + getCenter().x + getRect().x), (int) Math.round(getPontos()[1] + getCenter().y + getRect().y));
+        Slice[] slices = {new Slice(this.dado)};
+        
+        double total = 0.0D;
+        for (int i = 0; i < slices.length; i++) {
+            total += slices[i].value;
+        }
+
+        double curValue = 0.0D;
+        int startAngle = 0;
+        for (int i = 0; i < slices.length; i++) {
+            startAngle = (int) (curValue * 360 / total);
+            int arcAngle = (int) (slices[i].value * 360 / this.dadoMaxVal);
+
+            g.setColor(slices[i].color);
+            g2.fill(new Arc2D.Double(rect.x + rect.width / 4, rect.y + rect.height / 4, rect.width / 2, rect.height / 2, startAngle,arcAngle, Arc2D.PIE));
+            //g.fillArc(rect.x + rect.width / 4, rect.y + rect.height / 4, rect.width / 2, rect.height / 2, startAngle, arcAngle);
+            curValue += slices[i].value;
+
+        }
+
     }
 
     public Point definePolo(Point ponto) {
@@ -89,7 +120,7 @@ public class EixoPolarStarGlyph {
     public void setRect(Rectangle rect) {
         this.rect = rect;
     }
-
+    
     /**
      * @return the dado
      */
@@ -117,5 +148,5 @@ public class EixoPolarStarGlyph {
     public void setDadoMaxVal(double dadoMaxVal) {
         this.dadoMaxVal = dadoMaxVal;
     }
-
+    
 }
