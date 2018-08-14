@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.visualizacao.glyph.decorator.starglyph;
+package glyph.starglyph;
 
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Constantes;
@@ -22,7 +22,8 @@ import java.util.List;
  *
  * @author Anderson
  */
-public class PieChart extends Glyph {
+public class StarGlyph extends Glyph {
+
     private Rectangle rect;
     private int quantVar;
     private double r;
@@ -34,12 +35,10 @@ public class PieChart extends Glyph {
     private int maiorRaio;
     private EixoPolarStarGlyph[] eixosPolares;
     private Point center;
-    private int distancia;
 
-    public PieChart(List<String> variaveisEscolhidasStarGlyph) {
+    public StarGlyph(List<String> variaveisEscolhidasStarGlyph) {
         this.atributosEscolhidaoBase = variaveisEscolhidasStarGlyph;
-        Bar[] Chart = new Bar[this.atributosEscolhidaoBase.size()];
-       
+        eixosPolares = new EixoPolarStarGlyph[this.atributosEscolhidaoBase.size()];
     }
 
     /**
@@ -60,16 +59,14 @@ public class PieChart extends Glyph {
 
     @Override
     public void setBounds(Rectangle rect) {
-        setDistancia();
-                
         this.rect = rect;
-        this.rect.x += rect.x + 2+ getDistancia();
-        this.rect.y += rect.y + 2+ getDistancia();
+        this.rect.x = rect.x + 2;
+        this.rect.y = rect.y + 2;
         this.rect.width = rect.width - 2;
         this.rect.height = rect.height - 2;
 
         center = getCenter();
-        //maiorRaio = encontrarMaiorRaio();
+        maiorRaio = encontrarMaiorRaio();
         
         anguloAcc = 360 / getQuantVar();
         anguloAlfa = 0;
@@ -78,7 +75,7 @@ public class PieChart extends Glyph {
             eixosPolares[i].setCenter(center);
             porcentagemDado = calcularPorcentagemDado(eixosPolares[i].getDado(), eixosPolares[i].getDadoMaxVal());
             r = calcularPorcentagemParaR(porcentagemDado, maiorRaio);
-            //eixosPolares[i].setPontos(parsePolar2Cartesiana(anguloAlfa, r));
+            eixosPolares[i].setPontos(parsePolar2Cartesiana(anguloAlfa, r));
             anguloAlfa += anguloAcc;
         }
         super.setBounds(this.rect);
@@ -87,6 +84,8 @@ public class PieChart extends Glyph {
     @Override
     public void paint(Graphics2D g2d) {
         if (getQuantVar() != 0) {
+//            anguloAcc = 360 / getQuantVar();
+//            anguloAlfa = 0;
             for (int i = 0; i < getQuantVar(); i++) {
                 g2d.setColor(Color.decode(Constantes.getCor()[i]));
                 getEixosPolares()[i].paint(g2d);
@@ -95,16 +94,6 @@ public class PieChart extends Glyph {
         }
     }
 
-    public int getDistancia() {
-        return distancia  ;
-    }
-
-    public void setDistancia(){
-        this.distancia = (int) (this.rect.width*0.3);
-    }
-
-    
-    
     private Point getCenter() {
         int width = (int) Math.round(rect.width) - 1;
         int height = (int) Math.round(rect.height) - 1;
@@ -113,7 +102,42 @@ public class PieChart extends Glyph {
         int halfHeight = height / 2;
         return new Point(halfWidth, halfHeight);
     }
-    
+
+    private int encontrarMaiorRaio() {
+        int bordaW = (int) Math.round(rect.width) - 2;
+        int bordaH = (int) Math.round(rect.height) - 2;
+
+        int raio = center.x - bordaW;
+        int mRaio = raio;
+        raio = center.y - bordaH;
+
+        if (raio >= mRaio) {
+            return raio;
+        } else {
+            return mRaio;
+        }
+    }
+
+    public double[] parsePolar2Cartesiana(double anguloAlfa, double r) {
+        double pontoX = r * Math.cos(Math.toRadians(anguloAlfa));
+        double pontoY = r * Math.sin(Math.toRadians(anguloAlfa));
+//        System.out.println("X: " + pontoX + " Y: " + pontoY);
+        return new double[]{pontoX, pontoY};
+    }
+
+    public void parseCartesiana2Polar(double x, double y) {
+        r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+        anguloAlfa = Math.tan(x / y);
+
+        if (x < 0 && y < 0) {
+            anguloAlfa += 180;
+        } else if (x > 0 && y < 0) {
+            anguloAlfa -= 360;
+        } else if (x < 0 && y > 0) {
+            anguloAlfa -= 180;
+        }
+    }
+
     public int getQuantVar() {
         return quantVar;
     }
@@ -155,7 +179,7 @@ public class PieChart extends Glyph {
 
     @Override
     public String getVarValue() {
-        return "PieChart - teste";
+        return "StarGLyph - teste";
     }
 
     /**

@@ -84,14 +84,22 @@ public class StarGlyph extends Glyph {
     @Override
     public void paint(Graphics2D g2d) {
         if (getQuantVar() != 0) {
-//            anguloAcc = 360 / getQuantVar();
-//            anguloAlfa = 0;
             for (int i = 0; i < getQuantVar(); i++) {
                 g2d.setColor(Color.decode(Constantes.getCor()[i]));
                 getEixosPolares()[i].paint(g2d);
 //                anguloAlfa += anguloAcc;
             }
         }
+
+//        if (getQuantVar() != 0) {
+////            anguloAcc = 360 / getQuantVar();
+////            anguloAlfa = 0;
+//            for (int i = 0; i < getQuantVar(); i++) {
+//                g2d.setColor(Color.decode(Constantes.getCor()[i]));
+//                getEixosPolares()[i].paint(g2d);
+////                anguloAlfa += anguloAcc;
+//            } 
+//       }
     }
 
     private Point getCenter() {

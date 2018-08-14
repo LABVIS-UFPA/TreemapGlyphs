@@ -10,6 +10,8 @@ import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.util.Metadados;
+import doutorado.tese.visualizacao.glyph.decorator.starglyph.Bar;
+import doutorado.tese.visualizacao.glyph.decorator.starglyph.BarChart;
 import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.color.Cor;
 import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.letters.Letra;
 import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.numbers.Numeral;
@@ -252,7 +254,7 @@ public final class GlyphManager {
                 glyph = configureStarGlyph(item);
                 break;
             case "Bar":
-                System.out.println("barchart");
+                glyph = configureBarGlyph(item);
                 break;
             case "Pie":
                 System.out.println("pie chart");
@@ -263,7 +265,22 @@ public final class GlyphManager {
         }
         return glyph;
     }
-
+   
+   private Glyph configureBarGlyph(TreeMapItem item) {
+        BarChart bar = new BarChart(getAtributosEscolhidosStarGlyph());
+        bar.setQuantVar(getAtributosEscolhidosStarGlyph().size());
+        bar.setPectSobreposicao(0.85f);
+        bar.setOverlappingActivated(true);
+        for (int i = 0; i < getAtributosEscolhidosStarGlyph().size(); i++) {
+            String nomeColunaEscolhida = getAtributosEscolhidosStarGlyph().get(i);
+            Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
+            double dado = Double.parseDouble(item.getMapaDetalhesItem().get(coluna));
+            double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
+            bar.getBarras()[i] = new Bar(dado, dadoMaxVal);
+        }
+        return bar;
+    }
+   
     private Glyph configureStarGlyph(TreeMapItem item) {
         StarGlyph starGlyph = new StarGlyph(getAtributosEscolhidosStarGlyph());
         starGlyph.setQuantVar(getAtributosEscolhidosStarGlyph().size());

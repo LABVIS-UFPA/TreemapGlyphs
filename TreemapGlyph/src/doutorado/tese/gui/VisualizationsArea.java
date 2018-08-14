@@ -10,7 +10,6 @@ import doutorado.tese.visualizacao.treemap.treemapAPI.TMModel_Size;
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Coluna;
 import doutorado.tese.util.Constantes;
-import doutorado.tese.visualizacao.glyph.StarGlyph;
 import doutorado.tese.visualizacao.treemap.Rect;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import doutorado.tese.visualizacao.treemap.TreeMapLevel;
@@ -54,7 +53,7 @@ public class VisualizationsArea {
     private TMModel_Draw cDraw = null;
     private TMModel_Size cSize = null;
     //Star Glyph
-    private StarGlyph[] starGlyphs;
+//    private StarGlyph[] starGlyphs;
     private String itemCor;
     private String[] colunasDetalhesDemanda;
 
@@ -109,13 +108,13 @@ public class VisualizationsArea {
     }
 
     public void acionarStarGlyph(List<String> variaveisStarGlyph) {
-        for (int i = 0; i < manipulador.getItensTreemap().length; i++) {//manipulador.getItensTreemap().length
-            StarGlyph starGlyph = new StarGlyph(manipulador.getItensTreemap()[i].getBounds(), variaveisStarGlyph);
-            starGlyph.setQuantVar(variaveisStarGlyph.size());
-            starGlyph.setManipulador(manipulador);
-            starGlyph.setVisible(true);
-            this.view.add(starGlyph);
-        }
+//        for (int i = 0; i < manipulador.getItensTreemap().length; i++) {//manipulador.getItensTreemap().length
+////            StarGlyph starGlyph = new StarGlyph(manipulador.getItensTreemap()[i].getBounds(), variaveisStarGlyph);
+//            starGlyph.setQuantVar(variaveisStarGlyph.size());
+//            starGlyph.setManipulador(manipulador);
+//            starGlyph.setVisible(true);
+//            this.view.add(starGlyph);
+//        }
     }
 
     public void getRootBoundsFromView(String t) {

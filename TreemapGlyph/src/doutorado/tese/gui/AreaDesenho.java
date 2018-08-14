@@ -8,7 +8,6 @@ package doutorado.tese.gui;
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.Estrela;
-import doutorado.tese.visualizacao.glyph.StarGlyph;
 import doutorado.tese.visualizacao.treemap.TreeMapLevel;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -31,7 +30,7 @@ public class AreaDesenho extends JLabel {
     private int[] dadosTamanho;
     private String[] dadosLegenda;
     private Estrela[] estrelas;
-    private StarGlyph[] starGlyphs;
+//    private StarGlyph[] starGlyphs;
     Treemap treemap;
 //    TreeMapLayout squarifier;
     ManipuladorArquivo manipulador;
@@ -65,16 +64,16 @@ public class AreaDesenho extends JLabel {
 //
 //        TreeMapNode[] items = treemapLevel.getItemsFilhos();
 //        estrelas = new Estrela[treemap.getRoot().getItemsFilhos().size()];
-        starGlyphs = new StarGlyph[manipulador.getItensTreemap().length];
-        for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
-//            estrelas[i] = new Estrela(treemap.getRoot().getItemsFilhos().get(i).getBounds());
-            StarGlyph starGlyph = new StarGlyph(manipulador.getItensTreemap()[i].getBounds(), variaveisStarGlyph);
-            starGlyph.setQuantVar(getQuantVarStarGlyph());
-            starGlyph.setManipulador(manipulador);
-            starGlyphs[i] = starGlyph;
-        }
-        setBounds(0, 0, w, h);
-        setVisible(true);
+//        starGlyphs = new StarGlyph[manipulador.getItensTreemap().length];
+//        for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
+////            estrelas[i] = new Estrela(treemap.getRoot().getItemsFilhos().get(i).getBounds());
+//            StarGlyph starGlyph = new StarGlyph(manipulador.getItensTreemap()[i].getBounds(), variaveisStarGlyph);
+//            starGlyph.setQuantVar(getQuantVarStarGlyph());
+//            starGlyph.setManipulador(manipulador);
+//            starGlyphs[i] = starGlyph;
+//        }
+//        setBounds(0, 0, w, h);
+//        setVisible(true);
     }
 
 //    public TreeMap loadTreemap(String itemTamanho, String[] itensHierarquia, String itemLegenda, String corColName) {
@@ -114,7 +113,7 @@ public class AreaDesenho extends JLabel {
         //3.2 Desenhamos os StarGlyphs por itens
         for (int i = 0; i < manipulador.getItensTreemap().length; i++) {
             if (Constantes.isShowStarGlyph()) {
-                starGlyphs[i].paint(g);
+//                starGlyphs[i].paint(g);
             }
         }
         //3. Descartamos a cópia do contexto gráfico
