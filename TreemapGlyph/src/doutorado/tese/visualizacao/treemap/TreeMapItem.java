@@ -7,10 +7,10 @@ package doutorado.tese.visualizacao.treemap;
 
 import doutorado.tese.util.Coluna;
 import doutorado.tese.visualizacao.glyph.Glyph;
-import doutorado.tese.visualizacao.glyph.alfabeto.Letra;
-import doutorado.tese.visualizacao.glyph.formasgeometricas.FormaGeometrica;
-import doutorado.tese.visualizacao.glyph.numeros.Numeral;
-import doutorado.tese.visualizacao.glyph.texture.Textura;
+import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.letters.Letra;
+import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.numbers.Numeral;
+import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes.FormaGeometrica;
+import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.texture.Textura;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -17,16 +17,15 @@ import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.letters.Letr
 import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.numbers.Numeral;
 import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes.FormaGeometrica;
 import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.texture.Textura;
-import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import doutorado.tese.visualizacao.glyph.decorator.starglyph.StarGlyph;
 import doutorado.tese.visualizacao.glyph.decorator.starglyph.EixoPolarStarGlyph;
+import doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import net.bouthier.treemapAWT.TMNodeEncapsulator;

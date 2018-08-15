@@ -8,15 +8,14 @@ package doutorado.tese.legenda;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.visualizacao.glyph.Glyph;
 import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.letters.Letra;
+import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.numbers.Numeral;
 import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.shapes.FormaGeometrica;
 import doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
-import doutorado.tese.visualizacao.glyph.numeros.Numeral;
 import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.texture.Textura;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -97,9 +96,13 @@ public class IconeLegenda implements Icon {
                 letra.paint(g2d);
                 break;
             case 4:
-                Numeral num = new Numeral(bounds, valor, true);
-                num.setFonte(new Font("Arial", Font.PLAIN, 12));
-                num.paint(g);
+                Glyph glyphNumeral = new Numeral();
+                Numeral num = (Numeral) glyphNumeral;
+                num.setLetra(valor);
+                num.setPectSobreposicao(0.65f);
+                num.setOverlappingActivated(true);
+                num.setBounds(bounds);
+                num.paint(g2d);
                 break;
             default:
                 inserirIconeAusente(g2d, x, y);
@@ -108,10 +111,12 @@ public class IconeLegenda implements Icon {
         g2d.dispose();
     }
 
+    @Override
     public int getIconWidth() {
         return width;
     }
 
+    @Override
     public int getIconHeight() {
         return height;
     }
