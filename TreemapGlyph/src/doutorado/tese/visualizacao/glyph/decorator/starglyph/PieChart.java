@@ -10,11 +10,15 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.visualizacao.glyph.Glyph;
 //import io.ManipuladorArquivo;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.geom.Arc2D;
 import java.util.List;
 //import util.Constantes;
 
@@ -23,23 +27,31 @@ import java.util.List;
  * @author Anderson
  */
 public class PieChart extends Glyph {
+
     private Rectangle rect;
     private int quantVar;
     private double r;
-    private double anguloAlfa = 0;
-    private double anguloAcc = 0;
+//    private double anguloAlfa = 0;
+//    private double anguloAcc = 0;
     private List<String> atributosEscolhidaoBase;
     private ManipuladorArquivo manipulador;
     private double porcentagemDado;
-    private int maiorRaio;
-    private EixoPolarStarGlyph[] eixosPolares;
-    private Point center;
+//    private int maiorRaio;
+    private Slice[] slice;
+//    private Point center;
     private int distancia;
+
+    //intancias do grafico de barras
+    private double[] values;
+    private String[] labels;
+    private Color[] colors;
+    private String title;
+    private float panelWidth;
+    private float panelHeight;
 
     public PieChart(List<String> variaveisEscolhidasStarGlyph) {
         this.atributosEscolhidaoBase = variaveisEscolhidasStarGlyph;
-        Bar[] Chart = new Bar[this.atributosEscolhidaoBase.size()];
-       
+        slice = new Slice[this.atributosEscolhidaoBase.size()];
     }
 
     /**
@@ -59,52 +71,94 @@ public class PieChart extends Glyph {
     }
 
     @Override
-    public void setBounds(Rectangle rect) {
-        setDistancia();
-                
-        this.rect = rect;
-        this.rect.x += rect.x + 2+ getDistancia();
-        this.rect.y += rect.y + 2+ getDistancia();
-        this.rect.width = rect.width - 2;
-        this.rect.height = rect.height - 2;
-
-        center = getCenter();
-        //maiorRaio = encontrarMaiorRaio();
-        
-        anguloAcc = 360 / getQuantVar();
-        anguloAlfa = 0;
-        for (int i = 0; i < eixosPolares.length; i++) {
-            eixosPolares[i].setRect(this.rect);
-            eixosPolares[i].setCenter(center);
-            porcentagemDado = calcularPorcentagemDado(eixosPolares[i].getDado(), eixosPolares[i].getDadoMaxVal());
-            r = calcularPorcentagemParaR(porcentagemDado, maiorRaio);
-            //eixosPolares[i].setPontos(parsePolar2Cartesiana(anguloAlfa, r));
-            anguloAlfa += anguloAcc;
-        }
-        super.setBounds(this.rect);
-    }
-
-    @Override
     public void paint(Graphics2D g2d) {
+        Graphics2D g2 = (Graphics2D) g2d;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
         if (getQuantVar() != 0) {
             for (int i = 0; i < getQuantVar(); i++) {
                 g2d.setColor(Color.decode(Constantes.getCor()[i]));
-                getEixosPolares()[i].paint(g2d);
-//                anguloAlfa += anguloAcc;
+//                getBarras()[i].paint(g2d);
+                int x = getSlices()[i].getDadosBarra()[0];
+                int y = getSlices()[i].getDadosBarra()[1];
+                int w = getSlices()[i].getDadosBarra()[2];
+                int h = getSlices()[i].getDadosBarra()[3];
+                int s = getSlices()[i].getDadosBarra()[4];
+                int ang = getSlices()[i].getDadosBarra()[5];
+
+                //codigo cada barra
+//                g2d.fillRect(x, y, w, h);
+//                g2d.setColor(Color.black);
+//                g2d.drawRect(x, y, w, h);
+
+                 g2.fill(new Arc2D.Double(x,y,w,h, s,ang, Arc2D.PIE));
+                 //getBarras()[i].setCurValue(getBarras()[].getDado());
+
+
             }
         }
+
     }
 
-    public int getDistancia() {
-        return distancia  ;
-    }
+    public void calcularPartes() {
+        int[] points = new int[2];
+        points[0] = rect.width;
+        points[1] = rect.height;
+        tornarGlyphQuadrado(points);
+        double total = 0.0D;
+        double curValue = 0.0D;
+        for (int i = 0; i <  getSlices().length; i++) {
+            total +=  getSlices()[i].getDado();                      
+        }
+        int startAngle = 0;
+        for (int i = 0; i <  getSlices().length; i++) {
+            startAngle = (int) (curValue * 360 / total);
+            int arcAngle = (int) (getSlices()[i].getDado()*360 / total);
+            //int arcAngle = (int) (getSlices()[i].getDado()/360);
 
-    public void setDistancia(){
-        this.distancia = (int) (this.rect.width*0.3);
+            int positionX = rect.x +rect.width/2 -points[0]/4 ;
+            int positionY = rect.y+rect.height/2 -points[1]/4;
+            int w = points[0]/2;
+            int h = points[1]/2;
+            
+            getSlices()[i].setDadosBarra(positionX,positionY,w,h, startAngle,arcAngle);
+            curValue += getSlices()[i].getDado();
+    
+        }
     }
+  
+     public void tornarGlyphQuadrado(int[] point) {
+        if (point[0] > point[1]) {
+            point[0] = point[1];
+        } else if (point[0] < point[1]) {
+            point[1] = point[0];
+        }
+    }
+     
+        @Override
+        public void setBounds
+        (Rectangle rect
+        
+            ) {
+        this.rect = rect;
+            this.rect.x = rect.x + 2;
+            this.rect.y = rect.y + 2;
+            this.rect.width = rect.width - 2;
+            this.rect.height = rect.height - 2;
+
+//        panelWidth = panelWidth * this.rect.width;  
+//        panelHeight = panelWidth * this.rect.height;
+//        center = getCenter();
+            calcularPartes();
+
+            for (int i = 0; i < slice.length; i++) {
+                slice[i].setRect(this.rect);
+            }
+            super.setBounds(this.rect);
+        }
 
     
-    
+
     private Point getCenter() {
         int width = (int) Math.round(rect.width) - 1;
         int height = (int) Math.round(rect.height) - 1;
@@ -113,7 +167,7 @@ public class PieChart extends Glyph {
         int halfHeight = height / 2;
         return new Point(halfWidth, halfHeight);
     }
-    
+
     public int getQuantVar() {
         return quantVar;
     }
@@ -161,22 +215,23 @@ public class PieChart extends Glyph {
     /**
      * @param center the center to set
      */
-    public void setCenter(Point center) {
-        this.center = center;
+//    public void setCenter(Point center) {
+//        this.center = center;
+//    }
+    public int getDistancia() {
+        return distancia;
     }
 
-    /**
-     * @return the eixosPolares
-     */
-    public EixoPolarStarGlyph[] getEixosPolares() {
-        return eixosPolares;
+    public void setDistancia() {
+        this.distancia += (int) (this.rect.width * 0.3);
     }
 
-    /**
-     * @param eixosPolares the eixosPolares to set
-     */
-    public void setEixosPolares(EixoPolarStarGlyph[] eixosPolares) {
-        this.eixosPolares = eixosPolares;
+    public Slice[] getSlices() {
+        return slice;
+    }
+
+    public void setBarras(Slice[] slice) {
+        this.slice = slice;
     }
 
     @Override

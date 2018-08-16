@@ -20,6 +20,8 @@ import doutorado.tese.visualizacao.glyph.decorator.variaveisvisuais.texture.Text
 import doutorado.tese.visualizacao.treemap.TreeMapItem;
 import doutorado.tese.visualizacao.glyph.decorator.starglyph.StarGlyph;
 import doutorado.tese.visualizacao.glyph.decorator.starglyph.EixoPolarStarGlyph;
+import doutorado.tese.visualizacao.glyph.decorator.starglyph.PieChart;
+import doutorado.tese.visualizacao.glyph.decorator.starglyph.Slice;
 import doutorado.tese.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -256,7 +258,7 @@ public final class GlyphManager {
                 glyph = configureBarGlyph(item);
                 break;
             case "Pie":
-                System.out.println("pie chart");
+                glyph = configureSliceGlyph(item);
                 break;
             default:
                 System.out.println("error ");
@@ -265,6 +267,22 @@ public final class GlyphManager {
         return glyph;
     }
    
+       private Glyph configureSliceGlyph(TreeMapItem item) {
+        PieChart slice = new PieChart(getAtributosEscolhidosStarGlyph());
+        slice.setQuantVar(getAtributosEscolhidosStarGlyph().size());
+        slice.setPectSobreposicao(0.85f);
+        slice.setOverlappingActivated(true);
+        for (int i = 0; i < getAtributosEscolhidosStarGlyph().size(); i++) {
+            String nomeColunaEscolhida = getAtributosEscolhidosStarGlyph().get(i);
+            Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
+            double dado = Double.parseDouble(item.getMapaDetalhesItem().get(coluna));
+            double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
+            slice.getSlices()[i] = new Slice(dado, dadoMaxVal);
+        }
+        return slice;
+    }
+    
+    
    private Glyph configureBarGlyph(TreeMapItem item) {
         BarChart bar = new BarChart(getAtributosEscolhidosStarGlyph());
         bar.setQuantVar(getAtributosEscolhidosStarGlyph().size());
