@@ -8,6 +8,7 @@ package doutorado.tese.visualizacao.glyph.decorator.starglyph;
 import doutorado.tese.io.ManipuladorArquivo;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.visualizacao.glyph.Glyph;
+import java.awt.BasicStroke;
 //import io.ManipuladorArquivo;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -86,7 +87,9 @@ public class StarGlyph extends Glyph {
         if (getQuantVar() != 0) {
             for (int i = 0; i < getQuantVar(); i++) {
                 g2d.setColor(Color.decode(Constantes.getCor()[i]));
+                g2d.setStroke(new BasicStroke(5f));
                 getEixosPolares()[i].paint(g2d);
+                 g2d.setStroke(new BasicStroke(0.1f));
 //                anguloAlfa += anguloAcc;
             }
         }

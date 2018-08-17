@@ -138,6 +138,14 @@ public class BarChart extends Glyph {
                 valueY += (int) (maxValue * scale);
                 height = -height;
             }
+//            int[] points = new int[2];
+//            points[0] = rect.width;
+//            points[1] = rect.height;
+//            tornarGlyphQuadrado(points);
+//            int positionX = rect.x + rect.width / 2 - points[0] / 4;
+//            int positionY = rect.y + rect.height / 2 - points[1] / 4;
+//            int w = points[0] / 2;
+//            int h = points[1] / 2;
 
             getBarras()[i].setDadosBarra(valueX, valueY, Math.round(barWidth), height);
 
@@ -153,21 +161,28 @@ public class BarChart extends Glyph {
     @Override
     public void setBounds(Rectangle rect) {
         this.rect = rect;
-        this.rect.x = rect.x + 2;
-        this.rect.y = rect.y + 2;
-        this.rect.width = rect.width - 2;
-        this.rect.height = rect.height - 2;
-        
+        this.rect.x = rect.x + rect.width/4;
+        this.rect.y = rect.y + rect.height/4;
+        this.rect.width = rect.width/2;
+        this.rect.height = rect.height/2;
+
 //        panelWidth = panelWidth * this.rect.width;  
 //        panelHeight = panelWidth * this.rect.height;
 //        center = getCenter();
-
         calcularPosicaoBarras();
 
         for (int i = 0; i < barras.length; i++) {
             barras[i].setRect(this.rect);
         }
         super.setBounds(this.rect);
+    }
+
+    public void tornarGlyphQuadrado(int[] point) {
+        if (point[0] > point[1]) {
+            point[0] = point[1];
+        } else if (point[0] < point[1]) {
+            point[1] = point[0];
+        }
     }
 
     private Point getCenter() {
