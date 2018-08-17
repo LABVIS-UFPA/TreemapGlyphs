@@ -6,9 +6,9 @@
 package doutorado.tese.gui.testeusabilidade;
 
 import doutorado.tese.util.Constantes;
-import doutorado.tese.visualizacao.glyph.GlyphManager;
+import doutorado.tese.controle.mb.GlyphManager;
 import doutorado.tese.visualizacao.glyph.formasgeometricas.GeometryFactory;
-import doutorado.tese.visualizacao.treemap.TreeMapItem;
+import doutorado.tese.modelo.TreeMapItem;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
