@@ -77,7 +77,6 @@ public class PieChart extends Glyph {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         if (getQuantVar() != 0) {
             for (int i = 0; i < getQuantVar(); i++) {
-                g2d.setColor(Color.decode(Constantes.getCor()[i]));
 //                getBarras()[i].paint(g2d);
                 int x = getSlices()[i].getDadosBarra()[0];
                 int y = getSlices()[i].getDadosBarra()[1];
@@ -87,11 +86,12 @@ public class PieChart extends Glyph {
                 int ang = getSlices()[i].getDadosBarra()[5];
 
                 //codigo cada barra
-//                g2d.fillRect(x, y, w, h);
-//                g2d.setColor(Color.black);
-//                g2d.drawRect(x, y, w, h);
-
+                 g2.setColor(Color.decode("#fffffff"));
+                 g2.fillArc(x,y,w,h, s,90);
+                 g2.setColor(Color.decode(Constantes.getCor()[i]));
+                 g2.drawArc(x,y,w,h, s,90);
                  g2.fillArc(x,y,w,h, s,ang);
+
                  //getBarras()[i].setCurValue(getBarras()[].getDado());
 
 
@@ -113,8 +113,17 @@ public class PieChart extends Glyph {
         int startAngle = 0;
         
         for (int i = 0; i <  getSlices().length; i++) {
-            startAngle = (int) (curValue * 360 /getSlices()[i].getDadoMaxVal() );
-            int arcAngle = (int) (getSlices()[i].getDado()*360 / total);
+            startAngle =  (int) curValue;
+//                    (int) (curValue * 360 /getSlices()[i].getDadoMaxVal() );
+            
+            float max = (float) getSlices()[i].getDadoMaxVal();
+            float data =  Math.round(getSlices()[i].getDado());
+            float result = (data*90)/max;
+            float sub = 90-result;
+            
+            int arcAngle =  90;
+            int arcPorcent = (int) result;
+//                    (int) (getSlices()[i].getDado()*360 /getSlices()[i].getDadoMaxVal());
             //int arcAngle = (int) (getSlices()[i].getDado()/360);
 
             int positionX = rect.x +rect.width/2 -points[0]/4 ;
@@ -122,13 +131,8 @@ public class PieChart extends Glyph {
             int w = points[0]/2;
             int h = points[1]/2;
             
-            float max = (float) getSlices()[i].getDadoMaxVal();
-            float data =  Math.round(getSlices()[i].getDado());
-            float result = (data*panelHeight)/max;
-            float sub = panelHeight-result;
-            
-            getSlices()[i].setDadosBarra(positionX,positionY,w,h, startAngle,arcAngle);
-            curValue += getSlices()[i].getDado();
+            getSlices()[i].setDadosBarra(positionX,positionY,w,h, startAngle,arcPorcent);
+            curValue += 90;
             
         }
     }

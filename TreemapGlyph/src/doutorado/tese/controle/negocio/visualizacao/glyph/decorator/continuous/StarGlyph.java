@@ -61,10 +61,10 @@ public class StarGlyph extends Glyph {
     @Override
     public void setBounds(Rectangle rect) {
         this.rect = rect;
-        this.rect.x = rect.x + 2;
-        this.rect.y = rect.y + 2;
-        this.rect.width = rect.width - 2;
-        this.rect.height = rect.height - 2;
+        this.rect.x = rect.x + (int) Math.round(rect.width*0.2);
+        this.rect.y = rect.y + (int) Math.round(rect.height*0.2);
+        this.rect.width = (int) Math.round(rect.width *0.6);
+        this.rect.height =(int) Math.round(rect.height *0.6);
 
         center = getCenter();
         maiorRaio = encontrarMaiorRaio();
@@ -87,10 +87,9 @@ public class StarGlyph extends Glyph {
         if (getQuantVar() != 0) {
             for (int i = 0; i < getQuantVar(); i++) {
                 g2d.setColor(Color.decode(Constantes.getCor()[i]));
-                g2d.setStroke(new BasicStroke(5f));
+                g2d.setStroke(new BasicStroke(4f));
                 getEixosPolares()[i].paint(g2d);
-                 g2d.setStroke(new BasicStroke(0.1f));
-//                anguloAlfa += anguloAcc;
+                g2d.setStroke(new BasicStroke(0.1f));
             }
         }
 
@@ -98,11 +97,7 @@ public class StarGlyph extends Glyph {
 ////            anguloAcc = 360 / getQuantVar();
 ////            anguloAlfa = 0;
 //            for (int i = 0; i < getQuantVar(); i++) {
-//                g2d.setColor(Color.decode(Constantes.getCor()[i]));
-//                getEixosPolares()[i].paint(g2d);
-////                anguloAlfa += anguloAcc;
-//            } 
-//       }
+//
     }
 
     private Point getCenter() {
