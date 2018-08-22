@@ -71,6 +71,9 @@ public class BarChart extends Glyph {
 
     @Override
     public void paint(Graphics2D g2d) {
+        Graphics2D g2 = (Graphics2D) g2d;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
         if (getQuantVar() != 0) {
             for (int i = 0; i < getQuantVar(); i++) {
                 g2d.setColor(Color.decode(Constantes.getCor()[i]));
@@ -81,9 +84,10 @@ public class BarChart extends Glyph {
                 int h = getBarras()[i].getDadosBarra()[3];
 
                 //codigo cada barra
-                g2d.fillRect(x, y, w, h);
-                g2d.setColor(Color.black);
-                g2d.drawRect(x, y, w, h);
+                g2.fillRect(x, y, w, h);
+                g2.setColor(Color.black);
+                g2.drawRect(x, y, w, h);
+                g2.drawLine(rect.x,rect.y,rect.x+rect.width,rect.y);
 
             }
         }
@@ -91,9 +95,11 @@ public class BarChart extends Glyph {
     }
 
     public void calcularPosicaoBarras() {
-//        Graphics2D g2 = (Graphics2D) g;
-//        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-//                RenderingHints.VALUE_ANTIALIAS_ON);
+        int[] points = new int[2];
+        points[0] = rect.width;
+        points[1] = rect.height;
+        tornarGlyphQuadrado(points);
+        
         double minValue = 0;
         double maxValue = 0;
         for (int i = 0; i < getBarras().length; i++) {
@@ -105,10 +111,9 @@ public class BarChart extends Glyph {
             }
         }
 
-        int panelWidth = (int) Math.round(rect.width * 0.9);
-        int panelHeight = (int) Math.round(rect.height * 0.5);
-//        panelWidth = 1f;
-//        panelHeight = 1f;
+        int panelWidth = (int) Math.round(points[0] * 0.9);
+        int panelHeight = (int) Math.round(points[1] * 0.9);
+
         float barWidth = panelWidth / getBarras().length;
 
         if (maxValue == minValue) {
@@ -130,33 +135,25 @@ public class BarChart extends Glyph {
         int top = 0;
         for (int i = 0; i < getBarras().length; i++) {
             int valueX = rect.x + Math.round(i * barWidth + 1);
-            int valueY = rect.y;
-            int height = (int) (getBarras()[i].getDado() * scale);
+            int valueY =  points[1];
+            //int height = (int) (getBarras()[i].getDado() * scale);
             if (getBarras()[i].getDado() >= 0) {
-                valueY += (int) ((maxValue - getBarras()[i].getDado()) * scale);
+                //valueY += (int) ((maxValue - getBarras()[i].getDado()) * scale);
             } else {
-                valueY += (int) (maxValue * scale);
-                height = -height;
+                //valueY += (int) (maxValue * scale);
+                //height = -height;
             }
-//            int[] points = new int[2];
-//            points[0] = rect.width;
-//            points[1] = rect.height;
-//            tornarGlyphQuadrado(points);
-//            int positionX = rect.x + rect.width / 2 - points[0] / 4;
-//            int positionY = rect.y + rect.height / 2 - points[1] / 4;
-//            int w = points[0] / 2;
-//            int h = points[1] / 2;
-
-            getBarras()[i].setDadosBarra(valueX, valueY, Math.round(barWidth), height);
-
-//             g.setColor(Color.red);
-//            g.fillRect(valueX, valueY, barWidth - 2, height);
-//            g.setColor(Color.black);
-//            g.drawRect(valueX, valueY, barWidth - 2, height);
-//      
+            
+            float max = (float) getBarras()[i].getDadoMaxVal();
+            float data =  Math.round(getBarras()[i].getDado());
+            float result = (data*panelHeight)/max;
+            float sub = panelHeight-result;
+            
+            getBarras()[i].setDadosBarra(valueX,rect.y+Math.round(sub), Math.round(barWidth),  Math.round(result));
         }
 
     }
+    
 
     @Override
     public void setBounds(Rectangle rect) {
