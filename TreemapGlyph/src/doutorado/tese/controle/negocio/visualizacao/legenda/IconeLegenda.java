@@ -53,11 +53,11 @@ public class IconeLegenda implements Icon {
 //                    Color cor = interpolator.interpolate(Double.parseDouble(nodeItem.getMapaDetalhesItem().get(c)));
                     x *= 0.1;
 //                    System.out.println("\tdepois\tX:"+x+"\tY:"+y);
-                    GradientPaint grad = new GradientPaint(x, y, Color.decode("#800080"), width * 5, height, Color.WHITE);
+                    GradientPaint grad = new GradientPaint(x, y, Color.WHITE, width * 3, height, Color.decode("#800080"));
                     g2d.setPaint(grad);
-                    g2d.fillRect(x, y, width * 5, height);
+                    g2d.fillRect(x, y, width * 3, height);
                     g2d.setColor(Color.black);
-                    g2d.drawRect(x, y, width * 5, height);
+                    g2d.drawRect(x, y, width * 3, height);
                 } else {
                     Glyph iconColorTreemap = new FormaGeometrica();
                     FormaGeometrica shape = (FormaGeometrica) iconColorTreemap;

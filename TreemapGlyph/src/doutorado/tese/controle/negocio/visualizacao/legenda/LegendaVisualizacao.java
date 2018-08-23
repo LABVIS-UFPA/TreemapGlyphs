@@ -68,7 +68,7 @@ public class LegendaVisualizacao {
             icon.setMaxValorContIcon(c.maiorMenorValues[0]);
             icon.setMinValorContIcon(c.maiorMenorValues[1]);
 
-            JLabel labelMax = criarLabel(c.maiorMenorValues[0] + "", null);
+            JLabel labelMax = criarLabel(c.maiorMenorValues[1] + "", null);
 //            labelMax.setBorder(BorderFactory.createLineBorder(Color.RED));
             painel.add(labelMax);
             labelMax.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -81,7 +81,7 @@ public class LegendaVisualizacao {
             labelIcone.setHorizontalAlignment(SwingConstants.CENTER);
             painel.setAlignmentX(labelIcone.LEFT_ALIGNMENT);
 
-            JLabel labelMin = criarLabel(c.maiorMenorValues[1] + "", null);
+            JLabel labelMin = criarLabel(c.maiorMenorValues[0] + "", null);
 //            labelMin.setBorder(BorderFactory.createLineBorder(Color.BLUE));
             painel.add(labelMin);
             labelMin.setHorizontalAlignment(SwingConstants.LEFT);
