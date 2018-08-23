@@ -13,12 +13,15 @@ import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
+import doutorado.tese.util.ColorInterpolator;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import static javafx.scene.paint.Color.color;
 import javax.swing.Icon;
 
 /**
@@ -31,6 +34,8 @@ public class IconeLegenda implements Icon {
     private int height = 32;
     private int dimensao;
     private String valor;
+    private double maxValorContIcon;
+    private double minValorContIcon;
 
     private BasicStroke stroke = new BasicStroke(4);
     private FORMAS.GLYPH_FORMAS valorForma;
@@ -41,18 +46,28 @@ public class IconeLegenda implements Icon {
         Rectangle bounds = new Rectangle(x, y, width, height);
         switch (dimensao) {
             case Constantes.COR_TREEMAP:
-//                FormaGeometrica corTreemap = GeometryFactory.create(bounds, Color.decode(valor), GeometryFactory.FORMAS.GLYPH_FORMAS.RETANGULO);
-//                corTreemap.paint(g);
-//                g.setColor(Color.decode(valor));
-//                g.fillRect(x, y, width, height);
-                Glyph iconColorTreemap = new FormaGeometrica();
-                FormaGeometrica shape = (FormaGeometrica) iconColorTreemap;
-                shape.setDrawBehavior(GeometryFactory.create(FORMAS.GLYPH_FORMAS.RETANGULO));
-                shape.setPectSobreposicao(0.65f);
-                shape.setOverlappingActivated(true);
-                shape.setCorLegenda(Color.decode(valor));
-                shape.setBounds(bounds);
-                shape.paint(g2d);
+                if (valor == null) {
+                    //TODO Criar legenda de cores continuas. 
+                    ColorInterpolator interpolator = new ColorInterpolator();
+                    interpolator.config(minValorContIcon, maxValorContIcon, Color.decode("#800080"), Color.WHITE);
+//                    Color cor = interpolator.interpolate(Double.parseDouble(nodeItem.getMapaDetalhesItem().get(c)));
+                    x *= 0.1;
+//                    System.out.println("\tdepois\tX:"+x+"\tY:"+y);
+                    GradientPaint grad = new GradientPaint(x, y, Color.decode("#800080"), width * 5, height, Color.WHITE);
+                    g2d.setPaint(grad);
+                    g2d.fillRect(x, y, width * 5, height);
+                    g2d.setColor(Color.black);
+                    g2d.drawRect(x, y, width * 5, height);
+                } else {
+                    Glyph iconColorTreemap = new FormaGeometrica();
+                    FormaGeometrica shape = (FormaGeometrica) iconColorTreemap;
+                    shape.setDrawBehavior(GeometryFactory.create(FORMAS.GLYPH_FORMAS.RETANGULO));
+                    shape.setPectSobreposicao(0.65f);
+                    shape.setOverlappingActivated(true);
+                    shape.setCorLegenda(Color.decode(valor));
+                    shape.setBounds(bounds);
+                    shape.paint(g2d);
+                }
                 break;
             case 0:
                 Glyph glyph = new Textura(Color.GRAY, Color.WHITE);
@@ -64,8 +79,12 @@ public class IconeLegenda implements Icon {
                 textura.paint(g2d);
                 break;
             case 1:
-                if (valor == null) {
+                if (valor.equals("")) {
                     //TODO Criar legenda de cores continuas. 
+//                    ColorInterpolator interpolator = new ColorInterpolator();
+//                    interpolator.config(c.maiorMenorValues[0],c.maiorMenorValues[1] , Color.decode("#800080"), Color.WHITE);
+//                    Color cor = interpolator.interpolate(Double.parseDouble(nodeItem.getMapaDetalhesItem().get(c)));
+//                    nodeItem.setColor(cor);
                 } else {
                     Glyph iconRectColor = new FormaGeometrica();
                     FormaGeometrica shapeColor = (FormaGeometrica) iconRectColor;
@@ -145,5 +164,19 @@ public class IconeLegenda implements Icon {
 
     void setValorIcon(FORMAS.GLYPH_FORMAS forma) {
         this.valorForma = forma;
+    }
+
+    /**
+     * @param maxValorContIcon the maxValorContIcon to set
+     */
+    public void setMaxValorContIcon(double maxValorContIcon) {
+        this.maxValorContIcon = maxValorContIcon;
+    }
+
+    /**
+     * @param minValorContIcon the minValorContIcon to set
+     */
+    public void setMinValorContIcon(double minValorContIcon) {
+        this.minValorContIcon = minValorContIcon;
     }
 }

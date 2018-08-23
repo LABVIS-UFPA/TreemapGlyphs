@@ -14,7 +14,7 @@ import java.awt.Color;
 public class ColorInterpolator {
     double ar,ag,ab,br,bg,bb;
     
-    public  void config(double Xmin,double Xmax,Color c,Color c2){
+    public void config(double Xmin,double Xmax,Color c,Color c2){
        
        ar = (1.0*c2.getRed()-c.getRed())/(Xmax-Xmin);
        br = c.getRed() - ar* Xmin;
@@ -23,8 +23,7 @@ public class ColorInterpolator {
        bb = c.getBlue() - ab* Xmin;
        
        ag = (1.0*c2.getGreen()-c.getGreen())/(Xmax-Xmin);
-       bg = c.getGreen() - ag* Xmin;
-        
+       bg = c.getGreen() - ag* Xmin;        
     }   
     
     public Color interpolate(double valueX){

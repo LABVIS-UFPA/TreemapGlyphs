@@ -11,6 +11,7 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
@@ -44,7 +45,7 @@ public class LegendaVisualizacao {
             label.setHorizontalTextPosition(JLabel.RIGHT);
             label.setFont(new Font("Arial", Font.PLAIN, 12));
         } else {
-            label = new JLabel(conteudoDist);
+            label = new JLabel(conteudoDist, JLabel.CENTER);
         }
 //        label.setBounds(getBounds());
         label.setVisible(true);
@@ -59,8 +60,32 @@ public class LegendaVisualizacao {
         painel.setVisible(true);
 
         Coluna c = ManipuladorArquivo.getColuna(itemCor);
+
         if (c.getDescription() == Metadados.Descricao.CONTINUOUS) {
             //TODO Criar legenda de cores continuas.
+            IconeLegenda icon = new IconeLegenda();
+            icon.setDimensao(Constantes.COR_TREEMAP);
+            icon.setMaxValorContIcon(c.maiorMenorValues[0]);
+            icon.setMinValorContIcon(c.maiorMenorValues[1]);
+
+            JLabel labelMax = criarLabel(c.maiorMenorValues[0] + "", null);
+//            labelMax.setBorder(BorderFactory.createLineBorder(Color.RED));
+            painel.add(labelMax);
+            labelMax.setHorizontalAlignment(SwingConstants.RIGHT);
+            painel.setAlignmentX(labelMax.RIGHT_ALIGNMENT);
+
+            JLabel labelIcone = criarLabel("", icon);
+//            labelIcone.setBorder(BorderFactory.createLineBorder(Color.yellow));
+            painel.add(labelIcone);
+            labelIcone.setVerticalAlignment(SwingConstants.CENTER);
+            labelIcone.setHorizontalAlignment(SwingConstants.CENTER);
+            painel.setAlignmentX(labelIcone.LEFT_ALIGNMENT);
+
+            JLabel labelMin = criarLabel(c.maiorMenorValues[1] + "", null);
+//            labelMin.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+            painel.add(labelMin);
+            labelMin.setHorizontalAlignment(SwingConstants.LEFT);
+            painel.setAlignmentX(labelMin.LEFT_ALIGNMENT);
         } else {
             List<String> dadosDistintos = c.getDadosDistintos();
             for (int i = 0; i < dadosDistintos.size(); i++) {
