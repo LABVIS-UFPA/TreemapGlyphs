@@ -53,7 +53,7 @@ public class IconeLegenda implements Icon {
 //                    Color cor = interpolator.interpolate(Double.parseDouble(nodeItem.getMapaDetalhesItem().get(c)));
                     x *= 0.1;
 //                    System.out.println("\tdepois\tX:"+x+"\tY:"+y);
-                    GradientPaint grad = new GradientPaint(0, 0, Color.WHITE,100, height, Color.decode("#800080"));
+                    GradientPaint grad = new GradientPaint(x, y, Color.WHITE,x+100,y+height, Color.decode("#800080"));
                     g2d.setPaint(grad);
                     g2d.fillRect(x, y, 100, height);
                     g2d.setColor(Color.black);
@@ -79,12 +79,15 @@ public class IconeLegenda implements Icon {
                 textura.paint(g2d);
                 break;
             case 1:
-                if (valor.equals("")) {
-                    //TODO Criar legenda de cores continuas. 
-//                    ColorInterpolator interpolator = new ColorInterpolator();
-//                    interpolator.config(c.maiorMenorValues[0],c.maiorMenorValues[1] , Color.decode("#800080"), Color.WHITE);
-//                    Color cor = interpolator.interpolate(Double.parseDouble(nodeItem.getMapaDetalhesItem().get(c)));
-//                    nodeItem.setColor(cor);
+                if (valor==null) {
+//                    TODO Criar legenda de cores continuas. 
+                    x *= 0.1;
+                    GradientPaint grad = new GradientPaint(x, y, Color.orange,x+100,y+ height, Color.decode("#4682B4"));
+                    g2d.setPaint(grad);
+                    g2d.fillRect(x,y, 100, height);
+                    g2d.setColor(Color.black);
+                    g2d.drawRect(x,y, 100, height);
+                    break;
                 } else {
                     Glyph iconRectColor = new FormaGeometrica();
                     FormaGeometrica shapeColor = (FormaGeometrica) iconRectColor;

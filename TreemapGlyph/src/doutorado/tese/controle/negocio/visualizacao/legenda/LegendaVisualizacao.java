@@ -125,9 +125,7 @@ public class LegendaVisualizacao {
                     icon.setValorIcon(Constantes.TIPO_TEXTURA[i]);
                     break;
                 case 1:
-                    if (c.getDescription() == Metadados.Descricao.CONTINUOUS) {
-
-                    } else {
+                    if (c.getDescription() == Metadados.Descricao.CATEGORICAL) {
                         icon.setValorIcon(Constantes.getCorGlyphs()[i]);
                     }
                     break;
@@ -143,11 +141,39 @@ public class LegendaVisualizacao {
                 default:
                     throw new AssertionError();
             }
-            JLabel label = criarLabel(dadosDistintos.get(i), icon);
-            painel.add(label);
+            if (c.getDescription() == Metadados.Descricao.CATEGORICAL) {
+                JLabel label = criarLabel(dadosDistintos.get(i), icon);
+                painel.add(label);
 
-            label.setHorizontalAlignment(SwingConstants.LEFT);
-            painel.setAlignmentX(label.LEFT_ALIGNMENT);
+                label.setHorizontalAlignment(SwingConstants.LEFT);
+                painel.setAlignmentX(label.LEFT_ALIGNMENT);
+
+            }
+        }
+        if (c.getDescription() == Metadados.Descricao.CONTINUOUS && dimensao == 1) {
+            IconeLegenda icon = new IconeLegenda();
+            icon.setDimensao(dimensao);
+            icon.setMaxValorContIcon(c.maiorMenorValues[0]);
+            icon.setMinValorContIcon(c.maiorMenorValues[1]);
+
+            JLabel labelMax = criarLabel(c.maiorMenorValues[1] + "", null);
+//            labelMax.setBorder(BorderFactory.createLineBorder(Color.RED));
+            painel.add(labelMax);
+            labelMax.setHorizontalAlignment(SwingConstants.RIGHT);
+            painel.setAlignmentX(labelMax.RIGHT_ALIGNMENT);
+
+            JLabel labelIcone = criarLabel("", icon);
+//            labelIcone.setBorder(BorderFactory.createLineBorder(Color.yellow));
+            painel.add(labelIcone);
+            labelIcone.setVerticalAlignment(SwingConstants.CENTER);
+            labelIcone.setHorizontalAlignment(SwingConstants.CENTER);
+            painel.setAlignmentX(labelIcone.LEFT_ALIGNMENT);
+
+            JLabel labelMin = criarLabel(c.maiorMenorValues[0] + "", null);
+//            labelMin.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+            painel.add(labelMin);
+            labelMin.setHorizontalAlignment(SwingConstants.LEFT);
+            painel.setAlignmentX(labelMin.LEFT_ALIGNMENT);
         }
         return painel;
     }

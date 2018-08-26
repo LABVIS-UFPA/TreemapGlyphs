@@ -16,6 +16,6 @@ public class Metadados {
     }
 
     public enum Descricao {
-        CATEGORICAL, CONTINUOUS
+        CATEGORICAL,    CONTINUOUS
     }
 }
