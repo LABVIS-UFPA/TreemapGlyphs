@@ -687,7 +687,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         });
         jScrollPane11.setViewportView(listaAtributosStarGlyph1);
 
-        continuosSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Star","Pie","Bar" }));
+        continuosSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Star","Pie","Bar","Ang" }));
         continuosSelect.setEnabled(false);
         continuosSelect.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {

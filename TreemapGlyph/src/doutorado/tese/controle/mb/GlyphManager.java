@@ -20,6 +20,7 @@ import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.
 import doutorado.tese.modelo.TreeMapItem;
 import doutorado.tese.util.ColorInterpolator;
 import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
+import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.AngChart;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.StarGlyph;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.EixoPolarStarGlyph;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.PieChart;
@@ -262,6 +263,9 @@ public final class GlyphManager {
             case "Pie":
                 glyph = configureSliceGlyph(item);
                 break;
+            case "Ang":
+                glyph = configureArcGlyph(item);
+                break;
             default:
                 System.out.println("error ");
                 break;
@@ -284,7 +288,20 @@ public final class GlyphManager {
         return slice;
     }
     
-    
+       private Glyph configureArcGlyph(TreeMapItem item) {
+        AngChart raio = new AngChart(getAtributosEscolhidosStarGlyph());
+        raio.setQuantVar(getAtributosEscolhidosStarGlyph().size());
+        raio.setPectSobreposicao(0.85f);
+        raio.setOverlappingActivated(true);
+        for (int i = 0; i < getAtributosEscolhidosStarGlyph().size(); i++) {
+            String nomeColunaEscolhida = getAtributosEscolhidosStarGlyph().get(i);
+            Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
+            double dado = Double.parseDouble(item.getMapaDetalhesItem().get(coluna));
+            double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
+            raio.getSlices()[i] = new Slice(dado, dadoMaxVal);
+        }
+        return raio;
+    }  
    private Glyph configureBarGlyph(TreeMapItem item) {
         BarChart bar = new BarChart(getAtributosEscolhidosStarGlyph());
         bar.setQuantVar(getAtributosEscolhidosStarGlyph().size());

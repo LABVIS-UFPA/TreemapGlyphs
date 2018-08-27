@@ -1056,7 +1056,7 @@
                     <Component class="javax.swing.JComboBox" name="continuosSelect">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Star&quot;,&quot;Pie&quot;,&quot;Bar&quot; })" type="code"/>
+                          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Star&quot;,&quot;Pie&quot;,&quot;Bar&quot;,&quot;Ang&quot; })" type="code"/>
                         </Property>
                         <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="false" type="code"/>
