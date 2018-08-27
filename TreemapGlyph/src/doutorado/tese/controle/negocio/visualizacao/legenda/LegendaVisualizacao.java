@@ -47,7 +47,6 @@ public class LegendaVisualizacao {
         } else {
             label = new JLabel(conteudoDist, JLabel.CENTER);
         }
-//        label.setBounds(getBounds());
         label.setVisible(true);
         return label;
     }

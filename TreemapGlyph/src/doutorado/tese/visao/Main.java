@@ -21,6 +21,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import static javafx.beans.binding.Bindings.select;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -708,8 +709,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(abaStarGlyphsLayout.createSequentialGroup()
                         .addGap(4, 4, 4)
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoGerarStarGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaStarGlyphsLayout.createSequentialGroup()
                         .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -876,7 +877,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addContainerGap()
                 .addComponent(progressoBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, Short.MAX_VALUE)
             .addComponent(legendaBarraRolage)
         );
         painelDireitaLayout.setVerticalGroup(
@@ -2196,7 +2197,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         painelStarGlyphLegenda.setEditable(true);
         painelStarGlyphLegenda.setText("");
         for (int i = 0; i < itensVariaveisStarGlyph.size(); i++) {
-            appendToPane(painelStarGlyphLegenda, itensVariaveisStarGlyph.get(i) + "\n", Color.decode(Constantes.getCor()[i]));
+            String  select = itensVariaveisStarGlyph.get(i);
+             Coluna c = ManipuladorArquivo.getColuna(select);
+                appendToPane(painelStarGlyphLegenda, itensVariaveisStarGlyph.get(i)+"\n"+"|min:"+c.maiorMenorValues[1]+"|max:"+c.maiorMenorValues[0]+"|\n", Color.decode(Constantes.getCor()[i]));
+            
         }
         painelStarGlyphLegenda.setEditable(false);
     }

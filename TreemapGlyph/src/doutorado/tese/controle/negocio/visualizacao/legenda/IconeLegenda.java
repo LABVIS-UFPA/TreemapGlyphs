@@ -50,9 +50,7 @@ public class IconeLegenda implements Icon {
                     //TODO Criar legenda de cores continuas. 
                     ColorInterpolator interpolator = new ColorInterpolator();
                     interpolator.config(minValorContIcon, maxValorContIcon, Color.decode("#800080"), Color.WHITE);
-//                    Color cor = interpolator.interpolate(Double.parseDouble(nodeItem.getMapaDetalhesItem().get(c)));
                     x *= 0.1;
-//                    System.out.println("\tdepois\tX:"+x+"\tY:"+y);
                     GradientPaint grad = new GradientPaint(x, y, Color.WHITE,x+100,y+height, Color.decode("#800080"));
                     g2d.setPaint(grad);
                     g2d.fillRect(x, y, 100, height);
