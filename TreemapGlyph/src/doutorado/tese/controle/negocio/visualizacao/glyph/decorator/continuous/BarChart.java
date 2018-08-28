@@ -111,8 +111,8 @@ public class BarChart extends Glyph {
             }
         }
 
-        int panelWidth = (int) Math.round(points[0] * 0.9);
-        int panelHeight = (int) Math.round(points[1] * 0.9);
+        int panelWidth = (int) Math.round(points[0]);
+        int panelHeight = (int) Math.round(points[1]);
 
         float barWidth = panelWidth / getBarras().length;
 
@@ -122,19 +122,19 @@ public class BarChart extends Glyph {
         double scale = (panelHeight) / (maxValue - minValue);
 
         for (int j = 0; j < getBarras().length; j++) {
-            int valueP = Math.round(j * barWidth + 1);
+            int valueP = Math.round(j * barWidth);
             int valueQ = 0;
-            int height = (int) (getBarras()[j].getDado() * scale);
+            int height = (int) Math.round(getBarras()[j].getDado() * scale);
             if (getBarras()[j].getDado() >= 0) {
                 valueQ += (int) ((maxValue - getBarras()[j].getDado()) * scale);
             } else {
-                valueQ += (int) (maxValue * scale);
+                valueQ += (int) Math.round(maxValue * scale);
                 height = -height;
             }
         }
         int top = 0;
         for (int i = 0; i < getBarras().length; i++) {
-            int valueX = rect.x + Math.round(i * barWidth + 1);
+            int valueX = rect.x + rect.width/2 - Math.round(i * barWidth)/2;
             int valueY =  points[1];
             //int height = (int) (getBarras()[i].getDado() * scale);
             if (getBarras()[i].getDado() >= 0) {
@@ -149,7 +149,7 @@ public class BarChart extends Glyph {
             float result = (data*panelHeight)/max;
             float sub = panelHeight-result;
             
-            getBarras()[i].setDadosBarra(valueX,rect.y+Math.round(sub), Math.round(barWidth),  Math.round(result));
+            getBarras()[i].setDadosBarra(valueX,rect.y+Math.round(sub), Math.round(barWidth)/2,  Math.round(result));
         }
 
     }
