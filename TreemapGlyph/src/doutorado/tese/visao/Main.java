@@ -11,8 +11,10 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.controle.negocio.visualizacao.legenda.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
@@ -26,16 +28,21 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.ListModel;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -177,7 +184,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         );
         painelEsquerdaLayout.setVerticalGroup(
             painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 644, Short.MAX_VALUE)
+            .addGap(0, 691, Short.MAX_VALUE)
         );
 
         jSplitPane1.setLeftComponent(painelEsquerda);
@@ -707,16 +714,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             .addGroup(abaStarGlyphsLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(abaStarGlyphsLayout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botaoGerarStarGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaStarGlyphsLayout.createSequentialGroup()
                         .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(continuosSelect, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(checkStarGlyph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(checkStarGlyph, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(inserirAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -726,7 +728,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addGap(2, 2, 2)
                         .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(abaStarGlyphsLayout.createSequentialGroup()
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botaoGerarStarGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         abaStarGlyphsLayout.setVerticalGroup(
@@ -735,26 +741,25 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addContainerGap()
                 .addComponent(checkStarGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(continuosSelect)
-                .addGap(10, 10, 10)
+                .addComponent(continuosSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(abaStarGlyphsLayout.createSequentialGroup()
+                        .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaStarGlyphsLayout.createSequentialGroup()
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGroup(abaStarGlyphsLayout.createSequentialGroup()
                             .addComponent(inserirAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(removerAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(abaStarGlyphsLayout.createSequentialGroup()
-                                .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
                 .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoGerarStarGlyphs))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Glyph Continuo", abaStarGlyphs);
@@ -857,7 +862,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         );
         abaFiltrosLayout.setVerticalGroup(
             abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 252, Short.MAX_VALUE)
+            .addGap(0, 388, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Filter", abaFiltros);
@@ -885,9 +890,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             .addGroup(painelDireitaLayout.createSequentialGroup()
                 .addComponent(progressoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(legendaBarraRolage, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
+                .addComponent(legendaBarraRolage, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
         );
 
         jSplitPane1.setRightComponent(painelDireita);
@@ -992,7 +997,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
         //acoes para configurar os glyphs
-        
+
         variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
         glyphPanel.setManipulador(manipulador);
         glyphPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
@@ -1484,13 +1489,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void botaoGerarStarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarStarGlyphsActionPerformed
         glyphPanel.setManipulador(manipulador);
         glyphPanel.setStarGlyphActivated(checkStarGlyph.isSelected());
-      
+
         glyphPanel.setGlyphContinuoEscolhido(getEscolhidosGlyph());
         variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
         glyphPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
         atributosEscolhidosStarGlyph = parseListModelString2Array(listaAtributosStarGlyph2.getModel());
         glyphPanel.setAtributosEscolhidosStarGlyph(atributosEscolhidosStarGlyph);
-        
+
         //Acoes para desenhar os glyphs
         glyphPanel.setBounds(painelEsquerda.getBounds());
         glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());
@@ -1575,13 +1580,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         return atributosEscolhidosGlyph;
     }
-    
+
     private String[] getEscolhidosGlyph() {
         String[] atributosEscolhidosGlyph = new String[1];
         atributosEscolhidosGlyph[0] = (String) continuosSelect.getSelectedItem();
 
         return atributosEscolhidosGlyph;
     }
+
     /**
      * @param args the command line arguments
      */
@@ -2192,17 +2198,44 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         tp.setCharacterAttributes(aset, false);
         tp.replaceSelection(msg);
     }
-
+    
+     JScrollPane pane = new JScrollPane();
+    
     private void prepararLegendaStarGlyph(List<String> itensVariaveisStarGlyph) {
         painelStarGlyphLegenda.setEditable(true);
         painelStarGlyphLegenda.setText("");
+
+       String[] columns = {"Nome", "Min", "Max"};
+       Object[][] data = new Object[ itensVariaveisStarGlyph.size()][3];
         for (int i = 0; i < itensVariaveisStarGlyph.size(); i++) {
             String  select = itensVariaveisStarGlyph.get(i);
              Coluna c = ManipuladorArquivo.getColuna(select);
-                appendToPane(painelStarGlyphLegenda, itensVariaveisStarGlyph.get(i)+"\n"+"|min:"+c.maiorMenorValues[1]+"|max:"+c.maiorMenorValues[0]+"|\n", Color.decode(Constantes.getCor()[i]));
+             data[i][0] =  itensVariaveisStarGlyph.get(i);
+             data[i][1] = c.maiorMenorValues[1];
+             data[i][2] = c.maiorMenorValues[0];
+           
+        JTable table = new JTable(data, columns);
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+ 
+        JLabel lblHeading = new JLabel("");
+        painelStarGlyphLegenda.remove(pane);
+        pane = scrollPane;
+        lblHeading.setFont(new Font("Arial",Font.TRUETYPE_FONT,24));
+ 
+        painelStarGlyphLegenda.setLayout(new BorderLayout());
+        painelStarGlyphLegenda.add(lblHeading,BorderLayout.PAGE_START);
+        painelStarGlyphLegenda.add(scrollPane,BorderLayout.CENTER);
+ 
+        
+     
+        painelStarGlyphLegenda.add(scrollPane, BorderLayout.CENTER);
+       
             
         }
-        painelStarGlyphLegenda.setEditable(false);
+            painelStarGlyphLegenda.setEditable(false);
+        
+        
     }
 
     /**

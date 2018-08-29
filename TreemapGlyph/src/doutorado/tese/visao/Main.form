@@ -101,7 +101,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="644" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="691" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -137,9 +137,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="progressoBarra" min="-2" pref="26" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTabbedPane1" min="-2" pref="280" max="-2" attributes="0"/>
+                      <Component id="jTabbedPane1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="legendaBarraRolage" pref="303" max="32767" attributes="0"/>
+                      <Component id="legendaBarraRolage" pref="214" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -858,17 +858,11 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane10" min="-2" pref="192" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="botaoGerarStarGlyphs" pref="99" max="32767" attributes="0"/>
-                                  </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="continuosSelect" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jScrollPane11" pref="0" max="32767" attributes="0"/>
-                                          <Component id="checkStarGlyph" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="checkStarGlyph" alignment="1" pref="106" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -883,6 +877,11 @@
                                           <Component id="baixoAtributoStarGlyphButton" min="-2" pref="42" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jScrollPane10" min="-2" pref="192" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="botaoGerarStarGlyphs" pref="99" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -894,32 +893,30 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="checkStarGlyph" min="-2" pref="23" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="continuosSelect" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                              <Component id="continuosSelect" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="cimaAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="baixoAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
+                                  </Group>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jScrollPane9" pref="0" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
                                           <Component id="inserirAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Component id="removerAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                          <Component id="jScrollPane9" min="-2" pref="90" max="-2" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Component id="cimaAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="baixoAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                      <Component id="jScrollPane11" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jScrollPane11" min="-2" pref="91" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane10" min="-2" pref="82" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane10" min="-2" pref="149" max="-2" attributes="0"/>
                                   <Component id="botaoGerarStarGlyphs" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="75" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1247,7 +1244,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="252" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="388" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
