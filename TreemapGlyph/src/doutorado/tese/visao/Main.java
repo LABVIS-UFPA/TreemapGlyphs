@@ -11,13 +11,12 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.controle.negocio.visualizacao.legenda.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -29,20 +28,18 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.ListModel;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.metal.OceanTheme;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.text.AttributeSet;
@@ -66,16 +63,25 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
      */
     public Main() {
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());//Systema
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");//Systema
+//            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());//Metal
+//            MetalLookAndFeel.setCurrentTheme(new OceanTheme());
+//            UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");//feiao
+//            UIManager.setLookAndFeel(new MetalLookAndFeel());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             logger.info(Main.class.getName());//.log(Level.SEVERE, null, ex);
         }
         initComponents();
-        jSplitPane1.setDividerLocation(2000);
+        separadorEsqueDir_jSplitPane.setDividerLocation(2000);
         layerPane = new JLayeredPane();
 
         legendaVisualizacao = new LegendaVisualizacao(painelLegendaVis.getBounds());
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+        separadorEsqueDir_jSplitPane.setOneTouchExpandable(true);
+        separadorCimaBaixo.setOneTouchExpandable(true);
+        atributo5Glyph.setVisible(false);
+        numeroLabelLabel.setVisible(false);
 //        msgFeedback.setVisible(false);
     }
 
@@ -88,7 +94,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane1 = new javax.swing.JSplitPane();
+        separadorEsqueDir_jSplitPane = new javax.swing.JSplitPane();
         painelEsquerda = new javax.swing.JPanel();
         painelDireita = new javax.swing.JPanel();
         progressoBarra = new javax.swing.JProgressBar();
@@ -135,7 +141,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         atributo3Glyph = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         atributo4Glyph = new javax.swing.JComboBox<>();
-        jLabel11 = new javax.swing.JLabel();
+        numeroLabelLabel = new javax.swing.JLabel();
         atributo5Glyph = new javax.swing.JComboBox<>();
         botaoGerarGlyphs = new javax.swing.JButton();
         checkLayeredGlyph = new javax.swing.JCheckBox();
@@ -164,6 +170,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jLabel12 = new javax.swing.JLabel();
         updateDetailsButton = new javax.swing.JButton();
         abaFiltros = new javax.swing.JPanel();
+        nextTest_Button = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         fileMenuItem = new javax.swing.JMenuItem();
@@ -173,8 +180,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Treemap Glyphs");
 
-        jSplitPane1.setDividerLocation(1000);
-        jSplitPane1.setOpaque(false);
+        separadorEsqueDir_jSplitPane.setDividerLocation(1000);
+        separadorEsqueDir_jSplitPane.setOpaque(false);
+        separadorEsqueDir_jSplitPane.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                separadorEsqueDir_jSplitPaneComponentHidden(evt);
+            }
+        });
 
         painelEsquerda.setBackground(new java.awt.Color(153, 255, 153));
         painelEsquerda.setOpaque(false);
@@ -187,10 +199,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         );
         painelEsquerdaLayout.setVerticalGroup(
             painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 691, Short.MAX_VALUE)
+            .addGap(0, 695, Short.MAX_VALUE)
         );
 
-        jSplitPane1.setLeftComponent(painelEsquerda);
+        separadorEsqueDir_jSplitPane.setLeftComponent(painelEsquerda);
 
         painelDireita.setBorder(javax.swing.BorderFactory.createTitledBorder("Settings"));
 
@@ -380,7 +392,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jLabel13.setText("Visual variables:");
 
         varVisuaisList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Texture", "Color", "Shape", "Letter", "Number" };
+            //    String[] strings = { "Texture", "Color", "Shape", "Letter", "Number" };
+            String[] strings = { "Texture", "Color", "Shape", "Letter"};
+            //    String[] strings = { "Textura", "Cor", "Forma", "Letra"};
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -496,7 +510,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        jLabel11.setText("Number:");
+        numeroLabelLabel.setText("Number:");
 
         atributo5Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         atributo5Glyph.setEnabled(false);
@@ -545,7 +559,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addComponent(jLabel7)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(numeroLabelLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(atributo2Glyph, 0, 96, Short.MAX_VALUE)
@@ -632,7 +646,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
+                    .addComponent(numeroLabelLabel)
                     .addComponent(atributo5Glyph)
                     .addComponent(botaoGerarGlyphs))
                 .addGap(147, 147, 147))
@@ -793,7 +807,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botaoGerarStarGlyphs)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Glyph Continuo", abaStarGlyphs);
@@ -903,6 +917,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         separadorCimaBaixo.setLeftComponent(jTabbedPane1);
 
+        nextTest_Button.setText("Next");
+        nextTest_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextTest_ButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelDireitaLayout = new javax.swing.GroupLayout(painelDireita);
         painelDireita.setLayout(painelDireitaLayout);
         painelDireitaLayout.setHorizontalGroup(
@@ -912,16 +933,21 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addComponent(progressoBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(separadorCimaBaixo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, Short.MAX_VALUE)
+            .addGroup(painelDireitaLayout.createSequentialGroup()
+                .addComponent(nextTest_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         painelDireitaLayout.setVerticalGroup(
             painelDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelDireitaLayout.createSequentialGroup()
                 .addComponent(progressoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(separadorCimaBaixo, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))
+                .addComponent(separadorCimaBaixo, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nextTest_Button))
         );
 
-        jSplitPane1.setRightComponent(painelDireita);
+        separadorEsqueDir_jSplitPane.setRightComponent(painelDireita);
 
         fileMenu.setText("File");
 
@@ -954,11 +980,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(separadorEsqueDir_jSplitPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(separadorEsqueDir_jSplitPane)
         );
 
         pack();
@@ -1596,6 +1622,16 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         // TODO add your handling code here:
     }//GEN-LAST:event_continuosSelectActionPerformed
 
+    private void separadorEsqueDir_jSplitPaneComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_separadorEsqueDir_jSplitPaneComponentHidden
+//        ActionEvent evt;
+//        botaoGerarVisualizacaoActionPerformed(evt);
+        
+    }//GEN-LAST:event_separadorEsqueDir_jSplitPaneComponentHidden
+
+    private void nextTest_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextTest_ButtonActionPerformed
+        // TODO chamar codigo que passara os parametros de configuracao da GUI
+    }//GEN-LAST:event_nextTest_ButtonActionPerformed
+
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
 
         ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
@@ -1688,7 +1724,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JButton inserirVarVisualButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1710,13 +1745,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JScrollPane legendaBarraRolage;
     private javax.swing.JComboBox<String> legendaComboBox;
     private javax.swing.JTable legendaContinuaJTable;
     private javax.swing.JList<String> listaAtributosStarGlyph1;
     private javax.swing.JList<String> listaAtributosStarGlyph2;
+    private javax.swing.JButton nextTest_Button;
+    private javax.swing.JLabel numeroLabelLabel;
     private javax.swing.JPanel painelDireita;
     private javax.swing.JPanel painelEsquerda;
     private javax.swing.JPanel painelLegendaVis;
@@ -1726,6 +1762,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JButton removerBotao_treemap;
     private javax.swing.JButton removerVarVisualButton;
     private javax.swing.JSplitPane separadorCimaBaixo;
+    private javax.swing.JSplitPane separadorEsqueDir_jSplitPane;
     private javax.swing.JComboBox<String> tamanhoTreemapComboBox;
     private javax.swing.JButton updateDetailsButton;
     private javax.swing.JList<String> varVisuaisList1;
