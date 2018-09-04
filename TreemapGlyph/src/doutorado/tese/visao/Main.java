@@ -1840,12 +1840,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 DefaultComboBoxModel emptyList = new DefaultComboBoxModel(vazio);
                 varVisuaisList2.setModel(emptyList);
                 varVisuaisList1.setModel(emptyList);
-                Object[] newList = new Object[5];
+//                Object[] newList = new Object[5];
+                Object[] newList = new Object[4];
                 newList[0] = "Texture";
                 newList[1] = "Color";
                 newList[2] = "Shape";
                 newList[3] = "Letter";
-                newList[4] = "Number";
+//                newList[4] = "Number";
                 DefaultComboBoxModel model = new DefaultComboBoxModel(newList);
                 varVisuaisList1.setModel(model);
                 atributo1Glyph.setEnabled(false);
