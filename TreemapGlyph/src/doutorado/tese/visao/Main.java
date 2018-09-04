@@ -182,7 +182,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Treemap Glyphs");
 
-        separadorEsqueDir_jSplitPane.setDividerLocation(960);
+        separadorEsqueDir_jSplitPane.setDividerLocation(0.25);
         separadorEsqueDir_jSplitPane.setOpaque(false);
         separadorEsqueDir_jSplitPane.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
@@ -946,7 +946,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addContainerGap()
                 .addComponent(progressoBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(separadorCimaBaixo, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+            .addComponent(separadorCimaBaixo)
             .addGroup(painelDireitaLayout.createSequentialGroup()
                 .addComponent(nextTest_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
