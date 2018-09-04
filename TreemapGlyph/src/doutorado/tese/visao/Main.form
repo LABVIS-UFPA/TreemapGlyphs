@@ -74,7 +74,7 @@
   <SubComponents>
     <Container class="javax.swing.JSplitPane" name="separadorEsqueDir_jSplitPane">
       <Properties>
-        <Property name="dividerLocation" type="int" value="1000"/>
+        <Property name="dividerLocation" type="int" value="960"/>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <Events>
@@ -99,7 +99,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="999" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="959" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -131,7 +131,7 @@
                       <Component id="progressoBarra" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Component id="separadorCimaBaixo" alignment="0" pref="330" max="32767" attributes="0"/>
+                  <Component id="separadorCimaBaixo" alignment="0" pref="370" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="nextTest_Button" min="-2" pref="83" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -159,7 +159,7 @@
             </Component>
             <Container class="javax.swing.JSplitPane" name="separadorCimaBaixo">
               <Properties>
-                <Property name="dividerLocation" type="int" value="280"/>
+                <Property name="dividerLocation" type="int" value="300"/>
                 <Property name="orientation" type="int" value="0"/>
               </Properties>
 
@@ -192,353 +192,362 @@
                     </Container>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+                <Container class="javax.swing.JPanel" name="painelCima">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
                       <JSplitPaneConstraints position="left"/>
                     </Constraint>
                   </Constraints>
 
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane8" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane8" alignment="1" max="32767" attributes="0"/>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
                   <SubComponents>
-                    <Container class="javax.swing.JPanel" name="abaTreemap">
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                          <JTabbedPaneConstraints tabName="Treemap">
-                            <Property name="tabTitle" type="java.lang.String" value="Treemap"/>
-                          </JTabbedPaneConstraints>
-                        </Constraint>
-                      </Constraints>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane8">
 
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+                          <SubComponents>
+                            <Container class="javax.swing.JPanel" name="abaTreemap">
+                              <Constraints>
+                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                                  <JTabbedPaneConstraints tabName="Treemap">
+                                    <Property name="tabTitle" type="java.lang.String" value="Treemap"/>
+                                  </JTabbedPaneConstraints>
+                                </Constraint>
+                              </Constraints>
+
+                              <Layout>
+                                <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="checkLegenda" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="legendaComboBox" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="checkLegenda" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="legendaComboBox" pref="204" max="32767" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Component id="tamanhoTreemapComboBox" max="32767" attributes="0"/>
+                                                              <Component id="corTreemapComboBox" max="32767" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="jLabel5" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="tamanhoTreemapComboBox" max="32767" attributes="0"/>
-                                                      <Component id="corTreemapComboBox" max="32767" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jLabel5" max="32767" attributes="0"/>
-                                              <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="inserirBotao_treemap" min="-2" pref="46" max="-2" attributes="0"/>
-                                              <Component id="removerBotao_treemap" min="-2" pref="46" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jScrollPane4" min="-2" pref="112" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="cimaBotao_treemap" min="-2" pref="39" max="-2" attributes="0"/>
-                                                      <Component id="baixoBotao_treemap" min="-2" pref="39" max="-2" attributes="0"/>
+                                                      <Component id="inserirBotao_treemap" min="-2" pref="46" max="-2" attributes="0"/>
+                                                      <Component id="removerBotao_treemap" min="-2" pref="46" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="jScrollPane4" min="-2" pref="112" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Component id="cimaBotao_treemap" min="-2" pref="39" max="-2" attributes="0"/>
+                                                              <Component id="baixoBotao_treemap" min="-2" pref="39" max="-2" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
-                                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                              <Component id="botaoGerarVisualizacao" alignment="0" min="-2" pref="309" max="-2" attributes="0"/>
                                           </Group>
-                                      </Group>
-                                      <Component id="botaoGerarVisualizacao" alignment="0" min="-2" pref="309" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="cimaBotao_treemap" min="-2" pref="39" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="baixoBotao_treemap" min="-2" pref="39" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jScrollPane3" alignment="0" pref="0" max="32767" attributes="0"/>
-                                      <Component id="jScrollPane4" alignment="0" pref="95" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="inserirBotao_treemap" pref="42" max="32767" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="removerBotao_treemap" min="-2" pref="42" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="legendaComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="checkLegenda" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="tamanhoTreemapComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="corTreemapComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="botaoGerarVisualizacao" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JButton" name="botaoGerarVisualizacao">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="View Treemap"/>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarVisualizacaoActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel2">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Group Hierarchy:"/>
-                          </Properties>
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane3">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JList" name="colunasHierarquicasList1">
-                              <Properties>
-                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                  <StringArray count="0"/>
-                                </Property>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="colunasHierarquicasList1ValueChanged"/>
-                              </Events>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                              </AuxValues>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Component class="javax.swing.JButton" name="inserirBotao_treemap">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="10" style="0"/>
-                            </Property>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icon/setaDir.png"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirBotao_treemapActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane4">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JList" name="colunasHierarquicasList2">
-                              <Properties>
-                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                  <StringArray count="0"/>
-                                </Property>
-                                <Property name="enabled" type="boolean" value="false"/>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="colunasHierarquicasList2ValueChanged"/>
-                              </Events>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                              </AuxValues>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Component class="javax.swing.JButton" name="cimaBotao_treemap">
-                          <Properties>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icon/setaUp.png"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cimaBotao_treemapActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="baixoBotao_treemap">
-                          <Properties>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icon/setaDown.png"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="baixoBotao_treemapActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="removerBotao_treemap">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="10" style="0"/>
-                            </Property>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icon/setaEsq.png"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerBotao_treemapActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JCheckBox" name="checkLegenda">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Label:"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkLegendaActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="legendaComboBox">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="1">
-                                <StringItem index="0" value="---"/>
-                              </StringArray>
-                            </Property>
-                            <Property name="toolTipText" type="java.lang.String" value=""/>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                          </AuxValues>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel1">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Size:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="tamanhoTreemapComboBox">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="1">
-                                <StringItem index="0" value="---"/>
-                              </StringArray>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                          </AuxValues>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel4">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Color:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="corTreemapComboBox">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="1">
-                                <StringItem index="0" value="---"/>
-                              </StringArray>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="corTreemapComboBoxActionPerformed"/>
-                          </Events>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                          </AuxValues>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel5">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Available Attributes:"/>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="abaConfigGlyphs">
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                          <JTabbedPaneConstraints tabName="Config Glyphs">
-                            <Property name="tabTitle" type="java.lang.String" value="Config Glyphs"/>
-                          </JTabbedPaneConstraints>
-                        </Constraint>
-                      </Constraints>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                </DimensionLayout>
+                                <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jLabel13" pref="79" max="32767" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Component id="checkLayeredGlyph" min="-2" pref="107" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                              </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="jLabel14" min="-2" pref="104" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jLabel8" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="numeroLabelLabel" alignment="1" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="cimaBotao_treemap" min="-2" pref="39" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Component id="baixoBotao_treemap" min="-2" pref="39" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="jScrollPane3" alignment="0" pref="0" max="32767" attributes="0"/>
+                                              <Component id="jScrollPane4" alignment="0" pref="95" max="32767" attributes="0"/>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="inserirBotao_treemap" pref="42" max="32767" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="removerBotao_treemap" min="-2" pref="42" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="atributo2Glyph" pref="96" max="32767" attributes="0"/>
-                                              <Component id="atributo5Glyph" alignment="1" max="32767" attributes="0"/>
-                                              <Component id="atributo1Glyph" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="legendaComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="checkLegenda" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="tamanhoTreemapComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="corTreemapComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="botaoGerarVisualizacao" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                              </Layout>
+                              <SubComponents>
+                                <Component class="javax.swing.JButton" name="botaoGerarVisualizacao">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="View Treemap"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarVisualizacaoActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="jLabel2">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Group Hierarchy:"/>
+                                  </Properties>
+                                </Component>
+                                <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JList" name="colunasHierarquicasList1">
+                                      <Properties>
+                                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                                          <StringArray count="0"/>
+                                        </Property>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="colunasHierarquicasList1ValueChanged"/>
+                                      </Events>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                      </AuxValues>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Component class="javax.swing.JButton" name="inserirBotao_treemap">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="10" style="0"/>
+                                    </Property>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/icon/setaDir.png"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirBotao_treemapActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JList" name="colunasHierarquicasList2">
+                                      <Properties>
+                                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                                          <StringArray count="0"/>
+                                        </Property>
+                                        <Property name="enabled" type="boolean" value="false"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="colunasHierarquicasList2ValueChanged"/>
+                                      </Events>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                      </AuxValues>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Component class="javax.swing.JButton" name="cimaBotao_treemap">
+                                  <Properties>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/icon/setaUp.png"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cimaBotao_treemapActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="baixoBotao_treemap">
+                                  <Properties>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/icon/setaDown.png"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="baixoBotao_treemapActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="removerBotao_treemap">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="10" style="0"/>
+                                    </Property>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/icon/setaEsq.png"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerBotao_treemapActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JCheckBox" name="checkLegenda">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Label:"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkLegendaActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JComboBox" name="legendaComboBox">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                      <StringArray count="1">
+                                        <StringItem index="0" value="---"/>
+                                      </StringArray>
+                                    </Property>
+                                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                  </AuxValues>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="jLabel1">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Size:"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JComboBox" name="tamanhoTreemapComboBox">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                      <StringArray count="1">
+                                        <StringItem index="0" value="---"/>
+                                      </StringArray>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                  </AuxValues>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="jLabel4">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Color:"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JComboBox" name="corTreemapComboBox">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                      <StringArray count="1">
+                                        <StringItem index="0" value="---"/>
+                                      </StringArray>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="corTreemapComboBoxActionPerformed"/>
+                                  </Events>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                  </AuxValues>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="jLabel5">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Available Attributes:"/>
+                                  </Properties>
+                                </Component>
+                              </SubComponents>
+                            </Container>
+                            <Container class="javax.swing.JPanel" name="abaConfigGlyphs">
+                              <Constraints>
+                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                                  <JTabbedPaneConstraints tabName="Config Glyphs">
+                                    <Property name="tabTitle" type="java.lang.String" value="Config Glyphs"/>
+                                  </JTabbedPaneConstraints>
+                                </Constraint>
+                              </Constraints>
+
+                              <Layout>
+                                <DimensionLayout dim="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                                  <Component id="botaoGerarGlyphs" max="32767" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="jLabel13" max="32767" attributes="0"/>
+                                                          <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="checkLayeredGlyph" min="-2" pref="107" max="-2" attributes="0"/>
+                                                          <EmptySpace max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <Component id="jLabel14" min="-2" pref="104" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                                               </Group>
-                                              <Group type="102" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel8" alignment="1" min="-2" pref="41" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="atributo2Glyph" pref="96" max="32767" attributes="0"/>
+                                                      <Component id="atributo1Glyph" alignment="0" max="32767" attributes="0"/>
+                                                  </Group>
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Group type="102" attributes="0">
                                                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
@@ -554,777 +563,787 @@
                                                       <Component id="atributo3Glyph" max="32767" attributes="0"/>
                                                       <Component id="atributo4Glyph" max="32767" attributes="0"/>
                                                   </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
                                               </Group>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                               <Group type="102" attributes="0">
-                                                  <Component id="jScrollPane7" min="-2" pref="77" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="removerVarVisualButton" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
-                                                      <Component id="inserirVarVisualButton" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="jScrollPane7" min="-2" pref="77" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                              <Component id="removerVarVisualButton" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                                                              <Component id="inserirVarVisualButton" alignment="0" min="-2" pref="43" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="jScrollPane2" min="-2" pref="92" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                              <Component id="cimaButton" alignment="0" min="-2" pref="42" max="-2" attributes="0"/>
+                                                              <Component id="baixoButton" alignment="0" min="-2" pref="42" max="-2" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
                                                   </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jScrollPane2" min="-2" pref="92" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="cimaButton" alignment="0" min="-2" pref="42" max="-2" attributes="0"/>
-                                                      <Component id="baixoButton" alignment="0" min="-2" pref="42" max="-2" attributes="0"/>
-                                                  </Group>
+                                                  <EmptySpace max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
                                       </Group>
-                                  </Group>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                          <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="checkLayeredGlyph" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="removerVarVisualButton" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="cimaButton" min="-2" pref="35" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="baixoButton" min="-2" pref="35" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="jScrollPane2" alignment="1" min="-2" pref="90" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                          <Component id="inserirVarVisualButton" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                                          <Component id="jScrollPane7" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="atributo3Glyph" alignment="3" max="32767" attributes="0"/>
-                                              <Component id="atributo1Glyph" max="32767" attributes="0"/>
-                                              <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="numeroLabelLabel" min="-2" pref="54" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="atributo4Glyph" alignment="3" max="32767" attributes="0"/>
+                                          <Component id="atributo5Glyph" min="-2" pref="96" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="botaoGerarGlyphs" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                                <DimensionLayout dim="1">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                                  <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                                  <Component id="atributo2Glyph" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="checkLayeredGlyph" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="numeroLabelLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="atributo5Glyph" alignment="3" max="32767" attributes="0"/>
-                                      <Component id="botaoGerarGlyphs" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel13">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Visual variables:"/>
-                          </Properties>
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane7">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JList" name="varVisuaisList1">
-                              <Properties>
-                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="new javax.swing.AbstractListModel&lt;String&gt;() {&#xa;//    String[] strings = { &quot;Texture&quot;, &quot;Color&quot;, &quot;Shape&quot;, &quot;Letter&quot;, &quot;Number&quot; };&#xa;    String[] strings = { &quot;Texture&quot;, &quot;Color&quot;, &quot;Shape&quot;, &quot;Letter&quot;};&#xa;//    String[] strings = { &quot;Textura&quot;, &quot;Cor&quot;, &quot;Forma&quot;, &quot;Letra&quot;};&#xa;    public int getSize() { return strings.length; }&#xa;    public String getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
-                                </Property>
-                                <Property name="enabled" type="boolean" value="false"/>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="varVisuaisList1ValueChanged"/>
-                              </Events>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                              </AuxValues>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Component class="javax.swing.JButton" name="inserirVarVisualButton">
-                          <Properties>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icon/setaDir.png"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirVarVisualButtonActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="removerVarVisualButton">
-                          <Properties>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icon/setaEsq.png"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerVarVisualButtonActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel14">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Order:"/>
-                          </Properties>
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JList" name="varVisuaisList2">
-                              <Properties>
-                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                  <StringArray count="0"/>
-                                </Property>
-                                <Property name="toolTipText" type="java.lang.String" value=""/>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="varVisuaisList2ValueChanged"/>
-                              </Events>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                              </AuxValues>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Component class="javax.swing.JButton" name="cimaButton">
-                          <Properties>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icon/setaUp.png"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cimaButtonActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="baixoButton">
-                          <Properties>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icon/setaDown.png"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="baixoButtonActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel15">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Available Attributes:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel7">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Texture:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="atributo1Glyph">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="1">
-                                <StringItem index="0" value="---"/>
-                              </StringArray>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="atributo1GlyphItemStateChanged"/>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atributo1GlyphActionPerformed"/>
-                          </Events>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                          </AuxValues>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel8">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Color:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="atributo2Glyph">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="1">
-                                <StringItem index="0" value="---"/>
-                              </StringArray>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="atributo2GlyphItemStateChanged"/>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atributo2GlyphActionPerformed"/>
-                          </Events>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                          </AuxValues>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel9">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Shape:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="atributo3Glyph">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="1">
-                                <StringItem index="0" value="---"/>
-                              </StringArray>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="atributo3GlyphItemStateChanged"/>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atributo3GlyphActionPerformed"/>
-                          </Events>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                          </AuxValues>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel10">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Letter:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="atributo4Glyph">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="1">
-                                <StringItem index="0" value="---"/>
-                              </StringArray>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="atributo4GlyphItemStateChanged"/>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atributo4GlyphActionPerformed"/>
-                          </Events>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                          </AuxValues>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="numeroLabelLabel">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Number:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JComboBox" name="atributo5Glyph">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="1">
-                                <StringItem index="0" value="---"/>
-                              </StringArray>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="atributo5GlyphItemStateChanged"/>
-                          </Events>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                          </AuxValues>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="botaoGerarGlyphs">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="View Glyphs"/>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarGlyphsActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JCheckBox" name="checkLayeredGlyph">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Layered Glyph"/>
-                            <Property name="toolTipText" type="java.lang.String" value=""/>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkLayeredGlyphActionPerformed"/>
-                          </Events>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="abaStarGlyphs">
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                          <JTabbedPaneConstraints tabName="Glyph Continuo">
-                            <Property name="tabTitle" type="java.lang.String" value="Glyph Continuo"/>
-                          </JTabbedPaneConstraints>
-                        </Constraint>
-                      </Constraints>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                          <Component id="checkStarGlyph" pref="110" max="32767" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="continuosSelect" pref="187" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jScrollPane11" pref="0" max="32767" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="inserirAtributoStarGlyphButton" min="-2" pref="43" max="-2" attributes="0"/>
-                                                      <Component id="removerAtributoStarGlyphButton" alignment="1" min="-2" pref="43" max="-2" attributes="0"/>
+                                              <Component id="removerVarVisualButton" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
+                                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="cimaButton" min="-2" pref="35" max="-2" attributes="0"/>
+                                                      <EmptySpace max="32767" attributes="0"/>
+                                                      <Component id="baixoButton" min="-2" pref="35" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jScrollPane9" min="-2" pref="96" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="cimaAtributoStarGlyphButton" min="-2" pref="42" max="-2" attributes="0"/>
-                                                      <Component id="baixoAtributoStarGlyphButton" min="-2" pref="42" max="-2" attributes="0"/>
+                                                  <Component id="jScrollPane2" alignment="1" min="-2" pref="90" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                                  <Component id="inserirVarVisualButton" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                                                  <Component id="jScrollPane7" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="atributo3Glyph" alignment="3" max="32767" attributes="0"/>
+                                                      <Component id="atributo1Glyph" max="32767" attributes="0"/>
+                                                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="atributo4Glyph" alignment="3" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jScrollPane1" min="-2" pref="204" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="botaoGerarStarGlyphs" pref="93" max="32767" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="atributo2Glyph" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="checkStarGlyph" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                                      <Component id="continuosSelect" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="cimaAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="baixoAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jScrollPane9" pref="0" max="32767" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="inserirAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="removerAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="jScrollPane11" min="-2" pref="76" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="botaoGerarStarGlyphs" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane1" min="-2" pref="107" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JCheckBox" name="checkStarGlyph">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Glyph Continuo"/>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkStarGlyphActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="botaoGerarStarGlyphs">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="View Glyphs"/>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarStarGlyphsActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="inserirAtributoStarGlyphButton">
-                          <Properties>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icon/setaDir.png"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirAtributoStarGlyphButtonActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="removerAtributoStarGlyphButton">
-                          <Properties>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icon/setaEsq.png"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerAtributoStarGlyphButtonActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane9">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JList" name="listaAtributosStarGlyph2">
-                              <Properties>
-                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                  <StringArray count="0"/>
-                                </Property>
-                                <Property name="toolTipText" type="java.lang.String" value=""/>
-                                <Property name="enabled" type="boolean" value="false"/>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listaAtributosStarGlyph2ValueChanged"/>
-                              </Events>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                              </AuxValues>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Component class="javax.swing.JButton" name="cimaAtributoStarGlyphButton">
-                          <Properties>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icon/setaUp.png"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cimaAtributoStarGlyphButtonActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="baixoAtributoStarGlyphButton">
-                          <Properties>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icon/setaDown.png"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="baixoAtributoStarGlyphButtonActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane11">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JList" name="listaAtributosStarGlyph1">
-                              <Properties>
-                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                  <StringArray count="0"/>
-                                </Property>
-                                <Property name="enabled" type="boolean" value="false"/>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listaAtributosStarGlyph1ValueChanged"/>
-                              </Events>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                              </AuxValues>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Component class="javax.swing.JComboBox" name="continuosSelect">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Star&quot;,&quot;Pie&quot;,&quot;Bar&quot;,&quot;Ang&quot; })" type="code"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="false" type="code"/>
-                            </Property>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="continuosSelectItemStateChanged"/>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="continuosSelectActionPerformed"/>
-                          </Events>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                          </AuxValues>
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JTable" name="legendaContinuaJTable">
-                              <Properties>
-                                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="3" rowCount="0">
-                                    <Column editable="false" title="Attribute" type="java.lang.Object"/>
-                                    <Column editable="false" title="Min" type="java.lang.Object"/>
-                                    <Column editable="false" title="Max" type="java.lang.Object"/>
-                                  </Table>
-                                </Property>
-                                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                                  <TableColumnModel selectionModel="0">
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                      <Title/>
-                                      <Editor/>
-                                      <Renderer/>
-                                    </Column>
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                      <Title/>
-                                      <Editor/>
-                                      <Renderer/>
-                                    </Column>
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                      <Title/>
-                                      <Editor/>
-                                      <Renderer/>
-                                    </Column>
-                                  </TableColumnModel>
-                                </Property>
-                                <Property name="rowSelectionAllowed" type="boolean" value="false"/>
-                                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-                                </Property>
-                              </Properties>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="abaDetalhes">
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                          <JTabbedPaneConstraints tabName="Details">
-                            <Property name="tabTitle" type="java.lang.String" value="Details"/>
-                          </JTabbedPaneConstraints>
-                        </Constraint>
-                      </Constraints>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="updateDetailsButton" max="32767" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jScrollPane5" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="inserirBotao_detalhes" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
-                                              <Component id="removerBotao_detalhes" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jScrollPane6" alignment="0" min="-2" pref="112" max="-2" attributes="0"/>
-                                              <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace pref="45" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="inserirBotao_detalhes" min="-2" pref="42" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="removerBotao_detalhes" min="-2" pref="42" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="numeroLabelLabel" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="atributo5Glyph" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="botaoGerarGlyphs" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="jScrollPane5" alignment="0" pref="178" max="32767" attributes="0"/>
-                                      <Component id="jScrollPane6" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="updateDetailsButton" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="jLabel6">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Available Attributes:"/>
-                          </Properties>
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane5">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
+                                </DimensionLayout>
+                              </Layout>
+                              <SubComponents>
+                                <Component class="javax.swing.JLabel" name="jLabel13">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Visual variables:"/>
+                                  </Properties>
+                                </Component>
+                                <Container class="javax.swing.JScrollPane" name="jScrollPane7">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JList" name="colunasDetalhesList1">
-                              <Properties>
-                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                  <StringArray count="0"/>
-                                </Property>
-                                <Property name="enabled" type="boolean" value="false"/>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="colunasDetalhesList1ValueChanged"/>
-                              </Events>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                              </AuxValues>
-                            </Component>
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JList" name="varVisuaisList1">
+                                      <Properties>
+                                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                          <Connection code="new javax.swing.AbstractListModel&lt;String&gt;() {&#xa;//    String[] strings = { &quot;Texture&quot;, &quot;Color&quot;, &quot;Shape&quot;, &quot;Letter&quot;, &quot;Number&quot; };&#xa;    String[] strings = { &quot;Texture&quot;, &quot;Color&quot;, &quot;Shape&quot;, &quot;Letter&quot;};&#xa;//    String[] strings = { &quot;Textura&quot;, &quot;Cor&quot;, &quot;Forma&quot;, &quot;Letra&quot;};&#xa;    public int getSize() { return strings.length; }&#xa;    public String getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
+                                        </Property>
+                                        <Property name="enabled" type="boolean" value="false"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="varVisuaisList1ValueChanged"/>
+                                      </Events>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                      </AuxValues>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Component class="javax.swing.JButton" name="inserirVarVisualButton">
+                                  <Properties>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/icon/setaDir.png"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirVarVisualButtonActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="removerVarVisualButton">
+                                  <Properties>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/icon/setaEsq.png"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerVarVisualButtonActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="jLabel14">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Order:"/>
+                                  </Properties>
+                                </Component>
+                                <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JList" name="varVisuaisList2">
+                                      <Properties>
+                                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                                          <StringArray count="0"/>
+                                        </Property>
+                                        <Property name="toolTipText" type="java.lang.String" value=""/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="varVisuaisList2ValueChanged"/>
+                                      </Events>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                      </AuxValues>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Component class="javax.swing.JButton" name="cimaButton">
+                                  <Properties>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/icon/setaUp.png"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cimaButtonActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="baixoButton">
+                                  <Properties>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/icon/setaDown.png"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="baixoButtonActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="jLabel15">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Available Attributes:"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="jLabel7">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Texture:"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JComboBox" name="atributo1Glyph">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                      <StringArray count="1">
+                                        <StringItem index="0" value="---"/>
+                                      </StringArray>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="atributo1GlyphItemStateChanged"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atributo1GlyphActionPerformed"/>
+                                  </Events>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                  </AuxValues>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="jLabel8">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Color:"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JComboBox" name="atributo2Glyph">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                      <StringArray count="1">
+                                        <StringItem index="0" value="---"/>
+                                      </StringArray>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="atributo2GlyphItemStateChanged"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atributo2GlyphActionPerformed"/>
+                                  </Events>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                  </AuxValues>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="jLabel9">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Shape:"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JComboBox" name="atributo3Glyph">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                      <StringArray count="1">
+                                        <StringItem index="0" value="---"/>
+                                      </StringArray>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="atributo3GlyphItemStateChanged"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atributo3GlyphActionPerformed"/>
+                                  </Events>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                  </AuxValues>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="jLabel10">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Letter:"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JComboBox" name="atributo4Glyph">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                      <StringArray count="1">
+                                        <StringItem index="0" value="---"/>
+                                      </StringArray>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="atributo4GlyphItemStateChanged"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atributo4GlyphActionPerformed"/>
+                                  </Events>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                  </AuxValues>
+                                </Component>
+                                <Component class="javax.swing.JLabel" name="numeroLabelLabel">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Number:"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JComboBox" name="atributo5Glyph">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                      <StringArray count="1">
+                                        <StringItem index="0" value="---"/>
+                                      </StringArray>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="atributo5GlyphItemStateChanged"/>
+                                  </Events>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                  </AuxValues>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="botaoGerarGlyphs">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="View Glyphs"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarGlyphsActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JCheckBox" name="checkLayeredGlyph">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Layered Glyph"/>
+                                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkLayeredGlyphActionPerformed"/>
+                                  </Events>
+                                </Component>
+                              </SubComponents>
+                            </Container>
+                            <Container class="javax.swing.JPanel" name="abaStarGlyphs">
+                              <Constraints>
+                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                                  <JTabbedPaneConstraints tabName="Glyph Continuo">
+                                    <Property name="tabTitle" type="java.lang.String" value="Glyph Continuo"/>
+                                  </JTabbedPaneConstraints>
+                                </Constraint>
+                              </Constraints>
+
+                              <Layout>
+                                <DimensionLayout dim="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                                  <Component id="checkStarGlyph" max="32767" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="continuosSelect" min="-2" pref="110" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="jScrollPane11" pref="0" max="32767" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Component id="inserirAtributoStarGlyphButton" min="-2" pref="43" max="-2" attributes="0"/>
+                                                              <Component id="removerAtributoStarGlyphButton" alignment="1" min="-2" pref="43" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="jScrollPane9" min="-2" pref="96" max="-2" attributes="0"/>
+                                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Component id="cimaAtributoStarGlyphButton" min="-2" pref="42" max="-2" attributes="0"/>
+                                                              <Component id="baixoAtributoStarGlyphButton" min="-2" pref="42" max="-2" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="jScrollPane1" min="-2" pref="192" max="-2" attributes="0"/>
+                                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                          <Component id="botaoGerarStarGlyphs" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                                <DimensionLayout dim="1">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="checkStarGlyph" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                              <Component id="continuosSelect" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="cimaAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="baixoAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="jScrollPane9" pref="0" max="32767" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="inserirAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="removerAtributoStarGlyphButton" min="-2" pref="35" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="jScrollPane11" min="-2" pref="76" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="botaoGerarStarGlyphs" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jScrollPane1" min="-2" pref="91" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                              </Layout>
+                              <SubComponents>
+                                <Component class="javax.swing.JCheckBox" name="checkStarGlyph">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Glyph Continuo"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkStarGlyphActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="botaoGerarStarGlyphs">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="View Glyphs"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarStarGlyphsActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="inserirAtributoStarGlyphButton">
+                                  <Properties>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/icon/setaDir.png"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirAtributoStarGlyphButtonActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="removerAtributoStarGlyphButton">
+                                  <Properties>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/icon/setaEsq.png"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerAtributoStarGlyphButtonActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Container class="javax.swing.JScrollPane" name="jScrollPane9">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JList" name="listaAtributosStarGlyph2">
+                                      <Properties>
+                                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                                          <StringArray count="0"/>
+                                        </Property>
+                                        <Property name="toolTipText" type="java.lang.String" value=""/>
+                                        <Property name="enabled" type="boolean" value="false"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listaAtributosStarGlyph2ValueChanged"/>
+                                      </Events>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                      </AuxValues>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Component class="javax.swing.JButton" name="cimaAtributoStarGlyphButton">
+                                  <Properties>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/icon/setaUp.png"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cimaAtributoStarGlyphButtonActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="baixoAtributoStarGlyphButton">
+                                  <Properties>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/icon/setaDown.png"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="baixoAtributoStarGlyphButtonActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Container class="javax.swing.JScrollPane" name="jScrollPane11">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JList" name="listaAtributosStarGlyph1">
+                                      <Properties>
+                                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                                          <StringArray count="0"/>
+                                        </Property>
+                                        <Property name="enabled" type="boolean" value="false"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listaAtributosStarGlyph1ValueChanged"/>
+                                      </Events>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                      </AuxValues>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Component class="javax.swing.JComboBox" name="continuosSelect">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                      <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Star&quot;,&quot;Pie&quot;,&quot;Bar&quot;,&quot;Ang&quot; })" type="code"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                      <Connection code="false" type="code"/>
+                                    </Property>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="continuosSelectItemStateChanged"/>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="continuosSelectActionPerformed"/>
+                                  </Events>
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                  </AuxValues>
+                                </Component>
+                                <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JTable" name="legendaContinuaJTable">
+                                      <Properties>
+                                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                                          <Table columnCount="3" rowCount="0">
+                                            <Column editable="false" title="Attribute" type="java.lang.Object"/>
+                                            <Column editable="false" title="Min" type="java.lang.Object"/>
+                                            <Column editable="false" title="Max" type="java.lang.Object"/>
+                                          </Table>
+                                        </Property>
+                                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                                          <TableColumnModel selectionModel="0">
+                                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                              <Title/>
+                                              <Editor/>
+                                              <Renderer/>
+                                            </Column>
+                                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                              <Title/>
+                                              <Editor/>
+                                              <Renderer/>
+                                            </Column>
+                                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                              <Title/>
+                                              <Editor/>
+                                              <Renderer/>
+                                            </Column>
+                                          </TableColumnModel>
+                                        </Property>
+                                        <Property name="rowSelectionAllowed" type="boolean" value="false"/>
+                                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                                        </Property>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                              </SubComponents>
+                            </Container>
+                            <Container class="javax.swing.JPanel" name="abaDetalhes">
+                              <Constraints>
+                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                                  <JTabbedPaneConstraints tabName="Details">
+                                    <Property name="tabTitle" type="java.lang.String" value="Details"/>
+                                  </JTabbedPaneConstraints>
+                                </Constraint>
+                              </Constraints>
+
+                              <Layout>
+                                <DimensionLayout dim="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="updateDetailsButton" max="32767" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane5" alignment="0" min="-2" pref="98" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="inserirBotao_detalhes" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
+                                                      <Component id="removerBotao_detalhes" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jScrollPane6" alignment="0" min="-2" pref="112" max="-2" attributes="0"/>
+                                                      <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                                <DimensionLayout dim="1">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="inserirBotao_detalhes" min="-2" pref="42" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="removerBotao_detalhes" min="-2" pref="42" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="jScrollPane5" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jScrollPane6" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="updateDetailsButton" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                </DimensionLayout>
+                              </Layout>
+                              <SubComponents>
+                                <Component class="javax.swing.JLabel" name="jLabel6">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Available Attributes:"/>
+                                  </Properties>
+                                </Component>
+                                <Container class="javax.swing.JScrollPane" name="jScrollPane5">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JList" name="colunasDetalhesList1">
+                                      <Properties>
+                                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                                          <StringArray count="0"/>
+                                        </Property>
+                                        <Property name="enabled" type="boolean" value="false"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="colunasDetalhesList1ValueChanged"/>
+                                      </Events>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                      </AuxValues>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Component class="javax.swing.JButton" name="inserirBotao_detalhes">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="10" style="0"/>
+                                    </Property>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/icon/setaDir.png"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirBotao_detalhesActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="removerBotao_detalhes">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="Tahoma" size="10" style="0"/>
+                                    </Property>
+                                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                      <Image iconType="3" name="/icon/setaEsq.png"/>
+                                    </Property>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerBotao_detalhesActionPerformed"/>
+                                  </Events>
+                                </Component>
+                                <Container class="javax.swing.JScrollPane" name="jScrollPane6">
+                                  <AuxValues>
+                                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                                  </AuxValues>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JList" name="colunasDetalhesList2">
+                                      <Properties>
+                                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                                          <StringArray count="0"/>
+                                        </Property>
+                                        <Property name="enabled" type="boolean" value="false"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="colunasDetalhesList2ValueChanged"/>
+                                      </Events>
+                                      <AuxValues>
+                                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                                      </AuxValues>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Component class="javax.swing.JLabel" name="jLabel12">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Details on Demand:"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JButton" name="updateDetailsButton">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Update Details"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
+                                  </Properties>
+                                  <Events>
+                                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateDetailsButtonActionPerformed"/>
+                                  </Events>
+                                </Component>
+                              </SubComponents>
+                            </Container>
+                            <Container class="javax.swing.JPanel" name="abaFiltros">
+                              <Constraints>
+                                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                                  <JTabbedPaneConstraints tabName="Filter">
+                                    <Property name="tabTitle" type="java.lang.String" value="Filter"/>
+                                  </JTabbedPaneConstraints>
+                                </Constraint>
+                              </Constraints>
+
+                              <Layout>
+                                <DimensionLayout dim="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <EmptySpace min="0" pref="361" max="32767" attributes="0"/>
+                                  </Group>
+                                </DimensionLayout>
+                                <DimensionLayout dim="1">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <EmptySpace min="0" pref="269" max="32767" attributes="0"/>
+                                  </Group>
+                                </DimensionLayout>
+                              </Layout>
+                            </Container>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JButton" name="inserirBotao_detalhes">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="10" style="0"/>
-                            </Property>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icon/setaDir.png"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirBotao_detalhesActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="removerBotao_detalhes">
-                          <Properties>
-                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                              <Font name="Tahoma" size="10" style="0"/>
-                            </Property>
-                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/icon/setaEsq.png"/>
-                            </Property>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removerBotao_detalhesActionPerformed"/>
-                          </Events>
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane6">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JList" name="colunasDetalhesList2">
-                              <Properties>
-                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                  <StringArray count="0"/>
-                                </Property>
-                                <Property name="enabled" type="boolean" value="false"/>
-                              </Properties>
-                              <Events>
-                                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="colunasDetalhesList2ValueChanged"/>
-                              </Events>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                              </AuxValues>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Component class="javax.swing.JLabel" name="jLabel12">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Details on Demand:"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="updateDetailsButton">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="Update Details"/>
-                            <Property name="enabled" type="boolean" value="false"/>
-                          </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateDetailsButtonActionPerformed"/>
-                          </Events>
-                        </Component>
                       </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="abaFiltros">
-                      <Constraints>
-                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                          <JTabbedPaneConstraints tabName="Filter">
-                            <Property name="tabTitle" type="java.lang.String" value="Filter"/>
-                          </JTabbedPaneConstraints>
-                        </Constraint>
-                      </Constraints>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="323" max="32767" attributes="0"/>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
                     </Container>
                   </SubComponents>
                 </Container>
