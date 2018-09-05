@@ -2283,14 +2283,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }
 
-    private void prepararLegendaStarGlyph(List<String> itensVariaveisStarGlyph) {
-        paineGlyphContinuolLegenda.setEditable(true);
-        paineGlyphContinuolLegenda.setText("");
-        for (int i = 0; i < itensVariaveisStarGlyph.size(); i++) {
-            appendToPane(paineGlyphContinuolLegenda, itensVariaveisStarGlyph.get(i) +"\n", Color.decode(Constantes.getCor()[i]));
-        }
-        paineGlyphContinuolLegenda.setEditable(false);
-    }
+
 
     /**
      * Invoked when task's progress property changes.
