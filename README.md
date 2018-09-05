@@ -10,5 +10,5 @@ Projeto que objetiva apresentar soluções para mitigar os desafios atuais da t�
 
 This application was developed by Laboratório de Visualização, Interação e Sistemas inteligentes (LABVIS) from Universidade Federal do Para (UFPA) since 2018.
 
-##LICENCE
+## LICENCE
 [MIT License - Copyright (c) 2018 LABVIS-UFPA](https://github.com/LABVIS-UFPA/TreemapGlyphs/blob/master/LICENSE)
