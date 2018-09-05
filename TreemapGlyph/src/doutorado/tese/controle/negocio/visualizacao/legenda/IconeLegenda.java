@@ -13,6 +13,10 @@ import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
+import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.Bar;
+import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.BarChart;
+import doutorado.tese.dao.ManipuladorArquivo;
+import doutorado.tese.modelo.Coluna;
 import doutorado.tese.util.ColorInterpolator;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -21,6 +25,7 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.List;
 import static javafx.scene.paint.Color.color;
 import javax.swing.Icon;
 
@@ -39,6 +44,7 @@ public class IconeLegenda implements Icon {
 
     private BasicStroke stroke = new BasicStroke(4);
     private FORMAS.GLYPH_FORMAS valorForma;
+    private List<String> atributosEscolhidosGlyphContinuo;
 
     public void paintIcon(Component c, Graphics g, int x, int y) {
         Graphics2D g2d = (Graphics2D) g.create();
@@ -124,6 +130,27 @@ public class IconeLegenda implements Icon {
                 num.setBounds(bounds);
                 num.paint(g2d);
                 break;
+            case 5:
+                if (valor==null) {
+                    System.out.println(getAtributosEscolhidosGlyphContinuo());
+                    BarChart bar = new BarChart(getAtributosEscolhidosGlyphContinuo());
+                    bar.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
+                    bar.setPectSobreposicao(0.85f);
+                    bar.setOverlappingActivated(true);
+                    for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
+                        String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
+                        Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
+                        double dado = 10;
+                        double dadoMaxVal = 10;//0 - maxValue; 1 - minValue
+                        bar.getBarras()[i] = new Bar(dado, dadoMaxVal);
+                    }   
+                    Rectangle r = new Rectangle(0,0,bounds.width*5,bounds.height*5);
+                    
+                    bar.setBounds(r);
+                    bar.paint(g2d);
+                    
+                }
+                break;
             default:
                 inserirIconeAusente(g2d, x, y);
                 break;
@@ -179,5 +206,13 @@ public class IconeLegenda implements Icon {
      */
     public void setMinValorContIcon(double minValorContIcon) {
         this.minValorContIcon = minValorContIcon;
+    }
+
+    public List<String> getAtributosEscolhidosGlyphContinuo() {
+        return atributosEscolhidosGlyphContinuo;
+    }
+    
+    public void setAtributosEscolhidosGlyphContinuo(List<String> atributosEscolhidosGlyphContinuo) {
+        this.atributosEscolhidosGlyphContinuo = atributosEscolhidosGlyphContinuo;
     }
 }

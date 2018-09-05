@@ -12,11 +12,9 @@ import doutorado.tese.controle.negocio.visualizacao.legenda.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -26,7 +24,6 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
@@ -38,10 +35,7 @@ import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.plaf.metal.OceanTheme;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -75,7 +69,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         initComponents();
 //        separadorEsqueDir_jSplitPane.setDividerLocation(2000);
         layerPane = new JLayeredPane();
-
+        atributosEscolhidosGlyph = new ArrayList<>();
+        
         legendaVisualizacao = new LegendaVisualizacao(painelLegendaVis.getBounds());
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         separadorEsqueDir_jSplitPane.setOneTouchExpandable(true);
@@ -159,8 +154,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jScrollPane11 = new javax.swing.JScrollPane();
         listaAtributosStarGlyph1 = new javax.swing.JList<>();
         continuosSelect = new javax.swing.JComboBox<>();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        paineGlyphContinuolLegenda = new javax.swing.JTextPane();
         abaDetalhes = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -222,6 +215,19 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         legendaBarraRolage.setViewportView(painelLegendaVis);
 
         separadorCimaBaixo.setRightComponent(legendaBarraRolage);
+
+        javax.swing.GroupLayout painelCimaLayout = new javax.swing.GroupLayout(painelCima);
+        painelCima.setLayout(painelCimaLayout);
+        painelCimaLayout.setHorizontalGroup(
+            painelCimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 368, Short.MAX_VALUE)
+        );
+        painelCimaLayout.setVerticalGroup(
+            painelCimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 299, Short.MAX_VALUE)
+        );
+
+        separadorCimaBaixo.setLeftComponent(painelCima);
 
         botaoGerarVisualizacao.setText("View Treemap");
         botaoGerarVisualizacao.setEnabled(false);
@@ -732,10 +738,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        paineGlyphContinuolLegenda.setEditable(false);
-        paineGlyphContinuolLegenda.setBorder(javax.swing.BorderFactory.createTitledBorder("Subtitle StarGlyph"));
-        jScrollPane10.setViewportView(paineGlyphContinuolLegenda);
-
         javax.swing.GroupLayout abaStarGlyphsLayout = new javax.swing.GroupLayout(abaStarGlyphs);
         abaStarGlyphs.setLayout(abaStarGlyphsLayout);
         abaStarGlyphsLayout.setHorizontalGroup(
@@ -764,8 +766,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                                     .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(abaStarGlyphsLayout.createSequentialGroup()
-                                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(210, 210, 210)
                                 .addComponent(botaoGerarStarGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -790,10 +791,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addComponent(removerAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoGerarStarGlyphs)
-                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addComponent(botaoGerarStarGlyphs)
+                .addContainerGap(140, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Glyph Continuo", abaStarGlyphs);
@@ -903,18 +902,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         jScrollPane8.setViewportView(jTabbedPane1);
 
-        javax.swing.GroupLayout painelCimaLayout = new javax.swing.GroupLayout(painelCima);
-        painelCima.setLayout(painelCimaLayout);
-        painelCimaLayout.setHorizontalGroup(
-            painelCimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane8)
-        );
-        painelCimaLayout.setVerticalGroup(
-            painelCimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
-
-        separadorCimaBaixo.setLeftComponent(painelCima);
+        separadorCimaBaixo.setTopComponent(jScrollPane8);
 
         nextTest_Button.setText("Next");
         nextTest_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -1056,14 +1044,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         //Acoes para desenhar os glyphs
         glyphPanel.setBounds(painelEsquerda.getBounds());
         glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());
-        ArrayList<Object> atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
+        atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
         glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
         glyphPanel.setVisible(true);
         glyphPanel.repaint();
 
         atualizarLegendaGlyphs(atributosEscolhidosGlyph);
     }//GEN-LAST:event_botaoGerarGlyphsActionPerformed
-
     private void checkLayeredGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLayeredGlyphActionPerformed
         if (checkLayeredGlyph.isSelected()) {
             Constantes.setShowGlyph(true);
@@ -1556,7 +1543,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         glyphPanel.repaint();
 
         atualizarLegendaGlyphs(atributosEscolhidosGlyph);
-        prepararLegendaStarGlyph(Arrays.asList(atributosEscolhidosStarGlyph));
+//        prepararLegendaStarGlyph(Arrays.asList(atributosEscolhidosStarGlyph));
+        atualizarLegendaGlyphsContinuos(atributosEscolhidosStarGlyph);
     }//GEN-LAST:event_botaoGerarStarGlyphsActionPerformed
 
     private void cimaAtributoStarGlyphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaAtributoStarGlyphButtonActionPerformed
@@ -1734,7 +1722,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1751,7 +1738,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JList<String> listaAtributosStarGlyph2;
     private javax.swing.JButton nextTest_Button;
     private javax.swing.JLabel numeroLabelLabel;
-    private javax.swing.JTextPane paineGlyphContinuolLegenda;
     private javax.swing.JPanel painelCima;
     private javax.swing.JPanel painelDireita;
     private javax.swing.JPanel painelEsquerda;
@@ -1785,6 +1771,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private ManipuladorArquivo manipulador;
     private File selectedFile;
     private Task task;
+    private ArrayList<Object> atributosEscolhidosGlyph; 
+
 
     private void atualizarLegendaGlyphs(ArrayList<Object> atributosEscolhidosGlyph) {
         painelLegendaVis.removeAll();
@@ -1798,6 +1786,26 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
             painelLegendaVis.revalidate();
         }
+    }
+    
+    private void atualizarLegendaGlyphsContinuos(String[] atributosEscolhidosGlyphContinuo) {
+        painelLegendaVis.removeAll();
+        atualizarLegendaTreemap(itemCor);
+        atualizarLegendaGlyphs(atributosEscolhidosGlyph);
+        ArrayList<String> lista = new ArrayList();
+        //converndo lista<object>
+        for (int i = 0; i <atributosEscolhidosGlyphContinuo.length; i++) {
+            lista.add(atributosEscolhidosGlyphContinuo[i]);
+        }
+//        legendaVisualizacao.setAtributosGlyphs(lista);
+        legendaVisualizacao.setAtributosGlyphsontinuos(lista);
+//        for (int i = 0; i < atributosEscolhidosGlyphContinuo.size(); i++) {   
+                JPanel painelDimensao = legendaVisualizacao.addLegendaDimensao(5);
+                painelLegendaVis.setLayout(new BoxLayout(painelLegendaVis, BoxLayout.Y_AXIS));
+                painelLegendaVis.add(painelDimensao);
+            
+            painelLegendaVis.revalidate();
+//        }
     }
 
     private void atualizarLegendaTreemap(String itemCor) {

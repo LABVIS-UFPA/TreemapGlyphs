@@ -21,7 +21,12 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 
 /**
  *
@@ -31,6 +36,7 @@ public class LegendaVisualizacao {
 
     ArrayList<Object> atributosEscolhidosGlyph;
     private Rectangle bounds;
+    private ArrayList<String> listaContinuos;
 
     public LegendaVisualizacao(Rectangle bound) {
         setBounds(bound);
@@ -109,13 +115,20 @@ public class LegendaVisualizacao {
     public JPanel addLegendaDimensao(int dimensao) {
         JPanel painel = new JPanel(new GridLayout(0, 3));
         painel.setBackground(Color.WHITE);
-        painel.setBorder(BorderFactory.createTitledBorder(this.atributosEscolhidosGlyph.get(dimensao).toString() + "'s Subtitle"));
+        Coluna c = null;
+        List<String> dadosDistintos = null;
+        if (dimensao != 5) {
+            painel.setBorder(BorderFactory.createTitledBorder(this.atributosEscolhidosGlyph.get(dimensao).toString() + "'s Subtitle"));
+            c = ManipuladorArquivo.getColuna(this.atributosEscolhidosGlyph.get(dimensao).toString());
+            dadosDistintos = c.getDadosDistintos();
+        } else {
+            painel.setBorder(BorderFactory.createTitledBorder("Profile" + "'s Subtitle"));
+            return criarLegendaContinua(5, painel, listaContinuos);
+
+        }
         painel.setBounds(bounds);
         painel.setVisible(true);
 
-        Coluna c = ManipuladorArquivo.getColuna(this.atributosEscolhidosGlyph.get(dimensao).toString());
-
-        List<String> dadosDistintos = c.getDadosDistintos();
         for (int i = 0; i < dadosDistintos.size(); i++) {
             IconeLegenda icon = new IconeLegenda();
             icon.setDimensao(dimensao);
@@ -136,6 +149,9 @@ public class LegendaVisualizacao {
                     break;
                 case 4:
                     icon.setValorIcon(Constantes.NUMEROS[i]);
+                    break;
+                case 5:
+//                    criarLegendaContinua(5,painel);
                     break;
                 default:
                     throw new AssertionError();
@@ -173,7 +189,9 @@ public class LegendaVisualizacao {
             painel.add(labelMin);
             labelMin.setHorizontalAlignment(SwingConstants.LEFT);
             painel.setAlignmentX(labelMin.LEFT_ALIGNMENT);
+
         }
+
         return painel;
     }
 
@@ -187,5 +205,49 @@ public class LegendaVisualizacao {
 
     private Rectangle getBounds() {
         return this.bounds;
+    }
+
+    private JPanel criarLegendaContinua(int dimensao, JPanel painel, ArrayList<String> atributosEscolhidosGlyphContinuo) {
+        IconeLegenda icon = new IconeLegenda();
+        icon.setDimensao(dimensao);
+        icon.setMaxValorContIcon(10);
+        icon.setMinValorContIcon(10);
+        icon.setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
+        JLabel labelIcone = criarLabel("", icon);
+//            labelIcone.setBorder(BorderFactory.createLineBorder(Color.yellow));
+        painel.add(labelIcone);
+        labelIcone.setVerticalAlignment(SwingConstants.CENTER);
+        labelIcone.setHorizontalAlignment(SwingConstants.CENTER);
+        painel.setAlignmentX(labelIcone.LEFT_ALIGNMENT);
+
+        JTextPane legendas = new JTextPane();
+        legendas.setEditable(true);
+        legendas.setText("");
+        for (int i = 0; i < atributosEscolhidosGlyphContinuo.size(); i++) {
+            appendToPane(legendas, atributosEscolhidosGlyphContinuo.get(i) + "\n", Color.decode(Constantes.getCor()[i]));
+        }
+        
+        legendas.setEditable(false);
+        painel.add(legendas);
+        return painel;
+    }
+   
+    
+    
+    private void appendToPane(JTextPane tp, String msg, Color c) {
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+
+        int len = tp.getDocument().getLength();
+        tp.setCaretPosition(len);
+        tp.setCharacterAttributes(aset, false);
+        tp.replaceSelection(msg);
+    }
+
+    public void setAtributosGlyphsontinuos(ArrayList<String> listaContinuos) {
+        this.listaContinuos = listaContinuos;
     }
 }
