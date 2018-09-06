@@ -223,10 +223,14 @@ public class LegendaVisualizacao {
         JTextPane legendas = new JTextPane();
         legendas.setEditable(true);
         legendas.setText("");
+        appendToPane(legendas,"\n",Color.decode("#000000"));
+        appendToPane(legendas,"\n",Color.decode("#000000"));
+        appendToPane(legendas,"\n",Color.decode("#000000"));
+        appendToPane(legendas,"\n",Color.decode("#000000"));
         for (int i = 0; i < atributosEscolhidosGlyphContinuo.size(); i++) {
             appendToPane(legendas, atributosEscolhidosGlyphContinuo.get(i) + "\n", Color.decode(Constantes.getCor()[i]));
         }
-        
+
         legendas.setEditable(false);
         painel.add(legendas);
         return painel;
