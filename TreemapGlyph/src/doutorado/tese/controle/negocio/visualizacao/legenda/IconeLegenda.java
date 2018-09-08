@@ -144,7 +144,7 @@ public class IconeLegenda implements Icon {
                         double dadoMaxVal = 10;//0 - maxValue; 1 - minValue
                         bar.getBarras()[i] = new Bar(dado, dadoMaxVal);
                     }   
-                    Rectangle r = new Rectangle(0,0,bounds.width*5,bounds.height*5);
+                    Rectangle r = new Rectangle(10,10,bounds.width*5,bounds.height*5);
                     
                     bar.setBounds(r);
                     bar.paint(g2d);
