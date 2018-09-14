@@ -62,7 +62,7 @@ public final class GlyphManager {
     private boolean starGlyphActivated;
     private String numeroUtilizado;
     private List<String> atributosEscolhidosStarGlyph;
-    private String[] glyphContinuoEscolhido;
+    private String glyphContinuoEscolhido;
 
     public GlyphManager() {
         this.configs = new HashMap<>();
@@ -197,9 +197,9 @@ public final class GlyphManager {
     public TreeMapItem configLayers(TreeMapItem item) {
         Glyph father = item.getGlyph();
         father.killAllChild();
-        String[] glyphContinuo = getGlyphContinuoEscolhido();
+        String glyphContinuo = getGlyphContinuoEscolhido();
         //System.out.println("+"+glyphContinuo[0]);
-      
+
         for (int i = 0; i < getVariaveisVisuaisEscolhidas().length; i++) {
             String varVisual = getVariaveisVisuaisEscolhidas()[i];
             int dimensao = mapearVarVisual2Dimensao(varVisual);
@@ -207,16 +207,18 @@ public final class GlyphManager {
             father.appendChild(child);
             if (i == getVariaveisVisuaisEscolhidas().length - 1) {//se ja estiver na ultima camada
                 if (starGlyphActivated) {
-                    Glyph childStarGlyph = setLayerInGlyph(glyphContinuo[0], item, -1);
+                    Glyph childStarGlyph = setLayerInGlyph(glyphContinuo, item, -1);
                     father.appendChild(childStarGlyph);
                 }
             }
         }
         if (getVariaveisVisuaisEscolhidas().length == 0) {
-            Glyph childStarGlyph = setLayerInGlyph(glyphContinuo[0], item, -1);
+            Glyph childStarGlyph = setLayerInGlyph(glyphContinuo, item, -1);
             father.appendChild(childStarGlyph);
         }
-        father.setBounds(father.getBounds());
+        if (father.getBounds() != null) {
+            father.setBounds(father.getBounds());
+        }
         if (decisionTreeActivate) {
             double[] features = new double[15];
             getFeatures(item, features);
@@ -272,8 +274,8 @@ public final class GlyphManager {
         }
         return glyph;
     }
-   
-       private Glyph configureSliceGlyph(TreeMapItem item) {
+
+    private Glyph configureSliceGlyph(TreeMapItem item) {
         PieChart slice = new PieChart(getAtributosEscolhidosStarGlyph());
         slice.setQuantVar(getAtributosEscolhidosStarGlyph().size());
         slice.setPectSobreposicao(0.85f);
@@ -287,8 +289,8 @@ public final class GlyphManager {
         }
         return slice;
     }
-    
-       private Glyph configureArcGlyph(TreeMapItem item) {
+
+    private Glyph configureArcGlyph(TreeMapItem item) {
         AngChart raio = new AngChart(getAtributosEscolhidosStarGlyph());
         raio.setQuantVar(getAtributosEscolhidosStarGlyph().size());
         raio.setPectSobreposicao(0.85f);
@@ -301,8 +303,9 @@ public final class GlyphManager {
             raio.getSlices()[i] = new Slice(dado, dadoMaxVal);
         }
         return raio;
-    }  
-   private Glyph configureBarGlyph(TreeMapItem item) {
+    }
+
+    private Glyph configureBarGlyph(TreeMapItem item) {
         BarChart bar = new BarChart(getAtributosEscolhidosStarGlyph());
         bar.setQuantVar(getAtributosEscolhidosStarGlyph().size());
         bar.setPectSobreposicao(0.85f);
@@ -316,7 +319,7 @@ public final class GlyphManager {
         }
         return bar;
     }
-   
+
     private Glyph configureStarGlyph(TreeMapItem item) {
         StarGlyph starGlyph = new StarGlyph(getAtributosEscolhidosStarGlyph());
         starGlyph.setQuantVar(getAtributosEscolhidosStarGlyph().size());
@@ -503,14 +506,14 @@ public final class GlyphManager {
 //        System.out.println("Root Node Zoom: "+this.rootNodeZoom.getRoot().getTitle());
     }
 
-    public String[] getGlyphContinuoEscolhido() {
+    public String getGlyphContinuoEscolhido() {
         return glyphContinuoEscolhido;
     }
 
-    public void setGlyphContinuoEscolhido(String[] glyphContinuoEscolhido) {
+    public void setGlyphContinuoEscolhido(String glyphContinuoEscolhido) {
         this.glyphContinuoEscolhido = glyphContinuoEscolhido;
     }
-    
+
     /**
      * @return the variaveisVisuaisEscolhidas
      */

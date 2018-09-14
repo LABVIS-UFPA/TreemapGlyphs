@@ -124,7 +124,8 @@ public class ManipuladorArquivo {
 //        return vetorLinha;
 //    }
     /**
-     * Retorna um objeto coluna pelo nome da coluna
+     * Retorna um objeto coluna pelo nome da coluna.
+     * Comprara usando equalsIgnoreCase()
      *
      * @param nomeColuna String com o nome da coluna
      * @return O objeto coluna pesquisado

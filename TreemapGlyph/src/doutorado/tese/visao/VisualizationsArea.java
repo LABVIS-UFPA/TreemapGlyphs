@@ -5,6 +5,7 @@
  */
 package doutorado.tese.visao;
 
+import doutorado.tese.controle.mb.labtest.FinishedSetupCallBack;
 import doutorado.tese.controle.negocio.visualizacao.treemap.treemapAPI.TMModel_Draw;
 import doutorado.tese.controle.negocio.visualizacao.treemap.treemapAPI.TMModel_Size;
 import doutorado.tese.dao.ManipuladorArquivo;
@@ -21,6 +22,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.logging.Level;
 import net.bouthier.treemapAWT.TMModelNode;
 import net.bouthier.treemapAWT.TMNodeEncapsulator;
 import net.bouthier.treemapAWT.TMOnDrawFinished;
@@ -45,8 +47,9 @@ public class VisualizationsArea {
     private String labelColumn = "";
     private TreeMapNode root;
     private TreeMapNode fixedRoot;
+    boolean call = false;
 
-    //variaveis para a API do Treemap
+//variaveis para a API do Treemap
     private TMModelNode modelTree = null; // the model of the demo tree
     private TreeMap treeMap = null; // the treemap builded
     private TMView view = null;
@@ -58,7 +61,8 @@ public class VisualizationsArea {
     private String[] colunasDetalhesDemanda;
 
     public VisualizationsArea(int w, int h, ManipuladorArquivo manipulador,
-            String itemTamanho, String[] itensHierarquia, String itemLegenda, String itemCor, String[] itensDetalhes) {
+            String itemTamanho, String[] itensHierarquia, String itemLegenda, String itemCor, String[] itensDetalhes,
+            FinishedSetupCallBack callback) {
         this.manipulador = manipulador;
         this.hierarquiaFila = new LinkedList<>();
 
@@ -85,10 +89,23 @@ public class VisualizationsArea {
         this.view.setBounds(rect);
 
         TMOnDrawFinished listener = (new TMOnDrawFinished() {
+
             @Override
             public void onDrawFinished(String t) {
                 getRootBoundsFromView(t);
+                synchronized (callback) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!call) {
+                                call = true;
+                                callback.onFinished();
+                            }
+                        }
+                    }).start();
+                }
             }
+//            }
         });
         TMThreadModel.listeners.add(listener);
         TMUpdaterConcrete.listeners.add(listener);
@@ -179,7 +196,7 @@ public class VisualizationsArea {
                 }
                 setAreaNodesTree(filho, filhoModel);
             }
-        } 
+        }
     }
 
     public void setHierarchy(String[] hierarquia) {
