@@ -9,9 +9,12 @@ import doutorado.tese.controle.negocio.labtest.Ambiente;
 import doutorado.tese.controle.negocio.labtest.Tarefa;
 import doutorado.tese.controle.negocio.visualizacao.legenda.LegendaVisualizacao;
 import doutorado.tese.dao.ManipuladorArquivo;
+import doutorado.tese.util.io.Escritor;
+import doutorado.tese.util.io.Leitor;
 import doutorado.tese.visao.GlassPanel;
 import doutorado.tese.visao.VisualizationsArea;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.BoxLayout;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -37,7 +40,10 @@ public class TestManager {
     private String itemCor;
     private int totalTarefas;
     private ArrayList<Object> atributosEscolhidosGlyph;
-
+    private String[] linhaResposta; 
+    private String[] linhaLog;
+    
+    
     public TestManager(String menuItem, JPanel painelEsquerda, ManipuladorArquivo manipulador, JTextPane task_TextArea, JPanel painelLegendaVis) {
         this.menuItem = menuItem;
         this.painelEsquerda = painelEsquerda;
@@ -47,37 +53,34 @@ public class TestManager {
         legendaVisualizacao = new LegendaVisualizacao(painelLegendaVis.getBounds());
         atributosEscolhidosGlyph = new ArrayList<>();
         layerPane = new JLayeredPane();
+        
+        
     }
-
+    
     public void direcionarAmbienteTeste() {
         switch (menuItem) {
             case "A":
                 System.out.println("Carregar Ambiente A");
-
                 Ambiente ambiente = new Ambiente();
                 ambiente.verificarTipoAmbiente(ambiente.AMBIENTE_A);
-//                ambiente.getTarefasCat();
-//                ambiente.getTarefasConti();
-
+//              ambiente.getTarefasCat();
+//              ambiente.getTarefasConti();
                 carregarAmbienteA(ambiente);
                 break;
             case "B":
                 System.out.println("Carregar Ambiente B");
                 Ambiente ambienteB = new Ambiente();
                 ambienteB.verificarTipoAmbiente(ambienteB.AMBIENTE_B);
-
                 break;
             case "C":
                 System.out.println("Carregar Ambiente C");
                 Ambiente ambienteC = new Ambiente();
                 ambienteC.verificarTipoAmbiente(ambienteC.AMBIENTE_C);
-
                 break;
             case "D":
                 System.out.println("Carregar Ambiente D");
                 Ambiente ambienteD = new Ambiente();
                 ambienteD.verificarTipoAmbiente(ambienteD.AMBIENTE_D);
-
                 break;
             case "E":
                 System.out.println("Carregar Ambiente E");
@@ -87,6 +90,13 @@ public class TestManager {
         }
     }
 
+     public void nextStep() {
+        //bufferLog.append(linha).append("\n");
+        //Escritor.escreverArquivo("log_GRID_Glyphs", bufferLog.toString());
+        String headerLog = "ID_USER, ID_CONJ_VAR_VIS, ID_VAR_VIS, HAS_OVERLAP, ID_OVERLAP, ID_GRID, AREA_ITEM, TIPO_TAREFA, ACURACIA, TEMP_RES, RESPOSTA_CERTA, RESPOSTA_USER, CONJ_VAR_VIS";
+        Escritor.escreverArquivo("log_GRID_Glyphs", headerLog);
+           
+     }   
     /**
      * @return the menuItem
      */
@@ -106,7 +116,7 @@ public class TestManager {
         painelEsquerda.repaint();
     }
 
-    private void carregarAmbienteA(Ambiente ambiente) {
+    private void carregarAmbienteA(Ambiente ambiente) {   
         Tarefa[] tarefasCat = ambiente.getTarefasCat();
         Tarefa[] tarefasConti = ambiente.getTarefasConti();
 
@@ -168,7 +178,6 @@ public class TestManager {
         glyphPanel.repaint();
 
         atualizarLegendaGlyphs(atributosEscolhidosGlyph);
-//        prepararLegendaStarGlyph(Arrays.asList(atributosEscolhidosStarGlyph));
         atualizarLegendaGlyphsContinuos(atributosEscolhidosContinuousGlyph.toArray(new String[atributosEscolhidosContinuousGlyph.size()]));
     }
 
@@ -204,7 +213,8 @@ public class TestManager {
                 tamanho, hierarquia, rotulo, itemCor,
                 tarefa.getParametrosDetalhesSobDemanda().toArray(new String[tarefa.getParametrosDetalhesSobDemanda().size()]),
                 callback);
-
+      
+        
         painelEsquerda.add(layerPane);
         view = visualizationTreemap.getView();
         layerPane.setBounds(view.getBounds());
@@ -234,6 +244,7 @@ public class TestManager {
 
         painelLegendaVis.revalidate();
 //        }
+
     }
 
     private void atualizarLegendaTreemap(String itemCor) {

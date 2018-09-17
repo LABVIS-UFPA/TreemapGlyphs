@@ -32,10 +32,10 @@ public abstract class TreeMapNode implements TMModelNode{
     private boolean raiz;
     private String label;
     private boolean useLabel = false;
-    protected HashMap<Coluna, String> mapaDetalhesItem;
+    public HashMap<Coluna, String> mapaDetalhesItem;
     protected Rectangle bordaInterna;
     private TMModelUpdater updater = null; // the updater for this node
-    protected List<TreeMapNode> children;
+    public List<TreeMapNode> children;
     private TreeMapNode parent = null;
     private Color cor;
     private Glyph glyph;
