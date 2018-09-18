@@ -5,7 +5,7 @@
  */
 package doutorado.tese.visao;
 
-import doutorado.tese.controle.mb.labtest.FinishedSetupCallBack;
+import doutorado.tese.controle.mb.testelaboratorioMB.FinishedSetupCallBack;
 import doutorado.tese.controle.negocio.visualizacao.treemap.treemapAPI.TMModel_Draw;
 import doutorado.tese.controle.negocio.visualizacao.treemap.treemapAPI.TMModel_Size;
 import doutorado.tese.dao.ManipuladorArquivo;

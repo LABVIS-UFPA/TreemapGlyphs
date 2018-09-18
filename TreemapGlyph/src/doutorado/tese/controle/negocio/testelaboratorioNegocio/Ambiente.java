@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.controle.negocio.labtest;
+package doutorado.tese.controle.negocio.testelaboratorioNegocio;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,6 +54,7 @@ public class Ambiente {
         setTarefasCat(tarefasCategoricas);
 
         Tarefa[] tarefasMistas = carregarTarefasMistas();
+        configurarTarefa_1_Ambiente_A(tarefasCategoricas);
         //TODO continuar configurando as tarefas de acordo com os ambientes
         setTarefasConti(tarefasMistas);
     }

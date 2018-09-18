@@ -5,9 +5,9 @@
  */
 package doutorado.tese.visao;
 
-import doutorado.tese.controle.mb.labtest.FinishedSetupCallBack;
-import doutorado.tese.controle.mb.labtest.TestManager;
-import doutorado.tese.controle.negocio.labtest.Tarefa;
+import doutorado.tese.controle.mb.testelaboratorioMB.FinishedSetupCallBack;
+import doutorado.tese.controle.mb.testelaboratorioMB.TestManager;
+import doutorado.tese.controle.negocio.testelaboratorioNegocio.Tarefa;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.modelo.Coluna;
 import doutorado.tese.util.Constantes;

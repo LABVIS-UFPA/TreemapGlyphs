@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.controle.mb.labtest;
+package doutorado.tese.controle.mb.testelaboratorioMB;
 
-import doutorado.tese.controle.negocio.labtest.Ambiente;
-import doutorado.tese.controle.negocio.labtest.Tarefa;
+import doutorado.tese.controle.negocio.testelaboratorioNegocio.Ambiente;
+import doutorado.tese.controle.negocio.testelaboratorioNegocio.Tarefa;
 import doutorado.tese.controle.negocio.visualizacao.legenda.LegendaVisualizacao;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.visao.GlassPanel;
