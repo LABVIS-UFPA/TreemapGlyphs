@@ -1291,7 +1291,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         atualizarLegendaTreemap(itemCor);
         checkLayeredGlyph.setEnabled(true);
         checkStarGlyph.setEnabled(true);
-
+        
         limparCacheGlyphs();
     }//GEN-LAST:event_botaoGerarVisualizacaoActionPerformed
 
@@ -1698,8 +1698,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void nextTest_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextTest_ButtonActionPerformed
         testMB.direcionarAmbienteTeste();
+//        gravarResposta(); 
     }//GEN-LAST:event_nextTest_ButtonActionPerformed
-
+//     private void gravarResposta(){
+//         
+//     }
     private void ambienteB_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteB_RadioButtonMenuItemActionPerformed
         cenario = "B";
         TestManager testMB = new TestManager(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);

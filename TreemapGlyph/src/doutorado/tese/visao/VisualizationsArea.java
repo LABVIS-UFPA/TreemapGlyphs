@@ -59,6 +59,7 @@ public class VisualizationsArea {
 //    private StarGlyph[] starGlyphs;
     private String itemCor;
     private String[] colunasDetalhesDemanda;
+    private String ItemResposta;
 
     public VisualizationsArea(int w, int h, ManipuladorArquivo manipulador,
             String itemTamanho, String[] itensHierarquia, String itemLegenda, String itemCor, String[] itensDetalhes,
@@ -118,20 +119,12 @@ public class VisualizationsArea {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
                 TreeMapNode nodeUnderTheMouse = (TreeMapNode) VisualizationsArea.this.view.getNodeUnderTheMouse(e);
-//                System.out.println("---->"+nodeUnderTheMouse.getBounds().toString());
+                System.out.println("---->"+nodeUnderTheMouse.getBounds().toString());
+                ItemResposta = nodeUnderTheMouse.getBounds().toString();
+//                System.out.println("---->"+nodeUnderTheMouse.getGlyph().getVarValue().toString());
             }
 
         });
-    }
-
-    public void acionarStarGlyph(List<String> variaveisStarGlyph) {
-//        for (int i = 0; i < manipulador.getItensTreemap().length; i++) {//manipulador.getItensTreemap().length
-////            StarGlyph starGlyph = new StarGlyph(manipulador.getItensTreemap()[i].getBounds(), variaveisStarGlyph);
-//            starGlyph.setQuantVar(variaveisStarGlyph.size());
-//            starGlyph.setManipulador(manipulador);
-//            starGlyph.setVisible(true);
-//            this.view.add(starGlyph);
-//        }
     }
 
     public void getRootBoundsFromView(String t) {
@@ -243,6 +236,14 @@ public class VisualizationsArea {
         return root;
     }
 
+    public String getItemResposta() {
+        return ItemResposta;
+    }
+
+    public void setItemResposta(String ItemResposta) {
+        this.ItemResposta = ItemResposta;
+    }
+    
     public void printTree(TMModelNode item, String appender) {
         TreeMapNode nodo = (TreeMapNode) item;
         System.out.println(appender + nodo.getLabel() + " - " + nodo.getSize());
@@ -277,6 +278,7 @@ public class VisualizationsArea {
         this.colunasDetalhesDemanda = colunasDetalhesDemanda;
     }
 
+    
     public void updateDetalhesDemanda() {
         cDraw.setColunasDetalhesDemanda(getColunasDetalhesDemanda());
         cDraw.getTooltipOfObject(root);
