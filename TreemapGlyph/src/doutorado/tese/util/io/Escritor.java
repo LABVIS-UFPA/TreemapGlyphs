@@ -29,13 +29,14 @@ public class Escritor {
         int dia = calendar.get(Calendar.DATE);
         try {
             File file = new File(System.getProperty("user.name") + "_"
-                    + nomeArquivo + ano + mes + dia +".csv"); // Criação do arquivo
+                    + nomeArquivo + ano + mes + dia +".txt"); // Criação do arquivo
             FileWriter fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw); // BufferedWriter 
-            bw.write(texto); // Inserção bufferizada da String texto1 no arquivo file.txt
-            bw.newLine(); // Inserção bufferizada de quebra de linha no arquivo file.txt
-            bw.flush();
-            bw.close();//Imprime Texto da segunda linha do arquivo
+            try (BufferedWriter bw = new BufferedWriter(fw) ) {// BufferedWriter
+                bw.write(texto); // Inserção bufferizada da String texto1 no arquivo file.txt
+                bw.newLine(); // Inserção bufferizada de quebra de linha no arquivo file.txt
+                bw.flush();
+                //Imprime Texto da segunda linha do arquivo
+            } // Inserção bufferizada da String texto1 no arquivo file.txt
         } catch (IOException e) {
             e.printStackTrace();
         }

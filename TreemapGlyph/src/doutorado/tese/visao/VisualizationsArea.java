@@ -18,6 +18,7 @@ import doutorado.tese.modelo.TreeMapNode;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,13 +60,15 @@ public class VisualizationsArea {
 //    private StarGlyph[] starGlyphs;
     private String itemCor;
     private String[] colunasDetalhesDemanda;
-    private String ItemResposta;
+    private TreeMapNode itemRespostaUsuario;
+    private List<TreeMapNode> respostasUsuario;
 
     public VisualizationsArea(int w, int h, ManipuladorArquivo manipulador,
             String itemTamanho, String[] itensHierarquia, String itemLegenda, String itemCor, String[] itensDetalhes,
             FinishedSetupCallBack callback) {
         this.manipulador = manipulador;
         this.hierarquiaFila = new LinkedList<>();
+        this.respostasUsuario = new ArrayList<>();
 
         Rectangle rect = new Rectangle(0, 0, w, h);
         root = new TreeMapLevel(new Rect(rect.x, rect.y, rect.width, rect.height));//TMModelNode
@@ -117,11 +120,10 @@ public class VisualizationsArea {
         this.view.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
+                super.mouseClicked(e);
                 TreeMapNode nodeUnderTheMouse = (TreeMapNode) VisualizationsArea.this.view.getNodeUnderTheMouse(e);
-                System.out.println("---->"+nodeUnderTheMouse.getBounds().toString());
-                ItemResposta = nodeUnderTheMouse.getBounds().toString();
-//                System.out.println("---->"+nodeUnderTheMouse.getGlyph().getVarValue().toString());
+                setItemRespostaUsuario(nodeUnderTheMouse);
+                System.out.println("---->"+nodeUnderTheMouse.getMapaDetalhesItem().get(manipulador.getColunas()[0]));
             }
 
         });
@@ -236,14 +238,6 @@ public class VisualizationsArea {
         return root;
     }
 
-    public String getItemResposta() {
-        return ItemResposta;
-    }
-
-    public void setItemResposta(String ItemResposta) {
-        this.ItemResposta = ItemResposta;
-    }
-    
     public void printTree(TMModelNode item, String appender) {
         TreeMapNode nodo = (TreeMapNode) item;
         System.out.println(appender + nodo.getLabel() + " - " + nodo.getSize());
@@ -278,9 +272,39 @@ public class VisualizationsArea {
         this.colunasDetalhesDemanda = colunasDetalhesDemanda;
     }
 
-    
     public void updateDetalhesDemanda() {
         cDraw.setColunasDetalhesDemanda(getColunasDetalhesDemanda());
         cDraw.getTooltipOfObject(root);
+    }
+
+    /**
+     * @return the itemRespostaUsuario
+     */
+    public TreeMapNode getItemRespostaUsuario() {
+        return itemRespostaUsuario;
+    }
+
+    /**
+     * @param itemRespostaUsuario the itemRespostaUsuario to set
+     */
+    public void setItemRespostaUsuario(TreeMapNode itemRespostaUsuario) {
+        this.itemRespostaUsuario = itemRespostaUsuario;
+        if (itemRespostaUsuario != null) {
+            getRespostasUsuario().add(this.itemRespostaUsuario);
+        }
+    }
+
+    /**
+     * @return the respostasUsuario
+     */
+    public List<TreeMapNode> getRespostasUsuario() {
+        return respostasUsuario;
+    }
+
+    /**
+     * @param respostasUsuario the respostasUsuario to set
+     */
+    public void setRespostasUsuario(List<TreeMapNode> respostasUsuario) {
+        this.respostasUsuario = respostasUsuario;
     }
 }

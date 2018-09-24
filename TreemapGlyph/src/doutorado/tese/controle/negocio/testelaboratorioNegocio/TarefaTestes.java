@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Anderson Soares
  */
-public class Tarefa {
+public class TarefaTestes {
 
     public final String DADOS_CATEGORICO = "categorico";
     public final String DADOS_MISTO = "misto";
@@ -37,7 +37,7 @@ public class Tarefa {
     private String parametroBar2;
     private String parametroBar3;
 
-    public Tarefa() {
+    public TarefaTestes() {
         parametrosHierarquiaTreemap = new ArrayList<>();
         parametrosContinuosGlyph = new ArrayList<>();
         parametrosDetalhesSobDemanda = new ArrayList<>();

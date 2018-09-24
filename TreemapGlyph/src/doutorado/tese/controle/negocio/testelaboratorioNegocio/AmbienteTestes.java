@@ -13,17 +13,17 @@ import java.util.List;
  *
  * @author Anderson Soares
  */
-public class Ambiente {
+public class AmbienteTestes {
 
     public final String AMBIENTE_A = "ambienteA";
     public final String AMBIENTE_B = "ambienteB";
     public final String AMBIENTE_C = "ambienteC";
     public final String AMBIENTE_D = "ambienteD";
     public final String AMBIENTE_E = "ambienteE";
-    private Tarefa[] tarefasCat;
-    private Tarefa[] tarefasConti;
+    private TarefaTestes[] tarefasCat;
+    private TarefaTestes[] tarefasConti;
 
-    public Ambiente() {
+    public AmbienteTestes() {
 
     }
 
@@ -44,7 +44,7 @@ public class Ambiente {
     }
 
     public void configurarTarefasAmbienteA() {
-        Tarefa[] tarefasCategoricas = carregarTarefasCategoricas();
+        TarefaTestes[] tarefasCategoricas = carregarTarefasCategoricas();
         configurarTarefa_1_Ambiente_A(tarefasCategoricas);
         configurarTarefa_2_Ambiente_A(tarefasCategoricas);
         configurarTarefa_3_Ambiente_A(tarefasCategoricas);
@@ -53,13 +53,13 @@ public class Ambiente {
         configurarTarefa_6_Ambiente_A(tarefasCategoricas);
         setTarefasCat(tarefasCategoricas);
 
-        Tarefa[] tarefasMistas = carregarTarefasMistas();
+        TarefaTestes[] tarefasMistas = carregarTarefasMistas();
         configurarTarefa_1_Ambiente_A(tarefasCategoricas);
         //TODO continuar configurando as tarefas de acordo com os ambientes
         setTarefasConti(tarefasMistas);
     }
 
-    public void configurarTarefa_1_Ambiente_A(Tarefa[] tarefasCat) {
+    public void configurarTarefa_1_Ambiente_A(TarefaTestes[] tarefasCat) {
         tarefasCat[0].setParametroTamanhoTreemap("VALOR");
 //        tarefasCa0[0].setParametroCorGlyph("Potencia");
         tarefasCat[0].setParametroTexturaGlyph("TURBO");
@@ -68,7 +68,7 @@ public class Ambiente {
         tarefasCat[0].setParametroLetraGlyph("NRPORTAS");
     }
 
-    public void configurarTarefa_2_Ambiente_A(Tarefa[] tarefasCat) {        
+    public void configurarTarefa_2_Ambiente_A(TarefaTestes[] tarefasCat) {        
         tarefasCat[1].setParametroTamanhoTreemap("SAME_SIZE");
         tarefasCat[1].setParametroCorTreemap("POTENCIA");
         tarefasCat[1].setParametroTexturaGlyph("TURBO");
@@ -77,7 +77,7 @@ public class Ambiente {
         tarefasCat[1].setParametroLetraGlyph("POSMOTOR");
     }
 
-    public void configurarTarefa_3_Ambiente_A(Tarefa[] tarefasCat) {
+    public void configurarTarefa_3_Ambiente_A(TarefaTestes[] tarefasCat) {
         tarefasCat[2].setParametroTamanhoTreemap("POTENCIA");
 //        tarefasCat[0].setParametroCorGlyph("Potencia");
         tarefasCat[2].setParametroTexturaGlyph("TURBO");
@@ -86,7 +86,7 @@ public class Ambiente {
         tarefasCat[2].setParametroLetraGlyph("TIPO");
     }
 
-    public void configurarTarefa_4_Ambiente_A(Tarefa[] tarefasCat) {
+    public void configurarTarefa_4_Ambiente_A(TarefaTestes[] tarefasCat) {
         tarefasCat[3].setParametroTamanhoTreemap("POTENCIA");
 //        tarefasCat[0].setParametroCorGlyph("Potencia");
         tarefasCat[3].setParametroTexturaGlyph("TURBO");
@@ -95,7 +95,7 @@ public class Ambiente {
         tarefasCat[3].setParametroLetraGlyph("ORIGEM");
     }
 
-    public void configurarTarefa_5_Ambiente_A(Tarefa[] tarefasCat) {
+    public void configurarTarefa_5_Ambiente_A(TarefaTestes[] tarefasCat) {
         tarefasCat[4].setParametroTamanhoTreemap("NRCILINDROS");
 //        tarefasCat[0].setParametroCorGlyph("Potencia");
         tarefasCat[4].setParametroTexturaGlyph("TURBO");
@@ -104,7 +104,7 @@ public class Ambiente {
         tarefasCat[4].setParametroLetraGlyph("POSMOTOR");
     }
 
-    public void configurarTarefa_6_Ambiente_A(Tarefa[] tarefasCat) {
+    public void configurarTarefa_6_Ambiente_A(TarefaTestes[] tarefasCat) {
         tarefasCat[5].setParametroTamanhoTreemap("VALOR");
 //        tarefasCat[0].setParametroCorGlyph("Potencia");
         tarefasCat[5].setParametroTexturaGlyph("COMBUSTIVEL");
@@ -113,11 +113,11 @@ public class Ambiente {
         tarefasCat[5].setParametroLetraGlyph("TRACAO");
     }
 
-    private Tarefa[] carregarTarefasCategoricas() {
+    private TarefaTestes[] carregarTarefasCategoricas() {
         int quantTarefas = 6;
-        Tarefa[] tarefas = new Tarefa[quantTarefas];
+        TarefaTestes[] tarefas = new TarefaTestes[quantTarefas];
         for (int i = 0; i < quantTarefas; i++) {
-            Tarefa t = new Tarefa();
+            TarefaTestes t = new TarefaTestes();
             t.setTipoDados(t.DADOS_CATEGORICO);
             tarefas[i] = t;
         }
@@ -142,11 +142,11 @@ public class Ambiente {
         return tarefas;
     }
 
-    private Tarefa[] carregarTarefasMistas() {
+    private TarefaTestes[] carregarTarefasMistas() {
         int quantTarefas = 6;
-        Tarefa[] tarefas = new Tarefa[quantTarefas];
+        TarefaTestes[] tarefas = new TarefaTestes[quantTarefas];
         for (int i = 0; i < quantTarefas; i++) {
-            Tarefa t = new Tarefa();
+            TarefaTestes t = new TarefaTestes();
             t.setTipoDados(t.DADOS_MISTO);
             tarefas[i] = t;
         }
@@ -173,28 +173,28 @@ public class Ambiente {
     /**
      * @return the tarefasCat
      */
-    public Tarefa[] getTarefasCat() {
+    public TarefaTestes[] getTarefasCat() {
         return tarefasCat;
     }
 
     /**
      * @param tarefasCat the tarefasCat to set
      */
-    public void setTarefasCat(Tarefa[] tarefasCat) {
+    public void setTarefasCat(TarefaTestes[] tarefasCat) {
         this.tarefasCat = tarefasCat;
     }
 
     /**
      * @return the tarefasConti
      */
-    public Tarefa[] getTarefasConti() {
+    public TarefaTestes[] getTarefasConti() {
         return tarefasConti;
     }
 
     /**
      * @param tarefasConti the tarefasConti to set
      */
-    public void setTarefasConti(Tarefa[] tarefasConti) {
+    public void setTarefasConti(TarefaTestes[] tarefasConti) {
         this.tarefasConti = tarefasConti;
     }
 

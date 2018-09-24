@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.controle.negocio.visualizacao.glyph;
+package doutorado.tese.controle.negocio.testelaboratorioNegocio;
 
 /**
  *
- * @author Elvis (LABVIS)
+ * @author Anderson Soares
  */
-class ItemGrid {
+public class LogTestes {
     
 }

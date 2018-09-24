@@ -5,8 +5,8 @@
  */
 package doutorado.tese.controle.mb.testelaboratorioMB;
 
-import doutorado.tese.controle.negocio.testelaboratorioNegocio.Ambiente;
-import doutorado.tese.controle.negocio.testelaboratorioNegocio.Tarefa;
+import doutorado.tese.controle.negocio.testelaboratorioNegocio.AmbienteTestes;
+import doutorado.tese.controle.negocio.testelaboratorioNegocio.TarefaTestes;
 import doutorado.tese.controle.negocio.visualizacao.legenda.LegendaVisualizacao;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.util.io.Escritor;
@@ -61,7 +61,7 @@ public class TestManager {
         switch (menuItem) {
             case "A":
                 System.out.println("Carregar Ambiente A");
-                Ambiente ambiente = new Ambiente();
+                AmbienteTestes ambiente = new AmbienteTestes();
                 ambiente.verificarTipoAmbiente(ambiente.AMBIENTE_A);
 //              ambiente.getTarefasCat();
 //              ambiente.getTarefasConti();
@@ -69,22 +69,22 @@ public class TestManager {
                 break;
             case "B":
                 System.out.println("Carregar Ambiente B");
-                Ambiente ambienteB = new Ambiente();
+                AmbienteTestes ambienteB = new AmbienteTestes();
                 ambienteB.verificarTipoAmbiente(ambienteB.AMBIENTE_B);
                 break;
             case "C":
                 System.out.println("Carregar Ambiente C");
-                Ambiente ambienteC = new Ambiente();
+                AmbienteTestes ambienteC = new AmbienteTestes();
                 ambienteC.verificarTipoAmbiente(ambienteC.AMBIENTE_C);
                 break;
             case "D":
                 System.out.println("Carregar Ambiente D");
-                Ambiente ambienteD = new Ambiente();
+                AmbienteTestes ambienteD = new AmbienteTestes();
                 ambienteD.verificarTipoAmbiente(ambienteD.AMBIENTE_D);
                 break;
             case "E":
                 System.out.println("Carregar Ambiente E");
-                Ambiente ambienteE = new Ambiente();
+                AmbienteTestes ambienteE = new AmbienteTestes();
                 ambienteE.verificarTipoAmbiente(ambienteE.AMBIENTE_E);
                 break;
         }
@@ -116,21 +116,21 @@ public class TestManager {
         painelEsquerda.repaint();
     }
 
-    private void carregarAmbienteA(Ambiente ambiente) {   
-        Tarefa[] tarefasCat = ambiente.getTarefasCat();
-        Tarefa[] tarefasConti = ambiente.getTarefasConti();
+    private void carregarAmbienteA(AmbienteTestes ambiente) {   
+        TarefaTestes[] tarefasCat = ambiente.getTarefasCat();
+        TarefaTestes[] tarefasConti = ambiente.getTarefasConti();
 
         System.out.println("Tarefa " + idTarefaAtual);
         if (totalTarefas <= 12) {
             if (idTarefaAtual < tarefasCat.length) {
-                Tarefa tarefa = tarefasCat[idTarefaAtual];
+                TarefaTestes tarefa = tarefasCat[idTarefaAtual];
                 task_TextArea.setText(tarefa.getTextoTarefa());
                 setupTreemap(tarefa, () -> {
                     setupCategoricalGlyph(tarefa);
                 });
                 idTarefaAtual++;
             } else {
-                Tarefa tarefa = tarefasConti[idTarefaAtual];
+                TarefaTestes tarefa = tarefasConti[idTarefaAtual];
                 task_TextArea.setText(tarefa.getTextoTarefa());
                 setupTreemap(tarefa, () -> {
                     setupContinuousGlyph(tarefa);
@@ -140,7 +140,7 @@ public class TestManager {
         }
     }
 
-    public void setupCategoricalGlyph(Tarefa tarefa) {
+    public void setupCategoricalGlyph(TarefaTestes tarefa) {
         glyphPanel = new GlassPanel();
         glyphPanel.setTMView(view);
         layerPane.add(glyphPanel, new Integer(1), 0);
@@ -159,7 +159,7 @@ public class TestManager {
         atualizarLegendaGlyphs(atributosEscolhidosGlyph);
     }
     
-    public void setupContinuousGlyph(Tarefa tarefa){
+    public void setupContinuousGlyph(TarefaTestes tarefa){
         glyphPanel.setManipulador(manipulador);
         glyphPanel.setContinuousGlyphActivated(true);
 
@@ -181,7 +181,7 @@ public class TestManager {
         atualizarLegendaGlyphsContinuos(atributosEscolhidosContinuousGlyph.toArray(new String[atributosEscolhidosContinuousGlyph.size()]));
     }
 
-    private ArrayList<Object> getAtributosEscolhidosGlyph(Tarefa tarefa) {
+    private ArrayList<Object> getAtributosEscolhidosGlyph(TarefaTestes tarefa) {
         ArrayList<Object> atributosEscolhidosGlyph = new ArrayList<>();
         atributosEscolhidosGlyph.add(tarefa.getParametroTexturaGlyph());
         atributosEscolhidosGlyph.add(tarefa.getParametroCorGlyph());
@@ -191,7 +191,7 @@ public class TestManager {
         return atributosEscolhidosGlyph;
     }
     
-    private ArrayList<Object> getAtributosEscolhidosContinuousGlyph(Tarefa tarefa) {
+    private ArrayList<Object> getAtributosEscolhidosContinuousGlyph(TarefaTestes tarefa) {
         ArrayList<Object> atributosGlyph = new ArrayList<>();
         atributosGlyph.add(tarefa.getParametroBar1());
         atributosGlyph.add(tarefa.getParametroBar2());
@@ -200,7 +200,7 @@ public class TestManager {
         return atributosGlyph;
     }
 
-    public void setupTreemap(Tarefa tarefa, FinishedSetupCallBack callback) {
+    public void setupTreemap(TarefaTestes tarefa, FinishedSetupCallBack callback) {
         limparPainelEsquerda();
         String tamanho = tarefa.getParametroTamanhoTreemap();
         String rotulo = tarefa.getParametroRotuloTreemap() == null ? "" : tarefa.getParametroRotuloTreemap();
