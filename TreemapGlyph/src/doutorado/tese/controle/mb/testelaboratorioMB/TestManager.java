@@ -9,12 +9,9 @@ import doutorado.tese.controle.negocio.testelaboratorioNegocio.AmbienteTestes;
 import doutorado.tese.controle.negocio.testelaboratorioNegocio.TarefaTestes;
 import doutorado.tese.controle.negocio.visualizacao.legenda.LegendaVisualizacao;
 import doutorado.tese.dao.ManipuladorArquivo;
-import doutorado.tese.util.io.Escritor;
-import doutorado.tese.util.io.Leitor;
 import doutorado.tese.visao.GlassPanel;
 import doutorado.tese.visao.VisualizationsArea;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.BoxLayout;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -40,10 +37,22 @@ public class TestManager {
     private String itemCor;
     private int totalTarefas;
     private ArrayList<Object> atributosEscolhidosGlyph;
-    private String[] linhaResposta; 
+    private String[] linhaResposta;
     private String[] linhaLog;
-    
-    
+    private AmbienteTestes ambiente;
+    TarefaTestes[] tarefasCat;
+    TarefaTestes[] tarefasConti;
+    LogMB logMB;
+
+    public TestManager(String menuItem, JTextPane task_TextArea) {
+        this.menuItem = menuItem;
+        this.task_TextArea = task_TextArea;
+        ambiente = new AmbienteTestes();
+        tarefasCat = ambiente.carregarTarefasCategoricas();
+        tarefasConti = ambiente.carregarTarefasMistas();
+        logMB = new LogMB();
+    }
+
     public TestManager(String menuItem, JPanel painelEsquerda, ManipuladorArquivo manipulador, JTextPane task_TextArea, JPanel painelLegendaVis) {
         this.menuItem = menuItem;
         this.painelEsquerda = painelEsquerda;
@@ -53,50 +62,26 @@ public class TestManager {
         legendaVisualizacao = new LegendaVisualizacao(painelLegendaVis.getBounds());
         atributosEscolhidosGlyph = new ArrayList<>();
         layerPane = new JLayeredPane();
-        
-        
-    }
-    
-    public void direcionarAmbienteTeste() {
-        switch (menuItem) {
-            case "A":
-                System.out.println("Carregar Ambiente A");
-                AmbienteTestes ambiente = new AmbienteTestes();
-                ambiente.verificarTipoAmbiente(ambiente.AMBIENTE_A);
-//              ambiente.getTarefasCat();
-//              ambiente.getTarefasConti();
-                carregarAmbienteA(ambiente);
-                break;
-            case "B":
-                System.out.println("Carregar Ambiente B");
-                AmbienteTestes ambienteB = new AmbienteTestes();
-                ambienteB.verificarTipoAmbiente(ambienteB.AMBIENTE_B);
-                break;
-            case "C":
-                System.out.println("Carregar Ambiente C");
-                AmbienteTestes ambienteC = new AmbienteTestes();
-                ambienteC.verificarTipoAmbiente(ambienteC.AMBIENTE_C);
-                break;
-            case "D":
-                System.out.println("Carregar Ambiente D");
-                AmbienteTestes ambienteD = new AmbienteTestes();
-                ambienteD.verificarTipoAmbiente(ambienteD.AMBIENTE_D);
-                break;
-            case "E":
-                System.out.println("Carregar Ambiente E");
-                AmbienteTestes ambienteE = new AmbienteTestes();
-                ambienteE.verificarTipoAmbiente(ambienteE.AMBIENTE_E);
-                break;
-        }
     }
 
-     public void nextStep() {
-        //bufferLog.append(linha).append("\n");
-        //Escritor.escreverArquivo("log_GRID_Glyphs", bufferLog.toString());
-        String headerLog = "ID_USER, ID_CONJ_VAR_VIS, ID_VAR_VIS, HAS_OVERLAP, ID_OVERLAP, ID_GRID, AREA_ITEM, TIPO_TAREFA, ACURACIA, TEMP_RES, RESPOSTA_CERTA, RESPOSTA_USER, CONJ_VAR_VIS";
-        Escritor.escreverArquivo("log_GRID_Glyphs", headerLog);
-           
-     }   
+    public int carregarTarefas() {
+        System.out.println("Tarefa " + totalTarefas);
+        if (totalTarefas <  12) {
+            if (idTarefaAtual < tarefasCat.length) {
+                TarefaTestes tarefa = tarefasCat[idTarefaAtual];
+                task_TextArea.setText(tarefa.getTextoTarefa());
+                idTarefaAtual++;
+            } else {
+                TarefaTestes tarefa = tarefasConti[totalTarefas - idTarefaAtual];
+                task_TextArea.setText(tarefa.getTextoTarefa());
+            }
+            totalTarefas++;
+        } else {            
+            logMB.salvarLog();
+        }
+        return totalTarefas;
+    }
+
     /**
      * @return the menuItem
      */
@@ -114,30 +99,6 @@ public class TestManager {
     private void limparPainelEsquerda() {
         painelEsquerda.removeAll();
         painelEsquerda.repaint();
-    }
-
-    private void carregarAmbienteA(AmbienteTestes ambiente) {   
-        TarefaTestes[] tarefasCat = ambiente.getTarefasCat();
-        TarefaTestes[] tarefasConti = ambiente.getTarefasConti();
-
-        System.out.println("Tarefa " + idTarefaAtual);
-        if (totalTarefas <= 12) {
-            if (idTarefaAtual < tarefasCat.length) {
-                TarefaTestes tarefa = tarefasCat[idTarefaAtual];
-                task_TextArea.setText(tarefa.getTextoTarefa());
-                setupTreemap(tarefa, () -> {
-                    setupCategoricalGlyph(tarefa);
-                });
-                idTarefaAtual++;
-            } else {
-                TarefaTestes tarefa = tarefasConti[idTarefaAtual];
-                task_TextArea.setText(tarefa.getTextoTarefa());
-                setupTreemap(tarefa, () -> {
-                    setupContinuousGlyph(tarefa);
-                });
-            }
-            totalTarefas++;
-        }
     }
 
     public void setupCategoricalGlyph(TarefaTestes tarefa) {
@@ -158,12 +119,12 @@ public class TestManager {
 
         atualizarLegendaGlyphs(atributosEscolhidosGlyph);
     }
-    
-    public void setupContinuousGlyph(TarefaTestes tarefa){
+
+    public void setupContinuousGlyph(TarefaTestes tarefa) {
         glyphPanel.setManipulador(manipulador);
         glyphPanel.setContinuousGlyphActivated(true);
 
-        glyphPanel.setGlyphContinuoEscolhido("Bar");
+        glyphPanel.setTipoGlyphContinuoEscolhido("Bar");
         String[] variaveisVisuaisEscolhidas = new String[]{"Texture", "Color", "Shape"};
         glyphPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
         ArrayList<Object> atributosEscolhidosContinuousGlyph = getAtributosEscolhidosContinuousGlyph(tarefa);
@@ -190,7 +151,7 @@ public class TestManager {
 
         return atributosEscolhidosGlyph;
     }
-    
+
     private ArrayList<Object> getAtributosEscolhidosContinuousGlyph(TarefaTestes tarefa) {
         ArrayList<Object> atributosGlyph = new ArrayList<>();
         atributosGlyph.add(tarefa.getParametroBar1());
@@ -213,8 +174,7 @@ public class TestManager {
                 tamanho, hierarquia, rotulo, itemCor,
                 tarefa.getParametrosDetalhesSobDemanda().toArray(new String[tarefa.getParametrosDetalhesSobDemanda().size()]),
                 callback);
-      
-        
+
         painelEsquerda.add(layerPane);
         view = visualizationTreemap.getView();
         layerPane.setBounds(view.getBounds());
@@ -225,7 +185,7 @@ public class TestManager {
 
         limparCacheGlyphs();
     }
-    
+
     public void atualizarLegendaGlyphsContinuos(String[] atributosEscolhidosGlyphContinuo) {
         painelLegendaVis.removeAll();
         atualizarLegendaTreemap(itemCor);

@@ -259,7 +259,7 @@ public final class GlyphManager {
             case "Star":
                 glyph = configureStarGlyph(item);
                 break;
-            case "Bar":
+            case "Profile":
                 glyph = configureBarGlyph(item);
                 break;
             case "Pie":

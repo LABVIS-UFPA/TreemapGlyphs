@@ -186,7 +186,7 @@ public class GlassPanel extends JPanel {
         return glyphContinuoEscolhido;
     }
 
-    public void setGlyphContinuoEscolhido(String glyphContinuoEscolhido) {
+    public void setTipoGlyphContinuoEscolhido(String glyphContinuoEscolhido) {
         this.glyphContinuoEscolhido = glyphContinuoEscolhido;
     }
 

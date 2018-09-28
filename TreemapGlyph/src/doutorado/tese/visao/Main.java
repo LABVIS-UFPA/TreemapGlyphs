@@ -14,6 +14,7 @@ import doutorado.tese.controle.negocio.visualizacao.legenda.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.util.Conversor;
+import doutorado.tese.util.io.Escritor;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridLayout;
@@ -81,7 +82,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         atributo5Glyph.setVisible(false);
         numeroLabelLabel.setVisible(false);
         painelAbas_jTabbedPane.setSelectedIndex(painelAbas_jTabbedPane.getTabCount() - 1);//ultima aba
-//        msgFeedback.setVisible(false);
+        logMB = new LogMB();
+        nextTest_Button.setVisible(false);
     }
 
     /**
@@ -174,6 +176,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jScrollPane10 = new javax.swing.JScrollPane();
         task_TextPane = new javax.swing.JTextPane();
         nextTest_Button = new javax.swing.JButton();
+        saveAnswerButton = new javax.swing.JButton();
+        taskCountLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         fileMenuItem = new javax.swing.JMenuItem();
@@ -926,15 +930,29 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
+        saveAnswerButton.setText("Save answer");
+        saveAnswerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveAnswerButtonActionPerformed(evt);
+            }
+        });
+
+        taskCountLabel.setText("Task: 0/12");
+
         javax.swing.GroupLayout abaTaskLayout = new javax.swing.GroupLayout(abaTask);
         abaTask.setLayout(abaTaskLayout);
         abaTaskLayout.setHorizontalGroup(
             abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaTaskLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nextTest_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(abaTaskLayout.createSequentialGroup()
+                        .addComponent(saveAnswerButton)
+                        .addGap(38, 38, 38)
+                        .addComponent(taskCountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(nextTest_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         abaTaskLayout.setVerticalGroup(
@@ -943,8 +961,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nextTest_Button)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nextTest_Button)
+                    .addComponent(saveAnswerButton)
+                    .addComponent(taskCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(36, 36, 36))
         );
 
         painelAbas_jTabbedPane.addTab("Task", abaTask);
@@ -1121,7 +1142,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
         glyphPanel.setManipulador(manipulador);
         glyphPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
-//        glyphPanel.setGlyphContinuoEscolhido(atributosEscolhidosStarGlyph);
+//        glyphPanel.setTipoGlyphContinuoEscolhido(atributosEscolhidosStarGlyph);
         //Acoes para desenhar os glyphs
         glyphPanel.setBounds(painelEsquerda.getBounds());
         glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());
@@ -1610,7 +1631,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         glyphPanel.setManipulador(manipulador);
         glyphPanel.setContinuousGlyphActivated(checkStarGlyph.isSelected());
 
-        glyphPanel.setGlyphContinuoEscolhido((String) glyphContinuosType.getSelectedItem());
+        glyphPanel.setTipoGlyphContinuoEscolhido((String) glyphContinuosType.getSelectedItem());
         variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
         glyphPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
         atributosEscolhidosContinuousGlyph = parseListModelString2Array(listaAtributosContinuousGlyph2.getModel());
@@ -1619,7 +1640,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         //Acoes para desenhar os glyphs
         glyphPanel.setBounds(painelEsquerda.getBounds());
         glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());
-        ArrayList<Object> atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
+        atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
         glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
         glyphPanel.setVisible(true);
         glyphPanel.repaint();
@@ -1697,42 +1718,67 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_separadorEsqueDir_jSplitPaneComponentHidden
 
     private void nextTest_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextTest_ButtonActionPerformed
-        acionarLog();
-//        testMB.direcionarAmbienteTeste();
-//        gravarResposta(); 
+        if (testMB != null) {
+            totalTarefas = testMB.carregarTarefas();//tarefa ta na tela
+            taskCountLabel.setText("Task: " + totalTarefas + "/12");
+            nextTest_Button.setVisible(false);
+            saveAnswerButton.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please, choose an environment.", "To be careful", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_nextTest_ButtonActionPerformed
-//     private void gravarResposta(){
-//         
-//     }
+
     private void ambienteB_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteB_RadioButtonMenuItemActionPerformed
         cenario = "B";
         TestManager testMB = new TestManager(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
-        testMB.direcionarAmbienteTeste();
+        testMB.carregarTarefas();
     }//GEN-LAST:event_ambienteB_RadioButtonMenuItemActionPerformed
 
     private void ambienteA_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteA_RadioButtonMenuItemActionPerformed
         cenario = "A";
-        testMB = new TestManager(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
-        testMB.direcionarAmbienteTeste();
+//        testMB = new TestManager(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
+        testMB = new TestManager(cenario, task_TextPane);
+        totalTarefas = testMB.carregarTarefas();
+        taskCountLabel.setText("Task: " + totalTarefas + "/12");
     }//GEN-LAST:event_ambienteA_RadioButtonMenuItemActionPerformed
 
     private void ambienteC_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteC_RadioButtonMenuItemActionPerformed
         cenario = "C";
         testMB = new TestManager(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
-        testMB.direcionarAmbienteTeste();
+        testMB.carregarTarefas();
     }//GEN-LAST:event_ambienteC_RadioButtonMenuItemActionPerformed
 
     private void ambienteD_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteD_RadioButtonMenuItemActionPerformed
         cenario = "D";
         testMB = new TestManager(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
-        testMB.direcionarAmbienteTeste();
+        testMB.carregarTarefas();
     }//GEN-LAST:event_ambienteD_RadioButtonMenuItemActionPerformed
 
     private void ambienteE_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteE_RadioButtonMenuItemActionPerformed
         cenario = "E";
         testMB = new TestManager(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
-        testMB.direcionarAmbienteTeste();
+        testMB.carregarTarefas();
     }//GEN-LAST:event_ambienteE_RadioButtonMenuItemActionPerformed
+
+    private void saveAnswerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAnswerButtonActionPerformed
+        if (totalTarefas <= 12) {
+            int showConfirmDialog = JOptionPane.showConfirmDialog(this, "Sua resposta foi dada com certeza ou "
+                    + "houve algum empecilho?", "Resposta", JOptionPane.YES_NO_OPTION);
+            System.out.println("showConfirmDialog: " + showConfirmDialog);
+            if (showConfirmDialog == 0) {
+                acionarLog();
+                logMB.addLineLog();
+                nextTest_Button.setVisible(true);
+                saveAnswerButton.setVisible(false);
+                if (totalTarefas == 12) {
+                    nextTest_Button.setVisible(false);
+                    JOptionPane.showMessageDialog(this, "Fim do teste, obrigado por participar!");
+                    task_TextPane.setText("");
+                    nextTest_Button.setVisible(false);
+                }
+            }
+        } 
+    }//GEN-LAST:event_saveAnswerButtonActionPerformed
 
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
 
@@ -1871,9 +1917,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JButton removerBotao_detalhes;
     private javax.swing.JButton removerBotao_treemap;
     private javax.swing.JButton removerVarVisualButton;
+    private javax.swing.JButton saveAnswerButton;
     private javax.swing.JSplitPane separadorCimaBaixo;
     private javax.swing.JSplitPane separadorEsqueDir_jSplitPane;
     private javax.swing.JComboBox<String> tamanhoTreemapComboBox;
+    private javax.swing.JLabel taskCountLabel;
     private javax.swing.JTextPane task_TextPane;
     private javax.swing.JButton updateDetailsButton;
     private javax.swing.JList<String> varVisuaisList1;
@@ -1899,6 +1947,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private ArrayList<Object> atributosEscolhidosGlyph;
     private String cenario;
     private TestManager testMB;
+    private LogMB logMB;
+    private int totalTarefas;
 
     private void atualizarLegendaGlyphs(ArrayList<Object> atributosEscolhidosGlyph) {
         painelLegendaVis.removeAll();
@@ -2080,8 +2130,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
     private void acionarLog() {
-        LogMB logMB = new LogMB();
-
         logMB.setCorTreemapLog(corTreemapComboBox.getSelectedItem().toString());
         logMB.setTamanhoTreemapLog(tamanhoTreemapComboBox.getSelectedItem().toString());
         logMB.setRotuloTreemapLog(checkLegenda.isSelected()
@@ -2096,10 +2144,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         logMB.setTipoGliphContinuoLog(glyphContinuosType.getSelectedItem().toString());
         logMB.setAtributosContinuosLog(Conversor.parseListModel2ListString(listaAtributosContinuousGlyph2.getModel()));
-
-        logMB.setRespostasUsuario(visualizationTreemap.getRespostasUsuario());
-
-        logMB.saveLog();
+        if (visualizationTreemap != null) {
+            logMB.setRespostasUsuario(visualizationTreemap.getRespostasUsuario());
+        }
     }
 
     class Task extends SwingWorker<Void, Void> {

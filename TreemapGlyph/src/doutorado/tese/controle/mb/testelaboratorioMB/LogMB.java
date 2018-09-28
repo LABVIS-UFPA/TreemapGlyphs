@@ -8,9 +8,7 @@ package doutorado.tese.controle.mb.testelaboratorioMB;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.modelo.TreeMapNode;
 import doutorado.tese.util.io.Escritor;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  *
@@ -35,9 +33,11 @@ public class LogMB {
     private String cabecalhoLog;
     //
     private String respostasUsuario = "";
+    private static StringBuilder bufferLog;
 
     public LogMB() {
-        cabecalhoLog = "hierarquiaTreemap\t"
+        bufferLog = new StringBuilder();
+        bufferLog.append("hierarquiaTreemap\t"
                 + "tamanhoTreemap\t"
                 + "corTreemap\t"
                 + "rotuloTreemap\t"
@@ -53,23 +53,31 @@ public class LogMB {
                 + "ACERTOU\t"
                 + "TAREFA\t"
                 + "CENARIO\t"
-                + "NUM_TESTE\n";
+                + "NUM_TESTE");
+        bufferLog.append("\n");
     }
 
-    public void saveLog() {
-        String linhaLog =  hierarquiaTreemapLog + "\t"
-                + tamanhoTreemapLog + "\t"
-                + corTreemapLog + "\t"
-                + rotuloTreemapLog + "\t"
-                + ordemCamadasGlyphLog + "\t"
-                + texturaLog + "\t"
-                + corGlyphLog + "\t"
-                + formaLog + "\t"
-                + textoLog + "\t"
-                + tipoGliphContinuoLog + "\t"
-                + atributosContinuosLog + "\t"
-                + getRespostasUsuario() + "\n";
-        Escritor.escreverArquivo("LOG_TreemapGlyph_", cabecalhoLog + linhaLog);
+    public void addLineLog() {
+        bufferLog.append(hierarquiaTreemapLog).
+                append("\t").append(tamanhoTreemapLog).
+                append("\t").append(corTreemapLog).
+                append("\t").append(rotuloTreemapLog).
+                append("\t").append(ordemCamadasGlyphLog).
+                append("\t").append(texturaLog).
+                append("\t").append(corGlyphLog).
+                append("\t").append(formaLog).
+                append("\t").append(textoLog).
+                append("\t").append(tipoGliphContinuoLog).
+                append("\t").append(atributosContinuosLog).
+                append("\t").append(getRespostasUsuario()).
+                append("\n");
+        System.out.println("-------------------------");
+        System.out.println(bufferLog.toString());
+        System.out.println("-------------------------");
+    }
+    
+    public void salvarLog(){
+        Escritor.escreverArquivo("LOG_TreemapGlyph_", bufferLog.toString());
     }
 
     /**
@@ -283,7 +291,8 @@ public class LogMB {
      * @param respostasUsuario the respostasUsuario to set
      */
     public void setRespostasUsuario(List<TreeMapNode> respostasUsuario) {
-        if (!respostasUsuario.isEmpty()) {
+        this.respostasUsuario = "";
+        if (respostasUsuario != null && !respostasUsuario.isEmpty()) {
             respostasUsuario.forEach((atributo) -> {
                 this.respostasUsuario += atributo.getMapaDetalhesItem().get(ManipuladorArquivo.getColuna("MARCA")) + "-";
             });

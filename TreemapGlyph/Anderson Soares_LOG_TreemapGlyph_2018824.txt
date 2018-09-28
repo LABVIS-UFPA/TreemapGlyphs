@@ -1,3 +1,0 @@
-hierarquiaTreemap	tamanhoTreemap	corTreemap	rotuloTreemap	ordemCamadasGlyph	textura	corGlyph	formaGlyph	textoGlyph	tipoGliphContinuo	atributosContinuos	RESPOSTA_USUARIO	TEMPO	ACERTOU	TAREFA	CENARIO	NUM_TESTE
-COMBUSTIVEL-	NRPORTAS	NULL	NULL	Color-	NULL	TIPO	NULL	NULL	---	NULL	ford-
-
