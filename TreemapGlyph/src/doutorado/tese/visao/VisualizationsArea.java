@@ -49,6 +49,8 @@ public class VisualizationsArea {
     private TreeMapNode root;
     private TreeMapNode fixedRoot;
     boolean call = false;
+    private  List<TreeMapNode> listClick;
+    
 
 //variaveis para a API do Treemap
     private TMModelNode modelTree = null; // the model of the demo tree
@@ -69,7 +71,7 @@ public class VisualizationsArea {
         this.manipulador = manipulador;
         this.hierarquiaFila = new LinkedList<>();
         this.respostasUsuario = new ArrayList<>();
-
+        this.listClick = new ArrayList<>();
         Rectangle rect = new Rectangle(0, 0, w, h);
         root = new TreeMapLevel(new Rect(rect.x, rect.y, rect.width, rect.height));//TMModelNode
         fixedRoot = root;
@@ -124,6 +126,9 @@ public class VisualizationsArea {
                 TreeMapNode nodeUnderTheMouse = (TreeMapNode) VisualizationsArea.this.view.getNodeUnderTheMouse(e);
                 setItemRespostaUsuario(nodeUnderTheMouse);
                 System.out.println("---->"+nodeUnderTheMouse.getMapaDetalhesItem().get(manipulador.getColunas()[0]));
+                
+                getListClick().add(nodeUnderTheMouse);
+                
             }
 
         });
@@ -307,4 +312,13 @@ public class VisualizationsArea {
     public void setRespostasUsuario(List<TreeMapNode> respostasUsuario) {
         this.respostasUsuario = respostasUsuario;
     }
+    
+    
+    /**
+     * @return the listClick
+     */
+    public List<TreeMapNode> getListClick() {
+        return listClick;
+    }
+
 }
