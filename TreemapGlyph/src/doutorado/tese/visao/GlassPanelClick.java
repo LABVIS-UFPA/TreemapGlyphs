@@ -5,9 +5,7 @@
  */
 package doutorado.tese.visao;
 
-import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.controle.mb.GlyphManager;
-import doutorado.tese.modelo.TreeMapItem;
 import doutorado.tese.modelo.TreeMapNode;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -15,17 +13,13 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import net.bouthier.treemapAWT.TMNodeModelRoot;
 import net.bouthier.treemapAWT.TMOnDrawFinished;
 import net.bouthier.treemapAWT.TMUpdaterConcrete;
 import net.bouthier.treemapAWT.TMView;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -45,9 +39,6 @@ public class GlassPanelClick extends JPanel {
         this.onClickListener = onClickListener;
     }
     
-    
-    
-    
     public static interface OnClick{
         public void clicou(MouseEvent evt);
     }
@@ -63,29 +54,22 @@ public class GlassPanelClick extends JPanel {
         setVisible(true);
         callListner();
         listClick = new ArrayList<>();
-        System.out.println("to aqui...");
 
-        this.addMouseListener(new MouseAdapter() {
-            
+        this.addMouseListener(new MouseAdapter() {            
             @Override
             public void mouseClicked(MouseEvent evt) {
                 mouseClicando();
                 onClickListener.clicou(evt);
             }
-
         });
         
-        this.onClickListener = new OnClick() {
-            @Override
-            public void clicou(MouseEvent evt) {
-                //não faz nada.
-            }
+        this.onClickListener = (MouseEvent evt) -> {
+            //não faz nada.
         };
 
     }
 
     private void mouseClicando() {
-        System.out.println("agora vai novo 2");
         clicou = true;
         this.repaint();
     }
@@ -115,7 +99,6 @@ public class GlassPanelClick extends JPanel {
         g.fillRect(r.x, r.y, r.width, r.height);
         if (clicou) {
             g.setColor(Color.red);
-            System.out.println(""+listClick.toString());
             for (TreeMapNode treeMapNode : listClick) {
                 treeMapNode.getBounds();
                 g.drawRect(treeMapNode.getBounds().x, treeMapNode.getBounds().y,

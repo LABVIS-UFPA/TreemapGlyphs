@@ -75,6 +75,8 @@ public class TestMB {
     }
 
     public int carregarTarefas() {
+        totalTarefas++;
+        System.out.println("Tarefa " + totalTarefas);
         threadTempo = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -83,12 +85,10 @@ public class TestMB {
                         TarefaTestes tarefa = tarefasCat[idTarefaAtual];
                         task_TextArea.setText(tarefa.getTextoTarefa());
                         idTarefaAtual++;
-                        System.out.println("Tarefa " + totalTarefas);
                     } else {
                         TarefaTestes tarefa = tarefasConti[totalTarefas - idTarefaAtual];
                         task_TextArea.setText(tarefa.getTextoTarefa());
                     }
-                    totalTarefas++;
                     try {
                         Thread.sleep(taskTime);
                         JOptionPane.showMessageDialog(null, "Sorry, your time is over! "
@@ -121,7 +121,7 @@ public class TestMB {
             threadTempo.interrupt();
             if (totalTarefas == numMaxTarefas) {
                 System.out.println("Voltei pra salvar o log depois de interromper a thread");
-                logMB.salvarLog();    
+                logMB.salvarLog();
             }
         }
     }

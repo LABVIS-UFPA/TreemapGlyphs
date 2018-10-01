@@ -39,6 +39,7 @@ public abstract class TreeMapNode implements TMModelNode{
     private TreeMapNode parent = null;
     private Color cor;
     private Glyph glyph;
+    private boolean highLight;
 
     public void setDepth(int depth) {
         this.depth = depth;
@@ -270,5 +271,13 @@ public abstract class TreeMapNode implements TMModelNode{
     
     public Color getColor(){
         return cor;
+    }
+
+    public void setHighLight(boolean highLight) {
+        this.highLight = highLight;
+    }
+    
+    public boolean isHighLighted(){
+        return this.highLight;
     }
 }

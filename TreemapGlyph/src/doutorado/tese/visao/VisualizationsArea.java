@@ -23,7 +23,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.logging.Level;
 import net.bouthier.treemapAWT.TMModelNode;
 import net.bouthier.treemapAWT.TMNodeEncapsulator;
 import net.bouthier.treemapAWT.TMOnDrawFinished;
@@ -49,8 +48,7 @@ public class VisualizationsArea {
     private TreeMapNode root;
     private TreeMapNode fixedRoot;
     boolean call = false;
-    private  List<TreeMapNode> listClick;
-    
+    private List<TreeMapNode> listClick;
 
 //variaveis para a API do Treemap
     private TMModelNode modelTree = null; // the model of the demo tree
@@ -100,13 +98,10 @@ public class VisualizationsArea {
             public void onDrawFinished(String t) {
                 getRootBoundsFromView(t);
                 synchronized (callback) {
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!call) {
-                                call = true;
-                                callback.onFinished();
-                            }
+                    new Thread(() -> {
+                        if (!call) {
+                            call = true;
+                            callback.onFinished();
                         }
                     }).start();
                 }
@@ -124,14 +119,25 @@ public class VisualizationsArea {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 TreeMapNode nodeUnderTheMouse = (TreeMapNode) VisualizationsArea.this.view.getNodeUnderTheMouse(e);
-                setItemRespostaUsuario(nodeUnderTheMouse);
-                System.out.println("---->"+nodeUnderTheMouse.getMapaDetalhesItem().get(manipulador.getColunas()[0]));
-                
-                getListClick().add(nodeUnderTheMouse);
-                
+                if (nodeUnderTheMouse.getMapaDetalhesItem() != null) {
+                    setItemRespostaUsuario(nodeUnderTheMouse);
+                    System.out.println("---->" + nodeUnderTheMouse.getMapaDetalhesItem().get(manipulador.getColunas()[0]));
+                }
+                changeHighLight(nodeUnderTheMouse);
+                System.out.println(getListClick().toString());
             }
 
         });
+    }
+
+    public void changeHighLight(TreeMapNode nodeUnderTheMouse) {
+        if (nodeUnderTheMouse.isHighLighted()) {
+            nodeUnderTheMouse.setHighLight(false);
+            getListClick().remove(nodeUnderTheMouse);
+        } else {
+            nodeUnderTheMouse.setHighLight(true);
+            getListClick().add(nodeUnderTheMouse);
+        }
     }
 
     public void getRootBoundsFromView(String t) {
@@ -312,8 +318,7 @@ public class VisualizationsArea {
     public void setRespostasUsuario(List<TreeMapNode> respostasUsuario) {
         this.respostasUsuario = respostasUsuario;
     }
-    
-    
+
     /**
      * @return the listClick
      */

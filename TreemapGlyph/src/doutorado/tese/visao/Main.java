@@ -1310,23 +1310,20 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         view = visualizationTreemap.getView();
         layerPane.setBounds(view.getBounds());
         layerPane.add(view, new Integer(0), 0);
-        
-        
-        
-        
+
         progressoBarra.setVisible(false);
         atualizarLegendaTreemap(itemCor);
         checkLayeredGlyph.setEnabled(true);
         checkStarGlyph.setEnabled(true);
 
         limparCacheGlyphs();
-                
+
         clickPanel = new GlassPanelClick();
         clickPanel.setTMView(view);
         clickPanel.setListaItnsClicados(visualizationTreemap.getListClick());
         clickPanel.setBounds(view.getBounds());
         layerPane.add(clickPanel, new Integer(2), 0);
-        
+
         clickPanel.setOnClickListener(new GlassPanelClick.OnClick() {
             @Override
             public void clicou(MouseEvent evt) {
@@ -1790,7 +1787,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             if (totalTarefas <= numMaxTarefas) {
 //            int showConfirmDialog = JOptionPane.showConfirmDialog(this, "Sua resposta foi dada com certeza ou "
 //                    + "houve algum empecilho?", "Resposta", JOptionPane.YES_NO_OPTION);
-                testMB.interromperThreadTempo();
+                if (!testMB.isTimeOver()) {
+                    testMB.interromperThreadTempo();
+                }
                 acionarLog();
                 logMB.addLineLog();
                 nextTest_Button.setVisible(true);
@@ -1802,7 +1801,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     nextTest_Button.setVisible(false);
                 }
             }
-        }else {
+        } else {
             JOptionPane.showMessageDialog(this, "Please, choose an environment.", "To be careful", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_saveAnswerButtonActionPerformed
@@ -1955,7 +1954,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JList<String> varVisuaisList2;
     // End of variables declaration//GEN-END:variables
     static Main frame;
-    private JLayeredPane layerPaneClick;
     private JLayeredPane layerPane;
     private GlassPanel glyphPanel;
     private GlassPanelClick clickPanel;
@@ -2161,7 +2159,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void acionarLog() {
         logMB.setFimTempo(System.currentTimeMillis());
-        logMB.setTimeOver(testMB.isTimeOver());System.out.println("Time is over: "+testMB.isTimeOver());
+        logMB.setTimeOver(testMB.isTimeOver());
+        System.out.println("Time is over: " + testMB.isTimeOver());
         logMB.setCorTreemapLog(corTreemapComboBox.getSelectedItem().toString());
         logMB.setTamanhoTreemapLog(tamanhoTreemapComboBox.getSelectedItem().toString());
         logMB.setRotuloTreemapLog(checkLegenda.isSelected()
