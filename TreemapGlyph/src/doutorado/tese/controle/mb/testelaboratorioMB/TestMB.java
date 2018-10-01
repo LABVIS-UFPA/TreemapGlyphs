@@ -12,8 +12,11 @@ import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.visao.GlassPanel;
 import doutorado.tese.visao.VisualizationsArea;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import net.bouthier.treemapAWT.TMView;
@@ -22,7 +25,7 @@ import net.bouthier.treemapAWT.TMView;
  *
  * @author Anderson Soares
  */
-public class TestManager {
+public class TestMB {
 
     private String menuItem;
     private JPanel painelEsquerda;
@@ -38,22 +41,29 @@ public class TestManager {
     private int totalTarefas;
     private ArrayList<Object> atributosEscolhidosGlyph;
     private String[] linhaResposta;
-    private String[] linhaLog;
     private AmbienteTestes ambiente;
     TarefaTestes[] tarefasCat;
     TarefaTestes[] tarefasConti;
     LogMB logMB;
+    private long inicioTempo;
+    private long fimTempo;
+    private Thread threadTempo;
+    private int taskTime;
+    private int numMaxTarefas;
+    private boolean timeOver;
 
-    public TestManager(String menuItem, JTextPane task_TextArea) {
+    public TestMB(String menuItem, JTextPane task_TextArea) {
         this.menuItem = menuItem;
         this.task_TextArea = task_TextArea;
         ambiente = new AmbienteTestes();
         tarefasCat = ambiente.carregarTarefasCategoricas();
         tarefasConti = ambiente.carregarTarefasMistas();
         logMB = new LogMB();
+        this.taskTime = 15 * 1000;
+        this.numMaxTarefas = 3;
     }
 
-    public TestManager(String menuItem, JPanel painelEsquerda, ManipuladorArquivo manipulador, JTextPane task_TextArea, JPanel painelLegendaVis) {
+    public TestMB(String menuItem, JPanel painelEsquerda, ManipuladorArquivo manipulador, JTextPane task_TextArea, JPanel painelLegendaVis) {
         this.menuItem = menuItem;
         this.painelEsquerda = painelEsquerda;
         this.manipulador = manipulador;
@@ -65,21 +75,55 @@ public class TestManager {
     }
 
     public int carregarTarefas() {
-        System.out.println("Tarefa " + totalTarefas);
-        if (totalTarefas <  12) {
-            if (idTarefaAtual < tarefasCat.length) {
-                TarefaTestes tarefa = tarefasCat[idTarefaAtual];
-                task_TextArea.setText(tarefa.getTextoTarefa());
-                idTarefaAtual++;
-            } else {
-                TarefaTestes tarefa = tarefasConti[totalTarefas - idTarefaAtual];
-                task_TextArea.setText(tarefa.getTextoTarefa());
+        threadTempo = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (totalTarefas < numMaxTarefas) {
+                    if (idTarefaAtual < tarefasCat.length) {
+                        TarefaTestes tarefa = tarefasCat[idTarefaAtual];
+                        task_TextArea.setText(tarefa.getTextoTarefa());
+                        idTarefaAtual++;
+                        System.out.println("Tarefa " + totalTarefas);
+                    } else {
+                        TarefaTestes tarefa = tarefasConti[totalTarefas - idTarefaAtual];
+                        task_TextArea.setText(tarefa.getTextoTarefa());
+                    }
+                    totalTarefas++;
+                    try {
+                        Thread.sleep(taskTime);
+                        JOptionPane.showMessageDialog(null, "Sorry, your time is over! "
+                                + "Click on \"Submit answer\" button.",
+                                "Tic-tac, Tic-tac...!", JOptionPane.WARNING_MESSAGE);
+                        setTimeOver(true);
+                    } catch (InterruptedException ex) {
+                        int showConfirmDialog = JOptionPane.showConfirmDialog(null, "Was your response given with trust?",
+                                "Trust answer?", JOptionPane.YES_NO_OPTION);
+                        if (showConfirmDialog == 0) {
+                            JOptionPane.showMessageDialog(null, "Ok, click on \"Next\" button");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Your answer won't be counted.");
+                        }
+                    }
+                } else {
+                    logMB.salvarLog();
+                }
             }
-            totalTarefas++;
-        } else {            
-            logMB.salvarLog();
-        }
+
+        });
+        threadTempo.start();
+
         return totalTarefas;
+    }
+
+    public void interromperThreadTempo() {
+        synchronized (threadTempo) {
+            setTimeOver(false);
+            threadTempo.interrupt();
+            if (totalTarefas == numMaxTarefas) {
+                System.out.println("Voltei pra salvar o log depois de interromper a thread");
+                logMB.salvarLog();    
+            }
+        }
     }
 
     /**
@@ -239,6 +283,45 @@ public class TestManager {
             painelLegendaVis.revalidate();
         }
 
+    }
+
+    /**
+     * @return the inicioTempo
+     */
+    public long getInicioTempo() {
+        return inicioTempo;
+    }
+
+    /**
+     * @param inicioTempo the inicioTempo to set
+     */
+    public void setInicioTempo(long inicioTempo) {
+        this.inicioTempo = inicioTempo;
+    }
+
+    /**
+     * @return the fimTempo
+     */
+    public long getFimTempo() {
+        return fimTempo;
+    }
+
+    /**
+     * @param fimTempo the fimTempo to set
+     */
+    public void setFimTempo(long fimTempo) {
+        this.fimTempo = fimTempo;
+    }
+
+    /**
+     * @return the timeOver
+     */
+    public boolean isTimeOver() {
+        return timeOver;
+    }
+
+    public void setTimeOver(boolean timeOver) {
+        this.timeOver = timeOver;
     }
 
 }

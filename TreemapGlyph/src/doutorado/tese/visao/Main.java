@@ -6,7 +6,7 @@
 package doutorado.tese.visao;
 
 import doutorado.tese.controle.mb.testelaboratorioMB.LogMB;
-import doutorado.tese.controle.mb.testelaboratorioMB.TestManager;
+import doutorado.tese.controle.mb.testelaboratorioMB.TestMB;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.modelo.Coluna;
 import doutorado.tese.util.Constantes;
@@ -84,6 +84,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         painelAbas_jTabbedPane.setSelectedIndex(painelAbas_jTabbedPane.getTabCount() - 1);//ultima aba
         logMB = new LogMB();
         nextTest_Button.setVisible(false);
+        numMaxTarefas = 3;
     }
 
     /**
@@ -930,14 +931,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        saveAnswerButton.setText("Save answer");
+        saveAnswerButton.setText("Submit answer");
         saveAnswerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveAnswerButtonActionPerformed(evt);
             }
         });
 
-        taskCountLabel.setText("Task: 0/12");
+        taskCountLabel.setText("Task:");
 
         javax.swing.GroupLayout abaTaskLayout = new javax.swing.GroupLayout(abaTask);
         abaTask.setLayout(abaTaskLayout);
@@ -949,9 +950,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(abaTaskLayout.createSequentialGroup()
                         .addComponent(saveAnswerButton)
-                        .addGap(38, 38, 38)
-                        .addComponent(taskCountLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(taskCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(nextTest_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
@@ -1720,7 +1721,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void nextTest_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextTest_ButtonActionPerformed
         if (testMB != null) {
             totalTarefas = testMB.carregarTarefas();//tarefa ta na tela
-            taskCountLabel.setText("Task: " + totalTarefas + "/12");
+            logMB.setInicioTempo(System.currentTimeMillis());
+            taskCountLabel.setText("Task: " + totalTarefas + "/" + numMaxTarefas);
             nextTest_Button.setVisible(false);
             saveAnswerButton.setVisible(true);
         } else {
@@ -1730,54 +1732,57 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void ambienteB_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteB_RadioButtonMenuItemActionPerformed
         cenario = "B";
-        TestManager testMB = new TestManager(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
+        testMB = new TestMB(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
         testMB.carregarTarefas();
     }//GEN-LAST:event_ambienteB_RadioButtonMenuItemActionPerformed
 
     private void ambienteA_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteA_RadioButtonMenuItemActionPerformed
         cenario = "A";
-//        testMB = new TestManager(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
-        testMB = new TestManager(cenario, task_TextPane);
+//        testMB = new TestMB(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
+        testMB = new TestMB(cenario, task_TextPane);
         totalTarefas = testMB.carregarTarefas();
-        taskCountLabel.setText("Task: " + totalTarefas + "/12");
+        logMB.setInicioTempo(System.currentTimeMillis());
+        taskCountLabel.setText("Task: " + totalTarefas + "/" + numMaxTarefas);
     }//GEN-LAST:event_ambienteA_RadioButtonMenuItemActionPerformed
 
     private void ambienteC_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteC_RadioButtonMenuItemActionPerformed
         cenario = "C";
-        testMB = new TestManager(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
+        testMB = new TestMB(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
         testMB.carregarTarefas();
     }//GEN-LAST:event_ambienteC_RadioButtonMenuItemActionPerformed
 
     private void ambienteD_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteD_RadioButtonMenuItemActionPerformed
         cenario = "D";
-        testMB = new TestManager(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
+        testMB = new TestMB(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
         testMB.carregarTarefas();
     }//GEN-LAST:event_ambienteD_RadioButtonMenuItemActionPerformed
 
     private void ambienteE_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteE_RadioButtonMenuItemActionPerformed
         cenario = "E";
-        testMB = new TestManager(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
+        testMB = new TestMB(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
         testMB.carregarTarefas();
     }//GEN-LAST:event_ambienteE_RadioButtonMenuItemActionPerformed
 
     private void saveAnswerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAnswerButtonActionPerformed
-        if (totalTarefas <= 12) {
-            int showConfirmDialog = JOptionPane.showConfirmDialog(this, "Sua resposta foi dada com certeza ou "
-                    + "houve algum empecilho?", "Resposta", JOptionPane.YES_NO_OPTION);
-            System.out.println("showConfirmDialog: " + showConfirmDialog);
-            if (showConfirmDialog == 0) {
+        if (testMB != null) {
+            if (totalTarefas <= numMaxTarefas) {
+//            int showConfirmDialog = JOptionPane.showConfirmDialog(this, "Sua resposta foi dada com certeza ou "
+//                    + "houve algum empecilho?", "Resposta", JOptionPane.YES_NO_OPTION);
+                testMB.interromperThreadTempo();
                 acionarLog();
                 logMB.addLineLog();
                 nextTest_Button.setVisible(true);
                 saveAnswerButton.setVisible(false);
-                if (totalTarefas == 12) {
+                if (totalTarefas == numMaxTarefas) {
                     nextTest_Button.setVisible(false);
-                    JOptionPane.showMessageDialog(this, "Fim do teste, obrigado por participar!");
+                    JOptionPane.showMessageDialog(this, "You fineshed the test. Thanks for participate!");
                     task_TextPane.setText("");
                     nextTest_Button.setVisible(false);
                 }
             }
-        } 
+        }else {
+            JOptionPane.showMessageDialog(this, "Please, choose an environment.", "To be careful", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_saveAnswerButtonActionPerformed
 
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
@@ -1946,9 +1951,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private Task task;
     private ArrayList<Object> atributosEscolhidosGlyph;
     private String cenario;
-    private TestManager testMB;
+    private TestMB testMB;
     private LogMB logMB;
     private int totalTarefas;
+    private int numMaxTarefas;
 
     private void atualizarLegendaGlyphs(ArrayList<Object> atributosEscolhidosGlyph) {
         painelLegendaVis.removeAll();
@@ -2130,6 +2136,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
     private void acionarLog() {
+        logMB.setFimTempo(System.currentTimeMillis());
+        logMB.setTimeOver(testMB.isTimeOver());System.out.println("Time is over: "+testMB.isTimeOver());
         logMB.setCorTreemapLog(corTreemapComboBox.getSelectedItem().toString());
         logMB.setTamanhoTreemapLog(tamanhoTreemapComboBox.getSelectedItem().toString());
         logMB.setRotuloTreemapLog(checkLegenda.isSelected()
@@ -2147,6 +2155,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         if (visualizationTreemap != null) {
             logMB.setRespostasUsuario(visualizationTreemap.getRespostasUsuario());
         }
+        logMB.setCenario(cenario);
+        logMB.setTarefa(task_TextPane.getText());
     }
 
     class Task extends SwingWorker<Void, Void> {

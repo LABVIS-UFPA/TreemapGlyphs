@@ -34,6 +34,11 @@ public class LogMB {
     //
     private String respostasUsuario = "";
     private static StringBuilder bufferLog;
+    private long fimTempo;
+    private long inicioTempo;
+    private String tarefa;
+    private String cenario;
+    private boolean timeOver;
 
     public LogMB() {
         bufferLog = new StringBuilder();
@@ -50,14 +55,16 @@ public class LogMB {
                 + "atributosContinuos\t"
                 + "RESPOSTA_USUARIO\t"
                 + "TEMPO\t"
+                + "TIME_OVER\t"
                 + "ACERTOU\t"
                 + "TAREFA\t"
-                + "CENARIO\t"
-                + "NUM_TESTE");
+                + "CENARIO");
         bufferLog.append("\n");
     }
 
     public void addLineLog() {
+        long tempo = getFimTempo() - getInicioTempo();
+        System.out.println("tempo: " + tempo);
         bufferLog.append(hierarquiaTreemapLog).
                 append("\t").append(tamanhoTreemapLog).
                 append("\t").append(corTreemapLog).
@@ -70,13 +77,18 @@ public class LogMB {
                 append("\t").append(tipoGliphContinuoLog).
                 append("\t").append(atributosContinuosLog).
                 append("\t").append(getRespostasUsuario()).
+                append("\t").append(tempo).
+                append("\t").append(timeOver == true ? "TRUE" : "FALSE").
+                append("\t").append("Acertou ou errou").
+                append("\t").append(tarefa).
+                append("\t").append(cenario).
                 append("\n");
         System.out.println("-------------------------");
         System.out.println(bufferLog.toString());
         System.out.println("-------------------------");
     }
-    
-    public void salvarLog(){
+
+    public void salvarLog() {
         Escritor.escreverArquivo("LOG_TreemapGlyph_", bufferLog.toString());
     }
 
@@ -301,4 +313,64 @@ public class LogMB {
         }
     }
 
+    /**
+     * @return the inicioTempo
+     */
+    public long getInicioTempo() {
+        return inicioTempo;
+    }
+
+    /**
+     * @param inicioTempo the inicioTempo to set
+     */
+    public void setInicioTempo(long inicioTempo) {
+        this.inicioTempo = inicioTempo;
+    }
+
+    /**
+     * @return the fimTempo
+     */
+    public long getFimTempo() {
+        return fimTempo;
+    }
+
+    /**
+     * @param fimTempo the fimTempo to set
+     */
+    public void setFimTempo(long fimTempo) {
+        this.fimTempo = fimTempo;
+    }
+
+    /**
+     * @return the tarefa
+     */
+    public String getTarefa() {
+        return tarefa;
+    }
+
+    /**
+     * @param tarefa the tarefa to set
+     */
+    public void setTarefa(String tarefa) {
+        this.tarefa = tarefa;
+    }
+
+    /**
+     * @return the cenario
+     */
+    public String getCenario() {
+        return cenario;
+    }
+
+    /**
+     * @param cenario the cenario to set
+     */
+    public void setCenario(String cenario) {
+        this.cenario = cenario;
+    }
+
+    public void setTimeOver(boolean timeOver) {
+        this.timeOver = timeOver;
+    }
+    
 }

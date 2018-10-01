@@ -1359,9 +1359,9 @@
                                           <Component id="jScrollPane10" min="-2" pref="316" max="-2" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Component id="saveAnswerButton" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                                              <Component id="taskCountLabel" min="-2" pref="56" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="taskCountLabel" max="32767" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="nextTest_Button" min="-2" pref="83" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -1413,7 +1413,7 @@
                             </Component>
                             <Component class="javax.swing.JButton" name="saveAnswerButton">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="Save answer"/>
+                                <Property name="text" type="java.lang.String" value="Submit answer"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveAnswerButtonActionPerformed"/>
@@ -1421,7 +1421,7 @@
                             </Component>
                             <Component class="javax.swing.JLabel" name="taskCountLabel">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="Task: 0/12"/>
+                                <Property name="text" type="java.lang.String" value="Task:"/>
                               </Properties>
                             </Component>
                           </SubComponents>
