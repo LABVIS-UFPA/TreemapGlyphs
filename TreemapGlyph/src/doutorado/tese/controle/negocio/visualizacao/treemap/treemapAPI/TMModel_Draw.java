@@ -79,6 +79,7 @@ public class TMModel_Draw
             }
         } else {
             TreeMapItem nodeItem = (TreeMapItem) node;
+         
             if (!itemCor.equals("---")) {
                 Coluna c = ManipuladorArquivo.getColuna(getItemCor());
                 List<String> dadosDistintos = c.getDadosDistintos();

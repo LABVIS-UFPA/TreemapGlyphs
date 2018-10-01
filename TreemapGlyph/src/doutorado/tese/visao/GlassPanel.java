@@ -10,7 +10,10 @@ import doutorado.tese.controle.mb.GlyphManager;
 import doutorado.tese.modelo.TreeMapItem;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,6 +46,7 @@ public class GlassPanel extends JPanel {
     private int quantValoresVarVisuais;
     private boolean overlappingActivated;
     private String[] atributosEscolhidosStarGlyph;
+    private Graphics graphicsGlobal;
 
     /**
      * Construtor chamado ao selecionar o checkbox indicando que os glyphs serao
@@ -54,6 +58,23 @@ public class GlassPanel extends JPanel {
         callListner();
 //        glyphManager.setPerctOverlap(quantOlverlap);
         quantValoresVarVisuais = 8;
+//        this.addMouseListener(new MouseAdapter() {
+//            public void mouseClicked(MouseEvent evt) {
+//                mouseClicando();
+//              
+//                
+//            }
+//
+//        });
+
+    }
+
+    private void mouseClicando() {
+        System.out.println("agora vai");
+        graphicsGlobal.setColor(Color.red);
+        graphicsGlobal.fillRect(100,100, 200, 200);
+      
+        
     }
 
     public GlassPanel(Rectangle bounds) {
@@ -137,6 +158,7 @@ public class GlassPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        this.graphicsGlobal = g;
         g.setColor(new Color(0, 255, 0, 0));//painel com fundo transparente
         Rectangle r = getBounds();
         g.fillRect(r.x, r.y, r.width, r.height);

@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -200,7 +201,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Treemap Glyphs");
 
-        separadorEsqueDir_jSplitPane.setDividerLocation(0.25);
+        separadorEsqueDir_jSplitPane.setDividerLocation(0.24);
         separadorEsqueDir_jSplitPane.setOpaque(false);
         separadorEsqueDir_jSplitPane.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
@@ -353,7 +354,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addGroup(abaTreemapLayout.createSequentialGroup()
                                 .addComponent(checkLegenda)
                                 .addGap(18, 18, 18)
-                                .addComponent(legendaComboBox, 0, 204, Short.MAX_VALUE))
+                                .addComponent(legendaComboBox, 0, 163, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, abaTreemapLayout.createSequentialGroup()
                                 .addGap(21, 21, 21)
                                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,7 +364,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(tamanhoTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(corTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(74, 74, 74))
+                        .addGap(97, 97, 97))
                     .addGroup(abaTreemapLayout.createSequentialGroup()
                         .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -417,7 +418,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoGerarVisualizacao)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Treemap", abaTreemap);
@@ -582,7 +583,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
                                 .addComponent(checkLayeredGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel14)
                         .addGap(180, 180, 180))
@@ -766,12 +767,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaStarGlyphsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(botaoGerarContinuosGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(botaoGerarContinuosGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                     .addGroup(abaStarGlyphsLayout.createSequentialGroup()
                         .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(abaStarGlyphsLayout.createSequentialGroup()
                                 .addGap(4, 4, 4)
-                                .addComponent(checkStarGlyph, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
+                                .addComponent(checkStarGlyph, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
                             .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(abaStarGlyphsLayout.createSequentialGroup()
@@ -911,7 +912,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         abaFiltros.setLayout(abaFiltrosLayout);
         abaFiltrosLayout.setHorizontalGroup(
             abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 361, Short.MAX_VALUE)
+            .addGap(0, 384, Short.MAX_VALUE)
         );
         abaFiltrosLayout.setVerticalGroup(
             abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -954,7 +955,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addComponent(taskCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(nextTest_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         abaTaskLayout.setVerticalGroup(
             abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -962,10 +963,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nextTest_Button)
-                    .addComponent(saveAnswerButton)
-                    .addComponent(taskCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(taskCountLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(nextTest_Button)
+                        .addComponent(saveAnswerButton)))
                 .addGap(36, 36, 36))
         );
 
@@ -1308,13 +1310,33 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         view = visualizationTreemap.getView();
         layerPane.setBounds(view.getBounds());
         layerPane.add(view, new Integer(0), 0);
-
+        
+        
+        
+        
         progressoBarra.setVisible(false);
         atualizarLegendaTreemap(itemCor);
         checkLayeredGlyph.setEnabled(true);
         checkStarGlyph.setEnabled(true);
 
         limparCacheGlyphs();
+                
+        clickPanel = new GlassPanelClick();
+        clickPanel.setTMView(view);
+        clickPanel.setListaItnsClicados(visualizationTreemap.getListClick());
+        clickPanel.setBounds(view.getBounds());
+        layerPane.add(clickPanel, new Integer(2), 0);
+        
+        clickPanel.setOnClickListener(new GlassPanelClick.OnClick() {
+            @Override
+            public void clicou(MouseEvent evt) {
+                view.dispatchEvent(evt);
+            }
+        });
+//        layerPane.add(view, new Integer(0), 1);
+
+        layerPane.moveToFront(clickPanel);
+        clickPanel.repaint();
     }//GEN-LAST:event_botaoGerarVisualizacaoActionPerformed
 
     private void colunasDetalhesList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasDetalhesList1ValueChanged
@@ -1933,8 +1955,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JList<String> varVisuaisList2;
     // End of variables declaration//GEN-END:variables
     static Main frame;
+    private JLayeredPane layerPaneClick;
     private JLayeredPane layerPane;
     private GlassPanel glyphPanel;
+    private GlassPanelClick clickPanel;
     private LegendaVisualizacao legendaVisualizacao;
     private String itemTamanho;
     private String itemLegenda;
