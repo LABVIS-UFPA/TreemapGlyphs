@@ -48,7 +48,7 @@ public class VisualizationsArea {
     private TreeMapNode root;
     private TreeMapNode fixedRoot;
     boolean call = false;
-    private List<TreeMapNode> listClick;
+    private List<TreeMapNode> listClickedItems;
 
 //variaveis para a API do Treemap
     private TMModelNode modelTree = null; // the model of the demo tree
@@ -69,7 +69,7 @@ public class VisualizationsArea {
         this.manipulador = manipulador;
         this.hierarquiaFila = new LinkedList<>();
         this.respostasUsuario = new ArrayList<>();
-        this.listClick = new ArrayList<>();
+        this.listClickedItems = new ArrayList<>();
         Rectangle rect = new Rectangle(0, 0, w, h);
         root = new TreeMapLevel(new Rect(rect.x, rect.y, rect.width, rect.height));//TMModelNode
         fixedRoot = root;
@@ -106,12 +106,10 @@ public class VisualizationsArea {
                     }).start();
                 }
             }
-//            }
         });
         TMThreadModel.listeners.add(listener);
         TMUpdaterConcrete.listeners.add(listener);
 
-        //        TMThreadModel.listener = listener;
         TMUpdaterConcrete.listeners.add(listener);
 
         this.view.addMouseListener(new MouseAdapter() {
@@ -120,23 +118,19 @@ public class VisualizationsArea {
                 super.mouseClicked(e);
                 TreeMapNode nodeUnderTheMouse = (TreeMapNode) VisualizationsArea.this.view.getNodeUnderTheMouse(e);
                 if (nodeUnderTheMouse.getMapaDetalhesItem() != null) {
-                    setItemRespostaUsuario(nodeUnderTheMouse);
-                    System.out.println("---->" + nodeUnderTheMouse.getMapaDetalhesItem().get(manipulador.getColunas()[0]));
+                    changeHighLight(nodeUnderTheMouse);
                 }
-                changeHighLight(nodeUnderTheMouse);
-                System.out.println(getListClick().toString());
             }
-
         });
     }
 
     public void changeHighLight(TreeMapNode nodeUnderTheMouse) {
         if (nodeUnderTheMouse.isHighLighted()) {
             nodeUnderTheMouse.setHighLight(false);
-            getListClick().remove(nodeUnderTheMouse);
+            getRespostasUsuario().remove(nodeUnderTheMouse);
         } else {
             nodeUnderTheMouse.setHighLight(true);
-            getListClick().add(nodeUnderTheMouse);
+            getRespostasUsuario().add(nodeUnderTheMouse);
         }
     }
 
@@ -295,35 +289,21 @@ public class VisualizationsArea {
         return itemRespostaUsuario;
     }
 
-    /**
-     * @param itemRespostaUsuario the itemRespostaUsuario to set
-     */
-    public void setItemRespostaUsuario(TreeMapNode itemRespostaUsuario) {
-        this.itemRespostaUsuario = itemRespostaUsuario;
-        if (itemRespostaUsuario != null) {
-            getRespostasUsuario().add(this.itemRespostaUsuario);
-        }
-    }
+//    /**
+//     * @param itemRespostaUsuario the itemRespostaUsuario to set
+//     */
+//    public void setItemRespostaUsuario(TreeMapNode itemRespostaUsuario) {
+//        this.itemRespostaUsuario = itemRespostaUsuario;
+//        if (itemRespostaUsuario != null) {
+//            getRespostasUsuario().add(this.itemRespostaUsuario);
+//        }
+//    }
 
     /**
-     * @return the respostasUsuario
+     * @return the list containing the treemapnodes clicked by user
      */
     public List<TreeMapNode> getRespostasUsuario() {
-        return respostasUsuario;
-    }
-
-    /**
-     * @param respostasUsuario the respostasUsuario to set
-     */
-    public void setRespostasUsuario(List<TreeMapNode> respostasUsuario) {
-        this.respostasUsuario = respostasUsuario;
-    }
-
-    /**
-     * @return the listClick
-     */
-    public List<TreeMapNode> getListClick() {
-        return listClick;
+        return listClickedItems;
     }
 
 }

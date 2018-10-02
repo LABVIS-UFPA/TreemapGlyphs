@@ -12,6 +12,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.GroupLayout;
@@ -34,15 +36,7 @@ public class GlassPanelClick extends JPanel {
     private boolean clicou = false;
     private List<TreeMapNode> listClick;
     private OnClick onClickListener;
-
-    public void setOnClickListener(OnClick onClickListener) {
-        this.onClickListener = onClickListener;
-    }
-    
-    public static interface OnClick{
-        public void clicou(MouseEvent evt);
-    }
-    
+    private OnMouseOver itemDetailsOnDemand;
 
     /**
      * Construtor chamado ao selecionar o checkbox indicando que os glyphs serao
@@ -55,19 +49,64 @@ public class GlassPanelClick extends JPanel {
         callListner();
         listClick = new ArrayList<>();
 
-        this.addMouseListener(new MouseAdapter() {            
+        this.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent evt) {
+            public void mouseClicked(MouseEvent e) {
                 mouseClicando();
-                onClickListener.clicou(evt);
+                onClickListener.clicou(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                itemDetailsOnDemand.getDetailsOnDemand(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
             }
         });
         
         this.onClickListener = (MouseEvent evt) -> {
             //não faz nada.
         };
+        
+        this.itemDetailsOnDemand = new OnMouseOver() {
+            @Override
+            public void getDetailsOnDemand(MouseEvent evt) {
+                
+            }
 
+            @Override
+            public String tooltipEvent(MouseEvent evt) {
+                return "";
+            }
+        };
     }
+
+    @Override
+    public String getToolTipText(MouseEvent evt) {
+        return itemDetailsOnDemand.tooltipEvent(evt); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    
+    public void setOnClickListener(OnClick onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+           
+    public static interface OnClick{
+        public void clicou(MouseEvent evt);
+    }
+    
+    public void setOnMouseOverListener(OnMouseOver itemDetailsOnDemand){
+        this.itemDetailsOnDemand = itemDetailsOnDemand;
+    }
+    
+    public static interface OnMouseOver{
+        public void getDetailsOnDemand(MouseEvent evt);
+        public String tooltipEvent(MouseEvent evt);
+    }    
 
     private void mouseClicando() {
         clicou = true;

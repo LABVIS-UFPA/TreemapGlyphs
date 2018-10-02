@@ -581,7 +581,7 @@
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jLabel13" max="32767" attributes="0"/>
                                                   <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="checkLayeredGlyph" min="-2" pref="107" max="-2" attributes="0"/>
+                                                      <Component id="checkCategoricalGlyph" min="-2" pref="107" max="-2" attributes="0"/>
                                                       <EmptySpace pref="20" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
@@ -654,7 +654,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="checkLayeredGlyph" min="-2" max="-2" attributes="0"/>
+                                              <Component id="checkCategoricalGlyph" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                           </Group>
@@ -938,14 +938,14 @@
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarGlyphsActionPerformed"/>
                               </Events>
                             </Component>
-                            <Component class="javax.swing.JCheckBox" name="checkLayeredGlyph">
+                            <Component class="javax.swing.JCheckBox" name="checkCategoricalGlyph">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Layered Glyph"/>
                                 <Property name="toolTipText" type="java.lang.String" value=""/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkLayeredGlyphActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkCategoricalGlyphActionPerformed"/>
                               </Events>
                             </Component>
                           </SubComponents>
@@ -970,7 +970,7 @@
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                                      <Component id="checkStarGlyph" pref="107" max="32767" attributes="0"/>
+                                                      <Component id="checkContinuousGlyph" pref="107" max="32767" attributes="0"/>
                                                   </Group>
                                                   <Component id="jScrollPane11" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
                                               </Group>
@@ -1005,7 +1005,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="checkStarGlyph" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                          <Component id="checkContinuousGlyph" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                           <Component id="glyphContinuosType" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -1033,13 +1033,13 @@
                             </DimensionLayout>
                           </Layout>
                           <SubComponents>
-                            <Component class="javax.swing.JCheckBox" name="checkStarGlyph">
+                            <Component class="javax.swing.JCheckBox" name="checkContinuousGlyph">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Glyph Continuo"/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkStarGlyphActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkContinuousGlyphActionPerformed"/>
                               </Events>
                             </Component>
                             <Component class="javax.swing.JButton" name="botaoGerarContinuosGlyphs">
@@ -1375,10 +1375,12 @@
                                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                                       <Component id="jScrollPane10" min="-2" pref="198" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="nextTest_Button" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="saveAnswerButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="taskCountLabel" alignment="1" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="nextTest_Button" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="saveAnswerButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                                   </Group>
