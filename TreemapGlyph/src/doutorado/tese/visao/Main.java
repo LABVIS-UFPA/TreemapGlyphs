@@ -1328,31 +1328,21 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         clickPanel.setOnClickListener(new GlassPanelClick.OnClick() {
             @Override
             public void clicou(MouseEvent evt) {
-                System.out.println("Antes - mouseClicked - e.isConsumed() " + evt.isConsumed());
                 view.dispatchEvent(evt);
-                System.out.println("Depois - mouseClicked - e.isConsumed() " + evt.isConsumed());
             }
         });
 
         clickPanel.setOnMouseOverListener(new GlassPanelClick.OnMouseOver() {
             @Override
             public void getDetailsOnDemand(MouseEvent evt) {
-                System.out.println("Antes - OnDemand - e.isConsumed() " + evt.isConsumed());
                 view.dispatchEvent(evt);
-                System.out.println("Depois - OnDemand - e.isConsumed() " + evt.isConsumed());
-
             }
 
             @Override
             public String tooltipEvent(MouseEvent evt) {
                 return view.getToolTipText(evt);
             }
-            
-            
         });
-//        clickPanel.setOnMouseOverListener();
-
-//        layerPane.moveToFront(clickPanel);
         clickPanel.repaint();
     }//GEN-LAST:event_botaoGerarVisualizacaoActionPerformed
 
@@ -1819,11 +1809,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void saveAnswerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAnswerButtonActionPerformed
         if (testMB != null) {
             if (totalTarefas <= numMaxTarefas) {
+                acionarLog();
+                logMB.addLineLog();
                 if (!testMB.isTimeOver()) {
                     testMB.interromperThreadTempo();
                 }
-                acionarLog();
-                logMB.addLineLog();
                 nextTest_Button.setVisible(true);
                 saveAnswerButton.setVisible(false);
                 if (totalTarefas == numMaxTarefas) {
