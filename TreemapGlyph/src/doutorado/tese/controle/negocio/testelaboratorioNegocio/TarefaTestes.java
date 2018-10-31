@@ -5,6 +5,7 @@
  */
 package doutorado.tese.controle.negocio.testelaboratorioNegocio;
 
+import doutorado.tese.modelo.TreeMapNode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +37,10 @@ public class TarefaTestes {
     private String parametroBar1;
     private String parametroBar2;
     private String parametroBar3;
+    private List<TreeMapNode> gabarito;
 
     public TarefaTestes() {
+        gabarito = new ArrayList<>();
         parametrosHierarquiaTreemap = new ArrayList<>();
         parametrosContinuosGlyph = new ArrayList<>();
         parametrosDetalhesSobDemanda = new ArrayList<>();
@@ -271,6 +274,20 @@ public class TarefaTestes {
      */
     public void setParametroBar3(String parametroBar3) {
         this.parametroBar3 = parametroBar3;
+    }
+
+    /**
+     * @return the gabarito
+     */
+    public List<TreeMapNode> getGabarito() {
+        return gabarito;
+    }
+
+    /**
+     * @param gabarito the gabarito to set
+     */
+    public void setGabarito(List<TreeMapNode> gabarito) {
+        this.gabarito = gabarito;
     }
 
 }

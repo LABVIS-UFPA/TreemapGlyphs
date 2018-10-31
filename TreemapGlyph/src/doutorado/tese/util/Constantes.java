@@ -37,7 +37,7 @@ public class Constantes {
     public static final int AREA_NUMERO = 14;//NA - NUMBER AREA
     public static final int PRESENTE = 1;
     public static final int AUSENTE = 0;
-
+    
 //    private static Color[] cores = {Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
     private static String[] cor = {
         "#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477",
@@ -79,6 +79,10 @@ public class Constantes {
     public static final int LIMITE_TESTES = 100;
     public static int PRESENCA_STAR;
 
+    public enum CENARIOS{
+        A, B, C, D, E, SEM_CENARIO;
+    }
+    
     public enum NivelGlyph {
         NIVEL_1(1),
         NIVEL_2(2),

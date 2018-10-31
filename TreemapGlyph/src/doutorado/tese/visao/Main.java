@@ -7,12 +7,15 @@ package doutorado.tese.visao;
 
 import doutorado.tese.controle.mb.testelaboratorioMB.LogMB;
 import doutorado.tese.controle.mb.testelaboratorioMB.TestMB;
+import doutorado.tese.controle.negocio.testelaboratorioNegocio.AmbienteTestes;
+import doutorado.tese.controle.negocio.testelaboratorioNegocio.TarefaTestes;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.modelo.Coluna;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.controle.negocio.visualizacao.legenda.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
+import doutorado.tese.modelo.TreeMapItem;
 import doutorado.tese.util.Conversor;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -55,7 +58,7 @@ import org.apache.logging.log4j.Logger;
 public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private static final Logger logger = LogManager.getLogger(Main.class);
-
+    
     /**
      * Creates new form Main
      */
@@ -86,6 +89,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         nextTest_Button.setVisible(false);
         saveAnswerButton.setVisible(false);
         numMaxTarefas = 3;
+        cenario = Constantes.CENARIOS.SEM_CENARIO.toString();
     }
 
     /**
@@ -1114,6 +1118,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             logger.info("Arquivo selecionado: " + selectedFile);
             //Instances of javax.swing.SwingWorker are not reusuable, so
             //we create new instances as needed.
+            setTitle("Treemap Glyphs - "+selectedFile.getName());
             task = new Task();
             task.addPropertyChangeListener(this);
             task.execute();
@@ -1296,11 +1301,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void botaoGerarVisualizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarVisualizacaoActionPerformed
         limparPainelEsquerda();
-        itemTamanho = tamanhoTreemapComboBox.getSelectedItem().toString();
-        itemLegenda = legendaComboBox.getSelectedItem().toString();
-        itemCor = corTreemapComboBox.getSelectedItem().toString();
-        String[] itensHierarquia = Conversor.parseListModel2ArrayString(colunasHierarquicasList2.getModel());
-        String[] itensDetalhes = Conversor.parseListModel2ArrayString(colunasDetalhesList2.getModel());
+        loadSetupTreemap();
 
         visualizationTreemap = new VisualizationsArea(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
                 manipulador, itemTamanho, itensHierarquia, itemLegenda, itemCor, itensDetalhes, () -> {
@@ -1310,8 +1311,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         view = visualizationTreemap.getView();
         layerPane.setBounds(view.getBounds());
 
-        progressoBarra.setVisible(false);
         atualizarLegendaTreemap(itemCor);
+        progressoBarra.setVisible(false);
         checkCategoricalGlyph.setEnabled(true);
         checkContinuousGlyph.setEnabled(true);
 
@@ -1323,14 +1324,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         clickPanel.setBounds(view.getBounds());
         layerPane.add(view, new Integer(0), 0);
         layerPane.add(clickPanel, new Integer(1), 0);
-//      layerPane.add(glyphPanel, new Integer(1), 0);
 
-        clickPanel.setOnClickListener(new GlassPanelClick.OnClick() {
-            @Override
-            public void clicou(MouseEvent evt) {
-                view.dispatchEvent(evt);
-            }
+        clickPanel.setOnClickListener((MouseEvent evt1) -> {
+            view.dispatchEvent(evt1);
         });
+        
+        if(!cenario.equals(Constantes.CENARIOS.SEM_CENARIO.toString())){
+            loadGabaritoTarefa();
+        }
 
         clickPanel.setOnMouseOverListener(new GlassPanelClick.OnMouseOver() {
             @Override
@@ -1761,7 +1762,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_nextTest_ButtonActionPerformed
 
     private void ambienteB_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteB_RadioButtonMenuItemActionPerformed
-        cenario = "B";
+        tarefasTeste = loadTarefasTeste();
+        cenario = Constantes.CENARIOS.B.toString();
         testMB = new TestMB(cenario, task_TextPane);
         totalTarefas = testMB.carregarTarefas();
         logMB.setInicioTempo(System.currentTimeMillis());
@@ -1770,8 +1772,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_ambienteB_RadioButtonMenuItemActionPerformed
 
     private void ambienteA_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteA_RadioButtonMenuItemActionPerformed
-        cenario = "A";
-//        testMB = new TestMB(cenario, painelEsquerda, manipulador, task_TextPane, painelLegendaVis);
+        tarefasTeste = loadTarefasTeste();
+        cenario = Constantes.CENARIOS.A.toString();
         testMB = new TestMB(cenario, task_TextPane);
         totalTarefas = testMB.carregarTarefas();
         logMB.setInicioTempo(System.currentTimeMillis());
@@ -1780,7 +1782,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_ambienteA_RadioButtonMenuItemActionPerformed
 
     private void ambienteC_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteC_RadioButtonMenuItemActionPerformed
-        cenario = "C";
+        tarefasTeste = loadTarefasTeste();
+        cenario = Constantes.CENARIOS.C.toString();
         testMB = new TestMB(cenario, task_TextPane);
         totalTarefas = testMB.carregarTarefas();
         logMB.setInicioTempo(System.currentTimeMillis());
@@ -1789,7 +1792,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_ambienteC_RadioButtonMenuItemActionPerformed
 
     private void ambienteD_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteD_RadioButtonMenuItemActionPerformed
-        cenario = "D";
+        tarefasTeste = loadTarefasTeste();
+        cenario = Constantes.CENARIOS.D.toString();
         testMB = new TestMB(cenario, task_TextPane);
         totalTarefas = testMB.carregarTarefas();
         logMB.setInicioTempo(System.currentTimeMillis());
@@ -1798,7 +1802,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_ambienteD_RadioButtonMenuItemActionPerformed
 
     private void ambienteE_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteE_RadioButtonMenuItemActionPerformed
-        cenario = "E";
+        tarefasTeste = loadTarefasTeste();
+        cenario = Constantes.CENARIOS.E.toString();
         testMB = new TestMB(cenario, task_TextPane);
         totalTarefas = testMB.carregarTarefas();
         logMB.setInicioTempo(System.currentTimeMillis());
@@ -1999,6 +2004,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private LogMB logMB;
     private int totalTarefas;
     private int numMaxTarefas;
+    private String[] itensHierarquia;
+    private String[] itensDetalhes;
+    private List<TarefaTestes> tarefasTeste;
 
     private void atualizarLegendaGlyphs(ArrayList<Object> atributosEscolhidosGlyph) {
         painelLegendaVis.removeAll();
@@ -2202,6 +2210,38 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
         logMB.setCenario(cenario);
         logMB.setTarefa(task_TextPane.getText());
+    }
+
+    private void loadSetupTreemap() {
+        itemTamanho = tamanhoTreemapComboBox.getSelectedItem().toString();
+        itemLegenda = legendaComboBox.getSelectedItem().toString();
+        itemCor = corTreemapComboBox.getSelectedItem().toString();
+        itensHierarquia = Conversor.parseListModel2ArrayString(colunasHierarquicasList2.getModel());
+        itensDetalhes = Conversor.parseListModel2ArrayString(colunasDetalhesList2.getModel());
+    }
+
+    private List<TarefaTestes> loadTarefasTeste(){
+        List<TarefaTestes> listaTarefas = new ArrayList<>();
+        AmbienteTestes ambientes = new AmbienteTestes();
+        
+        for (TarefaTestes tarefa : ambientes.getTarefasCat()) {
+            listaTarefas.add(tarefa);
+        }
+        for (TarefaTestes tarefa : ambientes.getTarefasConti()) {
+            listaTarefas.add(tarefa);
+        }
+        return listaTarefas;
+    }
+    
+    private void loadGabaritoTarefa() {        
+//        for (TarefaTestes tarefa : tarefasTeste) {
+//            
+//            for (TreeMapItem treeMapItem : manipulador.getItensTreemap()) {
+//                if(){
+//                    tarefa.getGabarito().add(treeMapItem);
+//                }
+//            }
+//        }
     }
 
     class Task extends SwingWorker<Void, Void> {

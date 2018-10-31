@@ -20,6 +20,7 @@ import java.util.Queue;
  */
 public class TreeMapItem extends TreeMapNode {
 
+    private long id;
     private String columnLabel;
     private int [] what2Draw;
     private Textura textura;
@@ -176,6 +177,20 @@ public class TreeMapItem extends TreeMapNode {
 
     public void setNumero(Numeral numero) {
         this.numero = numero;
+    }
+
+    /**
+     * @return the id
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
     }
     
     

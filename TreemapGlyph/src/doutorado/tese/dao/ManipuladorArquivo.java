@@ -286,6 +286,7 @@ public class ManipuladorArquivo {
                 Glyph glyphConcrete = new GlyphConcrete();
                 glyphConcrete.setNodeTreemap(itemLocal);
                 itemLocal.setGlyph(glyphConcrete);
+                itemLocal.setId(linha + 1);
             } catch (Exception e) {
                 e.printStackTrace();
             }
