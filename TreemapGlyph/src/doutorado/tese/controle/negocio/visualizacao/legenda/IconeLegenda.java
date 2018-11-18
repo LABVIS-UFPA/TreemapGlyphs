@@ -86,7 +86,7 @@ public class IconeLegenda implements Icon {
                 if (valor==null) {
 //                    TODO Criar legenda de cores continuas. 
                     x *= 0.1;
-                    GradientPaint grad = new GradientPaint(x, y, Color.orange,x+100,y+ height, Color.decode("#4682B4"));
+                    GradientPaint grad = new GradientPaint(x, y, Color.WHITE,x+100,y+ height, Color.YELLOW);
                     g2d.setPaint(grad);
                     g2d.fillRect(x,y, 100, height);
                     g2d.setColor(Color.black);

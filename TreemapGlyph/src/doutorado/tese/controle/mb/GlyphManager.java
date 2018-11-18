@@ -350,7 +350,7 @@ public final class GlyphManager {
         Glyph glyphCor = null;
         if (col.getDescription() == Metadados.Descricao.CONTINUOUS) {
             ColorInterpolator interpolator = new ColorInterpolator();
-            interpolator.config(col.maiorMenorValues[0], col.maiorMenorValues[1], Color.orange, Color.decode("#4682B4"));
+            interpolator.config(col.maiorMenorValues[0], col.maiorMenorValues[1], Color.YELLOW, Color.WHITE);
             Color cor = interpolator.interpolate(Double.parseDouble(item.getMapaDetalhesItem().get(col)));
             glyphCor = defineColor(cor);
             glyphCor.setNodeTreemap(item);
