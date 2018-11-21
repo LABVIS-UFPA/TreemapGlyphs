@@ -87,7 +87,7 @@ public class BarChart extends Glyph {
                 g2.fillRect(x, y, w, h);
                 g2.setColor(Color.black);
                 g2.drawRect(x, y, w, h);
-                g2.drawLine(rect.x,rect.y,rect.x+rect.width,rect.y);
+                g2.drawLine(rect.x, rect.y, rect.x + rect.width, rect.y);
 
             }
         }
@@ -99,7 +99,7 @@ public class BarChart extends Glyph {
         points[0] = rect.width;
         points[1] = rect.height;
         tornarGlyphQuadrado(points);
-        
+
         double minValue = 0;
         double maxValue = 0;
         for (int i = 0; i < getBarras().length; i++) {
@@ -110,7 +110,6 @@ public class BarChart extends Glyph {
                 maxValue = Math.abs(getBarras()[i].getDado());
             }
         }
-        
 
         int panelWidth = (int) Math.round(points[0]);
         int panelHeight = (int) Math.round(points[1]);
@@ -134,32 +133,32 @@ public class BarChart extends Glyph {
         }
         int top = 0;
         for (int i = 0; i < getBarras().length; i++) {
-            int valueX = rect.x + rect.width/2 - Math.round(i * barWidth)/2;
-            int valueY =  points[1];
-           
-            float max = (float) Math.abs(getBarras()[i].getDadoMaxVal());
-            float data =  Math.round(Math.abs(getBarras()[i].getDado()));
-            float result = (data*panelHeight)/max;
-            float sub = panelHeight-result;
+            int valueX = rect.x + rect.width / 2 - Math.round(i * barWidth) / 2;
+            int valueY = points[1];
             
-            if (getBarras()[i].getDado() >= 0) {
-              
+            float max = (float) Math.abs(getBarras()[i].getDadoMaxVal());
+            float data = Math.round(Math.abs(getBarras()[i].getDado()));
+            float result = (data * panelHeight) / max;
+            float sub;
+            if (getBarras()[i].getDado() < 0) {
+                sub = panelHeight;
             } else {
-               
+                sub = panelHeight - result;
+
             }
-            getBarras()[i].setDadosBarra(valueX,rect.y+Math.round(sub), Math.round(barWidth)/2,  Math.round(result));
+
+            getBarras()[i].setDadosBarra(valueX, rect.y + Math.round(sub), Math.round(barWidth) / 2, Math.round(result));
         }
 
     }
-    
 
     @Override
     public void setBounds(Rectangle rect) {
         this.rect = rect;
-        this.rect.x = rect.x + rect.width/4;
-        this.rect.y = rect.y + rect.height/4;
-        this.rect.width = rect.width/2;
-        this.rect.height = rect.height/2;
+        this.rect.x = rect.x + rect.width / 4;
+        this.rect.y = rect.y + rect.height / 4;
+        this.rect.width = rect.width / 2;
+        this.rect.height = rect.height / 2;
 
 //        panelWidth = panelWidth * this.rect.width;  
 //        panelHeight = panelWidth * this.rect.height;
