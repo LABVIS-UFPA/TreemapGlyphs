@@ -26,6 +26,7 @@ public class Bar extends JPanel {
     private Rectangle rect;
     private Point center;
     private double dadoMaxVal;
+    private double dadoMinVal;
     private double dado;
     private double[] values;
     private int valueX;
@@ -112,6 +113,16 @@ public class Bar extends JPanel {
     public void setDadoMaxVal(double dadoMaxVal) {
         this.dadoMaxVal = dadoMaxVal;
     }
+
+    public double getDadoMinVal() {
+        return dadoMinVal;
+    }
+
+    public void setDadoMinVal(double dadoMinVal) {
+        this.dadoMinVal = dadoMinVal;
+    }
+    
+    
     
      public void setDadosBarra(int valuex, int valuey, int barwidth, int height) {
         this.valueX = valuex;

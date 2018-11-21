@@ -103,13 +103,14 @@ public class BarChart extends Glyph {
         double minValue = 0;
         double maxValue = 0;
         for (int i = 0; i < getBarras().length; i++) {
-            if (minValue > getBarras()[i].getDado()) {
-                minValue = getBarras()[i].getDado();
+            if (minValue > Math.abs(getBarras()[i].getDado())) {
+                minValue = Math.abs(getBarras()[i].getDado());
             }
-            if (maxValue < getBarras()[i].getDado()) {
-                maxValue = getBarras()[i].getDado();
+            if (maxValue < Math.abs(getBarras()[i].getDado())) {
+                maxValue = Math.abs(getBarras()[i].getDado());
             }
         }
+        
 
         int panelWidth = (int) Math.round(points[0]);
         int panelHeight = (int) Math.round(points[1]);
@@ -120,13 +121,12 @@ public class BarChart extends Glyph {
             return;
         }
         double scale = (panelHeight) / (maxValue - minValue);
-
         for (int j = 0; j < getBarras().length; j++) {
             int valueP = Math.round(j * barWidth);
             int valueQ = 0;
-            int height = (int) Math.round(getBarras()[j].getDado() * scale);
-            if (getBarras()[j].getDado() >= 0) {
-                valueQ += (int) ((maxValue - getBarras()[j].getDado()) * scale);
+            int height = (int) Math.round(Math.abs(getBarras()[j].getDado()) * scale);
+            if (Math.abs(getBarras()[j].getDado()) >= 0) {
+                valueQ += (int) ((maxValue - Math.abs(getBarras()[j].getDado())) * scale);
             } else {
                 valueQ += (int) Math.round(maxValue * scale);
                 height = -height;
@@ -136,19 +136,17 @@ public class BarChart extends Glyph {
         for (int i = 0; i < getBarras().length; i++) {
             int valueX = rect.x + rect.width/2 - Math.round(i * barWidth)/2;
             int valueY =  points[1];
-            //int height = (int) (getBarras()[i].getDado() * scale);
-            if (getBarras()[i].getDado() >= 0) {
-                //valueY += (int) ((maxValue - getBarras()[i].getDado()) * scale);
-            } else {
-                //valueY += (int) (maxValue * scale);
-                //height = -height;
-            }
-            
-            float max = (float) getBarras()[i].getDadoMaxVal();
-            float data =  Math.round(getBarras()[i].getDado());
+           
+            float max = (float) Math.abs(getBarras()[i].getDadoMaxVal());
+            float data =  Math.round(Math.abs(getBarras()[i].getDado()));
             float result = (data*panelHeight)/max;
             float sub = panelHeight-result;
             
+            if (getBarras()[i].getDado() >= 0) {
+              
+            } else {
+               
+            }
             getBarras()[i].setDadosBarra(valueX,rect.y+Math.round(sub), Math.round(barWidth)/2,  Math.round(result));
         }
 
