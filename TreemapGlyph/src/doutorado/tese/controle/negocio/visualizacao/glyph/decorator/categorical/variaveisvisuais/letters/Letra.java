@@ -51,7 +51,7 @@ public class Letra extends Glyph {
         g2d.setColor(Color.white);
         shapeLetra = getShapeLetra(letra);
         g2d.draw(shapeLetra);
-        
+
         g2d.setColor(Color.black);
         g2d.fill(shapeLetra);
 
@@ -85,7 +85,7 @@ public class Letra extends Glyph {
         points[1] = getBounds().height;
 
         verificarRetangulo(points);
-        
+
         int width = Math.round(points[0] * getPectSobreposicao());
         int height = Math.round(points[1] * getPectSobreposicao());
 
@@ -104,7 +104,7 @@ public class Letra extends Glyph {
     public Object whoAmI() {
         return this.getClass();
     }
-    
+
     @Override
     public Shape getClipShape() {
         if (isOverlappingActivated()) {
@@ -115,12 +115,18 @@ public class Letra extends Glyph {
     }
 
     public Shape getShapeLetra(String letra) {
+        letra = letra.trim();
+        FontRenderContext frc = null;
+        if (getBounds().width == 0 || getBounds().height == 0) {
+            getBounds().width = 1;
+            getBounds().height = 1;
+        }
         BufferedImage textImage = new BufferedImage(
                 getBounds().width,
                 getBounds().height,
                 BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = textImage.createGraphics();
-        FontRenderContext frc = g2d.getFontRenderContext();
+        frc = g2d.getFontRenderContext();
         Point centroLetra = calcularFontMetrics(g2d);
         x = centroLetra.x;
         y = centroLetra.y;

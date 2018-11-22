@@ -25,20 +25,6 @@ import java.util.List;
  */
 public abstract class Glyph implements Cloneable {
 
-    /**
-     * @return the nodeTreemap
-     */
-    public TreeMapNode getNodeTreemap() {
-        return nodeTreemap;
-    }
-
-    /**
-     * @param nodeTreemap the nodeTreemap to set
-     */
-    public void setNodeTreemap(TreeMapNode nodeTreemap) {
-        this.nodeTreemap = nodeTreemap;
-    }
-
     private Glyph child;
     private Rectangle bounds;
     public float pectSobreposicao;
@@ -274,6 +260,20 @@ public abstract class Glyph implements Cloneable {
 
     public void setDecisionTreeActivate(boolean activatedDT) {
         this.activatedDecisionTree = activatedDT;
+    }
+    
+    /**
+     * @return the nodeTreemap
+     */
+    public TreeMapNode getNodeTreemap() {
+        return nodeTreemap;
+    }
+
+    /**
+     * @param nodeTreemap the nodeTreemap to set
+     */
+    public void setNodeTreemap(TreeMapNode nodeTreemap) {
+        this.nodeTreemap = nodeTreemap;
     }
 
 }

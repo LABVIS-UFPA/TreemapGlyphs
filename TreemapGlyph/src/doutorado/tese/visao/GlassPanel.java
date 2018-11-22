@@ -70,7 +70,6 @@ public class GlassPanel extends JPanel {
     }
 
     private void mouseClicando() {
-        System.out.println("agora vai");
         graphicsGlobal.setColor(Color.red);
         graphicsGlobal.fillRect(100,100, 200, 200);
       
