@@ -1105,7 +1105,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void fileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuItemActionPerformed
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "TXT & CSV Files", "txt", "csv");
+                "TXT, TSV & CSV Files", "txt", "csv", "tsv");
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {

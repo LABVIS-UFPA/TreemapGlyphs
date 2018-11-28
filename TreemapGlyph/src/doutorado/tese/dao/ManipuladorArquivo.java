@@ -93,8 +93,8 @@ public class ManipuladorArquivo {
         String[] dados = new String[getLinhas().length - 2];
         for (int numLinha = 2; numLinha < getLinhas().length; numLinha++) {
             String[] vetorLinha = null;
-            if (extensaoArquivo.equalsIgnoreCase("txt")) {
-                vetorLinha = getLinhas()[numLinha].split("\t");
+            if (extensaoArquivo.equalsIgnoreCase("txt") || extensaoArquivo.equalsIgnoreCase("tsv")) {
+                vetorLinha = getLinhas()[numLinha].replace("\"", "").split("\t");
             } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
                 vetorLinha = getLinhas()[numLinha].split(",");
             }
@@ -110,8 +110,8 @@ public class ManipuladorArquivo {
 
     public String[] getDadosLinha(int numLinha) {
         String[] vetorLinha = null;
-        if (extensaoArquivo.equalsIgnoreCase("txt")) {
-            vetorLinha = getLinhas()[numLinha].split("\t");
+        if (extensaoArquivo.equalsIgnoreCase("txt") || extensaoArquivo.equalsIgnoreCase("tsv")) {
+            vetorLinha = getLinhas()[numLinha].replace("\"", "").split("\t");
         } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
             vetorLinha = getLinhas()[numLinha].split(",");
         }
@@ -143,8 +143,8 @@ public class ManipuladorArquivo {
     private String[] montarCabecalho(String line) {
         List<String> asList = new ArrayList<>();
 
-        if (extensaoArquivo.equalsIgnoreCase("txt")) {
-            asList.addAll(Arrays.asList(line.split("\t")));
+        if (extensaoArquivo.equalsIgnoreCase("txt") || extensaoArquivo.equalsIgnoreCase("tsv")) {
+            asList.addAll(Arrays.asList(line.replace("\"", "").split("\t")));
         } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
             asList.addAll(Arrays.asList(line.split(",")));
         }
@@ -159,8 +159,8 @@ public class ManipuladorArquivo {
 
     private String[] desvendarTiposDados(String line) {
         List<String> asList = new ArrayList<>();
-        if (extensaoArquivo.equalsIgnoreCase("txt")) {
-            asList.addAll(Arrays.asList(line.split("\t")));
+        if (extensaoArquivo.equalsIgnoreCase("txt") || extensaoArquivo.equalsIgnoreCase("tsv")) {
+            asList.addAll(Arrays.asList(line.replace("\"", "").split("\t")));
         } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
             asList.addAll(Arrays.asList(line.split(",")));
         }
