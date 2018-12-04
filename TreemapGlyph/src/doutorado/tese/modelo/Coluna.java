@@ -128,7 +128,7 @@ public class Coluna {
         return oficial;
     }
 
-    public void configurarDescricao(String[] dadosColunas) {
+    public void configurarDescricao(String[] dadosColunas) throws Exception{
         dadosDistintos = analisarDadosDistintos(Arrays.asList(dadosColunas));
         this.quantValoresDistintos = getDadosDistintos().size();
         //pass 1: define description

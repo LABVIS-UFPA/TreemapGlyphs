@@ -121,7 +121,7 @@ public class BarChart extends Glyph {
         }
         double scale = (panelHeight) / (maxValue - minValue);
         for (int j = 0; j < getBarras().length; j++) {
-            int valueP = Math.round(j * barWidth);
+//            int valueP = Math.round(j * barWidth);
             int valueQ = 0;
             int height = (int) Math.round(Math.abs(getBarras()[j].getDado()) * scale);
             if (Math.abs(getBarras()[j].getDado()) >= 0) {
@@ -134,7 +134,7 @@ public class BarChart extends Glyph {
         int top = 0;
         for (int i = 0; i < getBarras().length; i++) {
             int valueX = rect.x + rect.width / 2 - Math.round(i * barWidth) / 2;
-            int valueY = points[1];
+//            int valueY = points[1];
             
             float max = (float) Math.abs(getBarras()[i].getDadoMaxVal());
             float data = Math.round(Math.abs(getBarras()[i].getDado()));

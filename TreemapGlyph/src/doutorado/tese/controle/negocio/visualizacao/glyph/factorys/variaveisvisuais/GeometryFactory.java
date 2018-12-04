@@ -28,10 +28,10 @@ public class GeometryFactory {
             LOSANGO("LOSANGO"),
             TRAPEZIO("TRAPEZIO"),
             PENTAGONO("PENTAGONO"),
-            HEXAGONO("HEXAGONO"),
             RETANGULO("RETANGULO"),
-            ELLIPSE("ELLIPSE"),
-            CIRCULO("CIRCULO");
+            HEXAGONO("HEXAGONO"),
+            CIRCULO("CIRCULO"),
+            ELLIPSE("ELLIPSE");
 
             private final String nome;
 

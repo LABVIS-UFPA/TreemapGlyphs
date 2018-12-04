@@ -71,9 +71,8 @@ public class GlassPanel extends JPanel {
 
     private void mouseClicando() {
         graphicsGlobal.setColor(Color.red);
-        graphicsGlobal.fillRect(100,100, 200, 200);
-      
-        
+        graphicsGlobal.fillRect(100, 100, 200, 200);
+
     }
 
     public GlassPanel(Rectangle bounds) {
@@ -90,10 +89,13 @@ public class GlassPanel extends JPanel {
             @Override
             public void onDrawFinished(String text) {
                 logger.info("Acionando onDrawFinished()", text);
-
-                glyphManager.setRootNodeZoom(view.getRootAnderson());
-                logger.info("Acionando prepare2Draw() a partir do onDrawFinished() - Root: " + glyphManager.getRootNodeZoom());
-                glyphManager.prepare2Draw();//chamado para redesenhar os glyphs no drill-down
+                if (glyphManager != null && view.getRootAnderson() != null) {
+                    glyphManager.setRootNodeZoom(view.getRootAnderson());
+                    logger.info("Acionando prepare2Draw() a partir do onDrawFinished() - Root: " + glyphManager.getRootNodeZoom());
+                    glyphManager.prepare2Draw();//chamado para redesenhar os glyphs no drill-down
+                }else{
+                    System.err.println("glyphManager == null ou view.getRootAnderson() == null");
+                }
             }
         });
     }

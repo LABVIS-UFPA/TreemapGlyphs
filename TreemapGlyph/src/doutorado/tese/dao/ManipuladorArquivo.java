@@ -210,7 +210,7 @@ public class ManipuladorArquivo {
         return colunas;
     }
 
-    public Coluna[] montarColunas() {
+    public Coluna[] montarColunas() throws Exception {
         colunas = new Coluna[cabecalho.length];
         for (int i = 0; i < cabecalho.length; i++) {
             Coluna c = new Coluna(this, cabecalho[i], getMapaCabecalho().get(cabecalho[i]));
