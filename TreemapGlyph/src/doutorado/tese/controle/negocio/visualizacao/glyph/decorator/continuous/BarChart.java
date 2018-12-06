@@ -138,16 +138,16 @@ public class BarChart extends Glyph {
             
             float max = (float) Math.abs(getBarras()[i].getDadoMaxVal());
             float data = Math.round(Math.abs(getBarras()[i].getDado()));
-            float result = (data * panelHeight) / max;
+            float result = Math.round((data * panelHeight) / max);
             float sub;
             if (getBarras()[i].getDado() < 0) {
                 sub = panelHeight;
             } else {
-                sub = panelHeight - result;
+                sub = Math.round(panelHeight - result);
 
             }
 
-            getBarras()[i].setDadosBarra(valueX, rect.y + Math.round(sub), Math.round(barWidth) / 2, Math.round(result));
+            getBarras()[i].setDadosBarra(valueX, Math.round(rect.y + sub), Math.round(barWidth) / 2, Math.round(result));
         }
 
     }
