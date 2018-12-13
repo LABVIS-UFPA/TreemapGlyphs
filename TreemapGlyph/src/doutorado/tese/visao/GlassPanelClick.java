@@ -7,8 +7,10 @@ package doutorado.tese.visao;
 
 import doutorado.tese.controle.mb.GlyphManager;
 import doutorado.tese.modelo.TreeMapNode;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -131,17 +133,19 @@ public class GlassPanelClick extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        graphicsGlobal = g;
-        g.setColor(new Color(0, 255, 0, 0));//painel com fundo transparente
+        Graphics2D g2d = (Graphics2D) g;
+//        graphicsGlobal = g;
+        g2d.setColor(new Color(0, 255, 0, 0));//painel com fundo transparente
         setBounds(view.getBounds());
         Rectangle r = getBounds();
-        g.fillRect(r.x, r.y, r.width, r.height);
+        g2d.fillRect(r.x, r.y, r.width, r.height);
         if (clicou) {
-            g.setColor(Color.red);
+            g2d.setColor(new Color(50, 205, 50));
             for (TreeMapNode treeMapNode : listClick) {
                 treeMapNode.getBounds();
-                g.drawRect(treeMapNode.getBounds().x, treeMapNode.getBounds().y,
-                        treeMapNode.getBounds().width, treeMapNode.getBounds().height);
+                g2d.setStroke(new BasicStroke(3f));
+                g2d.drawRect(treeMapNode.getBounds().x+2, treeMapNode.getBounds().y +2,
+                        treeMapNode.getBounds().width-4, treeMapNode.getBounds().height -4);
             }
         } else {
             
