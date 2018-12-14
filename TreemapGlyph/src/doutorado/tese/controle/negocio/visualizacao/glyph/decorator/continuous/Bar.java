@@ -27,7 +27,7 @@ public class Bar extends JPanel {
     private int valueY;
     private int barWidth;
     private int height;
-    
+    int [] line;
     
     public Bar(double dado, double dadoMaxVal) {
         this.dado = dado;
@@ -128,5 +128,18 @@ public class Bar extends JPanel {
      public int[] getDadosBarra() {
         return new int[] {this.valueX,this.valueY,this.barWidth,this.height};
     } 
+
+    public int[] getLine() {
+        return line;
+    }
+
+    public void setLine(int[] line) {
+        this.line = line;
+    }
+     
+     
+     
+
+
 
 }

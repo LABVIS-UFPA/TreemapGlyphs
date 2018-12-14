@@ -47,6 +47,7 @@ public class BarChart extends Glyph {
     private String title;
     private float panelWidth;
     private float panelHeight;
+ 
 
     public BarChart(List<String> variaveisEscolhidasStarGlyph) {
         this.atributosEscolhidaoBase = variaveisEscolhidasStarGlyph;
@@ -87,7 +88,13 @@ public class BarChart extends Glyph {
                 g2.fillRect(x, y, w, h);
                 g2.setColor(Color.black);
                 g2.drawRect(x, y, w, h);
-                g2.drawLine(rect.x, rect.y, rect.x + rect.width, rect.y);
+                
+                       
+                int lx1 = getBarras()[i].getLine()[0];
+                int ly1 = getBarras()[i].getLine()[1];
+                int lx2 = getBarras()[i].getLine()[2];
+                int ly2 = getBarras()[i].getLine()[3];
+                g2.drawLine(lx1,ly1,lx2,ly2);
 
             }
         }
@@ -147,7 +154,14 @@ public class BarChart extends Glyph {
 
             }
 
-            getBarras()[i].setDadosBarra(valueX, Math.round(rect.y + sub), Math.round(barWidth) / 2, Math.round(result));
+            getBarras()[i].setDadosBarra(valueX, Math.round(rect.y + rect.height/2 - points[1]/4 + sub), Math.round(barWidth) / 2, Math.round(result));
+            int [] line = new int[4]; 
+            line[0] =valueX;
+            line[1] = rect.y+rect.height/2 - points[1]/4;
+            line[2] = valueX+ Math.round(barWidth) / 2;
+            line[3] = rect.y+rect.height/2 - points[1]/4;
+                    
+            getBarras()[i].setLine(line);
         }
 
     }
@@ -155,8 +169,8 @@ public class BarChart extends Glyph {
     @Override
     public void setBounds(Rectangle rect) {
         this.rect = rect;
-        this.rect.x = rect.x + rect.width / 4;
-        this.rect.y = rect.y + rect.height / 4;
+        this.rect.x = rect.x + rect.width / 2- rect.width/4;
+        this.rect.y = rect.y + rect.height/2 - rect.height/4; //- rect.height;
         this.rect.width = rect.width / 2;
         this.rect.height = rect.height / 2;
 
@@ -253,6 +267,7 @@ public class BarChart extends Glyph {
     public void setBarras(Bar[] barras) {
         this.barras = barras;
     }
+
 
     @Override
     public Object whoAmI() {
