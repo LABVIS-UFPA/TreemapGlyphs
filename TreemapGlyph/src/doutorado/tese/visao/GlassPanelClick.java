@@ -65,18 +65,18 @@ public class GlassPanelClick extends JPanel {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                
+
             }
         });
-        
+
         this.onClickListener = (MouseEvent evt) -> {
             //não faz nada.
         };
-        
+
         this.itemDetailsOnDemand = new OnMouseOver() {
             @Override
             public void getDetailsOnDemand(MouseEvent evt) {
-                
+
             }
 
             @Override
@@ -90,25 +90,26 @@ public class GlassPanelClick extends JPanel {
     public String getToolTipText(MouseEvent evt) {
         return itemDetailsOnDemand.tooltipEvent(evt); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-    
+
     public void setOnClickListener(OnClick onClickListener) {
         this.onClickListener = onClickListener;
     }
-           
-    public static interface OnClick{
+
+    public static interface OnClick {
+
         public void clicou(MouseEvent evt);
     }
-    
-    public void setOnMouseOverListener(OnMouseOver itemDetailsOnDemand){
+
+    public void setOnMouseOverListener(OnMouseOver itemDetailsOnDemand) {
         this.itemDetailsOnDemand = itemDetailsOnDemand;
     }
-    
-    public static interface OnMouseOver{
+
+    public static interface OnMouseOver {
+
         public void getDetailsOnDemand(MouseEvent evt);
+
         public String tooltipEvent(MouseEvent evt);
-    }    
+    }
 
     private void mouseClicando() {
         clicou = true;
@@ -140,15 +141,19 @@ public class GlassPanelClick extends JPanel {
         Rectangle r = getBounds();
         g2d.fillRect(r.x, r.y, r.width, r.height);
         if (clicou) {
-            g2d.setColor(new Color(50, 205, 50));
             for (TreeMapNode treeMapNode : listClick) {
                 treeMapNode.getBounds();
+                g2d.setColor(Color.BLACK);
+                g2d.drawRect(treeMapNode.getBounds().x + 4, treeMapNode.getBounds().y + 4,
+                        treeMapNode.getBounds().width - 8, treeMapNode.getBounds().height - 8);
+                g2d.setColor(new Color(50, 205, 50));//limon green
                 g2d.setStroke(new BasicStroke(3f));
-                g2d.drawRect(treeMapNode.getBounds().x+2, treeMapNode.getBounds().y +2,
-                        treeMapNode.getBounds().width-4, treeMapNode.getBounds().height -4);
+                g2d.drawRect(treeMapNode.getBounds().x + 2, treeMapNode.getBounds().y + 2,
+                        treeMapNode.getBounds().width - 4, treeMapNode.getBounds().height - 4);
+                g2d.setStroke(new BasicStroke(1f));
             }
         } else {
-            
+
         }
         g.dispose();
 

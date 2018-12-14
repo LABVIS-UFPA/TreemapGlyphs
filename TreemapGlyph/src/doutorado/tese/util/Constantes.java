@@ -39,14 +39,14 @@ public class Constantes {
     public static final int AUSENTE = 0;
     
 //    private static Color[] cores = {Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
-    private static String[] cor = {
+    private static String[] corTreemap = {
 //        "#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477",
 //        "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc",
 //        "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac", "#F0F8FF"
-        "#1f77b4",
+        "#7dc3d1",//"#86efff",//"#1f77b4",
         "#ff9b30",
         "#248022",
-        "#ff4b45",
+        "#ff7f78",//"#ff4b45",
         "#9467bd",
         "#8c564b",
         "#e377c2",
@@ -54,8 +54,14 @@ public class Constantes {
     };
 
     private static String[] corGlyphs = {
-        "#ff0101", "#f8d930", "#174580", "#00a1d7",
-        "#15ff00", "#ff3797", "#8c8589", "#000000"
+        "#B51212",//"#ff0101", 
+        "#fae768",//"#f8d930", 
+        "#174580", 
+        "#00a1d7",
+        "#15d400",//"#15ff00", 
+        "#ff3797", 
+        "#8c8589", 
+        "#000000"
     };
 
     public final static String[] TIPO_TEXTURA = {
@@ -142,7 +148,7 @@ public class Constantes {
      * @return
      */
     public static String[] getCor() {
-        return cor;
+        return corTreemap;
     }
 
     /**
