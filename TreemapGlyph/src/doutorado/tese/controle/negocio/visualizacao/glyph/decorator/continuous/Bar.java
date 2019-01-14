@@ -27,8 +27,10 @@ public class Bar extends JPanel {
     private int valueY;
     private int barWidth;
     private int height;
-    int [] line;
-    
+    int [] lineTop;
+    int [] lineCenter;
+    int [] lineButton;
+
     public Bar(double dado, double dadoMaxVal) {
         this.dado = dado;
        
@@ -129,17 +131,31 @@ public class Bar extends JPanel {
         return new int[] {this.valueX,this.valueY,this.barWidth,this.height};
     } 
 
-    public int[] getLine() {
-        return line;
+    public int[] getLineTop() {
+        return lineTop;
+    }
+    
+     public int[] getLineCenter() {
+        return lineCenter;
+    }
+    
+    public int[] getLineButton() {
+        return lineButton;
     }
 
-    public void setLine(int[] line) {
-        this.line = line;
+    public void setLineTop(int[] line) {
+        this.lineTop = line;
     }
      
+    public void setLineButton(int[] line) {
+        this.lineButton = line;
+    } 
      
-     
-
+    public void setLineCenter(int[] line) {
+        this.lineCenter = line;
+    }
+    
+    
 
 
 }
