@@ -4,7 +4,7 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="grupoTestesButtonGroup">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="grupoTestesButtonGroup.add(ambienteA_RadioButtonMenuItem);&#xa;grupoTestesButtonGroup.add(ambienteB_RadioButtonMenuItem);&#xa;grupoTestesButtonGroup.add(ambienteC_RadioButtonMenuItem);&#xa;grupoTestesButtonGroup.add(ambienteD_RadioButtonMenuItem);&#xa;grupoTestesButtonGroup.add(ambienteE_RadioButtonMenuItem);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="grupoTestesButtonGroup.add(startTest_RadioButtonMenuItem);&#xa;grupoTestesButtonGroup.add(finishTest_RadioButtonMenuItem);"/>
       </AuxValues>
     </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
@@ -45,44 +45,20 @@
             <Property name="text" type="java.lang.String" value="Test"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="ambienteA_RadioButtonMenuItem">
+            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="startTest_RadioButtonMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Environment A"/>
+                <Property name="text" type="java.lang.String" value="Start"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ambienteA_RadioButtonMenuItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="startTest_RadioButtonMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="ambienteB_RadioButtonMenuItem">
+            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="finishTest_RadioButtonMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Environment B"/>
+                <Property name="text" type="java.lang.String" value="Finish"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ambienteB_RadioButtonMenuItemActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="ambienteC_RadioButtonMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Environment C"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ambienteC_RadioButtonMenuItemActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="ambienteD_RadioButtonMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Environment D"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ambienteD_RadioButtonMenuItemActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="ambienteE_RadioButtonMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Environment E"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ambienteE_RadioButtonMenuItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="finishTest_RadioButtonMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -146,6 +122,9 @@
             </Property>
             <Property name="opaque" type="boolean" value="false"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="//painelEsquerda.setSize(, height);"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
               <JSplitPaneConstraints position="left"/>
@@ -155,7 +134,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="959" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="1535" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">

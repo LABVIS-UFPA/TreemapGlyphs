@@ -118,11 +118,6 @@ public class ManipuladorArquivo {
         return vetorLinha;
     }
 
-//    public Object[] getDadosByLinha(int numLinha) {
-//        System.out.println("Ainda é usado...");
-//        String[] vetorLinha = getLinhas()[numLinha].split("\t|,");
-//        return vetorLinha;
-//    }
     /**
      * Retorna um objeto coluna pelo nome da coluna.
      * Comprara usando equalsIgnoreCase()

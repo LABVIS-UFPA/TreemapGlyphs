@@ -6,16 +6,18 @@
 package doutorado.tese.visao;
 
 import doutorado.tese.controle.mb.GlyphManager;
+import doutorado.tese.controle.mb.testelaboratorioMB.LoggerMB;
 import doutorado.tese.modelo.TreeMapNode;
+import doutorado.tese.util.ColunasLog;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.GroupLayout;
@@ -39,6 +41,8 @@ public class GlassPanelClick extends JPanel {
     private List<TreeMapNode> listClick;
     private OnClick onClickListener;
     private OnMouseOver itemDetailsOnDemand;
+//    private LoggerMB loggerMB;
+    private String[] posicaoLog;
 
     /**
      * Construtor chamado ao selecionar o checkbox indicando que os glyphs serao
@@ -50,12 +54,16 @@ public class GlassPanelClick extends JPanel {
         setVisible(true);
         callListner();
         listClick = new ArrayList<>();
+//        loggerMB = new LoggerMB();
+        LoggerMB.startLog();
 
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+//                if (e.getClickCount() % 1 != 0 && e.isConsumed()) {
                 mouseClicando();
                 onClickListener.clicou(e);
+//                } 
             }
 
             @Override
@@ -95,6 +103,14 @@ public class GlassPanelClick extends JPanel {
         this.onClickListener = onClickListener;
     }
 
+//    public LoggerMB getLoggerMB() {
+//        return loggerMB;
+//    }
+//
+//    public void setLoggerMB(LoggerMB loggerMB) {
+//        this.loggerMB = loggerMB;
+//    }
+
     public static interface OnClick {
 
         public void clicou(MouseEvent evt);
@@ -113,6 +129,8 @@ public class GlassPanelClick extends JPanel {
 
     private void mouseClicando() {
         clicou = true;
+        LoggerMB.getPosicaoLog()[ColunasLog.QUANDO_CLICOU.getSequencia()] = System.currentTimeMillis() + "";
+        LoggerMB.getPosicaoLog()[ColunasLog.QUANDO_CLICOU_TIMESTAMP.getSequencia()] = LocalDateTime.now() + "";
         this.repaint();
     }
 
@@ -152,15 +170,13 @@ public class GlassPanelClick extends JPanel {
                         treeMapNode.getBounds().width - 4, treeMapNode.getBounds().height - 4);
                 g2d.setStroke(new BasicStroke(1f));
             }
-        } else {
-
-        }
+        } 
         g.dispose();
-
     }
 
-    public void setListaItnsClicados(List<TreeMapNode> listClick) {
+    public void setListaItensClicados(List<TreeMapNode> listClick) {
         this.listClick = listClick;
     }
 
+    
 }

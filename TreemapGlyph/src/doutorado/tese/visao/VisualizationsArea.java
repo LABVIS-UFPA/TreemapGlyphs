@@ -6,6 +6,7 @@
 package doutorado.tese.visao;
 
 import doutorado.tese.controle.mb.testelaboratorioMB.FinishedSetupCallBack;
+import doutorado.tese.controle.mb.testelaboratorioMB.LoggerMB;
 import doutorado.tese.controle.negocio.visualizacao.treemap.treemapAPI.TMModel_Draw;
 import doutorado.tese.controle.negocio.visualizacao.treemap.treemapAPI.TMModel_Size;
 import doutorado.tese.dao.ManipuladorArquivo;
@@ -15,6 +16,7 @@ import doutorado.tese.modelo.Rect;
 import doutorado.tese.modelo.TreeMapItem;
 import doutorado.tese.modelo.TreeMapLevel;
 import doutorado.tese.modelo.TreeMapNode;
+import doutorado.tese.util.ColunasLog;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -56,9 +58,7 @@ public class VisualizationsArea {
     private TMView view = null;
     private TMModel_Draw cDraw = null;
     private TMModel_Size cSize = null;
-    //Star Glyph
-//    private StarGlyph[] starGlyphs;
-    private String itemCor;
+//    private String itemCor;
     private String[] colunasDetalhesDemanda;
     private TreeMapNode itemRespostaUsuario;
     private List<TreeMapNode> respostasUsuario;
@@ -131,6 +131,14 @@ public class VisualizationsArea {
         } else {
             nodeUnderTheMouse.setHighLight(true);
             getRespostasUsuario().add(nodeUnderTheMouse);
+        }
+        if (nodeUnderTheMouse instanceof TreeMapItem) {
+            TreeMapItem node = (TreeMapItem) nodeUnderTheMouse;
+            System.out.println("node.getId(): " + node.getId() + "\t" + node.getLabel());
+            LoggerMB.getPosicaoLog()[ColunasLog.ID_TREEMAP_ITEM.getSequencia()] = node.getId() + "";
+            LoggerMB.getPosicaoLog()[ColunasLog.ITEM_SELECIONADO.getSequencia()] = node.isHighLighted() + "";
+            LoggerMB.getPosicaoLog()[ColunasLog.TREEMAP_LABEL.getSequencia()] = node.getLabel() + "";
+            LoggerMB.addNewLineLog();
         }
     }
 
@@ -298,7 +306,6 @@ public class VisualizationsArea {
 //            getRespostasUsuario().add(this.itemRespostaUsuario);
 //        }
 //    }
-
     /**
      * @return the list containing the treemapnodes clicked by user
      */
