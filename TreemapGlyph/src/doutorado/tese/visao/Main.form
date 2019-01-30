@@ -48,6 +48,9 @@
             <MenuItem class="javax.swing.JRadioButtonMenuItem" name="startTest_RadioButtonMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Start"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icon/Start-icon.png"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="startTest_RadioButtonMenuItemActionPerformed"/>
@@ -56,6 +59,9 @@
             <MenuItem class="javax.swing.JRadioButtonMenuItem" name="finishTest_RadioButtonMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Finish"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icon/icons8-close-window-17.png"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="finishTest_RadioButtonMenuItemActionPerformed"/>

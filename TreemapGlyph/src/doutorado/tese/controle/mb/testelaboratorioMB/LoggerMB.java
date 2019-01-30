@@ -5,6 +5,7 @@
  */
 package doutorado.tese.controle.mb.testelaboratorioMB;
 
+import doutorado.tese.controle.negocio.teste.ManipuladorLog;
 import doutorado.tese.util.ColunasLog;
 import doutorado.tese.util.io.Escritor;
 
@@ -15,49 +16,66 @@ import doutorado.tese.util.io.Escritor;
 public class LoggerMB {
 
     private static StringBuilder bufferLog;
-    private static String[] posicaoLog;
+    private static String[] colunaLog;
 
-    public LoggerMB() {
-        bufferLog = new StringBuilder();
+    private LoggerMB() {
     }
-
+        
     public static void startLog() {
         bufferLog = new StringBuilder();
-        posicaoLog = new String[ColunasLog.values().length];
-        bufferLog.append(
-                       ColunasLog.ID_TREEMAP_ITEM.name()).append("\t").
-                append(ColunasLog.QUANDO_CLICOU.name()).append("\t").
-                append(ColunasLog.QUANDO_CLICOU_TIMESTAMP.name()).append("\t").
-                append(ColunasLog.ITEM_SELECIONADO.name()).append("\t").
-                append(ColunasLog.IS_TESTE.name()).append("\t").
-                append(ColunasLog.TREEMAP_LABEL.name()).append("\t").
-                append(ColunasLog.TIMESTAMP_FIM.name()).append("\t");
-        bufferLog.append("\n");
+        colunaLog = new String[ColunasLog.values().length];
+        
+        bufferLog.append(ColunasLog.ID_TAREFA.name()).append("\t")
+                 .append(ColunasLog.TEMPO_INICIO.name()).append("\t")
+                 .append(ColunasLog.TEMPO_FINAL.name()).append("\t")
+                 .append(ColunasLog.TEMPO_QUANDO_CLICOU.name()).append("\t")
+                 .append(ColunasLog.TEMPO_FINAL_CALCULADO.name()).append("\t")
+                 .append(ColunasLog.TIMESTAMP_INICIO.name()).append("\t")
+                 .append(ColunasLog.TIMESTAMP_FIM.name()).append("\t")
+                 .append(ColunasLog.TIMESTAMP_QUANDO_CLICOU.name()).append("\t")
+                 .append(ColunasLog.ID_TREEMAP_ITEM.name()).append("\t")
+                 .append(ColunasLog.SELECIONADO.name()).append("\t")
+                 .append(ColunasLog.TREEMAP_LABEL.name()).append("\t")
+                 .append(ColunasLog.RESPOSTA_CORRETA.name()).append("\t")
+                 .append("\n");
     }
-
+    
     public static void addNewLineLog() {
         System.out.println("new line");
-        bufferLog.append(posicaoLog[ColunasLog.ID_TREEMAP_ITEM.getSequencia()]).append("\t")
-                .append(posicaoLog[ColunasLog.QUANDO_CLICOU.getSequencia()]).append("\t")
-                .append(posicaoLog[ColunasLog.QUANDO_CLICOU_TIMESTAMP.getSequencia()]).append("\t")
-                .append(posicaoLog[ColunasLog.ITEM_SELECIONADO.getSequencia()]).append("\t")
-                .append(posicaoLog[ColunasLog.IS_TESTE.getSequencia()]).append("\t")
-                .append(posicaoLog[ColunasLog.TREEMAP_LABEL.getSequencia()]).append("\t")
-                .append(posicaoLog[ColunasLog.TIMESTAMP_FIM.getSequencia()]).append("\t")
-                .append("\n");
+        bufferLog.append(colunaLog[ColunasLog.ID_TAREFA.getId()]).append("\t")
+                 .append(colunaLog[ColunasLog.TEMPO_INICIO.getId()]).append("\t")
+                 .append(colunaLog[ColunasLog.TEMPO_FINAL.getId()]).append("\t")
+                 .append(colunaLog[ColunasLog.TEMPO_QUANDO_CLICOU.getId()]).append("\t")
+                 .append(colunaLog[ColunasLog.TEMPO_FINAL_CALCULADO.getId()]).append("\t")
+                 .append(colunaLog[ColunasLog.TIMESTAMP_INICIO.getId()]).append("\t")
+                 .append(colunaLog[ColunasLog.TIMESTAMP_FIM.getId()]).append("\t")
+                 .append(colunaLog[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()]).append("\t")
+                 .append(colunaLog[ColunasLog.ID_TREEMAP_ITEM.getId()]).append("\t")
+                 .append(colunaLog[ColunasLog.SELECIONADO.getId()]).append("\t")
+                 .append(colunaLog[ColunasLog.TREEMAP_LABEL.getId()]).append("\t")
+                 .append(colunaLog[ColunasLog.RESPOSTA_CORRETA.getId()]).append("\t")
+                 .append("\n");
         System.out.println(bufferLog.toString());
     }
 
     public static void salvarLog() {
         Escritor.escreverArquivo("LOG_treemapGlyphs_", bufferLog.toString());
     }
-
-    public static String[] getPosicaoLog() {
-        return posicaoLog;
+    
+    public static void sincronizarLogTreemap() {
+        System.out.println("varreg log treemap");
+//        Escritor.moveLogFile();
+        
+        ManipuladorLog manipulador = new ManipuladorLog();
+        manipulador.analisarLinas();
     }
 
-    public static void setPosicaoLog(String[] pLog) {
-        posicaoLog = pLog;
+    public static String[] getColunaLog() {
+        return colunaLog;
+    }
+
+    public static void setColunaLog(String[] pLog) {
+        colunaLog = pLog;
     }
 
 }

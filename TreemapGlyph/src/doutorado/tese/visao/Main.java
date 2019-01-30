@@ -13,7 +13,10 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.controle.negocio.visualizacao.legenda.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
+import doutorado.tese.modelo.TreeMapItem;
 import doutorado.tese.util.Conversor;
+import doutorado.tese.util.io.Escritor;
+import doutorado.tese.visao.teste.MainScreenLog;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridLayout;
@@ -73,7 +76,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         initComponents();
 //        separadorEsqueDir_jSplitPane.setDividerLocation(2000);
         layerPane = new JLayeredPane();
-         atributosEscolhidosGlyph = new ArrayList<>();
+        atributosEscolhidosGlyph = new ArrayList<>();
 
         legendaVisualizacao = new LegendaVisualizacao(painelLegendaVis.getBounds());
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
@@ -86,6 +89,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         saveAnswerButton.setVisible(false);
         numMaxTarefas = 3;
         cenario = Constantes.CENARIOS.SEM_CENARIO.toString();
+//        LoggerMB.startLog();
     }
 
     /**
@@ -1020,6 +1024,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jMenu1.setText("Test");
 
         startTest_RadioButtonMenuItem.setText("Start");
+        startTest_RadioButtonMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Start-icon.png"))); // NOI18N
         startTest_RadioButtonMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startTest_RadioButtonMenuItemActionPerformed(evt);
@@ -1028,6 +1033,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jMenu1.add(startTest_RadioButtonMenuItem);
 
         finishTest_RadioButtonMenuItem.setText("Finish");
+        finishTest_RadioButtonMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-close-window-17.png"))); // NOI18N
         finishTest_RadioButtonMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 finishTest_RadioButtonMenuItemActionPerformed(evt);
@@ -1729,12 +1735,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_nextTest_ButtonActionPerformed
 
     private void finishTest_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishTest_RadioButtonMenuItemActionPerformed
-        LoggerMB.salvarLog();
-        System.exit(0);
+//        LoggerMB.salvarLog();
+//        Escritor.moveLogFile();
+        int resposta = JOptionPane.showConfirmDialog(this, "O teste e toda a aplicação serão encerrados."
+                + "Deseja realmente encerrar a aplicação?");
+        if (resposta == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_finishTest_RadioButtonMenuItemActionPerformed
 
     private void startTest_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startTest_RadioButtonMenuItemActionPerformed
-
+        MainScreenLog screenLog = new MainScreenLog();
+        screenLog.setVisible(true);
     }//GEN-LAST:event_startTest_RadioButtonMenuItemActionPerformed
 
     private void saveAnswerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAnswerButtonActionPerformed
@@ -2110,8 +2122,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         itemCor = corTreemapComboBox.getSelectedItem().toString();
         itensHierarquia = Conversor.parseListModel2ArrayString(colunasHierarquicasList2.getModel());
         itensDetalhes = Conversor.parseListModel2ArrayString(colunasDetalhesList2.getModel());
+        for (TreeMapItem treeMapItem : manipulador.getItensTreemap()) {
+            treeMapItem.setHighLight(false);
+        }
     }
-    
+
     private void loadGabaritoTarefa() {
 //        for (TarefaTestes tarefa : tarefasTeste) {
 //            

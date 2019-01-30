@@ -10,21 +10,26 @@ package doutorado.tese.util;
  * @author Anderson Soares
  */
 public enum ColunasLog {    
-    ID_TREEMAP_ITEM(0),
-    QUANDO_CLICOU(1),
-    QUANDO_CLICOU_TIMESTAMP(2),
-    ITEM_SELECIONADO(3),
-    IS_TESTE(4),
-    TREEMAP_LABEL(5),
-    TIMESTAMP_FIM(6);
+    ID_TAREFA(0),
+    TEMPO_INICIO(1),
+    TEMPO_FINAL(2),
+    TEMPO_QUANDO_CLICOU(3),
+    TEMPO_FINAL_CALCULADO(4),
+    TIMESTAMP_INICIO(5),
+    TIMESTAMP_FIM(6),    
+    TIMESTAMP_QUANDO_CLICOU(7),
+    ID_TREEMAP_ITEM(8),
+    SELECIONADO(9),
+    TREEMAP_LABEL(10),
+    RESPOSTA_CORRETA(11);
     
-    private int seq;
+    private int id;
     
-    ColunasLog(int seq){
-        this.seq = seq;
+    ColunasLog(int id){
+        this.id = id;
     }
     
-    public int getSequencia() {
-        return seq;
+    public int getId() {
+        return id;
     }
 }

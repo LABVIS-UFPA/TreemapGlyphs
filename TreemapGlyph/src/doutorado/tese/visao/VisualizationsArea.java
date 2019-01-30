@@ -125,6 +125,8 @@ public class VisualizationsArea {
     }
 
     public void changeHighLight(TreeMapNode nodeUnderTheMouse) {
+        System.out.println("ta no changeHighLight()");
+        System.out.println("status item: "+nodeUnderTheMouse.isHighLighted()+" - label: "+nodeUnderTheMouse.getLabel());
         if (nodeUnderTheMouse.isHighLighted()) {
             nodeUnderTheMouse.setHighLight(false);
             getRespostasUsuario().remove(nodeUnderTheMouse);
@@ -134,11 +136,12 @@ public class VisualizationsArea {
         }
         if (nodeUnderTheMouse instanceof TreeMapItem) {
             TreeMapItem node = (TreeMapItem) nodeUnderTheMouse;
-            System.out.println("node.getId(): " + node.getId() + "\t" + node.getLabel());
-            LoggerMB.getPosicaoLog()[ColunasLog.ID_TREEMAP_ITEM.getSequencia()] = node.getId() + "";
-            LoggerMB.getPosicaoLog()[ColunasLog.ITEM_SELECIONADO.getSequencia()] = node.isHighLighted() + "";
-            LoggerMB.getPosicaoLog()[ColunasLog.TREEMAP_LABEL.getSequencia()] = node.getLabel() + "";
-            LoggerMB.addNewLineLog();
+            if (LoggerMB.getColunaLog() != null) {
+                LoggerMB.getColunaLog()[ColunasLog.ID_TREEMAP_ITEM.getId()] = node.getId() + "";
+                LoggerMB.getColunaLog()[ColunasLog.SELECIONADO.getId()] = node.isHighLighted() + "";
+                LoggerMB.getColunaLog()[ColunasLog.TREEMAP_LABEL.getId()] = node.getLabel() + "";
+                LoggerMB.addNewLineLog();
+            }
         }
     }
 
