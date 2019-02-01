@@ -7,7 +7,6 @@ package doutorado.tese.util.io;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,7 +22,7 @@ public class Escritor {
 
     private static String fileName = "";
     private static final String defaltLogstFolder = "logs"+File.separator;
-
+    
     public static void escreverArquivo(String nomeArquivo, String texto) {
         LocalDateTime now = LocalDateTime.now();
         int year = now.getYear();
@@ -33,7 +32,7 @@ public class Escritor {
         int min = now.getMinute();
         int sec = now.getSecond();
         fileName = System.getProperty("user.name") + "_" + nomeArquivo;
-        String nameSuffix = year + month + dayOfMonth + "_" + hour + "_" + min + "_" + sec ;
+        String nameSuffix = year +"_"+ month +"_"+ dayOfMonth + "_" + hour + "_" + min + "_" + sec;
         try {
             File file = new File(defaltLogstFolder + fileName + nameSuffix + ".txt"); // Criação do arquivo
             FileWriter fw = new FileWriter(file);

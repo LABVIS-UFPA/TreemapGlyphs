@@ -7,6 +7,7 @@ package doutorado.tese.visao;
 
 import doutorado.tese.controle.mb.testelaboratorioMB.FinishedSetupCallBack;
 import doutorado.tese.controle.mb.testelaboratorioMB.LoggerMB;
+import doutorado.tese.controle.negocio.teste.ManipuladorLog;
 import doutorado.tese.controle.negocio.visualizacao.treemap.treemapAPI.TMModel_Draw;
 import doutorado.tese.controle.negocio.visualizacao.treemap.treemapAPI.TMModel_Size;
 import doutorado.tese.dao.ManipuladorArquivo;
@@ -125,21 +126,28 @@ public class VisualizationsArea {
     }
 
     public void changeHighLight(TreeMapNode nodeUnderTheMouse) {
-        System.out.println("ta no changeHighLight()");
-        System.out.println("status item: "+nodeUnderTheMouse.isHighLighted()+" - label: "+nodeUnderTheMouse.getLabel());
-        if (nodeUnderTheMouse.isHighLighted()) {
-            nodeUnderTheMouse.setHighLight(false);
-            getRespostasUsuario().remove(nodeUnderTheMouse);
-        } else {
-            nodeUnderTheMouse.setHighLight(true);
-            getRespostasUsuario().add(nodeUnderTheMouse);
-        }
         if (nodeUnderTheMouse instanceof TreeMapItem) {
             TreeMapItem node = (TreeMapItem) nodeUnderTheMouse;
+
+            if (nodeUnderTheMouse.isHighLighted()) {
+                nodeUnderTheMouse.setHighLight(false);
+                getRespostasUsuario().remove(nodeUnderTheMouse);
+                if (ManipuladorLog.getRespostaUsuarioTemp().contains(node.getId())) {
+                    ManipuladorLog.getRespostaUsuarioTemp().remove(node.getId());
+                }
+            } else {
+                nodeUnderTheMouse.setHighLight(true);
+                getRespostasUsuario().add(nodeUnderTheMouse);
+                if (!ManipuladorLog.getRespostaUsuarioTemp().contains(node.getId())) {
+                    ManipuladorLog.getRespostaUsuarioTemp().add(node.getId());
+                }
+            }
             if (LoggerMB.getColunaLog() != null) {
                 LoggerMB.getColunaLog()[ColunasLog.ID_TREEMAP_ITEM.getId()] = node.getId() + "";
                 LoggerMB.getColunaLog()[ColunasLog.SELECIONADO.getId()] = node.isHighLighted() + "";
                 LoggerMB.getColunaLog()[ColunasLog.TREEMAP_LABEL.getId()] = node.getLabel() + "";
+                LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()]
+                        = ManipuladorLog.verificarResposta(node, Integer.parseInt(LoggerMB.getColunaLog()[ColunasLog.ID_TAREFA.getId()])) + "";
                 LoggerMB.addNewLineLog();
             }
         }

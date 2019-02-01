@@ -5,9 +5,13 @@
  */
 package doutorado.tese.controle.negocio.teste;
 
+import doutorado.tese.modelo.TreeMapItem;
 import doutorado.tese.util.io.Leitor;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -15,45 +19,89 @@ import java.util.HashMap;
  */
 public class ManipuladorLog {
 
-    private HashMap<Integer, String> mapaCliques;
+    private static HashMap<Integer, String> mapaGabarito;
+    private static List<Long> respostaUsuarioTemp;
 
-    public ManipuladorLog() {
-        mapaCliques = new HashMap<>();
+    private ManipuladorLog() {
     }
 
-    public void analisarLinas() {
-//        File logTreemap = new File("C:\\Users\\Anderson Soares\\Documents\\GitHub\\TreemapGlyphs\\TreemapGlyph\\treemap_log.txt");
-//        Leitor.lerArquivo(logTreemap);
-//        String[] linhasLogTreemap = Leitor.getLinhas();
-//        
-//        File logPerguntas = new File("C:\\Users\\Anderson Soares\\Google Drive\\workspace\\java_projects\\perguntasTesteLaboratorio\\perguntas_log.txt");
-//        Leitor.lerArquivo(logPerguntas);
-//        String[] linhasLogPerguntas = Leitor.getLinhas();
-//
-//        for (int i = 1; i < linhasLogPerguntas.length; i++) {
-//            String[] partesLinhaPerguntas = linhasLogPerguntas[i].split("\\t|,");
-//            long tempoInicio = Long.parseLong(partesLinhaPerguntas[1]);
-//            long tempoFim = Long.parseLong(partesLinhaPerguntas[2]);
-//            for (int j = 1; j < linhasLogTreemap.length; j++) {
-//                String[] partesLinhaTreemap = linhasLogTreemap[j].split("\\t|,");
-//                long quandoClicou = Long.parseLong(partesLinhaTreemap[1]);
-//                if (tempoInicio < quandoClicou && tempoFim > quandoClicou) {
-//                    mapaCliques.put(i, String.valueOf(quandoClicou));
-//                }
-//            }
-//        }
-//        for (int i = 1; i < linhasLogPerguntas.length; i++) {
-//            System.out.println("questao " + i + " - " + mapaCliques.get(i));
-//        }
+    public static void carregarGabarito() {
+        setMapaGabarito(new HashMap<>());
+        setRespostaUsuarioTemp(new ArrayList<>());
+        Leitor.lerArquivo(new File("respostas.tsv"));
+        String[] linhas = Leitor.getLinhas();
+        for (int i = 1; i < linhas.length; i++) {
+            String[] colunas = linhas[i].split("\t");
+            getMapaGabarito().put(i, colunas[1]);
+        }
     }
-//
-    public static void main(String[] args) {
-        ManipuladorLog m = new ManipuladorLog();
-        m.analisarLinas();
+
+    public static boolean verificarResposta(TreeMapItem nodeClicado, int idTarefa) {
+        boolean respostaCorreta = false;
+        String[] respostas = getMapaGabarito().get(idTarefa).split(",");
+
+        for (String resposta : respostas) {
+            if (Integer.parseInt(resposta) == nodeClicado.getId()) {
+                respostaCorreta = true;
+                System.out.println("Encontrou resposta certa: " + nodeClicado.getId());
+                break;
+            }
+        }
+        return respostaCorreta;
+    }
+
+    public static boolean verificaQuestaoCorreta(int idTarefa) {
+        boolean questaoCorreta = false;
+        List<Long> respostasLong = new ArrayList();
+        String[] respostas = getMapaGabarito().get(idTarefa).split(",");
         
+        for (String resposta : respostas) {
+            respostasLong.add(Long.parseLong(resposta));
+        }
+        
+        if (respostas.length == respostaUsuarioTemp.size()) {
+            System.out.println("respostasLong: "+respostasLong.toString());
+            System.out.println("respostaUsuarioTemp: "+respostaUsuarioTemp.toString());
+            questaoCorreta = respostaUsuarioTemp.containsAll(respostasLong);
+        }
+        System.out.println("Questao correta: " + questaoCorreta);
+        return questaoCorreta;
+    }
+    
+//    public static void main(String[] args) {
+//        ManipuladorLog.carregarGabarito();
+//        ManipuladorLog.getRespostaUsuarioTemp().add(1L);
+//        ManipuladorLog.getRespostaUsuarioTemp().add(5L);
+//        
+//        ManipuladorLog.verificaQuestaoCorreta(1);
+//    }
+
+    /**
+     * @return the mapaGabarito
+     */
+    public static HashMap<Integer, String> getMapaGabarito() {
+        return mapaGabarito;
     }
 
-    public void montarMapaDados() {
-
+    /**
+     * @param aMapaGabarito the mapaGabarito to set
+     */
+    public static void setMapaGabarito(HashMap<Integer, String> aMapaGabarito) {
+        mapaGabarito = aMapaGabarito;
     }
+
+    /**
+     * @return the respostaUsuarioTemp
+     */
+    public static List<Long> getRespostaUsuarioTemp() {
+        return respostaUsuarioTemp;
+    }
+
+    /**
+     * @param aRespostaUsuarioTemp the respostaUsuarioTemp to set
+     */
+    public static void setRespostaUsuarioTemp(List<Long> aRespostaUsuarioTemp) {
+        respostaUsuarioTemp = aRespostaUsuarioTemp;
+    }
+
 }

@@ -41,7 +41,6 @@ public class LoggerMB {
     }
     
     public static void addNewLineLog() {
-        System.out.println("new line");
         bufferLog.append(colunaLog[ColunasLog.ID_TAREFA.getId()]).append("\t")
                  .append(colunaLog[ColunasLog.TEMPO_INICIO.getId()]).append("\t")
                  .append(colunaLog[ColunasLog.TEMPO_FINAL.getId()]).append("\t")
@@ -62,14 +61,6 @@ public class LoggerMB {
         Escritor.escreverArquivo("LOG_treemapGlyphs_", bufferLog.toString());
     }
     
-    public static void sincronizarLogTreemap() {
-        System.out.println("varreg log treemap");
-//        Escritor.moveLogFile();
-        
-        ManipuladorLog manipulador = new ManipuladorLog();
-        manipulador.analisarLinas();
-    }
-
     public static String[] getColunaLog() {
         return colunaLog;
     }

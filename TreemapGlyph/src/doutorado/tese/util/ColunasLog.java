@@ -21,7 +21,8 @@ public enum ColunasLog {
     ID_TREEMAP_ITEM(8),
     SELECIONADO(9),
     TREEMAP_LABEL(10),
-    RESPOSTA_CORRETA(11);
+    RESPOSTA_CORRETA(11),
+    QUESTAO_CORRETA(11);
     
     private int id;
     

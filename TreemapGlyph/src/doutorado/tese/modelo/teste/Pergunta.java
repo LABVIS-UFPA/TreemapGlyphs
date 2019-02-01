@@ -12,8 +12,6 @@ package doutorado.tese.modelo.teste;
 public class Pergunta {
     
     private String texto;
-    private long tempoInicio;
-    private long tempoFinal;   
 
     public Pergunta() {
     }
@@ -29,21 +27,5 @@ public class Pergunta {
     public void setTexto(String texto) {
         this.texto = texto;
     }
-
-    public long getTempoInicio() {
-        return tempoInicio;
-    }
-
-    public void setTempoInicio(long tempoInicio) {
-        this.tempoInicio = tempoInicio;
-    }
-
-    public long getTempoFinal() {
-        return tempoFinal;
-    }
-
-    public void setTempoFinal(long tempoFinal) {
-        this.tempoFinal = tempoFinal;
-    }    
     
 }

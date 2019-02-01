@@ -7,6 +7,7 @@ package doutorado.tese.visao.teste;
 
 import doutorado.tese.controle.mb.testelaboratorioMB.LoggerMB;
 import doutorado.tese.controle.mb.testelaboratorioMB.PerguntaMB;
+import doutorado.tese.controle.negocio.teste.ManipuladorLog;
 import doutorado.tese.util.ColunasLog;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -27,8 +28,7 @@ public class MainScreenLog extends javax.swing.JFrame {
 
     public MainScreenLog() {
         initComponents();
-        perguntaMB = new PerguntaMB();
-//        loggerMB = new LoggerMB();        
+        perguntaMB = new PerguntaMB();     
     }
 
     /**
@@ -177,7 +177,6 @@ public class MainScreenLog extends javax.swing.JFrame {
     }//GEN-LAST:event_fundoPanelMousePressed
 
     private void fecharMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharMenuItemActionPerformed
-        LoggerMB.sincronizarLogTreemap();
         this.dispose();
     }//GEN-LAST:event_fecharMenuItemActionPerformed
 
@@ -202,6 +201,7 @@ public class MainScreenLog extends javax.swing.JFrame {
             textoPergunta.setText(perguntaMB.getPerguntasTreinamento()[contQuestaoTreinamento].getTexto());
             contQuestaoTreinamento++;
         } else {
+            ManipuladorLog.carregarGabarito();
             LoggerMB.startLog();
             perguntaMB.managerPerguntasTeste();
             textoPergunta.setText(perguntaMB.getPerguntasTeste()[contQuestaoTeste].getTexto());
@@ -210,6 +210,7 @@ public class MainScreenLog extends javax.swing.JFrame {
             LoggerMB.getColunaLog()[ColunasLog.ID_TAREFA.getId()] = (contQuestaoTeste + 1) + "";
             LoggerMB.getColunaLog()[ColunasLog.TEMPO_INICIO.getId()] = System.currentTimeMillis() + "";
             LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_INICIO.getId()] =  LocalDateTime.now() + "";
+            LoggerMB.getColunaLog()[ColunasLog.QUESTAO_CORRETA.getId()] = "null";
             LoggerMB.addNewLineLog();
             contQuestaoTeste++;
         }
@@ -246,6 +247,7 @@ public class MainScreenLog extends javax.swing.JFrame {
             LoggerMB.getColunaLog()[ColunasLog.ID_TREEMAP_ITEM.getId()] =  "null";
             LoggerMB.getColunaLog()[ColunasLog.SELECIONADO.getId()] =  "null";
             LoggerMB.getColunaLog()[ColunasLog.TREEMAP_LABEL.getId()] =  "null";
+            LoggerMB.getColunaLog()[ColunasLog.QUESTAO_CORRETA.getId()] = "null";
             LoggerMB.addNewLineLog();
             textoPergunta.setText(perguntaMB.getPerguntasTeste()[contQuestaoTeste].getTexto());
             contQuestaoTeste++;
@@ -282,6 +284,9 @@ public class MainScreenLog extends javax.swing.JFrame {
             LoggerMB.getColunaLog()[ColunasLog.ID_TREEMAP_ITEM.getId()] = "null";
             LoggerMB.getColunaLog()[ColunasLog.SELECIONADO.getId()] = "null";
             LoggerMB.getColunaLog()[ColunasLog.TREEMAP_LABEL.getId()] = "null";
+            LoggerMB.getColunaLog()[ColunasLog.QUESTAO_CORRETA.getId()] = ManipuladorLog.verificaQuestaoCorreta(
+                    Integer.parseInt(LoggerMB.getColunaLog()[ColunasLog.ID_TAREFA.getId()]))+"";
+            ManipuladorLog.getRespostaUsuarioTemp().clear();
             LoggerMB.addNewLineLog();
 
             if (contQuestaoTeste > 11) {
