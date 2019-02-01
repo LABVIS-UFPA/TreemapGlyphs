@@ -9,6 +9,7 @@ import doutorado.tese.controle.mb.testelaboratorioMB.LoggerMB;
 import doutorado.tese.controle.negocio.teste.ManipuladorLog;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.text.DefaultCaret;
 
 /**
  *
@@ -23,6 +24,8 @@ public class ConsoleTest extends javax.swing.JFrame {
      */
     public ConsoleTest() {
         initComponents();
+        DefaultCaret caret = (DefaultCaret) saidaTextArea.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
     }
 
     /**
@@ -40,6 +43,7 @@ public class ConsoleTest extends javax.swing.JFrame {
         monitorarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Console - TreemapGlyphs");
         setAlwaysOnTop(true);
 
         fundoConsole.setBorder(javax.swing.BorderFactory.createTitledBorder("Console - Saídas teste"));
@@ -66,7 +70,7 @@ public class ConsoleTest extends javax.swing.JFrame {
         fundoConsole.setLayout(fundoConsoleLayout);
         fundoConsoleLayout.setHorizontalGroup(
             fundoConsoleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1307, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1346, Short.MAX_VALUE)
             .addGroup(fundoConsoleLayout.createSequentialGroup()
                 .addComponent(monitorarButton)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -112,7 +116,9 @@ public class ConsoleTest extends javax.swing.JFrame {
             }
         });
         t1.start();
-
+        if(!ManipuladorLog.isTesteAcontecendo()){
+            saidaTextArea.setText("Inicie o teste.");
+        }
     }//GEN-LAST:event_monitorarButtonActionPerformed
 
     public void updateConsole() {
