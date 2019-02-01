@@ -21,6 +21,8 @@ public class ManipuladorLog {
 
     private static HashMap<Integer, String> mapaGabarito;
     private static List<Long> respostaUsuarioTemp;
+    private static String arquivoGabarito;
+    private static boolean testeAcontecendo;
 
     private ManipuladorLog() {
     }
@@ -28,7 +30,7 @@ public class ManipuladorLog {
     public static void carregarGabarito() {
         setMapaGabarito(new HashMap<>());
         setRespostaUsuarioTemp(new ArrayList<>());
-        Leitor.lerArquivo(new File("respostas.tsv"));
+        Leitor.lerArquivo(new File(getArquivoGabarito()));
         String[] linhas = Leitor.getLinhas();
         for (int i = 1; i < linhas.length; i++) {
             String[] colunas = linhas[i].split("\t");
@@ -68,14 +70,6 @@ public class ManipuladorLog {
         return questaoCorreta;
     }
     
-//    public static void main(String[] args) {
-//        ManipuladorLog.carregarGabarito();
-//        ManipuladorLog.getRespostaUsuarioTemp().add(1L);
-//        ManipuladorLog.getRespostaUsuarioTemp().add(5L);
-//        
-//        ManipuladorLog.verificaQuestaoCorreta(1);
-//    }
-
     /**
      * @return the mapaGabarito
      */
@@ -102,6 +96,34 @@ public class ManipuladorLog {
      */
     public static void setRespostaUsuarioTemp(List<Long> aRespostaUsuarioTemp) {
         respostaUsuarioTemp = aRespostaUsuarioTemp;
+    }
+
+    /**
+     * @return the arquivoGabarito
+     */
+    public static String getArquivoGabarito() {
+        return arquivoGabarito;
+    }
+
+    /**
+     * @param aArquivoGabarito the arquivoGabarito to set
+     */
+    public static void setArquivoGabarito(String aArquivoGabarito) {
+        arquivoGabarito = aArquivoGabarito;
+    }
+
+    /**
+     * @return the testeAcontecendo
+     */
+    public static boolean isTesteAcontecendo() {
+        return testeAcontecendo;
+    }
+
+    /**
+     * @param aTesteAcontecendo the testeAcontecendo to set
+     */
+    public static void setTesteAcontecendo(boolean aTesteAcontecendo) {
+        testeAcontecendo = aTesteAcontecendo;
     }
 
 }

@@ -76,7 +76,4 @@ public class Escritor {
         }
     }
 
-//    public static void main(String[] args) {
-//        Escritor.moveLogFile();
-//    }
 }

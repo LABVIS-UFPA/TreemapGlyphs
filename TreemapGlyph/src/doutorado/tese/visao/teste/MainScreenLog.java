@@ -177,6 +177,7 @@ public class MainScreenLog extends javax.swing.JFrame {
     }//GEN-LAST:event_fundoPanelMousePressed
 
     private void fecharMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharMenuItemActionPerformed
+        ManipuladorLog.setTesteAcontecendo(false);
         this.dispose();
     }//GEN-LAST:event_fecharMenuItemActionPerformed
 
@@ -222,6 +223,7 @@ public class MainScreenLog extends javax.swing.JFrame {
         start_Button.setText("Start Training");
         start_Button.setEnabled(true);
         submit_Button.setEnabled(false);
+        ManipuladorLog.setArquivoGabarito("respostasTreinamento.tsv");
     }//GEN-LAST:event_treinamentoRadioButtonActionPerformed
 
     private void testeRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testeRadioButtonActionPerformed
@@ -229,6 +231,7 @@ public class MainScreenLog extends javax.swing.JFrame {
         start_Button.setEnabled(true);
         next_Button.setEnabled(false);
         submit_Button.setEnabled(false);
+        ManipuladorLog.setArquivoGabarito("respostas.tsv");
     }//GEN-LAST:event_testeRadioButtonActionPerformed
 
     private void next_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next_ButtonActionPerformed
@@ -292,11 +295,12 @@ public class MainScreenLog extends javax.swing.JFrame {
             if (contQuestaoTeste > 11) {
                 next_Button.setEnabled(false);
                 LoggerMB.salvarLog();
-                textoPergunta.setText("Fim do teste. Obrigado!");
+                textoPergunta.setText("Fim do teste. Obrigado!");                
             } else {
                 next_Button.setEnabled(true);
             }
         }
+        
     }//GEN-LAST:event_submit_ButtonActionPerformed
 
     /**

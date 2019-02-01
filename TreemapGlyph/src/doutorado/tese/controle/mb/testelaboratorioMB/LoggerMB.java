@@ -5,7 +5,6 @@
  */
 package doutorado.tese.controle.mb.testelaboratorioMB;
 
-import doutorado.tese.controle.negocio.teste.ManipuladorLog;
 import doutorado.tese.util.ColunasLog;
 import doutorado.tese.util.io.Escritor;
 
@@ -25,7 +24,7 @@ public class LoggerMB {
         bufferLog = new StringBuilder();
         colunaLog = new String[ColunasLog.values().length];
         
-        bufferLog.append(ColunasLog.ID_TAREFA.name()).append("\t")
+        getBufferLog().append(ColunasLog.ID_TAREFA.name()).append("\t")
                  .append(ColunasLog.TEMPO_INICIO.name()).append("\t")
                  .append(ColunasLog.TEMPO_FINAL.name()).append("\t")
                  .append(ColunasLog.TEMPO_QUANDO_CLICOU.name()).append("\t")
@@ -41,7 +40,7 @@ public class LoggerMB {
     }
     
     public static void addNewLineLog() {
-        bufferLog.append(colunaLog[ColunasLog.ID_TAREFA.getId()]).append("\t")
+        getBufferLog().append(colunaLog[ColunasLog.ID_TAREFA.getId()]).append("\t")
                  .append(colunaLog[ColunasLog.TEMPO_INICIO.getId()]).append("\t")
                  .append(colunaLog[ColunasLog.TEMPO_FINAL.getId()]).append("\t")
                  .append(colunaLog[ColunasLog.TEMPO_QUANDO_CLICOU.getId()]).append("\t")
@@ -54,11 +53,11 @@ public class LoggerMB {
                  .append(colunaLog[ColunasLog.TREEMAP_LABEL.getId()]).append("\t")
                  .append(colunaLog[ColunasLog.RESPOSTA_CORRETA.getId()]).append("\t")
                  .append("\n");
-        System.out.println(bufferLog.toString());
+        System.out.println(getBufferLog().toString());
     }
 
     public static void salvarLog() {
-        Escritor.escreverArquivo("LOG_treemapGlyphs_", bufferLog.toString());
+        Escritor.escreverArquivo("LOG_treemapGlyphs_", getBufferLog().toString());
     }
     
     public static String[] getColunaLog() {
@@ -67,6 +66,13 @@ public class LoggerMB {
 
     public static void setColunaLog(String[] pLog) {
         colunaLog = pLog;
+    }
+
+    /**
+     * @return the bufferLog
+     */
+    public static StringBuilder getBufferLog() {
+        return bufferLog;
     }
 
 }

@@ -2,11 +2,6 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.ButtonGroup" name="grupoTestesButtonGroup">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="grupoTestesButtonGroup.add(startTest_RadioButtonMenuItem);&#xa;grupoTestesButtonGroup.add(finishTest_RadioButtonMenuItem);"/>
-      </AuxValues>
-    </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="fileMenu">
@@ -40,31 +35,42 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
+        <Menu class="javax.swing.JMenu" name="testMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Test"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="startTest_RadioButtonMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="startMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Start"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icon/Start-icon.png"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Start"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="startTest_RadioButtonMenuItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="startMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="finishTest_RadioButtonMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="consoleMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Finish"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icon/console-16.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Console"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="consoleMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="finishMenuItem">
+              <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icon/icons8-close-window-17.png"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Finish"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="finishTest_RadioButtonMenuItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="finishMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

@@ -5,8 +5,8 @@
  */
 package doutorado.tese.visao;
 
-import doutorado.tese.controle.mb.testelaboratorioMB.LoggerMB;
 import doutorado.tese.controle.mb.testelaboratorioMB.TestMB;
+import doutorado.tese.controle.negocio.teste.ManipuladorLog;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.modelo.Coluna;
 import doutorado.tese.util.Constantes;
@@ -15,7 +15,7 @@ import doutorado.tese.util.Metadados;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.modelo.TreeMapItem;
 import doutorado.tese.util.Conversor;
-import doutorado.tese.util.io.Escritor;
+import doutorado.tese.visao.teste.ConsoleTest;
 import doutorado.tese.visao.teste.MainScreenLog;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -89,7 +89,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         saveAnswerButton.setVisible(false);
         numMaxTarefas = 3;
         cenario = Constantes.CENARIOS.SEM_CENARIO.toString();
-//        LoggerMB.startLog();
+        
     }
 
     /**
@@ -101,7 +101,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        grupoTestesButtonGroup = new javax.swing.ButtonGroup();
         separadorEsqueDir_jSplitPane = new javax.swing.JSplitPane();
         painelEsquerda = new javax.swing.JPanel();
         painelDireita = new javax.swing.JPanel();
@@ -189,12 +188,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         fileMenuItem = new javax.swing.JMenuItem();
         decisionTreeMenu = new javax.swing.JMenu();
         decisionTreeActivate = new javax.swing.JCheckBoxMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        startTest_RadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
-        finishTest_RadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
-
-        grupoTestesButtonGroup.add(startTest_RadioButtonMenuItem);
-        grupoTestesButtonGroup.add(finishTest_RadioButtonMenuItem);
+        testMenu = new javax.swing.JMenu();
+        startMenuItem = new javax.swing.JMenuItem();
+        consoleMenuItem = new javax.swing.JMenuItem();
+        finishMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Treemap Glyphs");
@@ -1021,27 +1018,36 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         jMenuBar1.add(decisionTreeMenu);
 
-        jMenu1.setText("Test");
+        testMenu.setText("Test");
 
-        startTest_RadioButtonMenuItem.setText("Start");
-        startTest_RadioButtonMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Start-icon.png"))); // NOI18N
-        startTest_RadioButtonMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        startMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Start-icon.png"))); // NOI18N
+        startMenuItem.setText("Start");
+        startMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                startTest_RadioButtonMenuItemActionPerformed(evt);
+                startMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(startTest_RadioButtonMenuItem);
+        testMenu.add(startMenuItem);
 
-        finishTest_RadioButtonMenuItem.setText("Finish");
-        finishTest_RadioButtonMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-close-window-17.png"))); // NOI18N
-        finishTest_RadioButtonMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        consoleMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/console-16.png"))); // NOI18N
+        consoleMenuItem.setText("Console");
+        consoleMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                finishTest_RadioButtonMenuItemActionPerformed(evt);
+                consoleMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(finishTest_RadioButtonMenuItem);
+        testMenu.add(consoleMenuItem);
 
-        jMenuBar1.add(jMenu1);
+        finishMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-close-window-17.png"))); // NOI18N
+        finishMenuItem.setText("Finish");
+        finishMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finishMenuItemActionPerformed(evt);
+            }
+        });
+        testMenu.add(finishMenuItem);
+
+        jMenuBar1.add(testMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -1734,21 +1740,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }//GEN-LAST:event_nextTest_ButtonActionPerformed
 
-    private void finishTest_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishTest_RadioButtonMenuItemActionPerformed
-//        LoggerMB.salvarLog();
-//        Escritor.moveLogFile();
-        int resposta = JOptionPane.showConfirmDialog(this, "O teste e toda a aplicação serão encerrados."
-                + "Deseja realmente encerrar a aplicação?");
-        if (resposta == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
-    }//GEN-LAST:event_finishTest_RadioButtonMenuItemActionPerformed
-
-    private void startTest_RadioButtonMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startTest_RadioButtonMenuItemActionPerformed
-        MainScreenLog screenLog = new MainScreenLog();
-        screenLog.setVisible(true);
-    }//GEN-LAST:event_startTest_RadioButtonMenuItemActionPerformed
-
     private void saveAnswerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAnswerButtonActionPerformed
         if (testMB != null) {
             if (totalTarefas <= numMaxTarefas) {
@@ -1765,6 +1756,25 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             JOptionPane.showMessageDialog(this, "Please, choose an environment.", "To be careful", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_saveAnswerButtonActionPerformed
+
+    private void startMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startMenuItemActionPerformed
+        MainScreenLog screenLog = new MainScreenLog();
+        screenLog.setVisible(true);
+        ManipuladorLog.setTesteAcontecendo(true);
+    }//GEN-LAST:event_startMenuItemActionPerformed
+
+    private void finishMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishMenuItemActionPerformed
+        int resposta = JOptionPane.showConfirmDialog(this, "O teste e toda a aplicação serão encerrados."
+                + "Deseja realmente encerrar a aplicação?");
+        if (resposta == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_finishMenuItemActionPerformed
+
+    private void consoleMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consoleMenuItemActionPerformed
+        ConsoleTest console = new ConsoleTest();
+        console.setVisible(true);
+    }//GEN-LAST:event_consoleMenuItemActionPerformed
 
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
 
@@ -1846,14 +1856,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JList<String> colunasDetalhesList2;
     private javax.swing.JList<String> colunasHierarquicasList1;
     private javax.swing.JList<String> colunasHierarquicasList2;
+    private javax.swing.JMenuItem consoleMenuItem;
     private javax.swing.JComboBox<String> corTreemapComboBox;
     private javax.swing.JCheckBoxMenuItem decisionTreeActivate;
     private javax.swing.JMenu decisionTreeMenu;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem fileMenuItem;
-    private javax.swing.JRadioButtonMenuItem finishTest_RadioButtonMenuItem;
+    private javax.swing.JMenuItem finishMenuItem;
     private javax.swing.JComboBox<String> glyphContinuosType;
-    private javax.swing.ButtonGroup grupoTestesButtonGroup;
     private javax.swing.JButton inserirAtributoStarGlyphButton;
     private javax.swing.JButton inserirBotao_detalhes;
     private javax.swing.JButton inserirBotao_treemap;
@@ -1871,7 +1881,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -1902,10 +1911,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JButton saveAnswerButton;
     private javax.swing.JSplitPane separadorCimaBaixo;
     private javax.swing.JSplitPane separadorEsqueDir_jSplitPane;
-    private javax.swing.JRadioButtonMenuItem startTest_RadioButtonMenuItem;
+    private javax.swing.JMenuItem startMenuItem;
     private javax.swing.JComboBox<String> tamanhoTreemapComboBox;
     private javax.swing.JLabel taskCountLabel;
     private javax.swing.JTextPane task_TextPane;
+    private javax.swing.JMenu testMenu;
     private javax.swing.JButton updateDetailsButton;
     private javax.swing.JList<String> varVisuaisList1;
     private javax.swing.JList<String> varVisuaisList2;
