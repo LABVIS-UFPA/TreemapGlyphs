@@ -23,6 +23,7 @@ public class ManipuladorLog {
     private static List<Long> respostaUsuarioTemp;
     private static String arquivoGabarito;
     private static boolean testeAcontecendo;
+    private static boolean treinamentoAcontecendo;
 
     private ManipuladorLog() {
     }
@@ -124,6 +125,20 @@ public class ManipuladorLog {
      */
     public static void setTesteAcontecendo(boolean aTesteAcontecendo) {
         testeAcontecendo = aTesteAcontecendo;
+    }
+
+    /**
+     * @return the treinamentoAcontecendo
+     */
+    public static boolean isTreinamentoAcontecendo() {
+        return treinamentoAcontecendo;
+    }
+
+    /**
+     * @param aTreinamentoAcontecendo the treinamentoAcontecendo to set
+     */
+    public static void setTreinamentoAcontecendo(boolean aTreinamentoAcontecendo) {
+        treinamentoAcontecendo = aTreinamentoAcontecendo;
     }
 
 }

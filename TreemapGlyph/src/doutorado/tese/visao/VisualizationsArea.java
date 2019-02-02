@@ -132,16 +132,20 @@ public class VisualizationsArea {
             if (nodeUnderTheMouse.isHighLighted()) {
                 nodeUnderTheMouse.setHighLight(false);
                 getRespostasUsuario().remove(nodeUnderTheMouse);
-                if (ManipuladorLog.getRespostaUsuarioTemp().contains(node.getId())) {
-                    ManipuladorLog.getRespostaUsuarioTemp().remove(node.getId());
+                if (ManipuladorLog.getRespostaUsuarioTemp() != null) {
+                    if (ManipuladorLog.getRespostaUsuarioTemp().contains(node.getId())) {
+                        ManipuladorLog.getRespostaUsuarioTemp().remove(node.getId());
+                    }
                 }
             } else {
                 nodeUnderTheMouse.setHighLight(true);
                 getRespostasUsuario().add(nodeUnderTheMouse);
-                if (!ManipuladorLog.getRespostaUsuarioTemp().contains(node.getId())) {
-                    ManipuladorLog.getRespostaUsuarioTemp().add(node.getId());
+                if (ManipuladorLog.getRespostaUsuarioTemp() != null) {
+                    if (!ManipuladorLog.getRespostaUsuarioTemp().contains(node.getId())) {
+                        ManipuladorLog.getRespostaUsuarioTemp().add(node.getId());
+                    }
                 }
-            }
+            }            
             if (LoggerMB.getColunaLog() != null) {
                 LoggerMB.getColunaLog()[ColunasLog.ID_TREEMAP_ITEM.getId()] = node.getId() + "";
                 LoggerMB.getColunaLog()[ColunasLog.SELECIONADO.getId()] = node.isHighLighted() + "";

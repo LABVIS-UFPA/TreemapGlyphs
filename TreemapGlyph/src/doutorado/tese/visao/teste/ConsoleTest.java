@@ -116,17 +116,18 @@ public class ConsoleTest extends javax.swing.JFrame {
             }
         });
         t1.start();
-        if(!ManipuladorLog.isTesteAcontecendo()){
+        if (!ManipuladorLog.isTesteAcontecendo()) {
             saidaTextArea.setText("Inicie o teste.");
         }
     }//GEN-LAST:event_monitorarButtonActionPerformed
 
     public void updateConsole() {
         saidaTextArea.setText("");
-        if (LoggerMB.getBufferLog() != null) {
-            saidaTextArea.setText(LoggerMB.getBufferLog().toString());
+        if (LoggerMB.getBuffer() != null) {
+            saidaTextArea.setText(LoggerMB.getBuffer().toString());
         } else {
             saidaTextArea.setText("Log vazio.");
+
         }
     }
 

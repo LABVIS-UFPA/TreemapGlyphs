@@ -5,6 +5,7 @@
  */
 package doutorado.tese.controle.mb.testelaboratorioMB;
 
+import doutorado.tese.controle.negocio.teste.ManipuladorLog;
 import doutorado.tese.util.ColunasLog;
 import doutorado.tese.util.io.Escritor;
 
@@ -14,52 +15,60 @@ import doutorado.tese.util.io.Escritor;
  */
 public class LoggerMB {
 
-    private static StringBuilder bufferLog;
+    private static StringBuilder buffer;
+    private static StringBuilder bufferLogTeste;
+    private static StringBuilder bufferLogTreinamento;
     private static String[] colunaLog;
 
     private LoggerMB() {
     }
-        
+
     public static void startLog() {
-        bufferLog = new StringBuilder();
         colunaLog = new String[ColunasLog.values().length];
-        
-        getBufferLog().append(ColunasLog.ID_TAREFA.name()).append("\t")
-                 .append(ColunasLog.TEMPO_INICIO.name()).append("\t")
-                 .append(ColunasLog.TEMPO_FINAL.name()).append("\t")
-                 .append(ColunasLog.TEMPO_QUANDO_CLICOU.name()).append("\t")
-                 .append(ColunasLog.TEMPO_FINAL_CALCULADO.name()).append("\t")
-                 .append(ColunasLog.TIMESTAMP_INICIO.name()).append("\t")
-                 .append(ColunasLog.TIMESTAMP_FIM.name()).append("\t")
-                 .append(ColunasLog.TIMESTAMP_QUANDO_CLICOU.name()).append("\t")
-                 .append(ColunasLog.ID_TREEMAP_ITEM.name()).append("\t")
-                 .append(ColunasLog.SELECIONADO.name()).append("\t")
-                 .append(ColunasLog.TREEMAP_LABEL.name()).append("\t")
-                 .append(ColunasLog.RESPOSTA_CORRETA.name()).append("\t")
-                 .append("\n");
+
+        if (ManipuladorLog.isTesteAcontecendo()) {
+            bufferLogTreinamento = new StringBuilder();
+            buffer = getBufferLogTreinamento();
+        } else {
+            bufferLogTeste = new StringBuilder();
+            buffer = getBufferLogTeste();
+        }
+        getBuffer().append(ColunasLog.ID_TAREFA.name()).append("\t")
+                .append(ColunasLog.TEMPO_INICIO.name()).append("\t")
+                .append(ColunasLog.TEMPO_FINAL.name()).append("\t")
+                .append(ColunasLog.TEMPO_QUANDO_CLICOU.name()).append("\t")
+                .append(ColunasLog.TEMPO_FINAL_CALCULADO.name()).append("\t")
+                .append(ColunasLog.TIMESTAMP_INICIO.name()).append("\t")
+                .append(ColunasLog.TIMESTAMP_FIM.name()).append("\t")
+                .append(ColunasLog.TIMESTAMP_QUANDO_CLICOU.name()).append("\t")
+                .append(ColunasLog.ID_TREEMAP_ITEM.name()).append("\t")
+                .append(ColunasLog.SELECIONADO.name()).append("\t")
+                .append(ColunasLog.TREEMAP_LABEL.name()).append("\t")
+                .append(ColunasLog.RESPOSTA_CORRETA.name()).append("\t")
+                .append("\n");
     }
-    
+
     public static void addNewLineLog() {
-        getBufferLog().append(colunaLog[ColunasLog.ID_TAREFA.getId()]).append("\t")
-                 .append(colunaLog[ColunasLog.TEMPO_INICIO.getId()]).append("\t")
-                 .append(colunaLog[ColunasLog.TEMPO_FINAL.getId()]).append("\t")
-                 .append(colunaLog[ColunasLog.TEMPO_QUANDO_CLICOU.getId()]).append("\t")
-                 .append(colunaLog[ColunasLog.TEMPO_FINAL_CALCULADO.getId()]).append("\t")
-                 .append(colunaLog[ColunasLog.TIMESTAMP_INICIO.getId()]).append("\t")
-                 .append(colunaLog[ColunasLog.TIMESTAMP_FIM.getId()]).append("\t")
-                 .append(colunaLog[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()]).append("\t")
-                 .append(colunaLog[ColunasLog.ID_TREEMAP_ITEM.getId()]).append("\t")
-                 .append(colunaLog[ColunasLog.SELECIONADO.getId()]).append("\t")
-                 .append(colunaLog[ColunasLog.TREEMAP_LABEL.getId()]).append("\t")
-                 .append(colunaLog[ColunasLog.RESPOSTA_CORRETA.getId()]).append("\t")
-                 .append("\n");
-        System.out.println(getBufferLog().toString());
+        getBuffer().append(colunaLog[ColunasLog.ID_TAREFA.getId()]).append("\t")
+                .append(colunaLog[ColunasLog.TEMPO_INICIO.getId()]).append("\t")
+                .append(colunaLog[ColunasLog.TEMPO_FINAL.getId()]).append("\t")
+                .append(colunaLog[ColunasLog.TEMPO_QUANDO_CLICOU.getId()]).append("\t")
+                .append(colunaLog[ColunasLog.TEMPO_FINAL_CALCULADO.getId()]).append("\t")
+                .append(colunaLog[ColunasLog.TIMESTAMP_INICIO.getId()]).append("\t")
+                .append(colunaLog[ColunasLog.TIMESTAMP_FIM.getId()]).append("\t")
+                .append(colunaLog[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()]).append("\t")
+                .append(colunaLog[ColunasLog.ID_TREEMAP_ITEM.getId()]).append("\t")
+                .append(colunaLog[ColunasLog.SELECIONADO.getId()]).append("\t")
+                .append(colunaLog[ColunasLog.TREEMAP_LABEL.getId()]).append("\t")
+                .append(colunaLog[ColunasLog.RESPOSTA_CORRETA.getId()]).append("\t")
+                .append("\n");
+        System.out.println(getBuffer().toString());
     }
 
     public static void salvarLog() {
-        Escritor.escreverArquivo("LOG_treemapGlyphs_", getBufferLog().toString());
+        Escritor.escreverArquivo("LOG_treemapGlyphs_", getBuffer().toString());
     }
-    
+
     public static String[] getColunaLog() {
         return colunaLog;
     }
@@ -69,10 +78,24 @@ public class LoggerMB {
     }
 
     /**
-     * @return the bufferLog
+     * @return the bufferLogTeste
      */
-    public static StringBuilder getBufferLog() {
-        return bufferLog;
+    public static StringBuilder getBufferLogTeste() {
+        return bufferLogTeste;
+    }
+
+    /**
+     * @return the bufferLogTreinamento
+     */
+    public static StringBuilder getBufferLogTreinamento() {
+        return bufferLogTreinamento;
+    }
+
+    /**
+     * @return the buffer
+     */
+    public static StringBuilder getBuffer() {
+        return buffer;
     }
 
 }

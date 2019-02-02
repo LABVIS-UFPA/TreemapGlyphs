@@ -28,7 +28,7 @@ public class MainScreenLog extends javax.swing.JFrame {
 
     public MainScreenLog() {
         initComponents();
-        perguntaMB = new PerguntaMB();     
+        perguntaMB = new PerguntaMB();
     }
 
     /**
@@ -200,30 +200,34 @@ public class MainScreenLog extends javax.swing.JFrame {
         if (treinamentoRadioButton.isSelected()) {
             perguntaMB.managerPerguntasTreinamento();
             textoPergunta.setText(perguntaMB.getPerguntasTreinamento()[contQuestaoTreinamento].getTexto());
+            updateStartLog(contQuestaoTreinamento);
             contQuestaoTreinamento++;
         } else {
-            ManipuladorLog.carregarGabarito();
-            LoggerMB.startLog();
             perguntaMB.managerPerguntasTeste();
             textoPergunta.setText(perguntaMB.getPerguntasTeste()[contQuestaoTeste].getTexto());
-
-//            colunaLog = new String[ColunasLog.values().length];
-            LoggerMB.getColunaLog()[ColunasLog.ID_TAREFA.getId()] = (contQuestaoTeste + 1) + "";
-            LoggerMB.getColunaLog()[ColunasLog.TEMPO_INICIO.getId()] = System.currentTimeMillis() + "";
-            LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_INICIO.getId()] =  LocalDateTime.now() + "";
-            LoggerMB.getColunaLog()[ColunasLog.QUESTAO_CORRETA.getId()] = "null";
-            LoggerMB.addNewLineLog();
+            updateStartLog(contQuestaoTeste);
             contQuestaoTeste++;
         }
         submit_Button.setEnabled(true);
         start_Button.setEnabled(false);
     }//GEN-LAST:event_start_ButtonActionPerformed
 
+    private void updateStartLog(int contQuestao) {
+        ManipuladorLog.carregarGabarito();
+        LoggerMB.startLog();
+        LoggerMB.getColunaLog()[ColunasLog.ID_TAREFA.getId()] = (contQuestao + 1) + "";
+        LoggerMB.getColunaLog()[ColunasLog.TEMPO_INICIO.getId()] = System.currentTimeMillis() + "";
+        LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_INICIO.getId()] = LocalDateTime.now() + "";
+        LoggerMB.getColunaLog()[ColunasLog.QUESTAO_CORRETA.getId()] = "null";
+        LoggerMB.addNewLineLog();
+    }
+
     private void treinamentoRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_treinamentoRadioButtonActionPerformed
         start_Button.setText("Start Training");
         start_Button.setEnabled(true);
         submit_Button.setEnabled(false);
         ManipuladorLog.setArquivoGabarito("respostasTreinamento.tsv");
+        ManipuladorLog.setTreinamentoAcontecendo(true);
     }//GEN-LAST:event_treinamentoRadioButtonActionPerformed
 
     private void testeRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testeRadioButtonActionPerformed
@@ -232,32 +236,38 @@ public class MainScreenLog extends javax.swing.JFrame {
         next_Button.setEnabled(false);
         submit_Button.setEnabled(false);
         ManipuladorLog.setArquivoGabarito("respostas.tsv");
+        ManipuladorLog.setTreinamentoAcontecendo(false);
     }//GEN-LAST:event_testeRadioButtonActionPerformed
 
     private void next_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_next_ButtonActionPerformed
         if (treinamentoRadioButton.isSelected()) {
+            updateNextLog(contQuestaoTreinamento);
             textoPergunta.setText(perguntaMB.getPerguntasTreinamento()[contQuestaoTreinamento].getTexto());
             contQuestaoTreinamento++;
         } else {
-            LoggerMB.getColunaLog()[ColunasLog.ID_TAREFA.getId()] = (contQuestaoTeste + 1) + "";
-            LoggerMB.getColunaLog()[ColunasLog.TEMPO_INICIO.getId()] = System.currentTimeMillis() + "";
-            LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_INICIO.getId()] =  LocalDateTime.now() + "";
-            LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL.getId()] =  "null";
-            LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] =  "null";
-            LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL_CALCULADO.getId()] =  "null";
-            LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] =  "null";
-            LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_FIM.getId()] =  "null";
-            LoggerMB.getColunaLog()[ColunasLog.ID_TREEMAP_ITEM.getId()] =  "null";
-            LoggerMB.getColunaLog()[ColunasLog.SELECIONADO.getId()] =  "null";
-            LoggerMB.getColunaLog()[ColunasLog.TREEMAP_LABEL.getId()] =  "null";
-            LoggerMB.getColunaLog()[ColunasLog.QUESTAO_CORRETA.getId()] = "null";
-            LoggerMB.addNewLineLog();
+            updateNextLog(contQuestaoTeste);
             textoPergunta.setText(perguntaMB.getPerguntasTeste()[contQuestaoTeste].getTexto());
             contQuestaoTeste++;
         }
         next_Button.setEnabled(false);
         submit_Button.setEnabled(true);
     }//GEN-LAST:event_next_ButtonActionPerformed
+
+    private void updateNextLog(int contQuestao) {
+        LoggerMB.getColunaLog()[ColunasLog.ID_TAREFA.getId()] = (contQuestao + 1) + "";
+        LoggerMB.getColunaLog()[ColunasLog.TEMPO_INICIO.getId()] = System.currentTimeMillis() + "";
+        LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_INICIO.getId()] = LocalDateTime.now() + "";
+        LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL_CALCULADO.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_FIM.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.ID_TREEMAP_ITEM.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.SELECIONADO.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.TREEMAP_LABEL.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.QUESTAO_CORRETA.getId()] = "null";
+        LoggerMB.addNewLineLog();
+    }
 
     private void submit_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit_ButtonActionPerformed
         textoPergunta.setText("");
@@ -272,36 +282,38 @@ public class MainScreenLog extends javax.swing.JFrame {
                     textoPergunta.setText("Fim do teste. Obrigado!");
                 }
             } else {
+                updateSubmitLog();
                 next_Button.setEnabled(true);
             }
         } else {
-            LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_FIM.getId()] =  LocalDateTime.now() + "";
-            LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL.getId()] = System.currentTimeMillis() + "";
-            LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL_CALCULADO.getId()]
-                    = (Long.parseLong(LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL.getId()])
-                    - Long.parseLong(LoggerMB.getColunaLog()[ColunasLog.TEMPO_INICIO.getId()])) + "";
-            LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = "null";
-            //TODO acho que tem que limpar o tempo do clique do item do treemap TIMESTAMP_QUANDO_CLICOU e TEMPO_QUANDO_CLICOU
-            LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = "null";
-            LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = "null";
-            LoggerMB.getColunaLog()[ColunasLog.ID_TREEMAP_ITEM.getId()] = "null";
-            LoggerMB.getColunaLog()[ColunasLog.SELECIONADO.getId()] = "null";
-            LoggerMB.getColunaLog()[ColunasLog.TREEMAP_LABEL.getId()] = "null";
-            LoggerMB.getColunaLog()[ColunasLog.QUESTAO_CORRETA.getId()] = ManipuladorLog.verificaQuestaoCorreta(
-                    Integer.parseInt(LoggerMB.getColunaLog()[ColunasLog.ID_TAREFA.getId()]))+"";
-            ManipuladorLog.getRespostaUsuarioTemp().clear();
-            LoggerMB.addNewLineLog();
-
+            updateSubmitLog();
             if (contQuestaoTeste > 11) {
                 next_Button.setEnabled(false);
                 LoggerMB.salvarLog();
-                textoPergunta.setText("Fim do teste. Obrigado!");                
+                textoPergunta.setText("Fim do teste. Obrigado!");
             } else {
                 next_Button.setEnabled(true);
             }
         }
-        
     }//GEN-LAST:event_submit_ButtonActionPerformed
+
+    private void updateSubmitLog() {
+        LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_FIM.getId()] = LocalDateTime.now() + "";
+        LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL.getId()] = System.currentTimeMillis() + "";
+        LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL_CALCULADO.getId()]
+                = (Long.parseLong(LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL.getId()])
+                - Long.parseLong(LoggerMB.getColunaLog()[ColunasLog.TEMPO_INICIO.getId()])) + "";
+        LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.ID_TREEMAP_ITEM.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.SELECIONADO.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.TREEMAP_LABEL.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.QUESTAO_CORRETA.getId()] = ManipuladorLog.verificaQuestaoCorreta(
+                Integer.parseInt(LoggerMB.getColunaLog()[ColunasLog.ID_TAREFA.getId()])) + "";
+        ManipuladorLog.getRespostaUsuarioTemp().clear();
+        LoggerMB.addNewLineLog();
+    }
 
     /**
      * @param args the command line arguments
