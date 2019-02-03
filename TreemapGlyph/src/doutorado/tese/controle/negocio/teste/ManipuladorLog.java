@@ -6,6 +6,9 @@
 package doutorado.tese.controle.negocio.teste;
 
 import doutorado.tese.modelo.TreeMapItem;
+import doutorado.tese.modelo.TreeMapLevel;
+import doutorado.tese.modelo.TreeMapNode;
+import doutorado.tese.util.Conversor;
 import doutorado.tese.util.io.Leitor;
 import java.io.File;
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ import java.util.List;
 public class ManipuladorLog {
 
     private static HashMap<Integer, String> mapaGabarito;
-    private static List<Long> respostaUsuarioTemp;
+    private static List<Object> respostaUsuarioTemp;
     private static String arquivoGabarito;
     private static boolean testeAcontecendo;
     private static boolean treinamentoAcontecendo;
@@ -39,15 +42,29 @@ public class ManipuladorLog {
         }
     }
 
-    public static boolean verificarResposta(TreeMapItem nodeClicado, int idTarefa) {
+    public static boolean verificarResposta(TreeMapNode nodeClicado, int idTarefa) {
         boolean respostaCorreta = false;
-        String[] respostas = getMapaGabarito().get(idTarefa).split(",");
+        String[] respostasGabarito = getMapaGabarito().get(idTarefa).split(",");
 
-        for (String resposta : respostas) {
-            if (Integer.parseInt(resposta) == nodeClicado.getId()) {
-                respostaCorreta = true;
-                System.out.println("Encontrou resposta certa: " + nodeClicado.getId());
-                break;
+        for (String resposta : respostasGabarito) {
+            if (nodeClicado instanceof TreeMapItem) {
+                TreeMapItem node = (TreeMapItem) nodeClicado;
+                try {
+                    if (Integer.parseInt(resposta) == node.getId()) {
+                        respostaCorreta = true;
+                        System.out.println("Encontrou resposta certa: " + node.getId());
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    respostaCorreta = false;
+                    System.out.println("Encontrou resposta ERRADA: Aguardava " + resposta);
+                }
+            } else {
+                TreeMapLevel node = (TreeMapLevel) nodeClicado;
+                if (resposta.equalsIgnoreCase(node.getLabel())) {
+                    respostaCorreta = true;
+                    System.out.println("Encontrou resposta certa: " + node.getLabel());
+                }
             }
         }
         return respostaCorreta;
@@ -55,22 +72,30 @@ public class ManipuladorLog {
 
     public static boolean verificaQuestaoCorreta(int idTarefa) {
         boolean questaoCorreta = false;
-        List<Long> respostasLong = new ArrayList();
-        String[] respostas = getMapaGabarito().get(idTarefa).split(",");
-        
-        for (String resposta : respostas) {
-            respostasLong.add(Long.parseLong(resposta));
-        }
-        
-        if (respostas.length == respostaUsuarioTemp.size()) {
-            System.out.println("respostasLong: "+respostasLong.toString());
-            System.out.println("respostaUsuarioTemp: "+respostaUsuarioTemp.toString());
-            questaoCorreta = respostaUsuarioTemp.containsAll(respostasLong);
+
+        String[] gabarito = getMapaGabarito().get(idTarefa).split(",");
+        List<Long> gabaritoIds = new ArrayList<>();
+        List<String> gabaritoList = new ArrayList();
+        gabaritoList.addAll(Arrays.asList(gabarito));
+
+        if (gabaritoList.size() == respostaUsuarioTemp.size()) {
+            try {
+                gabaritoList.forEach((resposta) -> {
+                    gabaritoIds.add(Long.parseLong(resposta));
+                });
+                System.out.println("respostasLong: " + gabaritoIds.toString());
+                System.out.println("respostaUsuarioTemp: " + respostaUsuarioTemp.toString());
+                questaoCorreta = respostaUsuarioTemp.containsAll(gabaritoIds);
+            } catch (NumberFormatException e) {
+                System.out.println("respostasLong: " + gabaritoList.toString());
+                System.out.println("respostaUsuarioTemp: " + respostaUsuarioTemp.toString());
+                questaoCorreta = respostaUsuarioTemp.containsAll(gabaritoList);
+            }
         }
         System.out.println("Questao correta: " + questaoCorreta);
         return questaoCorreta;
     }
-    
+
     /**
      * @return the mapaGabarito
      */
@@ -88,14 +113,14 @@ public class ManipuladorLog {
     /**
      * @return the respostaUsuarioTemp
      */
-    public static List<Long> getRespostaUsuarioTemp() {
+    public static List<Object> getRespostaUsuarioTemp() {
         return respostaUsuarioTemp;
     }
 
     /**
      * @param aRespostaUsuarioTemp the respostaUsuarioTemp to set
      */
-    public static void setRespostaUsuarioTemp(List<Long> aRespostaUsuarioTemp) {
+    public static void setRespostaUsuarioTemp(List<Object> aRespostaUsuarioTemp) {
         respostaUsuarioTemp = aRespostaUsuarioTemp;
     }
 

@@ -1299,7 +1299,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         clickPanel = new GlassPanelClick();
         clickPanel.setTMView(view);
-        clickPanel.setListaItensClicados(visualizationTreemap.getRespostasUsuario());
+        clickPanel.setListaItensClicados(visualizationTreemap.getNodosSelecionadosUsuario());
         clickPanel.setBounds(view.getBounds());
         layerPane.add(view, new Integer(0), 0);
         layerPane.add(clickPanel, new Integer(1), 0);

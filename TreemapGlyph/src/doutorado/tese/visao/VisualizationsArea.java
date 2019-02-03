@@ -118,42 +118,81 @@ public class VisualizationsArea {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 TreeMapNode nodeUnderTheMouse = (TreeMapNode) VisualizationsArea.this.view.getNodeUnderTheMouse(e);
-                if (nodeUnderTheMouse.getMapaDetalhesItem() != null) {
-                    changeHighLight(nodeUnderTheMouse);
-                }
+                //Para não desenhar o highlight dos levels basta descomentar o if abaixo
+                //if (nodeUnderTheMouse.getMapaDetalhesItem() != null) {
+                changeHighLight(nodeUnderTheMouse);
+//                } 
+//                  else {
+//                    if (nodeUnderTheMouse instanceof TreeMapLevel) {
+//                        TreeMapLevel level = (TreeMapLevel) nodeUnderTheMouse;
+//                        changeHighLight(nodeUnderTheMouse);
+//                        System.out.println("Level: " + level.getLabel());
+//                    }
+//                }
             }
         });
+    }
+
+    private void highLightTreemapItem(TreeMapItem node) {
+        if (node.isHighLighted()) {
+            node.setHighLight(false);
+            getNodosSelecionadosUsuario().remove(node);
+            if (ManipuladorLog.getRespostaUsuarioTemp() != null) {
+                if (ManipuladorLog.getRespostaUsuarioTemp().contains(node.getId())) {
+                    ManipuladorLog.getRespostaUsuarioTemp().remove(node.getId());
+                }
+            }
+        } else {
+            node.setHighLight(true);
+            getNodosSelecionadosUsuario().add(node);
+            if (ManipuladorLog.getRespostaUsuarioTemp() != null) {
+                if (!ManipuladorLog.getRespostaUsuarioTemp().contains(node.getId())) {
+                    ManipuladorLog.getRespostaUsuarioTemp().add(node.getId());
+                }
+            }
+        }
+    }
+
+    private void highLightTreemapLevel(TreeMapLevel node) {
+        if (node.isHighLighted()) {
+            node.setHighLight(false);
+            getNodosSelecionadosUsuario().remove(node);
+            if (ManipuladorLog.getRespostaUsuarioTemp() != null) {
+                if (ManipuladorLog.getRespostaUsuarioTemp().contains(node.getLabel())) {
+                    ManipuladorLog.getRespostaUsuarioTemp().remove(node.getLabel());
+                }
+            }
+        } else {
+            node.setHighLight(true);
+            getNodosSelecionadosUsuario().add(node);
+            if (ManipuladorLog.getRespostaUsuarioTemp() != null) {
+                if (!ManipuladorLog.getRespostaUsuarioTemp().contains(node.getLabel())) {
+                    ManipuladorLog.getRespostaUsuarioTemp().add(node.getLabel());
+                }
+            }
+        }
     }
 
     public void changeHighLight(TreeMapNode nodeUnderTheMouse) {
         if (nodeUnderTheMouse instanceof TreeMapItem) {
             TreeMapItem node = (TreeMapItem) nodeUnderTheMouse;
+            highLightTreemapItem(node);
+        } else {
+            TreeMapLevel node = (TreeMapLevel) nodeUnderTheMouse;
+            highLightTreemapLevel(node);
+        }
+        updateChangeHighLightedLog(nodeUnderTheMouse);
+    }
 
-            if (nodeUnderTheMouse.isHighLighted()) {
-                nodeUnderTheMouse.setHighLight(false);
-                getRespostasUsuario().remove(nodeUnderTheMouse);
-                if (ManipuladorLog.getRespostaUsuarioTemp() != null) {
-                    if (ManipuladorLog.getRespostaUsuarioTemp().contains(node.getId())) {
-                        ManipuladorLog.getRespostaUsuarioTemp().remove(node.getId());
-                    }
-                }
-            } else {
-                nodeUnderTheMouse.setHighLight(true);
-                getRespostasUsuario().add(nodeUnderTheMouse);
-                if (ManipuladorLog.getRespostaUsuarioTemp() != null) {
-                    if (!ManipuladorLog.getRespostaUsuarioTemp().contains(node.getId())) {
-                        ManipuladorLog.getRespostaUsuarioTemp().add(node.getId());
-                    }
-                }
-            }            
-            if (LoggerMB.getColunaLog() != null) {
-                LoggerMB.getColunaLog()[ColunasLog.ID_TREEMAP_ITEM.getId()] = node.getId() + "";
-                LoggerMB.getColunaLog()[ColunasLog.SELECIONADO.getId()] = node.isHighLighted() + "";
-                LoggerMB.getColunaLog()[ColunasLog.TREEMAP_LABEL.getId()] = node.getLabel() + "";
-                LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()]
-                        = ManipuladorLog.verificarResposta(node, Integer.parseInt(LoggerMB.getColunaLog()[ColunasLog.ID_TAREFA.getId()])) + "";
-                LoggerMB.addNewLineLog();
-            }
+    private void updateChangeHighLightedLog(TreeMapNode node) {
+        if (LoggerMB.getColunaLog() != null) {
+            LoggerMB.getColunaLog()[ColunasLog.ID_TREEMAP_ITEM.getId()]
+                    = (node instanceof TreeMapItem) ? ((TreeMapItem) node).getId() + "" : ((TreeMapLevel) node).getLabel();
+            LoggerMB.getColunaLog()[ColunasLog.SELECIONADO.getId()] = node.isHighLighted() + "";
+            LoggerMB.getColunaLog()[ColunasLog.TREEMAP_LABEL.getId()] = node.getLabel() + "";
+            LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()]
+                    = ManipuladorLog.verificarResposta(node, Integer.parseInt(LoggerMB.getColunaLog()[ColunasLog.ID_TAREFA.getId()])) + "";
+            LoggerMB.addNewLineLog();
         }
     }
 
@@ -318,13 +357,13 @@ public class VisualizationsArea {
 //    public void setItemRespostaUsuario(TreeMapNode itemRespostaUsuario) {
 //        this.itemRespostaUsuario = itemRespostaUsuario;
 //        if (itemRespostaUsuario != null) {
-//            getRespostasUsuario().add(this.itemRespostaUsuario);
+//            getNodosSelecionadosUsuario().add(this.itemRespostaUsuario);
 //        }
 //    }
     /**
      * @return the list containing the treemapnodes clicked by user
      */
-    public List<TreeMapNode> getRespostasUsuario() {
+    public List<TreeMapNode> getNodosSelecionadosUsuario() {
         return listClickedItems;
     }
 

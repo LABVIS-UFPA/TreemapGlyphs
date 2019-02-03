@@ -274,6 +274,7 @@ public class MainScreenLog extends javax.swing.JFrame {
         submit_Button.setEnabled(false);
         if (treinamentoRadioButton.isSelected()) {
             if (contQuestaoTreinamento > 9) {
+                updateSubmitLog();
                 int resposta = JOptionPane.showConfirmDialog(this, "Você gostaria de continuar?");
                 if (resposta == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(this, "Que bom, vamos iniciar os testes!");

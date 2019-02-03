@@ -6,6 +6,7 @@
 package doutorado.tese.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.ListModel;
 

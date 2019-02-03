@@ -98,13 +98,6 @@ public class GlassPanelClick extends JPanel {
         this.onClickListener = onClickListener;
     }
 
-//    public LoggerMB getLoggerMB() {
-//        return loggerMB;
-//    }
-//
-//    public void setLoggerMB(LoggerMB loggerMB) {
-//        this.loggerMB = loggerMB;
-//    }
     public static interface OnClick {
 
         public void clicou(MouseEvent evt);
