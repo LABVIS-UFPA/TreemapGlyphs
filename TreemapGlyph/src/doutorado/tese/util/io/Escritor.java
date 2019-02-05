@@ -34,6 +34,7 @@ public class Escritor {
         fileName = System.getProperty("user.name") + "_" + nomeArquivo;
         String nameSuffix = year +"_"+ month +"_"+ dayOfMonth + "_" + hour + "_" + min + "_" + sec;
         try {
+            createLogDir();
             File file = new File(defaltLogstFolder + fileName + nameSuffix + ".txt"); // Criação do arquivo
             FileWriter fw = new FileWriter(file);
             try (BufferedWriter bw = new BufferedWriter(fw)) {// BufferedWriter
@@ -46,6 +47,13 @@ public class Escritor {
         }
     }
 
+    private static void createLogDir(){
+        File f = new File(defaltLogstFolder);
+        if(!f.exists()){
+            f.mkdir();
+        }
+    }
+    
     private static File[] listOnlyFiles(File file) {
         File[] listFiles = file.listFiles((File pathname) -> {
             String name = pathname.getName().toLowerCase();
