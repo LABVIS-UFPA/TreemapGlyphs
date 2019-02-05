@@ -47,12 +47,12 @@ public class BarChart extends Glyph {
     private String title;
     private float panelWidth;
     private float panelHeight;
- 
 
     public BarChart(List<String> variaveisEscolhidasStarGlyph) {
         this.atributosEscolhidaoBase = variaveisEscolhidasStarGlyph;
         barras = new Bar[this.atributosEscolhidaoBase.size()];
     }
+
     /**
      * Calcula quantos porcentos o dado atual da linha corrente equivale ao
      * valor max da coluna.
@@ -77,7 +77,7 @@ public class BarChart extends Glyph {
         if (getQuantVar() != 0) {
             for (int i = 0; i < getQuantVar(); i++) {
                 g2d.setColor(Color.decode(Constantes.getCor()[i]));
-//                getBarras()[i].paint(g2d);
+                //getBarras()[i].paint(g2d);
                 int x = getBarras()[i].getDadosBarra()[0];
                 int y = getBarras()[i].getDadosBarra()[1];
                 int w = getBarras()[i].getDadosBarra()[2];
@@ -87,40 +87,37 @@ public class BarChart extends Glyph {
                 g2.fillRect(x, y, w, h);
                 g2.setColor(Color.black);
                 g2.drawRect(x, y, w, h);
-                                       
-                //top
-                int lx1 = getBarras()[i].getLineTop()[0];
-                int ly1 = getBarras()[i].getLineTop()[1];
-                int lx2 = getBarras()[i].getLineTop()[2];
-                int ly2 = getBarras()[i].getLineTop()[3];
-                g2.drawLine(lx1,ly1,lx2,ly2);
-                
-                //center
-                int cx1 = getBarras()[i].getLineCenter()[0];
-                int cy1 = getBarras()[i].getLineCenter()[1];
-                int cx2 = getBarras()[i].getLineCenter()[2];
-                int cy2 = getBarras()[i].getLineCenter()[3];
-                g2.drawLine(cx1,cy1,cx2,cy2);
-                
-                //buttom
-                int bx1 = getBarras()[i].getLineButton()[0];
-                int by1 = getBarras()[i].getLineButton()[1];
-                int bx2 = getBarras()[i].getLineButton()[2];
-                int by2 = getBarras()[i].getLineButton()[3];          
-                g2.drawLine(bx1,by1,bx2,by2);
-     
+
+                if (getBarras()[i].getLineCenter() != null) {
+                    //top
+                    int lx1 = getBarras()[i].getLineTop()[0];
+                    int ly1 = getBarras()[i].getLineTop()[1];
+                    int lx2 = getBarras()[i].getLineTop()[2];
+                    int ly2 = getBarras()[i].getLineTop()[3];
+                    g2.drawLine(lx1, ly1, lx2, ly2);
+                    //center
+                    int cx1 = getBarras()[i].getLineCenter()[0];
+                    int cy1 = getBarras()[i].getLineCenter()[1];
+                    int cx2 = getBarras()[i].getLineCenter()[2];
+                    int cy2 = getBarras()[i].getLineCenter()[3];
+                    g2.drawLine(cx1, cy1, cx2, cy2);
+                    //buttom
+                    int bx1 = getBarras()[i].getLineButton()[0];
+                    int by1 = getBarras()[i].getLineButton()[1];
+                    int bx2 = getBarras()[i].getLineButton()[2];
+                    int by2 = getBarras()[i].getLineButton()[3];
+                    g2.drawLine(bx1, by1, bx2, by2);
+                }
             }
         }
-
     }
 
     public void calcularPosicaoBarras() {
-         int[] points = new int[2];
-        points[0] = (int) (rect.width*0.8);
-        points[1] = (int) (rect.height*0.8);
+        int[] points = new int[2];
+        points[0] = (int) (rect.width * 0.8);
+        points[1] = (int) (rect.height * 0.8);
         tornarGlyphQuadrado(points);
 
-        
         double minValue = 0;
         double maxValue = 0;
         for (int i = 0; i < getBarras().length; i++) {
@@ -133,7 +130,7 @@ public class BarChart extends Glyph {
         }
 
         int panelWidth = (int) Math.round(points[0]);
-        int panelHeight = (int) Math.round(points[1])/2;
+        int panelHeight = (int) Math.round(points[1]) / 2;
 
         float barWidth = panelWidth / getBarras().length;
 
@@ -153,17 +150,17 @@ public class BarChart extends Glyph {
         }
         int top = 0;
         for (int i = 0; i < getBarras().length; i++) {
-            int valueX =0;
-            valueX = rect.x + panelWidth - Math.round(i * barWidth)/2;//            int valueY = points[1];
-            if(getBarras().length ==1){   
-                valueX = rect.x + points[0]/2 - Math.round(i * barWidth)/2;
+            int valueX = 0;
+            valueX = rect.x + panelWidth - Math.round(i * barWidth) / 2;//            int valueY = points[1];
+            if (getBarras().length == 1) {
+                valueX = rect.x + points[0] / 2 - Math.round(i * barWidth) / 2;
 
-            }    
-                
+            }
+
             float max = (float) Math.abs(getBarras()[i].getDadoMaxVal());
             float data = Math.round(Math.abs(getBarras()[i].getDado()));
             float result = Math.round((data * panelHeight) / max);
-            float sub=0;
+            float sub = 0;
             if (getBarras()[i].getDado() < 0) {
                 sub = panelHeight;
             } else {
@@ -171,33 +168,30 @@ public class BarChart extends Glyph {
 
             }
 
-            int valueY = (int)(Math.round(rect.y)+sub);
-            
+            int valueY = (int) (Math.round(rect.y) + sub);
 
-            getBarras()[i].setDadosBarra(valueX, valueY, Math.round(barWidth/2) , Math.round(result));
-        
+            getBarras()[i].setDadosBarra(valueX, valueY, Math.round(barWidth / 2), Math.round(result));
 
-            int [] line = new int[4]; 
-            line[0] =valueX;
+            int[] line = new int[4];
+            line[0] = valueX;
             line[1] = Math.round(rect.y);
-            line[2] = Math.round(valueX)+ Math.round(barWidth );
+            line[2] = Math.round(valueX) + Math.round(barWidth);
             line[3] = Math.round(rect.y);
             getBarras()[i].setLineTop(line);
-            
-            int [] line2 = new int[4]; 
-            line2[0] =Math.round(valueX);
-            line2[1] = Math.round(rect.y)+  points[1];
-            line2[2] = +Math.round(valueX)+ Math.round(barWidth);
-            line2[3] = Math.round(rect.y)+  points[1];
+
+            int[] line2 = new int[4];
+            line2[0] = Math.round(valueX);
+            line2[1] = Math.round(rect.y) + points[1];
+            line2[2] = +Math.round(valueX) + Math.round(barWidth);
+            line2[3] = Math.round(rect.y) + points[1];
             getBarras()[i].setLineButton(line2);
-            
-            
-            int [] line3 = new int[4]; 
-            line3[0] =Math.round(valueX);
-            line3[1] = rect.y + points[1]/2;
+
+            int[] line3 = new int[4];
+            line3[0] = Math.round(valueX);
+            line3[1] = rect.y + points[1] / 2;
             line3[2] = Math.round(valueX) + Math.round(barWidth);
-            line3[3] =  rect.y +points[1]/2;
-                    
+            line3[3] = rect.y + points[1] / 2;
+
             getBarras()[i].setLineCenter(line3);
         }
 
@@ -206,12 +200,12 @@ public class BarChart extends Glyph {
     @Override
     public void setBounds(Rectangle rect) {
         int[] points = new int[2];
-        points[0] = (int) (rect.width *0.8);
-        points[1] = (int) (rect.height *0.8);
+        points[0] = (int) (rect.width * 0.8);
+        points[1] = (int) (rect.height * 0.8);
         tornarGlyphQuadrado(points);
         this.rect = rect;
-        this.rect.x = rect.x + rect.width/2 - (points[0]);
-        this.rect.y = (int) (rect.y + rect.height/2 - (points[1]/2));
+        this.rect.x = rect.x + rect.width / 2 - (points[0]);
+        this.rect.y = (int) (rect.y + rect.height / 2 - (points[1] / 2));
         this.rect.width = rect.width;
         this.rect.height = rect.height;
 
@@ -305,7 +299,6 @@ public class BarChart extends Glyph {
     public void setBarras(Bar[] barras) {
         this.barras = barras;
     }
-
 
     @Override
     public Object whoAmI() {
