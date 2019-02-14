@@ -15,8 +15,8 @@ import doutorado.tese.modelo.teste.PerguntasTreinamentoEnum;
  */
 public class PerguntaMB {
 
-    private Pergunta[] perguntasTeste = new Pergunta[12];
-    private Pergunta[] perguntasTreinamento = new Pergunta[10];
+    private Pergunta[] perguntasTeste = new Pergunta[PerguntasTesteEnum.values().length];
+    private Pergunta[] perguntasTreinamento = new Pergunta[PerguntasTreinamentoEnum.values().length];
 
     public void managerPerguntasTeste() {
         for (int i = 0; i < perguntasTeste.length; i++) {

@@ -134,9 +134,9 @@ public class BarChart extends Glyph {
 
         float barWidth = panelWidth / getBarras().length;
 
-        if (maxValue == minValue) {
-            return;
-        }
+//        if (maxValue == minValue) {
+//            return;
+//        }
         double scale = (panelHeight) / (maxValue - minValue);
         for (int j = 0; j < getBarras().length; j++) {
             int valueQ = 0;

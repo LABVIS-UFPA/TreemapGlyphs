@@ -62,7 +62,7 @@ public class LoggerMB {
                 .append(colunaLog[ColunasLog.TREEMAP_LABEL.getId()]).append("\t")
                 .append(colunaLog[ColunasLog.RESPOSTA_CORRETA.getId()]).append("\t")
                 .append("\n");
-        System.out.println(getBuffer().toString());
+//        System.out.println(getBuffer().toString());
     }
 
     public static void salvarLog() {

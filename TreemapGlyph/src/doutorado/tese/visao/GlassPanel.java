@@ -94,7 +94,7 @@ public class GlassPanel extends JPanel {
                     logger.info("Acionando prepare2Draw() a partir do onDrawFinished() - Root: " + glyphManager.getRootNodeZoom());
                     glyphManager.prepare2Draw();//chamado para redesenhar os glyphs no drill-down
                 }else{
-                    System.err.println("glyphManager == null ou view.getRootAnderson() == null");
+//                    System.err.println("glyphManager == null ou view.getRootAnderson() == null");
                 }
             }
         });

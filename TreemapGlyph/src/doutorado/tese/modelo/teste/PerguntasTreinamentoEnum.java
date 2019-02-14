@@ -11,9 +11,9 @@ package doutorado.tese.modelo.teste;
  */
 public enum PerguntasTreinamentoEnum {
     Q1("Encontre o carro cuja posição do motor (POSMOTOR) seja CENTRAL, e com TRAÇÃO na TRASEIRA."),//categorica
-    Q2("Encontre o carro de maior VALOR, o carro de maior POTENCIA e o carro de maior PESO movidos à GASOLINA;"),//categorica e continua
+    Q2("Encontre os carros de maior VALOR, o de maior POTENCIA e o de maior PESO movidos à GASOLINA;"),//categorica e continua
     Q3("Encontre o único carro do TIPO SUV."),//categorica
-    Q4("Localize o carro de maior RPM, o carro de maior VALOR e o carro de maior POTENCIA;"),//categorica e continua
+    Q4("Localize os carros de maior RPM, o de maior VALOR e o de maior POTENCIA;"),//categorica e continua
     Q5("Encontre o ÚNICO carro a ÁLCOOL."),//categorica
     Q6("Encontre os carros à GASOLINA de maior POTENCIA, o de maior RPM e o de maior VALOR."),//categorica e continua
     Q7("Encontre o carro, cuja posição do motor (POSMOTOR) é CENTRAL, e COM TURBO."),//categorica

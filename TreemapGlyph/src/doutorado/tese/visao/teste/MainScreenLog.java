@@ -8,6 +8,8 @@ package doutorado.tese.visao.teste;
 import doutorado.tese.controle.mb.testelaboratorioMB.LoggerMB;
 import doutorado.tese.controle.mb.testelaboratorioMB.PerguntaMB;
 import doutorado.tese.controle.negocio.teste.ManipuladorLog;
+import doutorado.tese.modelo.teste.PerguntasTesteEnum;
+import doutorado.tese.modelo.teste.PerguntasTreinamentoEnum;
 import doutorado.tese.util.ColunasLog;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -273,7 +275,7 @@ public class MainScreenLog extends javax.swing.JFrame {
         textoPergunta.setText("");
         submit_Button.setEnabled(false);
         if (treinamentoRadioButton.isSelected()) {
-            if (contQuestaoTreinamento > 9) {
+            if (contQuestaoTreinamento > PerguntasTreinamentoEnum.values().length-1) {
                 updateSubmitLog();
                 int resposta = JOptionPane.showConfirmDialog(this, "Você gostaria de continuar?");
                 if (resposta == JOptionPane.YES_OPTION) {
@@ -288,7 +290,7 @@ public class MainScreenLog extends javax.swing.JFrame {
             }
         } else {
             updateSubmitLog();
-            if (contQuestaoTeste > 11) {
+            if (contQuestaoTeste > PerguntasTesteEnum.values().length-1) {
                 next_Button.setEnabled(false);
                 LoggerMB.salvarLog();
                 textoPergunta.setText("Fim do teste. Obrigado!");
