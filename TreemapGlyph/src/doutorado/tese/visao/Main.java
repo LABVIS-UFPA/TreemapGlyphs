@@ -1285,7 +1285,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         visualizationTreemap = new VisualizationsArea(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
                 manipulador, itemTamanho, itensHierarquia, itemLegenda, itemCor, itensDetalhes, () -> {
                 });
-
+        Constantes.QUANT_HIERARQUIAS = itensHierarquia.length;
         painelEsquerda.add(layerPane);
         view = visualizationTreemap.getView();
         layerPane.setBounds(view.getBounds());

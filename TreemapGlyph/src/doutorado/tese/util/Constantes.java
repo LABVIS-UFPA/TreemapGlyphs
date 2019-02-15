@@ -37,6 +37,7 @@ public class Constantes {
     public static final int AREA_NUMERO = 14;//NA - NUMBER AREA
     public static final int PRESENTE = 1;
     public static final int AUSENTE = 0;
+    public static int QUANT_HIERARQUIAS = 0;
     
 //    private static Color[] cores = {Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
     private static String[] corTreemap = {
