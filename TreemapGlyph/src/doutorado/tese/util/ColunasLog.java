@@ -19,10 +19,10 @@ public enum ColunasLog {
     TIMESTAMP_FIM(6),    
     TIMESTAMP_QUANDO_CLICOU(7),
     ID_TREEMAP_ITEM(8),
-    SELECIONADO(9),
+    SELECIONADO(9),//(true/false)
     TREEMAP_LABEL(10),
-    RESPOSTA_CORRETA(11),
-    QUESTAO_CORRETA(11);
+    RESPOSTA_CORRETA(11),//se a resposta do usuario esta correta ou nao (true/false)
+    QUESTAO_CORRETA(12);//se o usuario acertou ou nao a tarefa (true/false)
     
     private int id;
     

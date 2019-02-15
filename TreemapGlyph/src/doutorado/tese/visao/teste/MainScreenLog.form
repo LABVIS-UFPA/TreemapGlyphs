@@ -59,30 +59,38 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="fundoPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="submit_Button" min="-2" max="-2" attributes="0"/>
+              <Component id="respostaUsuarioExtraComboBox" min="-2" pref="88" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jSeparator1" min="-2" pref="11" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="submit_Button" min="-2" pref="65" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="next_Button" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="start_Button" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="treinamentoRadioButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="testeRadioButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="9" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="submit_Button" alignment="0" max="32767" attributes="0"/>
-          <Component id="next_Button" alignment="0" max="32767" attributes="0"/>
-          <Component id="start_Button" alignment="0" max="32767" attributes="0"/>
-          <Group type="102" attributes="0">
-              <Component id="fundoPanel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+              <Component id="treinamentoRadioButton" alignment="3" max="32767" attributes="0"/>
+              <Component id="start_Button" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+              <Component id="testeRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="next_Button" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
           </Group>
-          <Component id="treinamentoRadioButton" alignment="0" max="32767" attributes="0"/>
-          <Component id="testeRadioButton" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="fundoPanel" min="-2" max="-2" attributes="0"/>
+          </Group>
+          <Component id="jSeparator1" max="32767" attributes="0"/>
+          <Component id="respostaUsuarioExtraComboBox" alignment="1" max="32767" attributes="0"/>
+          <Component id="submit_Button" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -124,7 +132,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="...."/>
+            <Property name="text" type="java.lang.String" value="..."/>
           </Properties>
         </Component>
       </SubComponents>
@@ -171,6 +179,23 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="testeRadioButtonActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="respostaUsuarioExtraComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="1">
+            <StringItem index="0" value="Sua resposta"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JSeparator" name="jSeparator1">
+      <Properties>
+        <Property name="orientation" type="int" value="1"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

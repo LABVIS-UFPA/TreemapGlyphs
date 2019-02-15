@@ -71,7 +71,7 @@ public class Escritor {
         File[] listFiles = listOnlyFiles(folderParent);
         for (File arquivo : listFiles) {
             String name = arquivo.getName();
-            System.out.println("Original: " + name);
+//            System.out.println("Original: " + name);
             File newCopiedFile = new File("logs\\" + name);
             try {
                 Files.copy(arquivo.toPath(), newCopiedFile.toPath());
@@ -80,7 +80,7 @@ public class Escritor {
             }
             File renamedFile = new File("treemap_log.txt");
             boolean renameTo = arquivo.renameTo(renamedFile);
-            System.out.println("renomeou: " + renameTo);
+//            System.out.println("renomeou: " + renameTo);
         }
     }
 

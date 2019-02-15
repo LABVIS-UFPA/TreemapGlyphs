@@ -16,6 +16,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,7 +116,7 @@ public class GlassPanelClick extends JPanel {
     }
 
     private void mouseClicando() {
-        clicou = true;
+        clicou = true;        
         if (LoggerMB.getColunaLog() != null) {
             LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = System.currentTimeMillis() + "";
             LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = LocalDateTime.now() + "";

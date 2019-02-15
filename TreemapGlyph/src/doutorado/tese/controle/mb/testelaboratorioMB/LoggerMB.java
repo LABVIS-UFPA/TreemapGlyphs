@@ -33,6 +33,7 @@ public class LoggerMB {
             bufferLogTeste = new StringBuilder();
             buffer = getBufferLogTeste();
         }
+        
         getBuffer().append(ColunasLog.ID_TAREFA.name()).append("\t")
                 .append(ColunasLog.TEMPO_INICIO.name()).append("\t")
                 .append(ColunasLog.TEMPO_FINAL.name()).append("\t")
@@ -45,7 +46,7 @@ public class LoggerMB {
                 .append(ColunasLog.SELECIONADO.name()).append("\t")
                 .append(ColunasLog.TREEMAP_LABEL.name()).append("\t")
                 .append(ColunasLog.RESPOSTA_CORRETA.name()).append("\t")
-                .append("\n");
+                .append(ColunasLog.QUESTAO_CORRETA.name()).append("\n");
     }
 
     public static void addNewLineLog() {
@@ -61,7 +62,7 @@ public class LoggerMB {
                 .append(colunaLog[ColunasLog.SELECIONADO.getId()]).append("\t")
                 .append(colunaLog[ColunasLog.TREEMAP_LABEL.getId()]).append("\t")
                 .append(colunaLog[ColunasLog.RESPOSTA_CORRETA.getId()]).append("\t")
-                .append("\n");
+                .append(colunaLog[ColunasLog.QUESTAO_CORRETA.getId()]).append("\n");
 //        System.out.println(getBuffer().toString());
     }
 

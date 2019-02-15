@@ -8,7 +8,6 @@ package doutorado.tese.controle.negocio.teste;
 import doutorado.tese.modelo.TreeMapItem;
 import doutorado.tese.modelo.TreeMapLevel;
 import doutorado.tese.modelo.TreeMapNode;
-import doutorado.tese.util.Conversor;
 import doutorado.tese.util.io.Leitor;
 import java.io.File;
 import java.util.ArrayList;
@@ -52,21 +51,35 @@ public class ManipuladorLog {
                 try {
                     if (Integer.parseInt(resposta) == node.getId()) {
                         respostaCorreta = true;
-                        System.out.println("Encontrou resposta certa: " + node.getId());
+//                        System.out.println("Encontrou resposta certa: " + node.getId());
                         break;
                     }
                 } catch (NumberFormatException e) {
                     respostaCorreta = false;
-                    System.out.println("Encontrou resposta ERRADA: Aguardava " + resposta);
+//                    System.out.println("Encontrou resposta ERRADA: Aguardava " + resposta);
                 }
             } else {
                 TreeMapLevel node = (TreeMapLevel) nodeClicado;
                 if (resposta.equalsIgnoreCase(node.getLabel())) {
                     respostaCorreta = true;
-                    System.out.println("Encontrou resposta certa: " + node.getLabel());
+//                    System.out.println("Encontrou resposta certa: " + node.getLabel());
                 }
             }
         }
+        return respostaCorreta;
+    }
+    
+    public static boolean verificarResposta(String resposta, int idTarefa){
+        boolean respostaCorreta = false;
+        
+        String[] respostasGabarito = getMapaGabarito().get(idTarefa).split(",");
+
+        for (String r : respostasGabarito) {
+            if (resposta.equalsIgnoreCase(r)) {
+                respostaCorreta = true;
+            }
+        }
+        
         return respostaCorreta;
     }
 
@@ -83,16 +96,16 @@ public class ManipuladorLog {
                 gabaritoList.forEach((resposta) -> {
                     gabaritoIds.add(Long.parseLong(resposta));
                 });
-                System.out.println("respostasLong: " + gabaritoIds.toString());
-                System.out.println("respostaUsuarioTemp: " + respostaUsuarioTemp.toString());
+//                System.out.println("respostasLong: " + gabaritoIds.toString());
+//                System.out.println("respostaUsuarioTemp: " + respostaUsuarioTemp.toString());
                 questaoCorreta = respostaUsuarioTemp.containsAll(gabaritoIds);
             } catch (NumberFormatException e) {
-                System.out.println("respostasLong: " + gabaritoList.toString());
-                System.out.println("respostaUsuarioTemp: " + respostaUsuarioTemp.toString());
+//                System.out.println("respostasLong: " + gabaritoList.toString());
+//                System.out.println("respostaUsuarioTemp: " + respostaUsuarioTemp.toString());
                 questaoCorreta = respostaUsuarioTemp.containsAll(gabaritoList);
             }
         }
-        System.out.println("Questao correta: " + questaoCorreta);
+//        System.out.println("Questao correta: " + questaoCorreta);
         return questaoCorreta;
     }
 

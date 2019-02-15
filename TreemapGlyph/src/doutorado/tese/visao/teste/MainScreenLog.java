@@ -14,6 +14,9 @@ import doutorado.tese.util.ColunasLog;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import java.time.LocalDateTime;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -27,10 +30,12 @@ public class MainScreenLog extends javax.swing.JFrame {
     private int contQuestaoTeste = 0;
 //    private LoggerMB loggerMB;
     private String[] colunaLog;
+    private String[] itens;
 
     public MainScreenLog() {
         initComponents();
         perguntaMB = new PerguntaMB();
+        respostaUsuarioExtraComboBox.setVisible(false);
     }
 
     /**
@@ -52,6 +57,8 @@ public class MainScreenLog extends javax.swing.JFrame {
         submit_Button = new javax.swing.JButton();
         treinamentoRadioButton = new javax.swing.JRadioButton();
         testeRadioButton = new javax.swing.JRadioButton();
+        respostaUsuarioExtraComboBox = new javax.swing.JComboBox<>();
+        jSeparator1 = new javax.swing.JSeparator();
 
         fecharMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-close-window-17.png"))); // NOI18N
         fecharMenuItem.setText("Close");
@@ -89,7 +96,7 @@ public class MainScreenLog extends javax.swing.JFrame {
         });
 
         textoPergunta.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        textoPergunta.setText("....");
+        textoPergunta.setText("...");
 
         javax.swing.GroupLayout fundoPanelLayout = new javax.swing.GroupLayout(fundoPanel);
         fundoPanel.setLayout(fundoPanelLayout);
@@ -140,6 +147,10 @@ public class MainScreenLog extends javax.swing.JFrame {
             }
         });
 
+        respostaUsuarioExtraComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sua resposta" }));
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,27 +158,34 @@ public class MainScreenLog extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(fundoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(submit_Button)
+                .addComponent(respostaUsuarioExtraComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(submit_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(next_Button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(start_Button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(treinamentoRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(testeRadioButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(treinamentoRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(start_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(testeRadioButton)
+                .addComponent(next_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(fundoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jSeparator1)
+            .addComponent(respostaUsuarioExtraComboBox, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(submit_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(next_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(start_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(fundoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(treinamentoRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(testeRadioButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -249,6 +267,18 @@ public class MainScreenLog extends javax.swing.JFrame {
         } else {
             updateNextLog(contQuestaoTeste);
             textoPergunta.setText(perguntaMB.getPerguntasTeste()[contQuestaoTeste].getTexto());
+
+            if (contQuestaoTeste == ((PerguntasTesteEnum.values().length / 2) - 3)) {//pergunta 4
+                respostaUsuarioExtraComboBox.setVisible(true);
+                itens = new String[]{"Responda","Ativou", "Nao ativou"};
+                atualizarComboBox(respostaUsuarioExtraComboBox, itens);
+            } else if (contQuestaoTeste == (PerguntasTesteEnum.values().length / 2)) {//pergunta 7
+                respostaUsuarioExtraComboBox.setVisible(true);
+                itens = new String[]{"Responda","Baixa", "Alta"};
+                atualizarComboBox(respostaUsuarioExtraComboBox, itens);
+            } else {
+                respostaUsuarioExtraComboBox.setVisible(false);
+            }
             contQuestaoTeste++;
         }
         next_Button.setEnabled(false);
@@ -267,15 +297,21 @@ public class MainScreenLog extends javax.swing.JFrame {
         LoggerMB.getColunaLog()[ColunasLog.ID_TREEMAP_ITEM.getId()] = "null";
         LoggerMB.getColunaLog()[ColunasLog.SELECIONADO.getId()] = "null";
         LoggerMB.getColunaLog()[ColunasLog.TREEMAP_LABEL.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = "null";
         LoggerMB.getColunaLog()[ColunasLog.QUESTAO_CORRETA.getId()] = "null";
         LoggerMB.addNewLineLog();
+    }
+
+    private void atualizarComboBox(JComboBox comboBox, String[] itens) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel(itens);
+        comboBox.setModel(model);
     }
 
     private void submit_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit_ButtonActionPerformed
         textoPergunta.setText("");
         submit_Button.setEnabled(false);
         if (treinamentoRadioButton.isSelected()) {
-            if (contQuestaoTreinamento > PerguntasTreinamentoEnum.values().length-1) {
+            if (contQuestaoTreinamento > PerguntasTreinamentoEnum.values().length - 1) {
                 updateSubmitLog();
                 int resposta = JOptionPane.showConfirmDialog(this, "Você gostaria de continuar?");
                 if (resposta == JOptionPane.YES_OPTION) {
@@ -290,7 +326,7 @@ public class MainScreenLog extends javax.swing.JFrame {
             }
         } else {
             updateSubmitLog();
-            if (contQuestaoTeste > PerguntasTesteEnum.values().length-1) {
+            if (contQuestaoTeste > PerguntasTesteEnum.values().length - 1) {
                 next_Button.setEnabled(false);
                 LoggerMB.salvarLog();
                 textoPergunta.setText("Fim do teste. Obrigado!");
@@ -306,9 +342,23 @@ public class MainScreenLog extends javax.swing.JFrame {
         LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL_CALCULADO.getId()]
                 = (Long.parseLong(LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL.getId()])
                 - Long.parseLong(LoggerMB.getColunaLog()[ColunasLog.TEMPO_INICIO.getId()])) + "";
-        LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = "null";
-        LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = "null";
-        LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = "null";
+        if ((contQuestaoTeste - 1) == ((PerguntasTesteEnum.values().length / 2) - 3)) {//pergunta 4
+            String respostaUsuario = respostaUsuarioExtraComboBox.getSelectedItem().toString();
+            LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = ManipuladorLog.verificarResposta(respostaUsuario, contQuestaoTeste) + "";
+            LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = System.currentTimeMillis() + "";
+            LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = LocalDateTime.now() + "";
+            ManipuladorLog.getRespostaUsuarioTemp().add(respostaUsuario);
+        } else if ((contQuestaoTeste - 1) == (PerguntasTesteEnum.values().length / 2)) {//pergunta 7
+            String respostaUsuario = respostaUsuarioExtraComboBox.getSelectedItem().toString();
+            LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = ManipuladorLog.verificarResposta(respostaUsuario, contQuestaoTeste) + "";
+            LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = System.currentTimeMillis() + "";
+            LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = LocalDateTime.now() + "";
+            ManipuladorLog.getRespostaUsuarioTemp().add(respostaUsuario);
+        } else {
+            LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = "null";
+            LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = "null";
+            LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = "null";
+        }
         LoggerMB.getColunaLog()[ColunasLog.ID_TREEMAP_ITEM.getId()] = "null";
         LoggerMB.getColunaLog()[ColunasLog.SELECIONADO.getId()] = "null";
         LoggerMB.getColunaLog()[ColunasLog.TREEMAP_LABEL.getId()] = "null";
@@ -361,7 +411,9 @@ public class MainScreenLog extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JMenuItem fecharMenuItem;
     private javax.swing.JPanel fundoPanel;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton next_Button;
+    private javax.swing.JComboBox<String> respostaUsuarioExtraComboBox;
     private javax.swing.JButton start_Button;
     private javax.swing.JButton submit_Button;
     private javax.swing.JRadioButton testeRadioButton;
