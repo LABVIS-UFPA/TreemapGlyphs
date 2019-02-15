@@ -41,6 +41,35 @@ public class ManipuladorLog {
         }
     }
 
+    public static boolean verificarResposta(TreeMapNode nodeClicado, String respostaCombo, int idTarefa) {
+        boolean respostaCorreta = false;
+        String[] respostasGabarito = getMapaGabarito().get(idTarefa).split(",");
+
+        for (String resposta : respostasGabarito) {
+            if (!respostaCombo.isEmpty()) {
+                if (resposta.equalsIgnoreCase(respostaCombo)) {
+                    respostaCorreta = true;
+                }
+            } else if (nodeClicado instanceof TreeMapItem) {
+                TreeMapItem node = (TreeMapItem) nodeClicado;
+                try {
+                    if (Integer.parseInt(resposta) == node.getId()) {
+                        respostaCorreta = true;
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    respostaCorreta = false;
+                }
+            } else {
+                TreeMapLevel node = (TreeMapLevel) nodeClicado;
+                if (resposta.equalsIgnoreCase(node.getLabel())) {
+                    respostaCorreta = true;
+                }
+            }
+        }
+        return respostaCorreta;
+    }
+
     public static boolean verificarResposta(TreeMapNode nodeClicado, int idTarefa) {
         boolean respostaCorreta = false;
         String[] respostasGabarito = getMapaGabarito().get(idTarefa).split(",");
@@ -68,10 +97,10 @@ public class ManipuladorLog {
         }
         return respostaCorreta;
     }
-    
-    public static boolean verificarResposta(String resposta, int idTarefa){
+
+    public static boolean verificarResposta(String resposta, int idTarefa) {
         boolean respostaCorreta = false;
-        
+
         String[] respostasGabarito = getMapaGabarito().get(idTarefa).split(",");
 
         for (String r : respostasGabarito) {
@@ -79,7 +108,7 @@ public class ManipuladorLog {
                 respostaCorreta = true;
             }
         }
-        
+
         return respostaCorreta;
     }
 
@@ -87,24 +116,30 @@ public class ManipuladorLog {
         boolean questaoCorreta = false;
 
         String[] gabarito = getMapaGabarito().get(idTarefa).split(",");
-        List<Long> gabaritoIds = new ArrayList<>();
+//        List<Long> gabaritoIds = new ArrayList<>();
         List<String> gabaritoList = new ArrayList();
         gabaritoList.addAll(Arrays.asList(gabarito));
-
-        if (gabaritoList.size() == respostaUsuarioTemp.size()) {
-            try {
-                gabaritoList.forEach((resposta) -> {
-                    gabaritoIds.add(Long.parseLong(resposta));
-                });
-//                System.out.println("respostasLong: " + gabaritoIds.toString());
-//                System.out.println("respostaUsuarioTemp: " + respostaUsuarioTemp.toString());
-                questaoCorreta = respostaUsuarioTemp.containsAll(gabaritoIds);
-            } catch (NumberFormatException e) {
-//                System.out.println("respostasLong: " + gabaritoList.toString());
-//                System.out.println("respostaUsuarioTemp: " + respostaUsuarioTemp.toString());
-                questaoCorreta = respostaUsuarioTemp.containsAll(gabaritoList);
-            }
+        List<String> respostasUsuario = new ArrayList<>();
+        respostaUsuarioTemp.forEach((obj) -> {
+            respostasUsuario.add(obj.toString());
+        });
+        if (gabaritoList.size() == respostasUsuario.size()) {
+            questaoCorreta = respostasUsuario.containsAll(gabaritoList);
         }
+//        if (gabaritoList.size() == respostaUsuarioTemp.size()) {
+//            try {
+//                gabaritoList.forEach((resposta) -> {
+//                    gabaritoIds.add(Long.parseLong(resposta));
+//                });
+////                System.out.println("respostasLong: " + gabaritoIds.toString());
+////                System.out.println("respostaUsuarioTemp: " + respostaUsuarioTemp.toString());
+//                questaoCorreta = respostaUsuarioTemp.containsAll(gabaritoIds);
+//            } catch (NumberFormatException e) {
+////                System.out.println("respostasLong: " + gabaritoList.toString());
+////                System.out.println("respostaUsuarioTemp: " + respostaUsuarioTemp.toString());
+//                questaoCorreta = respostaUsuarioTemp.containsAll(gabaritoList);
+//            }
+//        }
 //        System.out.println("Questao correta: " + questaoCorreta);
         return questaoCorreta;
     }

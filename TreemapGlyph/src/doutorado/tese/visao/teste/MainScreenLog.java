@@ -348,12 +348,14 @@ public class MainScreenLog extends javax.swing.JFrame {
             LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = System.currentTimeMillis() + "";
             LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = LocalDateTime.now() + "";
             ManipuladorLog.getRespostaUsuarioTemp().add(respostaUsuario);
+            respostaUsuarioExtraComboBox.setVisible(false);
         } else if ((contQuestaoTeste - 1) == (PerguntasTesteEnum.values().length / 2)) {//pergunta 7
             String respostaUsuario = respostaUsuarioExtraComboBox.getSelectedItem().toString();
             LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = ManipuladorLog.verificarResposta(respostaUsuario, contQuestaoTeste) + "";
             LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = System.currentTimeMillis() + "";
             LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = LocalDateTime.now() + "";
             ManipuladorLog.getRespostaUsuarioTemp().add(respostaUsuario);
+            respostaUsuarioExtraComboBox.setVisible(false);
         } else {
             LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = "null";
             LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = "null";

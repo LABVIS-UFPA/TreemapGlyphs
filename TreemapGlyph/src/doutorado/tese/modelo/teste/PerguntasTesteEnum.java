@@ -13,7 +13,7 @@ public enum PerguntasTesteEnum {
     Q1("Localize a região em que houve o registro de apenas uma chuva ácida com temperatura baixa."),//categorica
     Q2("Localize as três regiões com mais registros de chuva ácida."),//categorica
     Q3("Localize a região em que registrou a ocorrência de apenas um furacão."),//categorica
-    Q4("Encontre o registro de furação no nordeste e descubra se o alerta da defesa civil foi ativado."),//categorica
+    Q4("Encontre (Clique) o registro de furação no nordeste e descubra se o alerta da defesa civil foi ativado."),//categorica
     Q5("Localize a região que ocorreu o registro de chuva base com ventos massivos e que tenham ativado o alerta da defesa civil."),//categorica
     Q6("Na região norte, encontre o registro de furacão que ativou a defesa civil com chuva de PH básico e temperatura baixa."),//categorica
     Q7("Qual o padrão na Intensidade do vento na localidade Rural da região centro-oeste?"),//categorica e continua
