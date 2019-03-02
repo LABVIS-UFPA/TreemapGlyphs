@@ -33,11 +33,13 @@ import javax.swing.text.StyleContext;
  */
 public class LegendaVisualizacao {
 
-    ArrayList<Object> atributosEscolhidosGlyph;
-    private Rectangle bounds;
-    private ArrayList<String> listaContinuos;
+    ArrayList<Object> atributosEscolhidosGlyph = null;
+    private Rectangle bounds = null;
+    private ArrayList<String> listaContinuos = null;
 
     public LegendaVisualizacao(Rectangle bound) {
+        this.bounds = null;
+        this.listaContinuos = null;
         setBounds(bound);
     }
 

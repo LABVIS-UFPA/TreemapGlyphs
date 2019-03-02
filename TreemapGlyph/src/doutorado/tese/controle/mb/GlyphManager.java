@@ -65,6 +65,7 @@ public final class GlyphManager {
     private String glyphContinuoEscolhido;
 
     public GlyphManager() {
+        System.gc();
         this.configs = new HashMap<>();
     }
 

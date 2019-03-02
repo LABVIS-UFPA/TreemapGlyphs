@@ -38,13 +38,13 @@ public class IconeLegenda implements Icon {
     private int width = 32;
     private int height = 32;
     private int dimensao;
-    private String valor;
+    private String valor = null;
     private double maxValorContIcon;
     private double minValorContIcon;
 
     private BasicStroke stroke = new BasicStroke(4);
-    private FORMAS.GLYPH_FORMAS valorForma;
-    private List<String> atributosEscolhidosGlyphContinuo;
+    private FORMAS.GLYPH_FORMAS valorForma = null;
+    private List<String> atributosEscolhidosGlyphContinuo = null;
 
     public void paintIcon(Component c, Graphics g, int x, int y) {
         Graphics2D g2d = (Graphics2D) g.create();
@@ -132,7 +132,7 @@ public class IconeLegenda implements Icon {
                 break;
             case 5:
                 if (valor==null) {
-                    System.out.println(getAtributosEscolhidosGlyphContinuo());
+//                    System.out.println(getAtributosEscolhidosGlyphContinuo());
                     BarChart bar = new BarChart(getAtributosEscolhidosGlyphContinuo());
                     bar.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
                     bar.setPectSobreposicao(0.85f);

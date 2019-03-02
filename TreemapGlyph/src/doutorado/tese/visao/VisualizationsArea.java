@@ -46,12 +46,12 @@ public class VisualizationsArea {
 
     private static final Logger logger = LogManager.getLogger(VisualizationsArea.class);
     private final ManipuladorArquivo manipulador;
-    private Queue<String> hierarquiaFila;
+    private Queue<String> hierarquiaFila = null;
     private String labelColumn = "";
-    private TreeMapNode root;
-    private TreeMapNode fixedRoot;
+    private TreeMapNode root = null;
+    private TreeMapNode fixedRoot = null;
     boolean call = false;
-    private List<TreeMapNode> listClickedItems;
+    private List<TreeMapNode> listClickedItems = null;
 
 //variaveis para a API do Treemap
     private TMModelNode modelTree = null; // the model of the demo tree
@@ -60,13 +60,26 @@ public class VisualizationsArea {
     private TMModel_Draw cDraw = null;
     private TMModel_Size cSize = null;
 //    private String itemCor;
-    private String[] colunasDetalhesDemanda;
-    private TreeMapNode itemRespostaUsuario;
-    private List<TreeMapNode> respostasUsuario;
+    private String[] colunasDetalhesDemanda =null;
+    private TreeMapNode itemRespostaUsuario = null;
+    private List<TreeMapNode> respostasUsuario= null;
 
     public VisualizationsArea(int w, int h, ManipuladorArquivo manipulador,
             String itemTamanho, String[] itensHierarquia, String itemLegenda, String itemCor, String[] itensDetalhes,
             FinishedSetupCallBack callback) {
+
+        System.gc();
+        this.hierarquiaFila = null;
+        this.respostasUsuario = null;
+        this.listClickedItems = null;
+        root = null;
+        fixedRoot = null;
+        modelTree = null;
+        treeMap = null;
+        cSize = null;
+        cDraw = null;
+        this.view = null;
+        
         this.manipulador = manipulador;
         this.hierarquiaFila = new LinkedList<>();
         this.respostasUsuario = new ArrayList<>();
@@ -106,6 +119,7 @@ public class VisualizationsArea {
                         }
                     }).start();
                 }
+//                System.gc();
             }
         });
         TMThreadModel.listeners.add(listener);
@@ -153,7 +167,7 @@ public class VisualizationsArea {
         }
     }
 
-    private void highLightTreemapLevel(TreeMapLevel node) {
+    private void highLightTreemapLevel(TreeMapLevel node) { 
         if (node.isHighLighted()) {
             node.setHighLight(false);
             getNodosSelecionadosUsuario().remove(node);
@@ -173,7 +187,7 @@ public class VisualizationsArea {
         }
     }
 
-    public void changeHighLight(TreeMapNode nodeUnderTheMouse) {
+    public void changeHighLight(TreeMapNode nodeUnderTheMouse) {  
         if (nodeUnderTheMouse instanceof TreeMapItem) {
             TreeMapItem node = (TreeMapItem) nodeUnderTheMouse;
             highLightTreemapItem(node);

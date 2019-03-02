@@ -74,7 +74,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             logger.info(Main.class.getName());//.log(Level.SEVERE, null, ex);
         }
         initComponents();
-//        separadorEsqueDir_jSplitPane.setDividerLocation(2000);
+       //zerando
+        layerPane = null;
+        atributosEscolhidosGlyph = null;
+        legendaVisualizacao = null;
+        cenario = null;
+        
+
+
         layerPane = new JLayeredPane();
         atributosEscolhidosGlyph = new ArrayList<>();
 
@@ -1124,6 +1131,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_atributo1GlyphItemStateChanged
 
     private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
+        System.gc (); 
+
+        //zerando tudo
+        variaveisVisuaisEscolhidas = null;
         //acoes para configurar os glyphs
 
         variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
@@ -1141,6 +1152,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         atualizarLegendaGlyphs(atributosEscolhidosGlyph);
     }//GEN-LAST:event_botaoGerarGlyphsActionPerformed
     private void checkCategoricalGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCategoricalGlyphActionPerformed
+        //zerando
+          glyphPanel = null;
+
         if (checkCategoricalGlyph.isSelected()) {
             Constantes.setShowGlyph(true);
             glyphPanel = new GlassPanel();
@@ -1279,8 +1293,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_colunasHierarquicasList1ValueChanged
 
     private void botaoGerarVisualizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarVisualizacaoActionPerformed
+        System.gc();
         limparPainelEsquerda();
         loadSetupTreemap();
+        //zerando tudo
+        visualizationTreemap= null;
+        view = null;
+          
+
+        atualizarLegendaTreemap(itemCor);
+        progressoBarra.setVisible(false);
+        checkCategoricalGlyph.setEnabled(true);
+        checkContinuousGlyph.setEnabled(true);
 
         visualizationTreemap = new VisualizationsArea(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
                 manipulador, itemTamanho, itensHierarquia, itemLegenda, itemCor, itensDetalhes, () -> {
@@ -1296,7 +1320,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         checkContinuousGlyph.setEnabled(true);
 
         limparCacheGlyphs();
-
+        clickPanel = null;
         clickPanel = new GlassPanelClick();
         clickPanel.setTMView(view);
         clickPanel.setListaItensClicados(visualizationTreemap.getNodosSelecionadosUsuario());
@@ -1549,6 +1573,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_corTreemapComboBoxActionPerformed
 
     private void checkContinuousGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkContinuousGlyphActionPerformed
+        System.gc();
         if (checkContinuousGlyph.isSelected()) {
             Constantes.setShowGlyph(true);
             glyphContinuosType.setEnabled(true);
@@ -1638,6 +1663,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_listaAtributosContinuousGlyph2ValueChanged
 
     private void botaoGerarContinuosGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarContinuosGlyphsActionPerformed
+        System.gc (); 
         glyphPanel.setManipulador(manipulador);
         glyphPanel.setContinuousGlyphActivated(checkContinuousGlyph.isSelected());
 
