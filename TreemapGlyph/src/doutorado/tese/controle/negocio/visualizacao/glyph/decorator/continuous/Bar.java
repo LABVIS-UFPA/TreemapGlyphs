@@ -17,19 +17,19 @@ import javax.swing.JPanel;
 
 public class Bar extends JPanel {
     
-    private Rectangle rect;
-    private Point center;
+    private Rectangle rect = null;
+    private Point center= null;
     private double dadoMaxVal;
     private double dadoMinVal;
     private double dado;
-    private double[] values;
+    private double[] values = null;
     private int valueX;
     private int valueY;
     private int barWidth;
     private int height;
-    int [] lineTop;
-    int [] lineCenter;
-    int [] lineButton;
+    int [] lineTop = null;
+    int [] lineCenter = null;
+    int [] lineButton = null;
 
     public Bar(double dado, double dadoMaxVal) {
         this.dado = dado;
@@ -37,14 +37,6 @@ public class Bar extends JPanel {
         this.dadoMaxVal = dadoMaxVal;
     }
 
-    public void paint(Graphics2D g2d) {
-//        desenharBarChart(g2d);
-
-        //g2d.setColor(Color.yellow);
-        //g2d.fillRect(rect.x, rect.y, rect.width/8, rect.height/4);
-    }
-
-    
 
     /**
      * @return the center
