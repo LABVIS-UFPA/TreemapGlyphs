@@ -9,7 +9,6 @@ import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
 import java.awt.BasicStroke;
-//import io.ManipuladorArquivo;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -17,7 +16,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.util.List;
-//import util.Constantes;
 
 /**
  *
@@ -92,12 +90,6 @@ public class StarGlyph extends Glyph {
                 g2d.setStroke(new BasicStroke(0.1f));
             }
         }
-
-//        if (getQuantVar() != 0) {
-////            anguloAcc = 360 / getQuantVar();
-////            anguloAlfa = 0;
-//            for (int i = 0; i < getQuantVar(); i++) {
-//
     }
 
     private Point getCenter() {

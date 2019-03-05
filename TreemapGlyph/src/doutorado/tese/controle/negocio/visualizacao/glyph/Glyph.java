@@ -102,7 +102,7 @@ public abstract class Glyph implements Cloneable {
         }
     }
 
-    protected void verificarRetangulo(int[] point) {
+    protected void transformarRetanguloEmQuadrado(int[] point) {
         if (point[0] > point[1]) {
             point[0] = point[1];
         } else if (point[0] < point[1]) {

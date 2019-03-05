@@ -10,15 +10,12 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
 //import io.ManipuladorArquivo;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
-import java.awt.geom.Arc2D;
 import java.util.List;
 //import util.Constantes;
 
@@ -26,7 +23,7 @@ import java.util.List;
  *
  * @author Anderson
  */
-public class PieChart extends Glyph {
+public class PieChartGlyph extends Glyph {
 
     private Rectangle rect;
     private int quantVar;
@@ -49,7 +46,7 @@ public class PieChart extends Glyph {
     private float panelWidth;
     private float panelHeight;
 
-    public PieChart(List<String> variaveisEscolhidasStarGlyph) {
+    public PieChartGlyph(List<String> variaveisEscolhidasStarGlyph) {
         this.atributosEscolhidaoBase = variaveisEscolhidasStarGlyph;
         slice = new Slice[this.atributosEscolhidaoBase.size()];
     }

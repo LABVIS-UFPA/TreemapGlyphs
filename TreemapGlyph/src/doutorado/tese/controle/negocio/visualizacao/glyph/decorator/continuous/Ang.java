@@ -5,15 +5,9 @@
  */
 package doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.geom.Arc2D;
-import java.util.HashSet;
 import javax.swing.JPanel;
 
 /**
@@ -21,7 +15,7 @@ import javax.swing.JPanel;
  * @author LABVIS
  */
 
-public class Ang extends JPanel {
+public class Ang {
    
     private Rectangle rect;
     private Point center;

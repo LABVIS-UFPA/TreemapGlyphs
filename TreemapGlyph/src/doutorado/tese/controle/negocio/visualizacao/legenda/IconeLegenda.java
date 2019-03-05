@@ -14,9 +14,7 @@ import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisu
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.Bar;
-import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.BarChart;
-import doutorado.tese.dao.ManipuladorArquivo;
-import doutorado.tese.modelo.Coluna;
+import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.util.ColorInterpolator;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -26,7 +24,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.List;
-import static javafx.scene.paint.Color.color;
 import javax.swing.Icon;
 
 /**
@@ -133,18 +130,19 @@ public class IconeLegenda implements Icon {
             case 5:
                 if (valor==null) {
 //                    System.out.println(getAtributosEscolhidosGlyphContinuo());
-                    BarChart bar = new BarChart(getAtributosEscolhidosGlyphContinuo());
+                    ProfileGlyph bar = new ProfileGlyph(getAtributosEscolhidosGlyphContinuo());
                     bar.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
                     bar.setPectSobreposicao(0.85f);
                     bar.setOverlappingActivated(true);
                     for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
-                        String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
-                        Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
+//                        String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
+//                        Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
                         double dado = 10;
                         double dadoMaxVal = 10;//0 - maxValue; 1 - minValue
                         bar.getBarras()[i] = new Bar(dado, dadoMaxVal);
                     }   
-                    Rectangle r = new Rectangle(10,10,bounds.width*5,bounds.height*5);
+//                    Rectangle r = new Rectangle(10,10,bounds.width*5,bounds.height*5);
+                    Rectangle r = new Rectangle(10,10,bounds.width*3,bounds.height*4);
                     
                     bar.setBounds(r);
                     bar.paint(g2d);

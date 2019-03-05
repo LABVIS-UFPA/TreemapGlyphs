@@ -10,10 +10,7 @@ import doutorado.tese.controle.mb.GlyphManager;
 import doutorado.tese.modelo.TreeMapItem;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -66,12 +63,6 @@ public class GlassPanel extends JPanel {
 //            }
 //
 //        });
-
-    }
-
-    private void mouseClicando() {
-        graphicsGlobal.setColor(Color.red);
-        graphicsGlobal.fillRect(100, 100, 200, 200);
 
     }
 

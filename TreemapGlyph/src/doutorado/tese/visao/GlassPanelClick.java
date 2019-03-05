@@ -5,7 +5,6 @@
  */
 package doutorado.tese.visao;
 
-import doutorado.tese.controle.mb.GlyphManager;
 import doutorado.tese.controle.mb.testelaboratorioMB.LoggerMB;
 import doutorado.tese.modelo.TreeMapNode;
 import doutorado.tese.util.ColunasLog;
@@ -33,15 +32,11 @@ import net.bouthier.treemapAWT.TMView;
 public class GlassPanelClick extends JPanel {
 
     private TMView view;
-    private GlyphManager glyphManager;
     public JButton teste;
-    private Graphics graphicsGlobal;
     private boolean clicou = false;
     private List<TreeMapNode> listClick;
     private OnClick onClickListener;
     private OnMouseOver itemDetailsOnDemand;
-//    private LoggerMB loggerMB;
-    private String[] posicaoLog;
 
     /**
      * Construtor chamado ao selecionar o checkbox indicando que os glyphs serao
@@ -142,14 +137,13 @@ public class GlassPanelClick extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-//        graphicsGlobal = g;
         g2d.setColor(new Color(0, 255, 0, 0));//painel com fundo transparente
         setBounds(view.getBounds());
         Rectangle r = getBounds();
         g2d.fillRect(r.x, r.y, r.width, r.height);
         if (clicou) {
             for (TreeMapNode treeMapNode : listClick) {
-                treeMapNode.getBounds();
+//                treeMapNode.getBounds();
                 g2d.setColor(Color.BLACK);
                 g2d.drawRect(treeMapNode.getBounds().x + 4, treeMapNode.getBounds().y + 4,
                         treeMapNode.getBounds().width - 8, treeMapNode.getBounds().height - 8);

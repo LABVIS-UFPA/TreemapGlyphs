@@ -84,7 +84,7 @@ public class Letra extends Glyph {
         points[0] = getBounds().width;
         points[1] = getBounds().height;
 
-        verificarRetangulo(points);
+        transformarRetanguloEmQuadrado(points);
 
         int width = Math.round(points[0] * getPectSobreposicao());
         int height = Math.round(points[1] * getPectSobreposicao());
@@ -106,7 +106,7 @@ public class Letra extends Glyph {
     }
 
     @Override
-    public Shape getClipShape() {
+    public Shape getClipShape() {        
         if (isOverlappingActivated()) {
             return this.getBounds();
         } else {
@@ -153,6 +153,7 @@ public class Letra extends Glyph {
 
     public void setLetra(String letra) {
         this.letra = letra;
+//        shapeLetra = getShapeLetra(letra);
     }
 
     /**

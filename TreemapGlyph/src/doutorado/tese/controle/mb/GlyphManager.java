@@ -11,7 +11,7 @@ import doutorado.tese.modelo.Coluna;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.Bar;
-import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.BarChart;
+import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.color.Cor;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.letters.Letra;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.numbers.Numeral;
@@ -23,7 +23,7 @@ import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.AngChart;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.StarGlyph;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.EixoPolarStarGlyph;
-import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.PieChart;
+import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.PieChartGlyph;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.Slice;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
 import java.awt.Color;
@@ -59,7 +59,7 @@ public final class GlyphManager {
     private int quantValoresVarVisuais;
     private Rectangle bounds;
     private boolean overlappingActivated;
-    private boolean starGlyphActivated;
+    private boolean continuosGlyphActivated;
     private String numeroUtilizado;
     private List<String> atributosEscolhidosStarGlyph;
     private String glyphContinuoEscolhido;
@@ -199,7 +199,6 @@ public final class GlyphManager {
         Glyph father = item.getGlyph();
         father.killAllChild();
         String glyphContinuo = getGlyphContinuoEscolhido();
-        //System.out.println("+"+glyphContinuo[0]);
 
         for (int i = 0; i < getVariaveisVisuaisEscolhidas().length; i++) {
             String varVisual = getVariaveisVisuaisEscolhidas()[i];
@@ -207,7 +206,7 @@ public final class GlyphManager {
             Glyph child = setLayerInGlyph(varVisual, item, dimensao);
             father.appendChild(child);
             if (i == getVariaveisVisuaisEscolhidas().length - 1) {//se ja estiver na ultima camada
-                if (starGlyphActivated) {
+                if (continuosGlyphActivated) {
                     Glyph childStarGlyph = setLayerInGlyph(glyphContinuo, item, -1);
                     father.appendChild(childStarGlyph);
                 }
@@ -261,7 +260,7 @@ public final class GlyphManager {
                 glyph = configureStarGlyph(item);
                 break;
             case "Profile":
-                glyph = configureBarGlyph(item);
+                glyph = configureProfileGlyph(item);
                 break;
             case "Pie":
                 glyph = configureSliceGlyph(item);
@@ -277,12 +276,12 @@ public final class GlyphManager {
     }
 
     private Glyph configureSliceGlyph(TreeMapItem item) {
-        PieChart slice = new PieChart(getAtributosEscolhidosStarGlyph());
-        slice.setQuantVar(getAtributosEscolhidosStarGlyph().size());
+        PieChartGlyph slice = new PieChartGlyph(getAtributosEscolhidosGlyphContinuo());
+        slice.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
         slice.setPectSobreposicao(0.85f);
         slice.setOverlappingActivated(true);
-        for (int i = 0; i < getAtributosEscolhidosStarGlyph().size(); i++) {
-            String nomeColunaEscolhida = getAtributosEscolhidosStarGlyph().get(i);
+        for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
+            String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
             Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
             double dado = Double.parseDouble(item.getMapaDetalhesItem().get(coluna));
             double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
@@ -292,12 +291,12 @@ public final class GlyphManager {
     }
 
     private Glyph configureArcGlyph(TreeMapItem item) {
-        AngChart raio = new AngChart(getAtributosEscolhidosStarGlyph());
-        raio.setQuantVar(getAtributosEscolhidosStarGlyph().size());
+        AngChart raio = new AngChart(getAtributosEscolhidosGlyphContinuo());
+        raio.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
         raio.setPectSobreposicao(0.85f);
         raio.setOverlappingActivated(true);
-        for (int i = 0; i < getAtributosEscolhidosStarGlyph().size(); i++) {
-            String nomeColunaEscolhida = getAtributosEscolhidosStarGlyph().get(i);
+        for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
+            String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
             Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
             double dado = Double.parseDouble(item.getMapaDetalhesItem().get(coluna));
             double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
@@ -306,28 +305,28 @@ public final class GlyphManager {
         return raio;
     }
 
-    private Glyph configureBarGlyph(TreeMapItem item) {
-        BarChart bar = new BarChart(getAtributosEscolhidosStarGlyph());
-        bar.setQuantVar(getAtributosEscolhidosStarGlyph().size());
-        bar.setPectSobreposicao(0.85f);
-        bar.setOverlappingActivated(true);
-        for (int i = 0; i < getAtributosEscolhidosStarGlyph().size(); i++) {
-            String nomeColunaEscolhida = getAtributosEscolhidosStarGlyph().get(i);
+    private Glyph configureProfileGlyph(TreeMapItem item) {
+        ProfileGlyph profileGlyph = new ProfileGlyph(getAtributosEscolhidosGlyphContinuo());
+        profileGlyph.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
+        profileGlyph.setPectSobreposicao(0.85f);
+        profileGlyph.setOverlappingActivated(true);
+        for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
+            String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
             Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
             double dado = Double.parseDouble(item.getMapaDetalhesItem().get(coluna));
             double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
-            bar.getBarras()[i] = new Bar(dado, dadoMaxVal);
+            profileGlyph.getBarras()[i] = new Bar(dado, dadoMaxVal);
         }
-        return bar;
+        return profileGlyph;
     }
 
     private Glyph configureStarGlyph(TreeMapItem item) {
-        StarGlyph starGlyph = new StarGlyph(getAtributosEscolhidosStarGlyph());
-        starGlyph.setQuantVar(getAtributosEscolhidosStarGlyph().size());
+        StarGlyph starGlyph = new StarGlyph(getAtributosEscolhidosGlyphContinuo());
+        starGlyph.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
         starGlyph.setPectSobreposicao(0.85f);
         starGlyph.setOverlappingActivated(true);
-        for (int i = 0; i < getAtributosEscolhidosStarGlyph().size(); i++) {
-            String nomeColunaEscolhida = getAtributosEscolhidosStarGlyph().get(i);
+        for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
+            String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
             Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
             double dado = Double.parseDouble(item.getMapaDetalhesItem().get(coluna));
             double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
@@ -428,18 +427,16 @@ public final class GlyphManager {
 
     private Glyph defineShape(doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS.GLYPH_FORMAS forma) {
         Glyph glyph = new doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica();
-        doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica shape
-                = (doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica) glyph;
-        shape.setDrawBehavior(doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.
-                create(forma));
+        FormaGeometrica shape = (FormaGeometrica) glyph;
+        shape.setDrawBehavior(GeometryFactory.create(forma));
         shape.setPectSobreposicao(0.65f);
         shape.setOverlappingActivated(overlappingActivated);
         return glyph;
     }
 
     private Glyph defineLetter(String letter) {
-        Glyph glyph = new doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.letters.Letra();
-        doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.letters.Letra letra = (doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.letters.Letra) glyph;
+        Glyph glyph = new Letra();
+        Letra letra = (Letra) glyph;
         letra.setLetra(letter);
         letra.setPectSobreposicao(0.65f);
         letra.setOverlappingActivated(overlappingActivated);
@@ -534,23 +531,23 @@ public final class GlyphManager {
     }
 
     /**
-     * @return the starGlyphActivated
+     * @return the continuosGlyphActivated
      */
     public boolean isStarGlyphActivated() {
-        return starGlyphActivated;
+        return continuosGlyphActivated;
     }
 
     /**
-     * @param starGlyphActivated the starGlyphActivated to set
+     * @param starGlyphActivated the continuosGlyphActivated to set
      */
     public void setStarGlyphActivated(boolean starGlyphActivated) {
-        this.starGlyphActivated = starGlyphActivated;
+        this.continuosGlyphActivated = starGlyphActivated;
     }
 
     /**
      * @return the atributosEscolhidosStarGlyph
      */
-    public List<String> getAtributosEscolhidosStarGlyph() {
+    public List<String> getAtributosEscolhidosGlyphContinuo() {
         return atributosEscolhidosStarGlyph;
     }
 

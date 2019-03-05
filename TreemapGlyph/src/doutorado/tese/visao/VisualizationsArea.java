@@ -68,7 +68,6 @@ public class VisualizationsArea {
             String itemTamanho, String[] itensHierarquia, String itemLegenda, String itemCor, String[] itensDetalhes,
             FinishedSetupCallBack callback) {
 
-        System.gc();
         this.hierarquiaFila = null;
         this.respostasUsuario = null;
         this.listClickedItems = null;
@@ -79,6 +78,7 @@ public class VisualizationsArea {
         cSize = null;
         cDraw = null;
         this.view = null;
+        System.gc();
         
         this.manipulador = manipulador;
         this.hierarquiaFila = new LinkedList<>();
@@ -119,14 +119,11 @@ public class VisualizationsArea {
                         }
                     }).start();
                 }
-//                System.gc();
             }
         });
         TMThreadModel.listeners.add(listener);
         TMUpdaterConcrete.listeners.add(listener);
-
-        TMUpdaterConcrete.listeners.add(listener);
-
+        
         this.view.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

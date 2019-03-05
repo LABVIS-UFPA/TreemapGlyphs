@@ -59,7 +59,7 @@ public class Cor extends Glyph {
         points[0] = getBounds().width;
         points[1] = getBounds().height;
 
-        verificarRetangulo(points);
+        transformarRetanguloEmQuadrado(points);
         
         int width = Math.round(points[0] * getPectSobreposicao());
         int height = Math.round(points[1] * getPectSobreposicao());
