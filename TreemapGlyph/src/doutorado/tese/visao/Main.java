@@ -74,13 +74,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             logger.info(Main.class.getName());//.log(Level.SEVERE, null, ex);
         }
         initComponents();
-       //zerando
+        //zerando
         layerPane = null;
         atributosEscolhidosGlyph = null;
         legendaVisualizacao = null;
         cenario = null;
-        
-
 
         layerPane = new JLayeredPane();
         atributosEscolhidosGlyph = new ArrayList<>();
@@ -96,7 +94,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         saveAnswerButton.setVisible(false);
         numMaxTarefas = 3;
         cenario = Constantes.CENARIOS.SEM_CENARIO.toString();
-        
+
     }
 
     /**
@@ -183,6 +181,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         colunasDetalhesList2 = new javax.swing.JList<>();
         jLabel12 = new javax.swing.JLabel();
         updateDetailsButton = new javax.swing.JButton();
+        detailsOnDemandCheckBox = new javax.swing.JCheckBox();
         abaFiltros = new javax.swing.JPanel();
         abaTask = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
@@ -867,32 +866,38 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
+        detailsOnDemandCheckBox.setText("Details on demand");
+
         javax.swing.GroupLayout abaDetalhesLayout = new javax.swing.GroupLayout(abaDetalhes);
         abaDetalhes.setLayout(abaDetalhesLayout);
         abaDetalhesLayout.setHorizontalGroup(
             abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaDetalhesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(updateDetailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(abaDetalhesLayout.createSequentialGroup()
-                        .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inserirBotao_detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(removerBotao_detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(detailsOnDemandCheckBox)
+                    .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(updateDetailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(abaDetalhesLayout.createSequentialGroup()
+                            .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(inserirBotao_detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(removerBotao_detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel12)))))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         abaDetalhesLayout.setVerticalGroup(
             abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaDetalhesLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(detailsOnDemandCheckBox)
+                .addGap(6, 6, 6)
                 .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel6))
@@ -903,10 +908,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(removerBotao_detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane5)
-                    .addComponent(jScrollPane6))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(updateDetailsButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Details", abaDetalhes);
@@ -1131,7 +1136,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_atributo1GlyphItemStateChanged
 
     private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
-        System.gc (); 
+        System.gc();
 
         //zerando tudo
         variaveisVisuaisEscolhidas = null;
@@ -1153,7 +1158,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_botaoGerarGlyphsActionPerformed
     private void checkCategoricalGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCategoricalGlyphActionPerformed
         //zerando
-          glyphPanel = null;
+        glyphPanel = null;
 
         if (checkCategoricalGlyph.isSelected()) {
             Constantes.setShowGlyph(true);
@@ -1297,9 +1302,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         limparPainelEsquerda();
         loadSetupTreemap();
         //zerando tudo
-        visualizationTreemap= null;
+        visualizationTreemap = null;
         view = null;
-          
 
         atualizarLegendaTreemap(itemCor);
         progressoBarra.setVisible(false);
@@ -1339,7 +1343,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         clickPanel.setOnMouseOverListener(new GlassPanelClick.OnMouseOver() {
             @Override
             public void getDetailsOnDemand(MouseEvent evt) {
-                view.dispatchEvent(evt);
+                if (detailsOnDemandCheckBox.isSelected()) {
+                    view.dispatchEvent(evt);
+                }
             }
 
             @Override
@@ -1663,7 +1669,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_listaAtributosContinuousGlyph2ValueChanged
 
     private void botaoGerarContinuosGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarContinuosGlyphsActionPerformed
-        System.gc (); 
+        System.gc();
         glyphPanel.setManipulador(manipulador);
         glyphPanel.setContinuousGlyphActivated(checkContinuousGlyph.isSelected());
 
@@ -1886,6 +1892,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JComboBox<String> corTreemapComboBox;
     private javax.swing.JCheckBoxMenuItem decisionTreeActivate;
     private javax.swing.JMenu decisionTreeMenu;
+    private javax.swing.JCheckBox detailsOnDemandCheckBox;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem fileMenuItem;
     private javax.swing.JMenuItem finishMenuItem;
