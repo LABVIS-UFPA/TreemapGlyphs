@@ -22,7 +22,7 @@ import net.bouthier.treemapAWT.TMModelUpdater;
  *
  * @author Anderson Soares
  */
-public abstract class TreeMapNode implements TMModelNode{
+public abstract class TreeMapNode implements TMModelNode {
 
     double size;
     Rectangle bounds;
@@ -41,6 +41,38 @@ public abstract class TreeMapNode implements TMModelNode{
     private Glyph glyph;
     private boolean highLight;
 
+    //Metodos implementados da interface 
+    @Override
+    public Object getRoot() {
+        if (this.getParent() == null) {
+            return this;
+        }
+        return this.getParent().getRoot();
+    }
+
+    @Override
+    public Enumeration children(Object node) {
+        TreeMapNode n = (TreeMapNode) node;
+        Vector v = parseList2Vector(n.getChildren());
+        return v.elements();
+    }
+
+    @Override
+    public boolean isLeaf(Object node) {
+        boolean leaf = false;
+        TreeMapNode n = (TreeMapNode) node;
+        if (n.getChildren().isEmpty()) {
+            return true;
+        }
+        return leaf;
+    }
+
+    @Override
+    public void setUpdater(TMModelUpdater updater) {
+        this.updater = updater;
+    }
+    //fim metodos implementados da interface 
+
     public void setDepth(int depth) {
         this.depth = depth;
     }
@@ -49,14 +81,22 @@ public abstract class TreeMapNode implements TMModelNode{
         return depth;
     }
 
-    public double getSize() {
+    /**
+     *
+     * @return
+     */
+    public double getSizeTreemapNode() {
         return size;
     }
 
+    /**
+     *
+     * @param colunaTamanho
+     */
     public void setSize(Coluna colunaTamanho) {
         this.size = 0;
     }
-    
+
     public void setSize(Double tamanho) {
         this.size = tamanho;
     }
@@ -106,7 +146,6 @@ public abstract class TreeMapNode implements TMModelNode{
         this.raiz = raiz;
     }
 
-    
     /**
      * @return the label
      */
@@ -122,7 +161,7 @@ public abstract class TreeMapNode implements TMModelNode{
     }
 
     /**
-     * @return retorna o valor do item folha. 
+     * @return retorna o valor do item folha.
      */
     public HashMap<Coluna, String> getMapaDetalhesItem() {
         return mapaDetalhesItem;
@@ -175,9 +214,9 @@ public abstract class TreeMapNode implements TMModelNode{
 
     @Override
     public String toString() {
-        return super.toString()+"[Label: " + getLabel() + " Pai: " + (paiLevel!=null?paiLevel.getLabel():"") + " Size: " + size; //To change body of generated methods, choose Tools | Templates.
+        return super.toString() + "[Label: " + getLabel() + " Pai: " + (paiLevel != null ? paiLevel.getLabel() : "") + " Size: " + size; //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     //Metodos para criar uma arvore
     public TreeMapNode addChild(TreeMapNode child) {
         child.setParent(this);
@@ -203,7 +242,7 @@ public abstract class TreeMapNode implements TMModelNode{
         }
         return v;
     }
-    
+
     public TreeMapNode getParent() {
         return parent;
     }
@@ -218,37 +257,6 @@ public abstract class TreeMapNode implements TMModelNode{
 
     public void setGlyph(Glyph glyph) {
         this.glyph = glyph;
-    }
-    
-    //Metodos implementados da interface 
-    @Override
-    public Object getRoot() {
-        if (this.getParent() == null) {
-            return this;
-        }
-        return this.getParent().getRoot();
-    }
-
-    @Override
-    public Enumeration children(Object node) {
-        TreeMapNode n = (TreeMapNode) node;
-        Vector v = parseList2Vector(n.getChildren());
-        return v.elements();
-    }
-
-    @Override
-    public boolean isLeaf(Object node) {
-        boolean leaf = false;
-        TreeMapNode n = (TreeMapNode) node;
-        if (n.getChildren().isEmpty()) {
-            return true;
-        }
-        return leaf;
-    }
-
-    @Override
-    public void setUpdater(TMModelUpdater updater) {
-        this.updater = updater;
     }
 
     /**
@@ -268,16 +276,16 @@ public abstract class TreeMapNode implements TMModelNode{
     public void setColor(Color cor) {
         this.cor = cor;
     }
-    
-    public Color getColor(){
+
+    public Color getColor() {
         return cor;
     }
 
     public void setHighLight(boolean highLight) {
         this.highLight = highLight;
     }
-    
-    public boolean isHighLighted(){
+
+    public boolean isHighLighted() {
         return this.highLight;
     }
 }

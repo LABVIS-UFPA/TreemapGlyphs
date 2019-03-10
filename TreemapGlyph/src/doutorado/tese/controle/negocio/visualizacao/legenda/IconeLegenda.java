@@ -38,11 +38,13 @@ public class IconeLegenda implements Icon {
     private String valor = null;
     private double maxValorContIcon;
     private double minValorContIcon;
+    private Glyph glyph;
 
     private BasicStroke stroke = new BasicStroke(4);
     private FORMAS.GLYPH_FORMAS valorForma = null;
     private List<String> atributosEscolhidosGlyphContinuo = null;
 
+    @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         Graphics2D g2d = (Graphics2D) g.create();
 
@@ -150,10 +152,26 @@ public class IconeLegenda implements Icon {
                 }
                 break;
             default:
+                //TODO desenhar glyph como um icone
+//                getGlyph().paint(g2d);
                 inserirIconeAusente(g2d, x, y);
                 break;
         }
         g2d.dispose();
+    }
+    
+    /**
+     * @param width the width to set
+     */
+    public void setIconWidth(int width) {
+        this.width = width;
+    }
+
+    /**
+     * @param height the height to set
+     */
+    public void setIconHeight(int height) {
+        this.height = height;
     }
 
     @Override
@@ -212,5 +230,19 @@ public class IconeLegenda implements Icon {
     
     public void setAtributosEscolhidosGlyphContinuo(List<String> atributosEscolhidosGlyphContinuo) {
         this.atributosEscolhidosGlyphContinuo = atributosEscolhidosGlyphContinuo;
+    }
+
+    /**
+     * @return the glyph
+     */
+    public Glyph getGlyph() {
+        return glyph;
+    }
+
+    /**
+     * @param glyph the glyph to set
+     */
+    public void setGlyph(Glyph glyph) {
+        this.glyph = glyph;
     }
 }

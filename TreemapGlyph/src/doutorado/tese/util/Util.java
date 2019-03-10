@@ -5,16 +5,22 @@
  */
 package doutorado.tese.util;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JTextPane;
 import javax.swing.ListModel;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 
 /**
  *
  * @author Anderson Soares
  */
-public class Conversor {
+public class Util {
     public static String[] parseListModel2ArrayString(ListModel<String> lista) {
         String[] convertida = new String[lista.getSize()];
         for (int i = 0; i < convertida.length; i++) {
@@ -29,5 +35,19 @@ public class Conversor {
             convertida.add(lista.getElementAt(i));
         }
         return convertida;
+    }
+    
+    public static void appendToPane(JTextPane tp, String msg, Color c, int alinhamentoStyleConstants) {
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Arial");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, alinhamentoStyleConstants);
+//        aset = sc.addAttribute(aset, StyleConstants.FontSize, 10);
+
+        int len = tp.getDocument().getLength();
+        tp.setCaretPosition(len);
+        tp.setCharacterAttributes(aset, false);
+        tp.replaceSelection(msg);
     }
 }

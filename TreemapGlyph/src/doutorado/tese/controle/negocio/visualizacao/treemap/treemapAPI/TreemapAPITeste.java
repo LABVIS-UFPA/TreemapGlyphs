@@ -24,7 +24,7 @@ public class TreemapAPITeste {
     
     public static void printTree3(TreeMapNode item, String appender) {
         TreeMapNode i = (TreeMapNode) item;
-        System.out.println(appender+i.getLabel()+" - "+i.getSize());
+        System.out.println(appender+i.getLabel()+" - "+i.getSizeTreemapNode());
         i.getChildren().forEach(each -> printTree3(each, appender + appender));
     }
     

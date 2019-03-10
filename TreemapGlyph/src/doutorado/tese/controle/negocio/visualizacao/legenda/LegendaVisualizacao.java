@@ -10,6 +10,7 @@ import doutorado.tese.modelo.Coluna;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
+import doutorado.tese.util.Util;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -22,10 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
 
 /**
  *
@@ -224,34 +222,30 @@ public class LegendaVisualizacao {
         JTextPane legendas = new JTextPane();
         legendas.setEditable(true);
         legendas.setText("");
-        appendToPane(legendas,"\n",Color.decode("#000000"));
-        appendToPane(legendas,"\n",Color.decode("#000000"));
-        appendToPane(legendas,"\n",Color.decode("#000000"));
-        appendToPane(legendas,"\n",Color.decode("#000000"));
+        for (int i = 0; i < 3; i++) {
+            Util.appendToPane(legendas, "\n", Color.decode("#000000"), StyleConstants.ALIGN_JUSTIFIED);
+        }
         for (int i = 0; i < atributosEscolhidosGlyphContinuo.size(); i++) {
-            appendToPane(legendas, atributosEscolhidosGlyphContinuo.get(i) + "\n", Color.decode(Constantes.getCor()[i]));
+            Util.appendToPane(legendas, atributosEscolhidosGlyphContinuo.get(i) + "\n", Color.decode(Constantes.getCor()[i]), StyleConstants.ALIGN_JUSTIFIED);
         }
 
         legendas.setEditable(false);
         painel.add(legendas);
         return painel;
     }
-   
-    
-    
-    private void appendToPane(JTextPane tp, String msg, Color c) {
-        StyleContext sc = StyleContext.getDefaultStyleContext();
-        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
-        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
-        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-
-        int len = tp.getDocument().getLength();
-        tp.setCaretPosition(len);
-        tp.setCharacterAttributes(aset, false);
-        tp.replaceSelection(msg);
-    }
-
+//    private void appendToPane(JTextPane tp, String msg, Color c) {
+//        StyleContext sc = StyleContext.getDefaultStyleContext();
+//        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+//
+//        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+//        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+//
+//        int len = tp.getDocument().getLength();
+//        tp.setCaretPosition(len);
+//        tp.setCharacterAttributes(aset, false);
+//        tp.replaceSelection(msg);
+//    }
     public void setAtributosGlyphsontinuos(ArrayList<String> listaContinuos) {
         this.listaContinuos = listaContinuos;
     }

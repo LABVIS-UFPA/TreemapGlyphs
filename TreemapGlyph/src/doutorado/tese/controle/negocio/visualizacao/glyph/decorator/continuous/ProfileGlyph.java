@@ -12,7 +12,6 @@ import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.util.List;
@@ -25,13 +24,12 @@ import java.util.List;
 public class ProfileGlyph extends Glyph {
 
     private Rectangle rect;
-    private Rectangle rectGrafico;
+//    private Rectangle rectGrafico;
     private int quantVar;
     private int[] xPoints;
     private int[] yPoints;
     private List<String> atributosEscolhidaoBase;
     private ManipuladorArquivo manipulador;
-    private double porcentagemDado;
     private Bar[] barras;
     private int distancia;
     private int quantBarras;
@@ -56,15 +54,12 @@ public class ProfileGlyph extends Glyph {
         return (dadoColuna * 100) / maxValCol;
     }
 
-//    private double calcularPorcentagemParaR(double porcentagemDado, double maiorRaio) {
-//        return (porcentagemDado * maiorRaio) / 100;
-//    }
     @Override
     public void paint(Graphics2D g2d) {
         if (getQuantVar() != 0) {
             for (int i = 0; i < getQuantVar(); i++) {
                 g2d.setColor(Color.decode(Constantes.getCor()[i]));
-                //getBarras()[i].paint(g2d);
+                
                 int x = getBarras()[i].getBarraX();
                 int y = getBarras()[i].getBarraY();
                 int w = getBarras()[i].getBarraW();
@@ -76,25 +71,25 @@ public class ProfileGlyph extends Glyph {
                 g2d.drawRect(x, y, w, h);
             }
         }
-        g2d.drawLine(this.rectGrafico.x,
-                this.rectGrafico.y,
-                this.rectGrafico.x + this.rectGrafico.width,
-                this.rectGrafico.y);
+        g2d.drawLine(this.rect.x,
+                this.rect.y,
+                this.rect.x + this.rect.width,
+                this.rect.y);
 
         g2d.drawLine(pontosLinhaCentro[0], pontosLinhaCentro[1], pontosLinhaCentro[2], pontosLinhaCentro[3]);
 
-        g2d.drawLine(this.rectGrafico.x,
-                this.rectGrafico.y + this.rectGrafico.height,
-                this.rectGrafico.x + this.rectGrafico.width,
-                this.rectGrafico.y + this.rectGrafico.height);
+        g2d.drawLine(this.rect.x,
+                this.rect.y + this.rect.height,
+                this.rect.x + this.rect.width,
+                this.rect.y + this.rect.height);
     }
 
     public void calcularPosicaoBarras() {
-        int widthEachbar = Math.round(this.rectGrafico.width / getBarras().length);
-        int meiaAltura = Math.round(this.rectGrafico.height / 2.f);
+        int widthEachbar = Math.round(this.rect.width / getBarras().length);
+        int meiaAltura = Math.round(this.rect.height / 2.f);
         
-        int xBarra = rectGrafico.x;
-        int yBarra = rectGrafico.y;
+        int xBarra = rect.x;
+        int yBarra = rect.y;
         double porcentagemDado;
         for (Bar barra : getBarras()) {
             if (barra.getDado() > 0) {
@@ -146,24 +141,28 @@ public class ProfileGlyph extends Glyph {
         yPoints[1] = ladoInterior;
         this.rect = new Rectangle(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
 
-        montarRetanguloInterno();
+        pontosLinhaCentro = new int[]{this.rect.x,
+            this.rect.y + Math.round(this.rect.height / 2.f),
+            this.rect.x + this.rect.width,
+            this.rect.y + Math.round(this.rect.height / 2.f)};
+//        montarRetanguloInterno();
     }
 
-    public void montarRetanguloInterno() {
-        int lado = Math.round(this.rect.height * 0.9f);
-        xPoints = new int[2];
-        yPoints = new int[2];
-
-        xPoints[0] = this.rect.x + Math.round(this.rect.width / 2) - Math.round(lado / 2);//ponto x inicial retangulo interior
-        yPoints[0] = this.rect.y + Math.round(this.rect.height / 2) - Math.round(lado / 2);//ponto y inicial retangulo interior
-        xPoints[1] = lado;
-        yPoints[1] = lado;
-        rectGrafico = new Rectangle(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
-        pontosLinhaCentro = new int[]{this.rectGrafico.x,
-            this.rectGrafico.y + Math.round(this.rectGrafico.height / 2.f),
-            this.rectGrafico.x + this.rectGrafico.width,
-            this.rectGrafico.y + Math.round(this.rectGrafico.height / 2.f)};
-    }
+//    public void montarRetanguloInterno() {
+//        int lado = Math.round(this.rect.height * 0.9f);
+//        xPoints = new int[2];
+//        yPoints = new int[2];
+//        //To aqui
+//        xPoints[0] = this.rect.x + Math.round(this.rect.width / 2) - Math.round(lado / 2);//ponto x inicial retangulo interior
+//        yPoints[0] = this.rect.y + Math.round(this.rect.height / 2) - Math.round(lado / 2);//ponto y inicial retangulo interior
+//        xPoints[1] = lado;
+//        yPoints[1] = lado;
+//        rectGrafico = new Rectangle(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
+//        pontosLinhaCentro = new int[]{this.rectGrafico.x,
+//            this.rectGrafico.y + Math.round(this.rectGrafico.height / 2.f),
+//            this.rectGrafico.x + this.rectGrafico.width,
+//            this.rectGrafico.y + Math.round(this.rectGrafico.height / 2.f)};
+//    }
 
     public int getQuantVar() {
         return quantVar;

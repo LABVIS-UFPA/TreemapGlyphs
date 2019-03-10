@@ -318,7 +318,7 @@ public class VisualizationsArea {
 
     public void printTree(TMModelNode item, String appender) {
         TreeMapNode nodo = (TreeMapNode) item;
-        System.out.println(appender + nodo.getLabel() + " - " + nodo.getSize());
+        System.out.println(appender + nodo.getLabel() + " - " + nodo.getSizeTreemapNode());
         nodo.getChildren().forEach(each -> printTree(each, appender + appender));
     }
 

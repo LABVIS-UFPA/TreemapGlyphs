@@ -308,7 +308,7 @@ public final class GlyphManager {
     private Glyph configureProfileGlyph(TreeMapItem item) {
         ProfileGlyph profileGlyph = new ProfileGlyph(getAtributosEscolhidosGlyphContinuo());
         profileGlyph.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
-        profileGlyph.setPectSobreposicao(0.85f);
+        profileGlyph.setPectSobreposicao(0.75f);
         profileGlyph.setOverlappingActivated(true);
         for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
             String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);

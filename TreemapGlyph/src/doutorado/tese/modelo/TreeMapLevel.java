@@ -65,7 +65,7 @@ public class TreeMapLevel extends TreeMapNode {
         double sum = 0;
         for (TreeMapNode filhosIten : children) {
             filhosIten.setSize(colunaTamanho);
-            sum += filhosIten.getSize();
+            sum += filhosIten.getSizeTreemapNode();
             filhosIten.setPaiLevel(this);
             filhosIten.setDepth(this.getDepth() + 1);
         }
@@ -73,7 +73,7 @@ public class TreeMapLevel extends TreeMapNode {
     }
 
     @Override
-    public double getSize() {
+    public double getSizeTreemapNode() {
         return size;
     }
 

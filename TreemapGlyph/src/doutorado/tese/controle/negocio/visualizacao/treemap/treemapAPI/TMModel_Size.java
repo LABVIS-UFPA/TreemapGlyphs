@@ -58,7 +58,7 @@ public class TMModel_Size
     public float getSizeOfObject(Object node) {
         if (node instanceof TreeMapNode) {
             TreeMapNode n = (TreeMapNode) node;
-            return (float) Math.round(n.getSize());
+            return (float) Math.round(n.getSizeTreemapNode());
         }
         return 0.0f;
     }

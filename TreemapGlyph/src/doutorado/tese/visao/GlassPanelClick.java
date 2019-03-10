@@ -6,6 +6,7 @@
 package doutorado.tese.visao;
 
 import doutorado.tese.controle.mb.testelaboratorioMB.LoggerMB;
+import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
 import doutorado.tese.modelo.TreeMapNode;
 import doutorado.tese.util.ColunasLog;
 import java.awt.BasicStroke;
@@ -21,6 +22,7 @@ import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JToolTip;
 import net.bouthier.treemapAWT.TMOnDrawFinished;
 import net.bouthier.treemapAWT.TMUpdaterConcrete;
 import net.bouthier.treemapAWT.TMView;
@@ -37,6 +39,7 @@ public class GlassPanelClick extends JPanel {
     private List<TreeMapNode> listClick;
     private OnClick onClickListener;
     private OnMouseOver itemDetailsOnDemand;
+    
 
     /**
      * Construtor chamado ao selecionar o checkbox indicando que os glyphs serao
@@ -49,6 +52,13 @@ public class GlassPanelClick extends JPanel {
         callListner();
         listClick = new ArrayList<>();
 
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                itemDetailsOnDemand.move(e);
+            }
+        });
+        
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -63,7 +73,7 @@ public class GlassPanelClick extends JPanel {
 
             @Override
             public void mouseExited(MouseEvent e) {
-
+                itemDetailsOnDemand.exit(e);
             }
         });
 
@@ -81,12 +91,22 @@ public class GlassPanelClick extends JPanel {
             public String tooltipEvent(MouseEvent evt) {
                 return "";
             }
+
+            @Override
+            public void move(MouseEvent evt) {
+                
+            }
+
+            @Override
+            public void exit(MouseEvent evt) {
+                
+            }
         };
     }
 
     @Override
     public String getToolTipText(MouseEvent evt) {
-        return itemDetailsOnDemand.tooltipEvent(evt); //To change body of generated methods, choose Tools | Templates.
+        return itemDetailsOnDemand.tooltipEvent(evt);
     }
 
     public void setOnClickListener(OnClick onClickListener) {
@@ -107,10 +127,31 @@ public class GlassPanelClick extends JPanel {
         public void getDetailsOnDemand(MouseEvent evt);
 
         public String tooltipEvent(MouseEvent evt);
+        
+        public void move(MouseEvent evt);
+        
+        public void exit(MouseEvent evt);
+    }
+
+    @Override
+    public JToolTip createToolTip() {
+        JToolTip tip = super.createToolTip();
+        tip.setBackground(Color.decode("#edf2b0"));
+//        if (getGlyphOnToolTip() != null) {
+//            IconeLegenda icon = new IconeLegenda();
+//            icon.setIconHeight(48);
+//            icon.setIconWidth(48);
+//            icon.setGlyph(glyphOnToolTip);
+//            if (this.getMousePosition() != null) {
+//                icon.paintIcon(tip, this.getGraphics(), this.getMousePosition().x, this.getMousePosition().y);
+//            }
+//            tip.createImage(icon.getIconWidth(), icon.getIconHeight());
+//        }
+        return tip;
     }
 
     private void mouseClicando() {
-        clicou = true;        
+        clicou = true;
         if (LoggerMB.getColunaLog() != null) {
             LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = System.currentTimeMillis() + "";
             LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = LocalDateTime.now() + "";
@@ -160,5 +201,6 @@ public class GlassPanelClick extends JPanel {
     public void setListaItensClicados(List<TreeMapNode> listClick) {
         this.listClick = listClick;
     }
+
 
 }

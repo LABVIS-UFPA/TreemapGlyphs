@@ -14,12 +14,15 @@ import doutorado.tese.controle.negocio.visualizacao.legenda.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.modelo.TreeMapItem;
-import doutorado.tese.util.Conversor;
+import doutorado.tese.modelo.TreeMapLevel;
+import doutorado.tese.modelo.TreeMapNode;
+import doutorado.tese.util.Util;
 import doutorado.tese.visao.teste.ConsoleTest;
 import doutorado.tese.visao.teste.MainScreenLog;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
@@ -94,7 +97,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         saveAnswerButton.setVisible(false);
         numMaxTarefas = 3;
         cenario = Constantes.CENARIOS.SEM_CENARIO.toString();
-
+        details = new DetailsOnDemandVisao();
     }
 
     /**
@@ -1086,7 +1089,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
 //    public String[] parseListString2Array(ListModel<String> lista) {
-//        String[] convertida = new String[lista.getSize()];
+//        String[] convertida = new String[lista.getSizeTreemapNode()];
 //        for (int i = 0; i < convertida.length; i++) {
 //            convertida[i] = lista.getElementAt(i);
 //        }
@@ -1343,6 +1346,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         clickPanel.setOnMouseOverListener(new GlassPanelClick.OnMouseOver() {
             @Override
             public void getDetailsOnDemand(MouseEvent evt) {
+//                TreeMapNode nodeUnderTheMouse = (TreeMapNode) view.getNodeUnderTheMouse(evt);
+//                details.setVisible(true);
+//                details.setColunasDetalhesDemanda(itensDetalhes);
+//                
+//                String tooltipText = details.getTooltipOfObject(nodeUnderTheMouse).toString();
+//                
+//                details.getDetalhesTextPane().setEditable(true);
+//                
+//                Util.appendToPane(details.getDetalhesTextPane(), tooltipText, Color.decode("#000000"), StyleConstants.ALIGN_JUSTIFIED);
+//                
+//                details.getDetalhesTextPane().setEditable(false);
+                
                 if (detailsOnDemandCheckBox.isSelected()) {
                     view.dispatchEvent(evt);
                 }
@@ -1351,6 +1366,30 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             @Override
             public String tooltipEvent(MouseEvent evt) {
                 return view.getToolTipText(evt);
+            }
+
+            @Override
+            public void move(MouseEvent evt) {
+                Point locationOnScreen = evt.getLocationOnScreen();
+                locationOnScreen.translate(15, 5);
+                details.setLocation(locationOnScreen);
+                
+                TreeMapNode nodeUnderTheMouse = (TreeMapNode) view.getNodeUnderTheMouse(evt);
+                details.setVisible(true);
+                details.setColunasDetalhesDemanda(itensDetalhes);
+                details.getDetalhesTextPane().setText("");//limpando o quadro dos detalhes sob demanda
+                String tooltipText = details.getTooltipOfObject(nodeUnderTheMouse).toString();
+                
+                details.getDetalhesTextPane().setEditable(true);
+                
+                Util.appendToPane(details.getDetalhesTextPane(), tooltipText, Color.decode("#000000"), StyleConstants.ALIGN_JUSTIFIED);
+                
+                details.getDetalhesTextPane().setEditable(false);
+            }
+
+            @Override
+            public void exit(MouseEvent evt) {
+                details.setVisible(false);
             }
         });
         clickPanel.repaint();
@@ -1425,7 +1464,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_colunasDetalhesList2ValueChanged
 
     private void updateDetailsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDetailsButtonActionPerformed
-        String[] valoresEscolhidos = Conversor.parseListModel2ArrayString(colunasDetalhesList2.getModel());
+        String[] valoresEscolhidos = Util.parseListModel2ArrayString(colunasDetalhesList2.getModel());
         visualizationTreemap.setColunasDetalhesDemanda(valoresEscolhidos);
         visualizationTreemap.updateDetalhesDemanda();
 
@@ -1978,6 +2017,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private int numMaxTarefas;
     private String[] itensHierarquia;
     private String[] itensDetalhes;
+    DetailsOnDemandVisao details;
 
     private void atualizarLegendaGlyphs(ArrayList<Object> atributosEscolhidosGlyph) {
         painelLegendaVis.removeAll();
@@ -2163,8 +2203,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         itemTamanho = tamanhoTreemapComboBox.getSelectedItem().toString();
         itemLegenda = legendaComboBox.getSelectedItem().toString();
         itemCor = corTreemapComboBox.getSelectedItem().toString();
-        itensHierarquia = Conversor.parseListModel2ArrayString(colunasHierarquicasList2.getModel());
-        itensDetalhes = Conversor.parseListModel2ArrayString(colunasDetalhesList2.getModel());
+        itensHierarquia = Util.parseListModel2ArrayString(colunasHierarquicasList2.getModel());
+        itensDetalhes = Util.parseListModel2ArrayString(colunasDetalhesList2.getModel());
         for (TreeMapItem treeMapItem : manipulador.getItensTreemap()) {
             treeMapItem.setHighLight(false);
         }

@@ -44,17 +44,7 @@ import net.bouthier.treemapAWT.TMComputeDrawAdapter;
  * The TMModel_Draw class implements an example of a TMComputeDrawAdapter for a
  * TMFileModelNode. It use the date of last modification as color, and the name
  * of the file as tooltip.
- * <P>
- * The color legend is :
- * <UL>
- * <IL> white for files less than a hour old</IL>
- * <IL> green for files less than a day old</IL>
- * <IL> yellow for files less than a week old</IL>
- * <IL> orange for files less than a month old</IL>
- * <IL> red for files less than a year old</IL>
- * <IL> blue for files more than a year old</IL>
- * </UL>
- *
+ 
  * @author Christophe Bouthier [bouthier@loria.fr]
  * @version 2.5
  */
