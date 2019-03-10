@@ -21,6 +21,7 @@ import doutorado.tese.visao.teste.ConsoleTest;
 import doutorado.tese.visao.teste.MainScreenLog;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -184,7 +185,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         colunasDetalhesList2 = new javax.swing.JList<>();
         jLabel12 = new javax.swing.JLabel();
         updateDetailsButton = new javax.swing.JButton();
-        detailsOnDemandCheckBox = new javax.swing.JCheckBox();
+        showGlyphOnDetailsCheckBox = new javax.swing.JCheckBox();
         abaFiltros = new javax.swing.JPanel();
         abaTask = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
@@ -869,7 +870,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        detailsOnDemandCheckBox.setText("Details on demand");
+        showGlyphOnDetailsCheckBox.setText("Show glyph in details");
 
         javax.swing.GroupLayout abaDetalhesLayout = new javax.swing.GroupLayout(abaDetalhes);
         abaDetalhes.setLayout(abaDetalhesLayout);
@@ -878,7 +879,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             .addGroup(abaDetalhesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(detailsOnDemandCheckBox)
+                    .addComponent(showGlyphOnDetailsCheckBox)
                     .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(updateDetailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(abaDetalhesLayout.createSequentialGroup()
@@ -899,7 +900,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaDetalhesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(detailsOnDemandCheckBox)
+                .addComponent(showGlyphOnDetailsCheckBox)
                 .addGap(6, 6, 6)
                 .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
@@ -1346,21 +1347,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         clickPanel.setOnMouseOverListener(new GlassPanelClick.OnMouseOver() {
             @Override
             public void getDetailsOnDemand(MouseEvent evt) {
-//                TreeMapNode nodeUnderTheMouse = (TreeMapNode) view.getNodeUnderTheMouse(evt);
-//                details.setVisible(true);
-//                details.setColunasDetalhesDemanda(itensDetalhes);
-//                
-//                String tooltipText = details.getTooltipOfObject(nodeUnderTheMouse).toString();
-//                
-//                details.getDetalhesTextPane().setEditable(true);
-//                
-//                Util.appendToPane(details.getDetalhesTextPane(), tooltipText, Color.decode("#000000"), StyleConstants.ALIGN_JUSTIFIED);
-//                
-//                details.getDetalhesTextPane().setEditable(false);
-                
-                if (detailsOnDemandCheckBox.isSelected()) {
-                    view.dispatchEvent(evt);
-                }
+//                if (detailsOnDemandCheckBox.isSelected()) {
+//                    view.dispatchEvent(evt);
+//                }
             }
 
             @Override
@@ -1373,17 +1362,34 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 Point locationOnScreen = evt.getLocationOnScreen();
                 locationOnScreen.translate(15, 5);
                 details.setLocation(locationOnScreen);
-                
+
                 TreeMapNode nodeUnderTheMouse = (TreeMapNode) view.getNodeUnderTheMouse(evt);
+                details.getGlyphIconLabel().setVisible(showGlyphOnDetailsCheckBox.isSelected());
+                if (showGlyphOnDetailsCheckBox.isSelected()) {                    
+                    if (nodeUnderTheMouse instanceof TreeMapItem) {
+                        if (nodeUnderTheMouse.getGlyph() != null) {
+                            if (!nodeUnderTheMouse.getGlyph().getChildren().isEmpty()) {
+                                details.setGlyphOnToolTip(nodeUnderTheMouse.getGlyph());
+                                details.updateGlyphIcon(true);
+                                details.setSize(240, 127);
+                            }
+                        }
+                    } else {
+                        details.updateGlyphIcon(false);
+                    }
+                }else{
+//                    details.getGlyphIconLabel().setVisible(false);
+                    details.setSize(details.getDetalhesTextPane().getWidth(), details.getDetalhesTextPane().getHeight());
+                }
                 details.setVisible(true);
                 details.setColunasDetalhesDemanda(itensDetalhes);
                 details.getDetalhesTextPane().setText("");//limpando o quadro dos detalhes sob demanda
                 String tooltipText = details.getTooltipOfObject(nodeUnderTheMouse).toString();
-                
+
                 details.getDetalhesTextPane().setEditable(true);
-                
-                Util.appendToPane(details.getDetalhesTextPane(), tooltipText, Color.decode("#000000"), StyleConstants.ALIGN_JUSTIFIED);
-                
+
+                Util.appendToPane(details.getDetalhesTextPane(), tooltipText, Color.decode("#000000"), StyleConstants.ALIGN_JUSTIFIED, 10);
+
                 details.getDetalhesTextPane().setEditable(false);
             }
 
@@ -1931,7 +1937,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JComboBox<String> corTreemapComboBox;
     private javax.swing.JCheckBoxMenuItem decisionTreeActivate;
     private javax.swing.JMenu decisionTreeMenu;
-    private javax.swing.JCheckBox detailsOnDemandCheckBox;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem fileMenuItem;
     private javax.swing.JMenuItem finishMenuItem;
@@ -1983,6 +1988,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JButton saveAnswerButton;
     private javax.swing.JSplitPane separadorCimaBaixo;
     private javax.swing.JSplitPane separadorEsqueDir_jSplitPane;
+    private javax.swing.JCheckBox showGlyphOnDetailsCheckBox;
     private javax.swing.JMenuItem startMenuItem;
     private javax.swing.JComboBox<String> tamanhoTreemapComboBox;
     private javax.swing.JLabel taskCountLabel;

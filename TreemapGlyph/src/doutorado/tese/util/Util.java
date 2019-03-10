@@ -37,13 +37,13 @@ public class Util {
         return convertida;
     }
     
-    public static void appendToPane(JTextPane tp, String msg, Color c, int alinhamentoStyleConstants) {
+    public static void appendToPane(JTextPane tp, String msg, Color c, int alinhamentoStyleConstants, int fontSize) {
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
         aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Arial");
         aset = sc.addAttribute(aset, StyleConstants.Alignment, alinhamentoStyleConstants);
-//        aset = sc.addAttribute(aset, StyleConstants.FontSize, 10);
+        aset = sc.addAttribute(aset, StyleConstants.FontSize, fontSize);
 
         int len = tp.getDocument().getLength();
         tp.setCaretPosition(len);

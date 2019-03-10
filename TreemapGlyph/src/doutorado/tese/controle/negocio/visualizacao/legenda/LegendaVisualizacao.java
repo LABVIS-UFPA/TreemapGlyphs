@@ -222,11 +222,11 @@ public class LegendaVisualizacao {
         JTextPane legendas = new JTextPane();
         legendas.setEditable(true);
         legendas.setText("");
-        for (int i = 0; i < 3; i++) {
-            Util.appendToPane(legendas, "\n", Color.decode("#000000"), StyleConstants.ALIGN_JUSTIFIED);
+        for (int i = 0; i < 2; i++) {
+            Util.appendToPane(legendas, "\n", Color.decode("#000000"), StyleConstants.ALIGN_JUSTIFIED, 10);
         }
         for (int i = 0; i < atributosEscolhidosGlyphContinuo.size(); i++) {
-            Util.appendToPane(legendas, atributosEscolhidosGlyphContinuo.get(i) + "\n", Color.decode(Constantes.getCor()[i]), StyleConstants.ALIGN_JUSTIFIED);
+            Util.appendToPane(legendas, atributosEscolhidosGlyphContinuo.get(i) + "\n", Color.decode(Constantes.getCor()[i]), StyleConstants.ALIGN_JUSTIFIED, 12);
         }
 
         legendas.setEditable(false);

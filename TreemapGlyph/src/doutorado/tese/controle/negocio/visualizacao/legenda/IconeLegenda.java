@@ -151,9 +151,12 @@ public class IconeLegenda implements Icon {
                     
                 }
                 break;
-            default:
-                //TODO desenhar glyph como um icone
-//                getGlyph().paint(g2d);
+            case 100:
+                //Desenhar glyph como um icone
+                getGlyph().setBounds(bounds);
+                getGlyph().paint(g2d);
+                break;
+            default:                
                 inserirIconeAusente(g2d, x, y);
                 break;
         }

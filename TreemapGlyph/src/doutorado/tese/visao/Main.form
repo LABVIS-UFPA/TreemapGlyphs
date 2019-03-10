@@ -1169,7 +1169,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="detailsOnDemandCheckBox" min="-2" max="-2" attributes="0"/>
+                                          <Component id="showGlyphOnDetailsCheckBox" min="-2" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                               <Component id="updateDetailsButton" max="32767" attributes="0"/>
                                               <Group type="102" attributes="0">
@@ -1198,7 +1198,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="detailsOnDemandCheckBox" min="-2" max="-2" attributes="0"/>
+                                      <Component id="showGlyphOnDetailsCheckBox" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1315,9 +1315,9 @@
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateDetailsButtonActionPerformed"/>
                               </Events>
                             </Component>
-                            <Component class="javax.swing.JCheckBox" name="detailsOnDemandCheckBox">
+                            <Component class="javax.swing.JCheckBox" name="showGlyphOnDetailsCheckBox">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="Details on demand"/>
+                                <Property name="text" type="java.lang.String" value="Show glyph in details"/>
                               </Properties>
                             </Component>
                           </SubComponents>

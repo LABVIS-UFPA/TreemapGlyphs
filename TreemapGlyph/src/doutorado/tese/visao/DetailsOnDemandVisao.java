@@ -6,11 +6,12 @@
 package doutorado.tese.visao;
 
 import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
+import doutorado.tese.controle.negocio.visualizacao.legenda.IconeLegenda;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.modelo.Coluna;
 import doutorado.tese.modelo.TreeMapItem;
 import doutorado.tese.modelo.TreeMapLevel;
-import doutorado.tese.modelo.TreeMapNode;
+import java.awt.Color;
 
 /**
  *
@@ -21,6 +22,7 @@ public class DetailsOnDemandVisao extends javax.swing.JFrame {
     private Glyph glyphOnToolTip;
     private String[] colunasDetalhesDemanda;
     private StringBuilder tooltipText;
+    private IconeLegenda icon;
 
     /**
      * Creates new form DetailsOnDemandVisao
@@ -28,6 +30,8 @@ public class DetailsOnDemandVisao extends javax.swing.JFrame {
     public DetailsOnDemandVisao() {
         initComponents();
         tooltipText = new StringBuilder();
+        icon = new IconeLegenda();
+//        this.setBackground(new Color(240, 240, 240, 0));
     }
 
     public StringBuilder getTooltipOfObject(Object node) {
@@ -66,6 +70,7 @@ public class DetailsOnDemandVisao extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
 
         detalhesTextPane.setBackground(new java.awt.Color(237, 242, 176));
@@ -82,6 +87,9 @@ public class DetailsOnDemandVisao extends javax.swing.JFrame {
             .addComponent(jScrollPane3)
         );
 
+        glyphIconLabel.setBackground(new java.awt.Color(237, 242, 176));
+        glyphIconLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,13 +97,13 @@ public class DetailsOnDemandVisao extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(glyphIconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(glyphIconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(glyphIconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 79, Short.MAX_VALUE))
+                .addComponent(glyphIconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 57, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -144,6 +152,24 @@ public class DetailsOnDemandVisao extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 
+    void updateGlyphIcon(boolean showGlyphIcon) {
+        icon.setGlyph(getGlyphOnToolTip());
+        icon.setIconWidth(glyphIconLabel.getBounds().width);
+        icon.setIconHeight(glyphIconLabel.getBounds().height);
+        icon.setDimensao(100);
+        glyphIconLabel.setIcon(icon);
+        glyphIconLabel.setVisible(showGlyphIcon);
+        glyphIconLabel.repaint();
+    }
+    
+    public void setGlyphIconLabel(javax.swing.JLabel glyphIconLabel){
+        this.glyphIconLabel = glyphIconLabel;
+    }
+    
+    public javax.swing.JLabel getGlyphIconLabel(){
+        return glyphIconLabel;
+    }
+    
     public void setDetalhesTextPane(javax.swing.JTextPane detalhesTextPane) {
         this.detalhesTextPane = detalhesTextPane;
     }
@@ -179,4 +205,5 @@ public class DetailsOnDemandVisao extends javax.swing.JFrame {
     public void setColunasDetalhesDemanda(String[] colunasDetalhesDemanda) {
         this.colunasDetalhesDemanda = colunasDetalhesDemanda;
     }
+
 }
