@@ -1360,7 +1360,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             @Override
             public void move(MouseEvent evt) {
                 Point locationOnScreen = evt.getLocationOnScreen();
-                locationOnScreen.translate(15, 5);
+                
+                if((locationOnScreen.getY() + details.getHeight()) > (view.getHeight())){
+                    locationOnScreen.translate(15, -50);
+                }else{
+                    locationOnScreen.translate(15, 5);
+                }
                 details.setLocation(locationOnScreen);
 
                 TreeMapNode nodeUnderTheMouse = (TreeMapNode) view.getNodeUnderTheMouse(evt);
