@@ -1347,6 +1347,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         clickPanel.setOnMouseOverListener(new GlassPanelClick.OnMouseOver() {
             @Override
             public void getDetailsOnDemand(MouseEvent evt) {
+                itensDetalhes = Util.parseListModel2ArrayString(colunasDetalhesList2.getModel());
 //                if (detailsOnDemandCheckBox.isSelected()) {
 //                    view.dispatchEvent(evt);
 //                }
@@ -1360,17 +1361,21 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             @Override
             public void move(MouseEvent evt) {
                 Point locationOnScreen = evt.getLocationOnScreen();
-                
-                if((locationOnScreen.getY() + details.getHeight()) > (view.getHeight())){
-                    locationOnScreen.translate(15, -50);
-                }else{
+
+                if ((locationOnScreen.getY() + details.getHeight()) > (view.getHeight())) {
+                    if (showGlyphOnDetailsCheckBox.isSelected()) {
+                        locationOnScreen.translate(15, -60);
+                    } else {
+                        locationOnScreen.translate(15, -50);
+                    }
+                } else {
                     locationOnScreen.translate(15, 5);
                 }
                 details.setLocation(locationOnScreen);
 
                 TreeMapNode nodeUnderTheMouse = (TreeMapNode) view.getNodeUnderTheMouse(evt);
                 details.getGlyphIconLabel().setVisible(showGlyphOnDetailsCheckBox.isSelected());
-                if (showGlyphOnDetailsCheckBox.isSelected()) {                    
+                if (showGlyphOnDetailsCheckBox.isSelected()) {
                     if (nodeUnderTheMouse instanceof TreeMapItem) {
                         if (nodeUnderTheMouse.getGlyph() != null) {
                             if (!nodeUnderTheMouse.getGlyph().getChildren().isEmpty()) {
@@ -1382,7 +1387,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     } else {
                         details.updateGlyphIcon(false);
                     }
-                }else{
+                } else {
 //                    details.getGlyphIconLabel().setVisible(false);
                     details.setSize(details.getDetalhesTextPane().getWidth(), details.getDetalhesTextPane().getHeight());
                 }

@@ -198,6 +198,12 @@ public class MainScreenLog extends javax.swing.JFrame {
 
     private void fecharMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharMenuItemActionPerformed
         ManipuladorLog.setTesteAcontecendo(false);
+        if (contQuestaoTeste <= PerguntasTesteEnum.values().length - 1) {
+                next_Button.setEnabled(false);
+                System.err.println("Fechando a ferramenta de testes devido a uma emergência!");
+                System.err.println("O log foi salvo até a questao "+contQuestaoTeste +"!");
+                LoggerMB.salvarLog();                
+            }
         this.dispose();
     }//GEN-LAST:event_fecharMenuItemActionPerformed
 
