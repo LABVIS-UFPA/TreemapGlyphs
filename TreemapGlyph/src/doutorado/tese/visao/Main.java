@@ -91,8 +91,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         separadorEsqueDir_jSplitPane.setOneTouchExpandable(true);
         separadorCimaBaixo.setOneTouchExpandable(true);
-        atributo5Glyph.setVisible(false);
-        numeroLabelLabel.setVisible(false);
+//        atributo5Glyph.setVisible(false);
+//        numeroLabelLabel.setVisible(false);
 //        painelAbas_jTabbedPane.setSelectedIndex(painelAbas_jTabbedPane.getTabCount() - 1);//ultima aba
         nextTest_Button.setVisible(false);
         saveAnswerButton.setVisible(false);
@@ -159,11 +159,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         atributo3Glyph = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         atributo4Glyph = new javax.swing.JComboBox<>();
-        numeroLabelLabel = new javax.swing.JLabel();
-        atributo5Glyph = new javax.swing.JComboBox<>();
         botaoGerarGlyphs = new javax.swing.JButton();
         checkCategoricalGlyph = new javax.swing.JCheckBox();
-        abaStarGlyphs = new javax.swing.JPanel();
+        abaContinuosGlyphs = new javax.swing.JPanel();
         checkContinuousGlyph = new javax.swing.JCheckBox();
         botaoGerarContinuosGlyphs = new javax.swing.JButton();
         inserirAtributoStarGlyphButton = new javax.swing.JButton();
@@ -356,48 +354,49 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addContainerGap()
                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(abaTreemapLayout.createSequentialGroup()
-                        .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(abaTreemapLayout.createSequentialGroup()
-                                .addComponent(checkLegenda)
-                                .addGap(18, 18, 18)
-                                .addComponent(legendaComboBox, 0, 198, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, abaTreemapLayout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel4))
-                                .addGap(23, 23, 23)
-                                .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tamanhoTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(corTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(74, 74, 74))
-                    .addGroup(abaTreemapLayout.createSequentialGroup()
-                        .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inserirBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(removerBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5)
+                            .addGroup(abaTreemapLayout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(removerBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inserirBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(abaTreemapLayout.createSequentialGroup()
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2)
+                                .addGap(70, 70, 70))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaTreemapLayout.createSequentialGroup()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel2)))
-                    .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                                    .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(abaTreemapLayout.createSequentialGroup()
+                        .addComponent(checkLegenda, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(legendaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, abaTreemapLayout.createSequentialGroup()
+                            .addGap(24, 24, 24)
+                            .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel4))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tamanhoTreemapComboBox, 0, 214, Short.MAX_VALUE)
+                                .addComponent(corTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         abaTreemapLayout.setVerticalGroup(
             abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaTreemapLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(abaTreemapLayout.createSequentialGroup()
@@ -407,8 +406,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
                     .addGroup(abaTreemapLayout.createSequentialGroup()
-                        .addComponent(inserirBotao_treemap, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(inserirBotao_treemap, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removerBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -424,7 +423,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoGerarVisualizacao)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Treemap", abaTreemap);
@@ -551,16 +550,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        numeroLabelLabel.setText("Number:");
-
-        atributo5Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
-        atributo5Glyph.setEnabled(false);
-        atributo5Glyph.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                atributo5GlyphItemStateChanged(evt);
-            }
-        });
-
         botaoGerarGlyphs.setText("View Glyphs");
         botaoGerarGlyphs.setEnabled(false);
         botaoGerarGlyphs.addActionListener(new java.awt.event.ActionListener() {
@@ -583,71 +572,59 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         abaConfigGlyphsLayout.setHorizontalGroup(
             abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                        .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                                .addComponent(checkCategoricalGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel14)
-                        .addGap(180, 180, 180))
-                    .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                        .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
                                 .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(atributo2Glyph, 0, 96, Short.MAX_VALUE)
-                                    .addComponent(atributo1Glyph, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                                        .addGap(11, 11, 11)
-                                        .addComponent(jLabel9))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaConfigGlyphsLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel10)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(atributo3Glyph, 0, 100, Short.MAX_VALUE)
-                                    .addComponent(atributo4Glyph, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jLabel15)
-                            .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(removerVarVisualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(inserirVarVisualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(baixoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cimaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
+                        .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkCategoricalGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15)
+                            .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
+                                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(atributo1Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(atributo2Glyph, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cimaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(baixoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(numeroLabelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(atributo5Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(atributo3Glyph, 0, 90, Short.MAX_VALUE)
+                                    .addComponent(atributo4Glyph, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, 0))))
         );
         abaConfigGlyphsLayout.setVerticalGroup(
             abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                        .addComponent(checkCategoricalGlyph)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel13))
-                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(checkCategoricalGlyph)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(removerVarVisualButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -659,32 +636,28 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(inserirVarVisualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                        .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(atributo3Glyph)
-                            .addComponent(atributo1Glyph)
-                            .addComponent(jLabel7))
+                        .addComponent(atributo3Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(atributo4Glyph)))
+                            .addComponent(atributo4Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)))
+                    .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(atributo1Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7))
                     .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(atributo2Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(atributo2Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(numeroLabelLabel)
-                    .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(atributo5Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(botaoGerarGlyphs)))
-                .addContainerGap())
+                .addComponent(botaoGerarGlyphs)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Config Glyphs", abaConfigGlyphs);
@@ -767,63 +740,60 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        javax.swing.GroupLayout abaStarGlyphsLayout = new javax.swing.GroupLayout(abaStarGlyphs);
-        abaStarGlyphs.setLayout(abaStarGlyphsLayout);
-        abaStarGlyphsLayout.setHorizontalGroup(
-            abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaStarGlyphsLayout.createSequentialGroup()
+        javax.swing.GroupLayout abaContinuosGlyphsLayout = new javax.swing.GroupLayout(abaContinuosGlyphs);
+        abaContinuosGlyphs.setLayout(abaContinuosGlyphsLayout);
+        abaContinuosGlyphsLayout.setHorizontalGroup(
+            abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaContinuosGlyphsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(botaoGerarContinuosGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(abaStarGlyphsLayout.createSequentialGroup()
-                        .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(abaStarGlyphsLayout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(checkContinuousGlyph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(abaStarGlyphsLayout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(glyphContinuosType, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(78, 78, 78))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaStarGlyphsLayout.createSequentialGroup()
-                                .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(inserirAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(removerAtributoStarGlyphButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(botaoGerarContinuosGlyphs, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(abaContinuosGlyphsLayout.createSequentialGroup()
+                        .addGroup(abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(abaContinuosGlyphsLayout.createSequentialGroup()
+                                .addComponent(checkContinuousGlyph)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(glyphContinuosType, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(abaContinuosGlyphsLayout.createSequentialGroup()
+                                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)
-                                .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(51, 51, 51))
+                                .addGroup(abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(inserirAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(removerAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
-        abaStarGlyphsLayout.setVerticalGroup(
-            abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(abaStarGlyphsLayout.createSequentialGroup()
+        abaContinuosGlyphsLayout.setVerticalGroup(
+            abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(abaContinuosGlyphsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkContinuousGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(glyphContinuosType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(abaStarGlyphsLayout.createSequentialGroup()
-                        .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGroup(abaStarGlyphsLayout.createSequentialGroup()
+                .addGroup(abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(abaContinuosGlyphsLayout.createSequentialGroup()
+                            .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(abaContinuosGlyphsLayout.createSequentialGroup()
                             .addComponent(inserirAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(removerAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(removerAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoGerarContinuosGlyphs)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
-        painelAbas_jTabbedPane.addTab("Glyph Continuo", abaStarGlyphs);
+        painelAbas_jTabbedPane.addTab("Glyph Continuo", abaContinuosGlyphs);
 
         jLabel6.setText("Available Attributes:");
 
@@ -895,7 +865,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel12)))))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         abaDetalhesLayout.setVerticalGroup(
             abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -916,7 +886,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(updateDetailsButton)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Details", abaDetalhes);
@@ -925,11 +895,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         abaFiltros.setLayout(abaFiltrosLayout);
         abaFiltrosLayout.setHorizontalGroup(
             abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 355, Short.MAX_VALUE)
+            .addGap(0, 333, Short.MAX_VALUE)
         );
         abaFiltrosLayout.setVerticalGroup(
             abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 282, Short.MAX_VALUE)
+            .addGap(0, 269, Short.MAX_VALUE)
         );
 
         painelAbas_jTabbedPane.addTab("Filter", abaFiltros);
@@ -960,28 +930,28 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaTaskLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(abaTaskLayout.createSequentialGroup()
-                        .addComponent(saveAnswerButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(taskCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(nextTest_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(abaTaskLayout.createSequentialGroup()
+                            .addComponent(saveAnswerButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(taskCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nextTest_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         abaTaskLayout.setVerticalGroup(
             abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaTaskLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(taskCountLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(nextTest_Button)
-                        .addComponent(saveAnswerButton)))
-                .addGap(36, 36, 36))
+                .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(saveAnswerButton)
+                    .addComponent(taskCountLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nextTest_Button)
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Task", abaTask);
@@ -998,7 +968,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addContainerGap()
                 .addComponent(progressoBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(separadorCimaBaixo)
+            .addComponent(separadorCimaBaixo, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
         );
         painelDireitaLayout.setVerticalGroup(
             painelDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1123,60 +1093,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             logger.error("The file type can not be read. - Did it again!");
         }
     }//GEN-LAST:event_fileMenuItemActionPerformed
-
-    private void atributo4GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo4GlyphItemStateChanged
-        botaoGerarGlyphs.setEnabled(true);
-    }//GEN-LAST:event_atributo4GlyphItemStateChanged
-
-    private void atributo3GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo3GlyphItemStateChanged
-        botaoGerarGlyphs.setEnabled(true);
-    }//GEN-LAST:event_atributo3GlyphItemStateChanged
-
-    private void atributo2GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo2GlyphItemStateChanged
-        botaoGerarGlyphs.setEnabled(true);
-    }//GEN-LAST:event_atributo2GlyphItemStateChanged
-
-    private void atributo1GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo1GlyphItemStateChanged
-        botaoGerarGlyphs.setEnabled(true);
-    }//GEN-LAST:event_atributo1GlyphItemStateChanged
-
-    private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
-        System.gc();
-
-        //zerando tudo
-        variaveisVisuaisEscolhidas = null;
-        //acoes para configurar os glyphs
-
-        variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
-        glyphPanel.setManipulador(manipulador);
-        glyphPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
-//        glyphPanel.setTipoGlyphContinuoEscolhido(atributosEscolhidosStarGlyph);
-        //Acoes para desenhar os glyphs
-        glyphPanel.setBounds(painelEsquerda.getBounds());
-        glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());
-        atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
-        glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
-        glyphPanel.setVisible(true);
-        glyphPanel.repaint();
-
-        atualizarLegendaGlyphs(atributosEscolhidosGlyph);
-    }//GEN-LAST:event_botaoGerarGlyphsActionPerformed
-    private void checkCategoricalGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCategoricalGlyphActionPerformed
-        //zerando
-        glyphPanel = null;
-
-        if (checkCategoricalGlyph.isSelected()) {
-            Constantes.setShowGlyph(true);
-            glyphPanel = new GlassPanel();
-            glyphPanel.setTMView(view);
-
-            varVisuaisList1.setEnabled(true);
-
-            layerPane.add(glyphPanel, new Integer(1), 0);
-        } else {
-            limparCacheGlyphs();
-        }
-    }//GEN-LAST:event_checkCategoricalGlyphActionPerformed
 
     private void checkLegendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLegendaActionPerformed
         if (checkLegenda.isSelected()) {
@@ -1495,141 +1411,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }//GEN-LAST:event_decisionTreeActivateActionPerformed
 
-    private void varVisuaisList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_varVisuaisList1ValueChanged
-        if (varVisuaisList1.getSelectedValuesList().size() >= 1) {
-            inserirVarVisualButton.setEnabled(true);
-        } else {
-            inserirVarVisualButton.setEnabled(false);
-        }
-    }//GEN-LAST:event_varVisuaisList1ValueChanged
-
-    private void inserirVarVisualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirVarVisualButtonActionPerformed
-        List<Object> newListaVarVisuais = new ArrayList<>();
-        List<Object> atributosEscolhidos = new ArrayList<>();
-        for (int i = 0; i < varVisuaisList2.getModel().getSize(); i++) {
-            String elementAt = varVisuaisList2.getModel().getElementAt(i);
-            atributosEscolhidos.add(elementAt);
-        }
-        atributosEscolhidos.addAll(varVisuaisList1.getSelectedValuesList());
-//        atributosEscolhidos.sort(null);
-        reloadListGUI(atributosEscolhidos.toArray(), varVisuaisList2);
-        varVisuaisList2.setEnabled(true);
-//        botaoConfiVarVisuais.setEnabled(true);
-        habilitarVarVisuaisUtilizadasGUI(varVisuaisList1.getSelectedValuesList());
-
-        //remover o conteudo da lista de atributos original
-        ListModel<String> modelOriginal = varVisuaisList1.getModel();
-        List<String> selectedValuesList = varVisuaisList1.getSelectedValuesList();
-        for (int i = 0; i < modelOriginal.getSize(); i++) {
-            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
-                newListaVarVisuais.add(modelOriginal.getElementAt(i));
-            }
-        }
-        reloadListGUI(newListaVarVisuais.toArray(), varVisuaisList1);
-        //loadVarVisuais(newListaVarVisuais.toArray());
-    }//GEN-LAST:event_inserirVarVisualButtonActionPerformed
-
-    private void removerVarVisualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerVarVisualButtonActionPerformed
-        List<Object> newListaAtribTreemap = new ArrayList<>();
-        List<Object> atributos = new ArrayList<>();
-
-        for (int i = 0; i < varVisuaisList1.getModel().getSize(); i++) {
-            String elementAt = varVisuaisList1.getModel().getElementAt(i);
-            atributos.add(elementAt);
-        }
-        atributos.addAll(varVisuaisList2.getSelectedValuesList());
-//        atributos.sort(null);
-        loadVarVisuais(atributos.toArray());
-        desabilitarVarVisuaisUtilizadasGUI(varVisuaisList2.getSelectedValuesList());
-
-        //remover o conteudo da lista de hierarquia treemap
-        ListModel<String> modelGlyphs = varVisuaisList2.getModel();
-        List<String> selectedValuesList = varVisuaisList2.getSelectedValuesList();
-        for (int i = 0; i < modelGlyphs.getSize(); i++) {
-            if (!selectedValuesList.contains(modelGlyphs.getElementAt(i))) {
-                newListaAtribTreemap.add(modelGlyphs.getElementAt(i));
-            }
-        }
-        reloadListGUI(newListaAtribTreemap.toArray(), varVisuaisList2);
-
-        if (varVisuaisList2.getModel().getSize() == 0) {
-            varVisuaisList2.setEnabled(false);
-        }
-    }//GEN-LAST:event_removerVarVisualButtonActionPerformed
-
-    private void varVisuaisList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_varVisuaisList2ValueChanged
-        if (varVisuaisList2.getSelectedValuesList().size() >= 1) {
-            removerVarVisualButton.setEnabled(true);
-            if (varVisuaisList2.getSelectedIndex() > 0) {
-                cimaButton.setEnabled(true);
-            } else {
-                cimaButton.setEnabled(false);
-            }
-            if (varVisuaisList2.getSelectedIndex() < varVisuaisList2.getModel().getSize() - 1) {
-                baixoButton.setEnabled(true);
-            } else {
-                baixoButton.setEnabled(false);
-            }
-        } else {
-            removerVarVisualButton.setEnabled(false);
-            cimaButton.setEnabled(false);
-            baixoButton.setEnabled(false);
-        }
-        if (varVisuaisList2.getModel().getSize() < 1) {
-            botaoGerarGlyphs.setEnabled(false);
-        }
-    }//GEN-LAST:event_varVisuaisList2ValueChanged
-
-    private void cimaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaButtonActionPerformed
-        List<String> novaLista = new ArrayList<>();
-        int[] selectedValuesList = varVisuaisList2.getSelectedIndices();
-        for (int i = 0; i < varVisuaisList2.getModel().getSize(); i++) {
-            for (int j = 0; j < selectedValuesList.length; j++) {
-                if (i == selectedValuesList[j]) {
-                    novaLista.add(i - 1, varVisuaisList2.getModel().getElementAt(i));
-                } else {
-                    novaLista.add(varVisuaisList2.getModel().getElementAt(i));
-                }
-            }
-        }
-        reloadListGUI(novaLista.toArray(), varVisuaisList2);
-    }//GEN-LAST:event_cimaButtonActionPerformed
-
-    private void baixoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baixoButtonActionPerformed
-        List<String> novaLista = new ArrayList<>(varVisuaisList2.getModel().getSize());
-        for (int i = 0; i < varVisuaisList2.getModel().getSize(); i++) {
-            novaLista.add(varVisuaisList2.getModel().getElementAt(i));
-        }
-        int[] selectedValuesList = varVisuaisList2.getSelectedIndices();
-        for (int i = 0; i < novaLista.size(); i++) {
-            for (int j = 0; j < selectedValuesList.length; j++) {
-                if (i == selectedValuesList[j]) {
-                    String caraFrente = novaLista.get(i + 1);
-                    String caraAtual = novaLista.get(i);
-                    novaLista.add(i + 1, caraAtual);
-                    novaLista.add(i, caraFrente);
-                    novaLista.remove(i + 2);
-                    novaLista.remove(i + 2);
-                    break;
-                }
-            }
-        }
-        reloadListGUI(novaLista.toArray(), varVisuaisList2);
-    }//GEN-LAST:event_baixoButtonActionPerformed
-
-    private void atributo5GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo5GlyphItemStateChanged
-        botaoGerarGlyphs.setEnabled(true);
-
-    }//GEN-LAST:event_atributo5GlyphItemStateChanged
-
-    private void atributo1GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo1GlyphActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_atributo1GlyphActionPerformed
-
-    private void atributo3GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo3GlyphActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_atributo3GlyphActionPerformed
-
     private void corTreemapComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corTreemapComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_corTreemapComboBoxActionPerformed
@@ -1793,14 +1574,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }//GEN-LAST:event_listaAtributosContinuousGlyph1ValueChanged
 
-    private void atributo4GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo4GlyphActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_atributo4GlyphActionPerformed
-
-    private void atributo2GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo2GlyphActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_atributo2GlyphActionPerformed
-
     private void glyphContinuosTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_glyphContinuosTypeItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_glyphContinuosTypeItemStateChanged
@@ -1864,6 +1637,199 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         console.setVisible(true);
     }//GEN-LAST:event_consoleMenuItemActionPerformed
 
+    private void checkCategoricalGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCategoricalGlyphActionPerformed
+        //zerando
+        glyphPanel = null;
+
+        if (checkCategoricalGlyph.isSelected()) {
+            Constantes.setShowGlyph(true);
+            glyphPanel = new GlassPanel();
+            glyphPanel.setTMView(view);
+
+            varVisuaisList1.setEnabled(true);
+
+            layerPane.add(glyphPanel, new Integer(1), 0);
+        } else {
+            limparCacheGlyphs();
+        }
+    }//GEN-LAST:event_checkCategoricalGlyphActionPerformed
+
+    private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
+        System.gc();
+
+        //zerando tudo
+        variaveisVisuaisEscolhidas = null;
+        //acoes para configurar os glyphs
+
+        variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
+        glyphPanel.setManipulador(manipulador);
+        glyphPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
+        //        glyphPanel.setTipoGlyphContinuoEscolhido(atributosEscolhidosStarGlyph);
+        //Acoes para desenhar os glyphs
+        glyphPanel.setBounds(painelEsquerda.getBounds());
+        glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());
+        atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
+        glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
+        glyphPanel.setVisible(true);
+        glyphPanel.repaint();
+
+        atualizarLegendaGlyphs(atributosEscolhidosGlyph);
+    }//GEN-LAST:event_botaoGerarGlyphsActionPerformed
+
+    private void atributo4GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo4GlyphActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo4GlyphActionPerformed
+
+    private void atributo4GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo4GlyphItemStateChanged
+        botaoGerarGlyphs.setEnabled(true);
+    }//GEN-LAST:event_atributo4GlyphItemStateChanged
+
+    private void atributo3GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo3GlyphActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo3GlyphActionPerformed
+
+    private void atributo3GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo3GlyphItemStateChanged
+        botaoGerarGlyphs.setEnabled(true);
+    }//GEN-LAST:event_atributo3GlyphItemStateChanged
+
+    private void atributo2GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo2GlyphActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo2GlyphActionPerformed
+
+    private void atributo2GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo2GlyphItemStateChanged
+        botaoGerarGlyphs.setEnabled(true);
+    }//GEN-LAST:event_atributo2GlyphItemStateChanged
+
+    private void atributo1GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo1GlyphActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributo1GlyphActionPerformed
+
+    private void atributo1GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo1GlyphItemStateChanged
+        botaoGerarGlyphs.setEnabled(true);
+    }//GEN-LAST:event_atributo1GlyphItemStateChanged
+
+    private void baixoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baixoButtonActionPerformed
+        List<String> novaLista = new ArrayList<>(varVisuaisList2.getModel().getSize());
+        for (int i = 0; i < varVisuaisList2.getModel().getSize(); i++) {
+            novaLista.add(varVisuaisList2.getModel().getElementAt(i));
+        }
+        int[] selectedValuesList = varVisuaisList2.getSelectedIndices();
+        for (int i = 0; i < novaLista.size(); i++) {
+            for (int j = 0; j < selectedValuesList.length; j++) {
+                if (i == selectedValuesList[j]) {
+                    String caraFrente = novaLista.get(i + 1);
+                    String caraAtual = novaLista.get(i);
+                    novaLista.add(i + 1, caraAtual);
+                    novaLista.add(i, caraFrente);
+                    novaLista.remove(i + 2);
+                    novaLista.remove(i + 2);
+                    break;
+                }
+            }
+        }
+        reloadListGUI(novaLista.toArray(), varVisuaisList2);
+    }//GEN-LAST:event_baixoButtonActionPerformed
+
+    private void cimaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaButtonActionPerformed
+        List<String> novaLista = new ArrayList<>();
+        int[] selectedValuesList = varVisuaisList2.getSelectedIndices();
+        for (int i = 0; i < varVisuaisList2.getModel().getSize(); i++) {
+            for (int j = 0; j < selectedValuesList.length; j++) {
+                if (i == selectedValuesList[j]) {
+                    novaLista.add(i - 1, varVisuaisList2.getModel().getElementAt(i));
+                } else {
+                    novaLista.add(varVisuaisList2.getModel().getElementAt(i));
+                }
+            }
+        }
+        reloadListGUI(novaLista.toArray(), varVisuaisList2);
+    }//GEN-LAST:event_cimaButtonActionPerformed
+
+    private void varVisuaisList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_varVisuaisList2ValueChanged
+        if (varVisuaisList2.getSelectedValuesList().size() >= 1) {
+            removerVarVisualButton.setEnabled(true);
+            if (varVisuaisList2.getSelectedIndex() > 0) {
+                cimaButton.setEnabled(true);
+            } else {
+                cimaButton.setEnabled(false);
+            }
+            if (varVisuaisList2.getSelectedIndex() < varVisuaisList2.getModel().getSize() - 1) {
+                baixoButton.setEnabled(true);
+            } else {
+                baixoButton.setEnabled(false);
+            }
+        } else {
+            removerVarVisualButton.setEnabled(false);
+            cimaButton.setEnabled(false);
+            baixoButton.setEnabled(false);
+        }
+        if (varVisuaisList2.getModel().getSize() < 1) {
+            botaoGerarGlyphs.setEnabled(false);
+        }
+    }//GEN-LAST:event_varVisuaisList2ValueChanged
+
+    private void removerVarVisualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerVarVisualButtonActionPerformed
+        List<Object> newListaAtribTreemap = new ArrayList<>();
+        List<Object> atributos = new ArrayList<>();
+
+        for (int i = 0; i < varVisuaisList1.getModel().getSize(); i++) {
+            String elementAt = varVisuaisList1.getModel().getElementAt(i);
+            atributos.add(elementAt);
+        }
+        atributos.addAll(varVisuaisList2.getSelectedValuesList());
+        //        atributos.sort(null);
+        loadVarVisuais(atributos.toArray());
+        desabilitarVarVisuaisUtilizadasGUI(varVisuaisList2.getSelectedValuesList());
+
+        //remover o conteudo da lista de hierarquia treemap
+        ListModel<String> modelGlyphs = varVisuaisList2.getModel();
+        List<String> selectedValuesList = varVisuaisList2.getSelectedValuesList();
+        for (int i = 0; i < modelGlyphs.getSize(); i++) {
+            if (!selectedValuesList.contains(modelGlyphs.getElementAt(i))) {
+                newListaAtribTreemap.add(modelGlyphs.getElementAt(i));
+            }
+        }
+        reloadListGUI(newListaAtribTreemap.toArray(), varVisuaisList2);
+
+        if (varVisuaisList2.getModel().getSize() == 0) {
+            varVisuaisList2.setEnabled(false);
+        }
+    }//GEN-LAST:event_removerVarVisualButtonActionPerformed
+
+    private void inserirVarVisualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirVarVisualButtonActionPerformed
+        List<Object> newListaVarVisuais = new ArrayList<>();
+        List<Object> atributosEscolhidos = new ArrayList<>();
+        for (int i = 0; i < varVisuaisList2.getModel().getSize(); i++) {
+            String elementAt = varVisuaisList2.getModel().getElementAt(i);
+            atributosEscolhidos.add(elementAt);
+        }
+        atributosEscolhidos.addAll(varVisuaisList1.getSelectedValuesList());
+        //        atributosEscolhidos.sort(null);
+        reloadListGUI(atributosEscolhidos.toArray(), varVisuaisList2);
+        varVisuaisList2.setEnabled(true);
+        //        botaoConfiVarVisuais.setEnabled(true);
+        habilitarVarVisuaisUtilizadasGUI(varVisuaisList1.getSelectedValuesList());
+
+        //remover o conteudo da lista de atributos original
+        ListModel<String> modelOriginal = varVisuaisList1.getModel();
+        List<String> selectedValuesList = varVisuaisList1.getSelectedValuesList();
+        for (int i = 0; i < modelOriginal.getSize(); i++) {
+            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
+                newListaVarVisuais.add(modelOriginal.getElementAt(i));
+            }
+        }
+        reloadListGUI(newListaVarVisuais.toArray(), varVisuaisList1);
+        //loadVarVisuais(newListaVarVisuais.toArray());
+    }//GEN-LAST:event_inserirVarVisualButtonActionPerformed
+
+    private void varVisuaisList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_varVisuaisList1ValueChanged
+        if (varVisuaisList1.getSelectedValuesList().size() >= 1) {
+            inserirVarVisualButton.setEnabled(true);
+        } else {
+            inserirVarVisualButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_varVisuaisList1ValueChanged
+
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
 
         ArrayList<Object> atributosGlyph = new ArrayList<>();
@@ -1871,7 +1837,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         atributosGlyph.add(atributo2Glyph.getSelectedItem());
         atributosGlyph.add(atributo3Glyph.getSelectedItem());
         atributosGlyph.add(atributo4Glyph.getSelectedItem());
-        atributosGlyph.add(atributo5Glyph.getSelectedItem());
+//        atributosGlyph.add(atributo5Glyph.getSelectedItem());
 
         return atributosGlyph;
     }
@@ -1918,16 +1884,15 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel abaConfigGlyphs;
+    private javax.swing.JPanel abaContinuosGlyphs;
     private javax.swing.JPanel abaDetalhes;
     private javax.swing.JPanel abaFiltros;
-    private javax.swing.JPanel abaStarGlyphs;
     private javax.swing.JPanel abaTask;
     private javax.swing.JPanel abaTreemap;
     private javax.swing.JComboBox<String> atributo1Glyph;
     private javax.swing.JComboBox<String> atributo2Glyph;
     private javax.swing.JComboBox<String> atributo3Glyph;
     private javax.swing.JComboBox<String> atributo4Glyph;
-    private javax.swing.JComboBox<String> atributo5Glyph;
     private javax.swing.JButton baixoAtributoStarGlyphButton;
     private javax.swing.JButton baixoBotao_treemap;
     private javax.swing.JButton baixoButton;
@@ -1985,7 +1950,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JList<String> listaAtributosContinuousGlyph1;
     private javax.swing.JList<String> listaAtributosContinuousGlyph2;
     private javax.swing.JButton nextTest_Button;
-    private javax.swing.JLabel numeroLabelLabel;
     private javax.swing.JTabbedPane painelAbas_jTabbedPane;
     private javax.swing.JPanel painelCima;
     private javax.swing.JPanel painelDireita;
@@ -2112,7 +2076,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 atributo2Glyph.setEnabled(false);
                 atributo3Glyph.setEnabled(false);
                 atributo4Glyph.setEnabled(false);
-                atributo5Glyph.setEnabled(false);
+//                atributo5Glyph.setEnabled(false);
             }
             if (checkContinuousGlyph.isSelected()) {
                 checkContinuousGlyph.setSelected(false);
@@ -2173,7 +2137,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     atributo4Glyph.setEnabled(true);
                     break;
                 case "Number":
-                    atributo5Glyph.setEnabled(true);
+//                    atributo5Glyph.setEnabled(true);
                     break;
             }
         }
@@ -2199,8 +2163,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     atributo4Glyph.setSelectedIndex(0);
                     break;
                 case "Number":
-                    atributo5Glyph.setEnabled(false);
-                    atributo5Glyph.setSelectedIndex(0);
+//                    atributo5Glyph.setEnabled(false);
+//                    atributo5Glyph.setSelectedIndex(0);
                     break;
             }
         }
@@ -2361,7 +2325,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 loadVariaveisGlyph(loadColorAttributes2Glyphs(), atributo2Glyph);
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_3, true), atributo3Glyph);
                 loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_4, true), atributo4Glyph);
-                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_5, true), atributo5Glyph);
+//                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_5, true), atributo5Glyph);
 
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis glyph: " + porcentagem + "%");
