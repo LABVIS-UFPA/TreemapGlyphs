@@ -6,7 +6,7 @@
 package doutorado.tese.controle.negocio.visualizacao.glyph;
 
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.color.Cor;
-import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.letters.Letra;
+import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.numbers.Numeral;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
@@ -64,7 +64,7 @@ public abstract class Glyph implements Cloneable {
                 } else if (item.getWhat2Draw()[2] == 1 && getChild().whoAmI() == FormaGeometrica.class) {
                     getChild().setDecisionTreeActivate(activatedDecisionTree);
                     getChild().paint(g2d);
-                } else if (item.getWhat2Draw()[3] == 1 && getChild().whoAmI() == Letra.class) {
+                } else if (item.getWhat2Draw()[3] == 1 && getChild().whoAmI() == Text.class) {
                     getChild().setDecisionTreeActivate(activatedDecisionTree);
                     getChild().paint(g2d);
                 } else if (item.getWhat2Draw()[4] == 1 && getChild().whoAmI() == Numeral.class) {
@@ -228,7 +228,7 @@ public abstract class Glyph implements Cloneable {
     /**
      * @param hasLetter the hasLetter to set
      */
-    public void usingLetter(boolean hasLetter) {
+    public void usingText(boolean hasLetter) {
         this.hasLetter = hasLetter;
     }
 
@@ -250,7 +250,7 @@ public abstract class Glyph implements Cloneable {
     /**
      * @param letter the letter to set
      */
-    public void setLetter(String letter) {
+    public void setText(String letter) {
         this.letter = letter;
     }
 

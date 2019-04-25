@@ -6,7 +6,7 @@
 package doutorado.tese.modelo;
 
 import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
-import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.letters.Letra;
+import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.numbers.Numeral;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
@@ -29,7 +29,7 @@ public class TreeMapItem extends TreeMapNode {
     private Textura textura;
     private FormaGeometrica corForma;
     private FormaGeometrica formaGeometrica;
-    private Letra letra;
+    private Text letra;
     private Numeral numero;
     private boolean possuiGlyphResposta;
 
@@ -185,11 +185,11 @@ public class TreeMapItem extends TreeMapNode {
         this.formaGeometrica = formaGeometrica;
     }
 
-    public Letra getLetra() {
+    public Text getLetra() {
         return letra;
     }
 
-    public void setLetra(Letra letra) {
+    public void setText(Text letra) {
         this.letra = letra;
     }
 

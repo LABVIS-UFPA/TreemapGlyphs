@@ -433,7 +433,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         varVisuaisList1.setModel(new javax.swing.AbstractListModel<String>() {
             //    String[] strings = { "Texture", "Color", "Shape", "Letter", "Number" };
-            String[] strings = { "Texture", "Color", "Shape", "Letter"};
+            //    String[] strings = { "Texture", "Color", "Shape", "Letter"};
+            String[] strings = { "Texture", "Color", "Shape", "Text"};
             //    String[] strings = { "Textura", "Cor", "Forma", "Letra"};
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
@@ -535,7 +536,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        jLabel10.setText("Letter:");
+        jLabel10.setText("Text:");
 
         atributo4Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         atributo4Glyph.setEnabled(false);
@@ -2103,7 +2104,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 newList[0] = "Texture";
                 newList[1] = "Color";
                 newList[2] = "Shape";
-                newList[3] = "Letter";//newList[4] = "Number";
+//                newList[3] = "Letter";//newList[4] = "Number";
+                newList[3] = "Text";//newList[4] = "Number";
                 DefaultComboBoxModel model = new DefaultComboBoxModel(newList);
                 varVisuaisList1.setModel(model);
                 atributo1Glyph.setEnabled(false);
@@ -2167,7 +2169,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 case "Shape":
                     atributo3Glyph.setEnabled(true);
                     break;
-                case "Letter":
+                case "Text"://case "Letter":
                     atributo4Glyph.setEnabled(true);
                     break;
                 case "Number":
@@ -2192,7 +2194,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     atributo3Glyph.setEnabled(false);
                     atributo3Glyph.setSelectedIndex(0);
                     break;
-                case "Letter":
+                case "Text"://case "Letter":
                     atributo4Glyph.setEnabled(false);
                     atributo4Glyph.setSelectedIndex(0);
                     break;

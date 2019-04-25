@@ -7,7 +7,7 @@ package doutorado.tese.controle.negocio.visualizacao.legenda;
 
 import doutorado.tese.util.Constantes;
 import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
-import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.letters.Letra;
+import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.numbers.Numeral;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
@@ -112,8 +112,8 @@ public class IconeLegenda implements Icon {
                 shapeIcon.paint(g2d);
                 break;
             case 3:
-                Glyph glyphLetra = new Letra();
-                Letra letra = (Letra) glyphLetra;
+                Glyph glyphLetra = new Text();
+                Text letra = (Text) glyphLetra;
                 letra.setLetra(valor);
                 letra.setPectSobreposicao(0.65f);
                 letra.setOverlappingActivated(true);

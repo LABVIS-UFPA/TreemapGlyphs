@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.letters;
+package doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.text;
 
 import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
 import java.awt.Color;
@@ -22,7 +22,7 @@ import java.awt.image.BufferedImage;
  *
  * @author Anderson Soares
  */
-public class Letra extends Glyph {
+public class Text extends Glyph {
 
     private int[] xPoints;
     private int[] yPoints;
@@ -36,7 +36,7 @@ public class Letra extends Glyph {
     private int x, y;
     private Rectangle newBounds;
 
-    public Letra() {
+    public Text() {
     }
 
     @Override

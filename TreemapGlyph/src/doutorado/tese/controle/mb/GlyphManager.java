@@ -13,7 +13,7 @@ import doutorado.tese.util.Metadados;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.Bar;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.color.Cor;
-import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.letters.Letra;
+import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.numbers.Numeral;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
@@ -169,8 +169,8 @@ public final class GlyphManager {
             } else if (glyph instanceof FormaGeometrica) {
                 features[Constantes.AREA_SHAPE] = ((FormaGeometrica) glyph).getArea();
                 features[Constantes.PRESENCA_FORMA] = Constantes.PRESENTE;
-            } else if (glyph instanceof Letra) {
-                features[Constantes.AREA_LETRA] = ((Letra) glyph).getArea();
+            } else if (glyph instanceof Text) {
+                features[Constantes.AREA_LETRA] = ((Text) glyph).getArea();
                 features[Constantes.PRESENCA_LETRA] = Constantes.PRESENTE;
             } else if (glyph instanceof Numeral) {
                 features[Constantes.AREA_NUMERO] = ((Numeral) glyph).getArea();
@@ -250,8 +250,8 @@ public final class GlyphManager {
             case "Shape":
                 glyph = prepareDimensaoShapeDinamico(col, item, dadosDistintos);
                 break;
-            case "Letter":
-                glyph = prepareDimensaoLetterDinamico(col, item, dadosDistintos);
+            case "Text"://case "Letter":
+                glyph = prepareDimensaoTextDinamico(col, item, dadosDistintos);
                 break;
             case "Number":
                 glyph = prepareDimensaoNumberDinamico(col, item, dadosDistintos);
@@ -379,13 +379,13 @@ public final class GlyphManager {
         return null;
     }
 
-    public Glyph prepareDimensaoLetterDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
+    public Glyph prepareDimensaoTextDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.LETRAS_ALFABETO.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                Glyph result = defineLetter(Constantes.LETRAS_ALFABETO[j]);
-                result.usingLetter(true);
+                Glyph result = defineText(Constantes.LETRAS_ALFABETO[j]);
+                result.usingText(true);
                 letraUtilizada = Constantes.LETRAS_ALFABETO[j];
-                result.setLetter(letraUtilizada);
+                result.setText(letraUtilizada);
                 result.setNodeTreemap(item);
                 return result;
             }
@@ -396,7 +396,7 @@ public final class GlyphManager {
     public Glyph prepareDimensaoNumberDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.NUMEROS.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                Glyph result = defineLetter(Constantes.NUMEROS[j]);
+                Glyph result = defineText(Constantes.NUMEROS[j]);
                 result.usingNumber(true);
                 numeroUtilizado = Constantes.NUMEROS[j];
                 result.setNumber(numeroUtilizado);
@@ -434,12 +434,12 @@ public final class GlyphManager {
         return glyph;
     }
 
-    private Glyph defineLetter(String letter) {
-        Glyph glyph = new Letra();
-        Letra letra = (Letra) glyph;
-        letra.setLetra(letter);
-        letra.setPectSobreposicao(0.65f);
-        letra.setOverlappingActivated(overlappingActivated);
+    private Glyph defineText(String letter) {
+        Glyph glyph = new Text();
+        Text text = (Text) glyph;
+        text.setLetra(letter);
+        text.setPectSobreposicao(0.65f);
+        text.setOverlappingActivated(overlappingActivated);
         return glyph;
     }
 
@@ -447,12 +447,12 @@ public final class GlyphManager {
         item.setTextura(null);
         item.setCorForma(null);
         item.setFormaGeometrica(null);
-        item.setLetra(null);
+        item.setText(null);
         item.setNumero(null);
     }
 
     /**
-     * Mapeia as dimenssões 0 - textura, 1 - cor, 2 - forma, 3 - letra, 4 -
+     * Mapeia as dimenssões 0 - textura, 1 - cor, 2 - forma, 3 - text, 4 -
      * numero
      *
      * @param varVisual nome da var visual
@@ -470,7 +470,7 @@ public final class GlyphManager {
             case "Shape":
                 dimensao = 2;
                 break;
-            case "Letter":
+            case "Text"://case "Letter":
                 dimensao = 3;
                 break;
             case "Number":
