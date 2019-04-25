@@ -286,7 +286,7 @@
                                                   <Group type="102" attributes="0">
                                                       <Component id="checkLegenda" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="legendaComboBox" pref="204" max="32767" attributes="0"/>
+                                                      <Component id="legendaComboBox" pref="198" max="32767" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
@@ -575,7 +575,7 @@
                                                   <Component id="jLabel13" max="32767" attributes="0"/>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="checkCategoricalGlyph" min="-2" pref="107" max="-2" attributes="0"/>
-                                                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                                                      <EmptySpace pref="14" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -958,12 +958,12 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="botaoGerarContinuosGlyphs" pref="300" max="32767" attributes="0"/>
+                                          <Component id="botaoGerarContinuosGlyphs" max="32767" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                                      <Component id="checkContinuousGlyph" pref="107" max="32767" attributes="0"/>
+                                                      <Component id="checkContinuousGlyph" max="32767" attributes="0"/>
                                                   </Group>
                                                   <Component id="jScrollPane11" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
                                               </Group>
@@ -1190,7 +1190,7 @@
                                               </Group>
                                           </Group>
                                       </Group>
-                                      <EmptySpace pref="83" max="32767" attributes="0"/>
+                                      <EmptySpace pref="77" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1334,7 +1334,7 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="361" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="355" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
@@ -1368,7 +1368,7 @@
                                               <Component id="nextTest_Button" min="-2" pref="83" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace pref="35" max="32767" attributes="0"/>
+                                      <EmptySpace pref="29" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>

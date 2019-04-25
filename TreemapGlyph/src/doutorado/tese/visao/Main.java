@@ -360,7 +360,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addGroup(abaTreemapLayout.createSequentialGroup()
                                 .addComponent(checkLegenda)
                                 .addGap(18, 18, 18)
-                                .addComponent(legendaComboBox, 0, 204, Short.MAX_VALUE))
+                                .addComponent(legendaComboBox, 0, 198, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, abaTreemapLayout.createSequentialGroup()
                                 .addGap(21, 21, 21)
                                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -590,7 +590,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
                                 .addComponent(checkCategoricalGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel14)
                         .addGap(180, 180, 180))
@@ -774,12 +774,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaStarGlyphsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(botaoGerarContinuosGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(botaoGerarContinuosGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(abaStarGlyphsLayout.createSequentialGroup()
                         .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(abaStarGlyphsLayout.createSequentialGroup()
                                 .addGap(4, 4, 4)
-                                .addComponent(checkContinuousGlyph, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
+                                .addComponent(checkContinuousGlyph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(abaStarGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(abaStarGlyphsLayout.createSequentialGroup()
@@ -895,7 +895,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel12)))))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         abaDetalhesLayout.setVerticalGroup(
             abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -925,7 +925,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         abaFiltros.setLayout(abaFiltrosLayout);
         abaFiltrosLayout.setHorizontalGroup(
             abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 361, Short.MAX_VALUE)
+            .addGap(0, 355, Short.MAX_VALUE)
         );
         abaFiltrosLayout.setVerticalGroup(
             abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -968,7 +968,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addComponent(taskCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(nextTest_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         abaTaskLayout.setVerticalGroup(
             abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
