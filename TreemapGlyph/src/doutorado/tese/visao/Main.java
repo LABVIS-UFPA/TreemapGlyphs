@@ -171,7 +171,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         cimaAtributoStarGlyphButton = new javax.swing.JButton();
         baixoAtributoStarGlyphButton = new javax.swing.JButton();
         jScrollPane11 = new javax.swing.JScrollPane();
-        listaAtributosContinuousGlyph1 = new javax.swing.JList<>();
+        listaAtributosContinuousGlyph = new javax.swing.JList<>();
         glyphContinuosType = new javax.swing.JComboBox<>();
         abaDetalhes = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -621,9 +621,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
                 .addComponent(checkCategoricalGlyph)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14))
+                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel13)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(removerVarVisualButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -662,7 +663,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         painelAbas_jTabbedPane.addTab("Config Glyphs", abaConfigGlyphs);
 
-        checkContinuousGlyph.setText("Glyph Continuo");
+        checkContinuousGlyph.setText("Continuo Glyph");
         checkContinuousGlyph.setEnabled(false);
         checkContinuousGlyph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -719,13 +720,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        listaAtributosContinuousGlyph1.setEnabled(false);
-        listaAtributosContinuousGlyph1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        listaAtributosContinuousGlyph.setEnabled(false);
+        listaAtributosContinuousGlyph.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listaAtributosContinuousGlyph1ValueChanged(evt);
+                listaAtributosContinuousGlyphValueChanged(evt);
             }
         });
-        jScrollPane11.setViewportView(listaAtributosContinuousGlyph1);
+        jScrollPane11.setViewportView(listaAtributosContinuousGlyph);
 
         glyphContinuosType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"---", "Profile","Star","Pie","Ang" }));
         glyphContinuosType.setEnabled(false);
@@ -766,7 +767,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addGroup(abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         abaContinuosGlyphsLayout.setVerticalGroup(
             abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -865,7 +866,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel12)))))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         abaDetalhesLayout.setVerticalGroup(
             abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -895,7 +896,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         abaFiltros.setLayout(abaFiltrosLayout);
         abaFiltrosLayout.setHorizontalGroup(
             abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 333, Short.MAX_VALUE)
+            .addGap(0, 355, Short.MAX_VALUE)
         );
         abaFiltrosLayout.setVerticalGroup(
             abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -938,7 +939,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addComponent(taskCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(nextTest_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
         abaTaskLayout.setVerticalGroup(
             abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -968,7 +969,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addContainerGap()
                 .addComponent(progressoBarra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(separadorCimaBaixo, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+            .addComponent(separadorCimaBaixo)
         );
         painelDireitaLayout.setVerticalGroup(
             painelDireitaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1426,7 +1427,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
                 layerPane.add(glyphPanel, new Integer(1), 0);
             }
-            listaAtributosContinuousGlyph1.setEnabled(true);
+            listaAtributosContinuousGlyph.setEnabled(true);
         } else {
             limparCacheGlyphs();
         }
@@ -1436,13 +1437,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         List<Object> newListaAtribTreemap = new ArrayList<>();
         List<Object> atributos = new ArrayList<>();
 
-        for (int i = 0; i < listaAtributosContinuousGlyph1.getModel().getSize(); i++) {
-            String elementAt = listaAtributosContinuousGlyph1.getModel().getElementAt(i);
+        for (int i = 0; i < listaAtributosContinuousGlyph.getModel().getSize(); i++) {
+            String elementAt = listaAtributosContinuousGlyph.getModel().getElementAt(i);
             atributos.add(elementAt);
         }
         atributos.addAll(listaAtributosContinuousGlyph2.getSelectedValuesList());
         atributos.sort(null);
-        reloadListGUI(atributos.toArray(), listaAtributosContinuousGlyph1);
+        reloadListGUI(atributos.toArray(), listaAtributosContinuousGlyph);
 
         //remover o conteudo da lista de hierarquia treemap
         ListModel<String> modelGlyphs = listaAtributosContinuousGlyph2.getModel();
@@ -1469,19 +1470,19 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             String elementAt = listaAtributosContinuousGlyph2.getModel().getElementAt(i);
             atributosEscolhidos.add(elementAt);
         }
-        atributosEscolhidos.addAll(listaAtributosContinuousGlyph1.getSelectedValuesList());
+        atributosEscolhidos.addAll(listaAtributosContinuousGlyph.getSelectedValuesList());
         reloadListGUI(atributosEscolhidos.toArray(), listaAtributosContinuousGlyph2);
         listaAtributosContinuousGlyph2.setEnabled(true);
 
         //remover o conteudo da lista de atributos original
-        ListModel<String> modelOriginal = listaAtributosContinuousGlyph1.getModel();
-        List<String> selectedValuesList = listaAtributosContinuousGlyph1.getSelectedValuesList();
+        ListModel<String> modelOriginal = listaAtributosContinuousGlyph.getModel();
+        List<String> selectedValuesList = listaAtributosContinuousGlyph.getSelectedValuesList();
         for (int i = 0; i < modelOriginal.getSize(); i++) {
             if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
                 newListaVarVisuais.add(modelOriginal.getElementAt(i));
             }
         }
-        reloadListGUI(newListaVarVisuais.toArray(), listaAtributosContinuousGlyph1);
+        reloadListGUI(newListaVarVisuais.toArray(), listaAtributosContinuousGlyph);
         botaoGerarContinuosGlyphs.setEnabled(true);
     }//GEN-LAST:event_inserirAtributoStarGlyphButtonActionPerformed
 
@@ -1566,13 +1567,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         reloadListGUI(novaLista.toArray(), listaAtributosContinuousGlyph2);
     }//GEN-LAST:event_baixoAtributoStarGlyphButtonActionPerformed
 
-    private void listaAtributosContinuousGlyph1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaAtributosContinuousGlyph1ValueChanged
-        if (listaAtributosContinuousGlyph1.getSelectedValuesList().size() >= 1) {
+    private void listaAtributosContinuousGlyphValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaAtributosContinuousGlyphValueChanged
+        if (listaAtributosContinuousGlyph.getSelectedValuesList().size() >= 1) {
             inserirAtributoStarGlyphButton.setEnabled(true);
         } else {
             inserirAtributoStarGlyphButton.setEnabled(false);
         }
-    }//GEN-LAST:event_listaAtributosContinuousGlyph1ValueChanged
+    }//GEN-LAST:event_listaAtributosContinuousGlyphValueChanged
 
     private void glyphContinuosTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_glyphContinuosTypeItemStateChanged
         // TODO add your handling code here:
@@ -1947,7 +1948,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JScrollPane legendaBarraRolage;
     private javax.swing.JComboBox<String> legendaComboBox;
-    private javax.swing.JList<String> listaAtributosContinuousGlyph1;
+    private javax.swing.JList<String> listaAtributosContinuousGlyph;
     private javax.swing.JList<String> listaAtributosContinuousGlyph2;
     private javax.swing.JButton nextTest_Button;
     private javax.swing.JTabbedPane painelAbas_jTabbedPane;
@@ -2080,7 +2081,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
             if (checkContinuousGlyph.isSelected()) {
                 checkContinuousGlyph.setSelected(false);
-                listaAtributosContinuousGlyph1.setEnabled(false);
+                listaAtributosContinuousGlyph.setEnabled(false);
                 listaAtributosContinuousGlyph2.setEnabled(false);
 //                painelStarGlyphLegenda.removeAll();
 
@@ -2355,10 +2356,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 progressoBarra.setToolTipText("Carregando variáveis para Detalhes sob Demanda: " + porcentagem + "%");
                 break;
             case 13:
-                logger.info("Preparando atributos para o starGlyph.");
-                loadItensStarGlyph(continuousAttributes.toArray());
+                logger.info("Preparando atributos para o continuous glyph.");
+                String[] attributes = new String[continuousAttributes.size() - 1];
+                for (int i = 0; i < continuousAttributes.size() - 1; i++) {
+                    attributes [i] = continuousAttributes.get(i);
+                }
+                loadItensContinuouGlyph(attributes);
                 porcentagem = (ordem * 100) / tarefas;
-                progressoBarra.setToolTipText("Preparando atributos para o starGlyph: " + porcentagem + "%");
+                progressoBarra.setToolTipText("Preparando atributos para o continuous glyph: " + porcentagem + "%");
                 break;
             default:
                 throw new AssertionError();
@@ -2395,8 +2400,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         colunasDetalhesList1.setEnabled(true);
     }
 
-    private void loadItensStarGlyph(Object[] objs) {
-        reloadListGUI(objs, listaAtributosContinuousGlyph1);
+    private void loadItensContinuouGlyph(Object[] objs) {
+        reloadListGUI(objs, listaAtributosContinuousGlyph);
     }
 
     private void loadItensCoresTreemap(Object[] objs) {
@@ -2508,7 +2513,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void loadVariaveisStarGlyph() {
         Object[] items = loadContinuousAttributes().toArray();
-        reloadListGUI(items, listaAtributosContinuousGlyph1);
+        reloadListGUI(items, listaAtributosContinuousGlyph);
     }
 
     private void appendToPane(JTextPane tp, String msg, Color c) {
