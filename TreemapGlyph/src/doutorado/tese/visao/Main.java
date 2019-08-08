@@ -14,14 +14,12 @@ import doutorado.tese.controle.negocio.visualizacao.legenda.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.modelo.TreeMapItem;
-import doutorado.tese.modelo.TreeMapLevel;
 import doutorado.tese.modelo.TreeMapNode;
 import doutorado.tese.util.Util;
 import doutorado.tese.visao.teste.ConsoleTest;
 import doutorado.tese.visao.teste.MainScreenLog;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -200,6 +198,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         startMenuItem = new javax.swing.JMenuItem();
         consoleMenuItem = new javax.swing.JMenuItem();
         finishMenuItem = new javax.swing.JMenuItem();
+        aboutMenu = new javax.swing.JMenu();
+        version_jMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Treemap Glyphs");
@@ -594,27 +594,24 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                                     .addComponent(cimaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
+                    .addComponent(checkCategoricalGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
                     .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkCategoricalGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15)
-                            .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(atributo1Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(atributo2Glyph, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(atributo3Glyph, 0, 90, Short.MAX_VALUE)
-                                    .addComponent(atributo4Glyph, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 0, 0))))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(atributo1Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(atributo2Glyph, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(atributo3Glyph, 0, 90, Short.MAX_VALUE)
+                            .addComponent(atributo4Glyph, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
         abaConfigGlyphsLayout.setVerticalGroup(
             abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -623,8 +620,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel13)))
+                    .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(removerVarVisualButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1036,6 +1032,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         testMenu.add(finishMenuItem);
 
         jMenuBar1.add(testMenu);
+
+        aboutMenu.setText("About");
+
+        version_jMenuItem.setText("Version");
+        version_jMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                version_jMenuItemActionPerformed(evt);
+            }
+        });
+        aboutMenu.add(version_jMenuItem);
+
+        jMenuBar1.add(aboutMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -1831,6 +1839,16 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }//GEN-LAST:event_varVisuaisList1ValueChanged
 
+    private void version_jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_version_jMenuItemActionPerformed
+        //Atualizar o arquivo build.xml com o numero da versao
+        //Ex: <property name="store.jar.name" value="TreemapGlyph_v17"/> 
+        //Gerar o .jar clicando com o botao direito no arquivo build.xml ->
+        //executar destino -> outros destinos -> package-for-store
+        //o arquivo .jar sera gerado em uma pasta TreemapGlyph\store
+        JOptionPane.showMessageDialog(null, "Version 17.0\n"
+                + "Developed by LabVis ( http://www.labvis.ufpa.br/ )");
+    }//GEN-LAST:event_version_jMenuItemActionPerformed
+
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
 
         ArrayList<Object> atributosGlyph = new ArrayList<>();
@@ -1890,6 +1908,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JPanel abaFiltros;
     private javax.swing.JPanel abaTask;
     private javax.swing.JPanel abaTreemap;
+    private javax.swing.JMenu aboutMenu;
     private javax.swing.JComboBox<String> atributo1Glyph;
     private javax.swing.JComboBox<String> atributo2Glyph;
     private javax.swing.JComboBox<String> atributo3Glyph;
@@ -1973,6 +1992,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JButton updateDetailsButton;
     private javax.swing.JList<String> varVisuaisList1;
     private javax.swing.JList<String> varVisuaisList2;
+    private javax.swing.JMenuItem version_jMenuItem;
     // End of variables declaration//GEN-END:variables
     static Main frame;
     private JLayeredPane layerPane;
@@ -2285,9 +2305,15 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     }
                 } catch (Exception e) {
                     logger.error("Erro ao definir a descrição das colunas. \n", e);
-                    JOptionPane.showMessageDialog(null, "Ocorreu um erro na leitura do seu arquivo. \nPor favor,"
-                            + "Verifique se seu arquivo está configurado corretamente \n"
-                            + "e tente novamente.", "Há um problema em seu arquivo!.", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, 
+                            "There was an error reading your file. \nPlease, "
+                             + "make sure your file is set up correctly \n"
+                             + "and try again. \n"
+                             + "-Make sure your file has headers (Column Name and Data Type, each in a row, first Column Name then Data Type) \n"
+                             + "-Data types are written with the first letter uppercase and the rest lowercase (e.g. String, Double) \n"
+                             + "-The accepted data types are: Integer, Double, String, Float, Boolean",
+                             "There is a problem with your file !.",
+                            JOptionPane.ERROR_MESSAGE);
                     e.printStackTrace();
                     break;
                 }

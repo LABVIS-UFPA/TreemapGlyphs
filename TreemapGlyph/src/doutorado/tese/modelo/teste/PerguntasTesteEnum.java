@@ -22,8 +22,8 @@ public enum PerguntasTesteEnum {
     Q10("Na região Norte, durante o outono na localidade rural, selecione o registro (único) de maior volume de chuva e menor intensidade de vento."),//categorica e continua
     Q11("Selecione o único registro da região norte, com temperatura média, que possui ph da chuva elevado e baixa umidade do ar."),//categorica e continua
     Q12("Selecione o único registro da região sul com ph da chuva igual a Zero (0), com a ocorrência de vento forte, na localidade rural."),//categorica e continua
-    Q13("Na região nordeste,selecione o registro(único) de temperatura negativa ");
-    
+    //Q13("Na região nordeste,selecione o registro(único) de temperatura negativa ");
+    Q13("In the northeast region, select the (single) negative temperature log");
     private final String q;
 
     PerguntasTesteEnum(String q) {
