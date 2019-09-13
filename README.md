@@ -3,7 +3,10 @@ This project aims to present solutions to mitigate the current challenges of the
 
 Projeto que objetiva apresentar soluções para mitigar os desafios atuais da técnica Treemap, para isso propõe integrar as boas características da técnica treemap de representação hierárquica de grupos com a boa representatividade de dados dos glifos. Como consequência imediata desta pesquisa é possível ter treemaps com mais dimensões de dados representadas, com isso o usuário poderá relacionar mais dados visualmente, proporcionando melhores análise do conjunto de dados.
 
-**Link for sample database download**: [Click here](https://github.com/LABVIS-UFPA/TreemapGlyphs/blob/master/TreemapGlyph/database/treemap_glyphs_base_carro_outliers_bianchi.txt)
+**Link for sample database download (training test) **: [Click here](https://github.com/LABVIS-UFPA/TreemapGlyphs/blob/TreemapGlyphs_log/TreemapGlyph/database/treemap_glyphs_base_carro_outliers_bianchi.txt)
+
+**Link for sample database download (test) **: [Click here](https://github.com/LABVIS-UFPA/TreemapGlyphs/blob/TreemapGlyphs_log/TreemapGlyph/database/treemap_glyphs_base_CHUVAS_eng_datagen.tsv)
+
 * [Page to Download Application](http://labvis.ufpa.br/treemapglyph)
 
 ## Team
