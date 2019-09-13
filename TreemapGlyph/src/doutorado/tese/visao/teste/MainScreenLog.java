@@ -252,7 +252,8 @@ public class MainScreenLog extends javax.swing.JFrame {
         start_Button.setText("Start Training");
         start_Button.setEnabled(true);
         submit_Button.setEnabled(false);
-        ManipuladorLog.setArquivoGabarito("respostasTreinamento.tsv");
+//        ManipuladorLog.setArquivoGabarito("respostasTreinamento.tsv");
+        ManipuladorLog.setArquivoGabarito("answersTraining.tsv");
         ManipuladorLog.setTreinamentoAcontecendo(true);
     }//GEN-LAST:event_treinamentoRadioButtonActionPerformed
 
@@ -261,7 +262,8 @@ public class MainScreenLog extends javax.swing.JFrame {
         start_Button.setEnabled(true);
         next_Button.setEnabled(false);
         submit_Button.setEnabled(false);
-        ManipuladorLog.setArquivoGabarito("respostas.tsv");
+//        ManipuladorLog.setArquivoGabarito("respostas.tsv");//answers.tsv
+        ManipuladorLog.setArquivoGabarito("answers.tsv");
         ManipuladorLog.setTreinamentoAcontecendo(false);
     }//GEN-LAST:event_testeRadioButtonActionPerformed
 
@@ -276,11 +278,13 @@ public class MainScreenLog extends javax.swing.JFrame {
 
             if (contQuestaoTeste == ((PerguntasTesteEnum.values().length / 2) - 3)) {//pergunta 4
                 respostaUsuarioExtraComboBox.setVisible(true);
-                itens = new String[]{"Responda","Ativou", "Nao ativou"};
+//                itens = new String[]{"Responda","Ativou", "Nao ativou"};
+                itens = new String[]{"Choose", "Activated", "Non-activated"};
                 atualizarComboBox(respostaUsuarioExtraComboBox, itens);
             } else if (contQuestaoTeste == (PerguntasTesteEnum.values().length / 2)) {//pergunta 7
                 respostaUsuarioExtraComboBox.setVisible(true);
-                itens = new String[]{"Responda","Baixa", "Alta"};
+//                itens = new String[]{"Responda","Baixa", "Alta"};
+                itens = new String[]{"Choose","Low", "High"};
                 atualizarComboBox(respostaUsuarioExtraComboBox, itens);
             } else {
                 respostaUsuarioExtraComboBox.setVisible(false);
@@ -319,12 +323,12 @@ public class MainScreenLog extends javax.swing.JFrame {
         if (treinamentoRadioButton.isSelected()) {
             if (contQuestaoTreinamento > PerguntasTreinamentoEnum.values().length - 1) {
                 updateSubmitLog();
-                int resposta = JOptionPane.showConfirmDialog(this, "Você gostaria de continuar?");
+                int resposta = JOptionPane.showConfirmDialog(this, "Would you like to continue?[Você gostaria de continuar?]");
                 if (resposta == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(this, "Que bom, vamos iniciar os testes!");
+                    JOptionPane.showMessageDialog(this, "Good, let's start the tests![Que bom, vamos iniciar os testes!]");
                 } else {
                     next_Button.setEnabled(false);
-                    textoPergunta.setText("Fim do teste. Obrigado!");
+                    textoPergunta.setText("The test is over. Thanks! [Fim do teste. Obrigado!]");
                 }
             } else {
                 updateSubmitLog();
@@ -335,7 +339,7 @@ public class MainScreenLog extends javax.swing.JFrame {
             if (contQuestaoTeste > PerguntasTesteEnum.values().length - 1) {
                 next_Button.setEnabled(false);
                 LoggerMB.salvarLog();
-                textoPergunta.setText("Fim do teste. Obrigado!");
+                textoPergunta.setText("The test is over. Thanks! [Fim do teste. Obrigado!]");
             } else {
                 next_Button.setEnabled(true);
             }
