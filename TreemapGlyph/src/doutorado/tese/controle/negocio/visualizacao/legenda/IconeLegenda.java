@@ -136,11 +136,12 @@ public class IconeLegenda implements Icon {
                     bar.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
                     bar.setPectSobreposicao(0.85f);
                     bar.setOverlappingActivated(true);
+                    double dado = 20;
                     for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
 //                        String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
 //                        Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
-                        double dado = 10;
-                        double dadoMaxVal = 10;//0 - maxValue; 1 - minValue
+                        dado -= 2;
+                        double dadoMaxVal = 20;//0 - maxValue; 1 - minValue
                         bar.getBarras()[i] = new Bar(dado, dadoMaxVal);
                     }   
 //                    Rectangle r = new Rectangle(10,10,bounds.width*5,bounds.height*5);

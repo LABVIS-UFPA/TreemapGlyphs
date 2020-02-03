@@ -5,8 +5,10 @@
  */
 package doutorado.tese.visao;
 
+import doutorado.tese.visao.detalhessobdemanda.DetailsOnDemandVisao;
 import doutorado.tese.controle.mb.testelaboratorioMB.TestMB;
 import doutorado.tese.controle.negocio.teste.ManipuladorLog;
+import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.modelo.Coluna;
 import doutorado.tese.util.Constantes;
@@ -183,6 +185,22 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         updateDetailsButton = new javax.swing.JButton();
         showGlyphOnDetailsCheckBox = new javax.swing.JCheckBox();
         abaFiltros = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        atributosCategoricosList2 = new javax.swing.JList<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        atributosCategoricosList = new javax.swing.JList<>();
+        inserirBotaoCategoricalFilter = new javax.swing.JButton();
+        removerBotaoCategoricalFilter = new javax.swing.JButton();
+        categoricalFilterButton = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        atributosContinuousList = new javax.swing.JList<>();
+        inserirBotaoContinuousFilter = new javax.swing.JButton();
+        removerBotaoContinuousFilter = new javax.swing.JButton();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        atributosContinuousList2 = new javax.swing.JList<>();
+        continuousFilterButton = new javax.swing.JButton();
         abaTask = new javax.swing.JPanel();
         jScrollPane10 = new javax.swing.JScrollPane();
         task_TextPane = new javax.swing.JTextPane();
@@ -348,42 +366,39 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             .addGroup(abaTreemapLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(abaTreemapLayout.createSequentialGroup()
-                        .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(abaTreemapLayout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(removerBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(inserirBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(abaTreemapLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(70, 70, 70))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, abaTreemapLayout.createSequentialGroup()
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(abaTreemapLayout.createSequentialGroup()
-                        .addComponent(checkLegenda, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(legendaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, abaTreemapLayout.createSequentialGroup()
-                            .addGap(24, 24, 24)
+                    .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(abaTreemapLayout.createSequentialGroup()
                             .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel4))
+                                .addComponent(jLabel5)
+                                .addGroup(abaTreemapLayout.createSequentialGroup()
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(removerBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(inserirBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tamanhoTreemapComboBox, 0, 214, Short.MAX_VALUE)
-                                .addComponent(corTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addGroup(abaTreemapLayout.createSequentialGroup()
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(abaTreemapLayout.createSequentialGroup()
+                            .addComponent(checkLegenda)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(legendaComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(abaTreemapLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4))
+                        .addGap(12, 12, 12)
+                        .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tamanhoTreemapComboBox, 0, 253, Short.MAX_VALUE)
+                            .addComponent(corTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
         abaTreemapLayout.setVerticalGroup(
             abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -396,7 +411,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(abaTreemapLayout.createSequentialGroup()
                         .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
@@ -418,7 +433,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoGerarVisualizacao)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Treemap", abaTreemap);
@@ -572,7 +587,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(removerVarVisualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -586,12 +601,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addComponent(baixoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cimaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkCategoricalGlyph, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
                     .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                        .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(atributo1Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -603,7 +617,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(atributo3Glyph, 0, 90, Short.MAX_VALUE)
-                            .addComponent(atributo4Glyph, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(atributo4Glyph, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(checkCategoricalGlyph))
                 .addContainerGap())
         );
         abaConfigGlyphsLayout.setVerticalGroup(
@@ -756,7 +771,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addGroup(abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         abaContinuosGlyphsLayout.setVerticalGroup(
             abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -780,7 +795,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoGerarContinuosGlyphs)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Glyph Continuo", abaContinuosGlyphs);
@@ -844,18 +859,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(updateDetailsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(abaDetalhesLayout.createSequentialGroup()
-                            .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(inserirBotao_detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(removerBotao_detalhes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel12)))))
-                .addContainerGap(77, Short.MAX_VALUE))
+                            .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         abaDetalhesLayout.setVerticalGroup(
             abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -876,20 +891,196 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(updateDetailsButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Details", abaDetalhes);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Categorical filter"));
+
+        atributosCategoricosList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        atributosCategoricosList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        atributosCategoricosList2.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                atributosCategoricosList2ValueChanged(evt);
+            }
+        });
+        jScrollPane12.setViewportView(atributosCategoricosList2);
+
+        atributosCategoricosList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        atributosCategoricosList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                atributosCategoricosListValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(atributosCategoricosList);
+
+        inserirBotaoCategoricalFilter.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        inserirBotaoCategoricalFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaDir.png"))); // NOI18N
+        inserirBotaoCategoricalFilter.setEnabled(false);
+        inserirBotaoCategoricalFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserirBotaoCategoricalFilterActionPerformed(evt);
+            }
+        });
+
+        removerBotaoCategoricalFilter.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        removerBotaoCategoricalFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaEsq.png"))); // NOI18N
+        removerBotaoCategoricalFilter.setEnabled(false);
+        removerBotaoCategoricalFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerBotaoCategoricalFilterActionPerformed(evt);
+            }
+        });
+
+        categoricalFilterButton.setText("Open Filter");
+        categoricalFilterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categoricalFilterButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(inserirBotaoCategoricalFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(removerBotaoCategoricalFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(categoricalFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(categoricalFilterButton)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(inserirBotaoCategoricalFilter)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(removerBotaoCategoricalFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Continuous filter"));
+
+        atributosContinuousList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        atributosContinuousList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                atributosContinuousListValueChanged(evt);
+            }
+        });
+        jScrollPane13.setViewportView(atributosContinuousList);
+
+        inserirBotaoContinuousFilter.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        inserirBotaoContinuousFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaDir.png"))); // NOI18N
+        inserirBotaoContinuousFilter.setEnabled(false);
+        inserirBotaoContinuousFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserirBotaoContinuousFilterActionPerformed(evt);
+            }
+        });
+
+        removerBotaoContinuousFilter.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        removerBotaoContinuousFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/setaEsq.png"))); // NOI18N
+        removerBotaoContinuousFilter.setEnabled(false);
+        removerBotaoContinuousFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removerBotaoContinuousFilterActionPerformed(evt);
+            }
+        });
+
+        atributosContinuousList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        atributosContinuousList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        atributosContinuousList2.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                atributosContinuousList2ValueChanged(evt);
+            }
+        });
+        jScrollPane14.setViewportView(atributosContinuousList2);
+
+        continuousFilterButton.setText("Open Filter");
+        continuousFilterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                continuousFilterButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(inserirBotaoContinuousFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(removerBotaoContinuousFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(continuousFilterButton)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(inserirBotaoContinuousFilter)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(removerBotaoContinuousFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(continuousFilterButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout abaFiltrosLayout = new javax.swing.GroupLayout(abaFiltros);
         abaFiltros.setLayout(abaFiltrosLayout);
         abaFiltrosLayout.setHorizontalGroup(
             abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 355, Short.MAX_VALUE)
+            .addGroup(abaFiltrosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         abaFiltrosLayout.setVerticalGroup(
             abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 269, Short.MAX_VALUE)
+            .addGroup(abaFiltrosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         painelAbas_jTabbedPane.addTab("Filter", abaFiltros);
@@ -928,7 +1119,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addComponent(taskCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(nextTest_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
         abaTaskLayout.setVerticalGroup(
             abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -941,10 +1132,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(taskCountLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nextTest_Button)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Task", abaTask);
+        painelAbas_jTabbedPane.remove(painelAbas_jTabbedPane.getTabCount() - 1);
 
         jScrollPane8.setViewportView(painelAbas_jTabbedPane);
 
@@ -1298,9 +1490,23 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     if (nodeUnderTheMouse instanceof TreeMapItem) {
                         if (nodeUnderTheMouse.getGlyph() != null) {
                             if (!nodeUnderTheMouse.getGlyph().getChildren().isEmpty()) {
-                                details.setGlyphOnToolTip(nodeUnderTheMouse.getGlyph());
-                                details.updateGlyphIcon(true);
-                                details.setSize(240, 127);
+                                if (decisionTreeActivate.isSelected()) {
+//                                    Glyph original = ((TreeMapItem) nodeUnderTheMouse).getGlyph();
+//                                    Glyph clone = ((TreeMapItem) nodeUnderTheMouse).getHidenClone();
+//                                    
+//                                    for (Glyph g : ((TreeMapItem) nodeUnderTheMouse).getGlyphFamily(original, new ArrayList<Glyph>())) {
+//                                        System.out.println("original: "+g.whoAmI().toString());
+//                                    }
+//                                    for (Glyph g : ((TreeMapItem) nodeUnderTheMouse).getGlyphFamily(clone, new ArrayList<Glyph>())) {
+//                                        System.out.println("clone: "+g.whoAmI().toString());
+//                                    }
+//                                    details.setGlyphOnToolTip(clone);
+                                    System.out.println("Desenhar o glyph com todas as camadas no detalhes sob demanda.");
+                                }else{
+                                    details.setGlyphOnToolTip(nodeUnderTheMouse.getGlyph());
+                                }
+                                    details.updateGlyphIcon(true);
+                                    details.setSize(240, 127);
                             }
                         }
                     } else {
@@ -1839,6 +2045,46 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 + "Developed by LabVis ( http://www.labvis.ufpa.br/ )");
     }//GEN-LAST:event_version_jMenuItemActionPerformed
 
+    private void inserirBotaoCategoricalFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotaoCategoricalFilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inserirBotaoCategoricalFilterActionPerformed
+
+    private void removerBotaoCategoricalFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotaoCategoricalFilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removerBotaoCategoricalFilterActionPerformed
+
+    private void inserirBotaoContinuousFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotaoContinuousFilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inserirBotaoContinuousFilterActionPerformed
+
+    private void removerBotaoContinuousFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotaoContinuousFilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removerBotaoContinuousFilterActionPerformed
+
+    private void categoricalFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoricalFilterButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_categoricalFilterButtonActionPerformed
+
+    private void continuousFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continuousFilterButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_continuousFilterButtonActionPerformed
+
+    private void atributosCategoricosListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosCategoricosListValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributosCategoricosListValueChanged
+
+    private void atributosCategoricosList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosCategoricosList2ValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributosCategoricosList2ValueChanged
+
+    private void atributosContinuousListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosContinuousListValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributosContinuousListValueChanged
+
+    private void atributosContinuousList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosContinuousList2ValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_atributosContinuousList2ValueChanged
+
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
 
         ArrayList<Object> atributosGlyph = new ArrayList<>();
@@ -1903,12 +2149,17 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JComboBox<String> atributo2Glyph;
     private javax.swing.JComboBox<String> atributo3Glyph;
     private javax.swing.JComboBox<String> atributo4Glyph;
+    private javax.swing.JList<String> atributosCategoricosList;
+    private javax.swing.JList<String> atributosCategoricosList2;
+    private javax.swing.JList<String> atributosContinuousList;
+    private javax.swing.JList<String> atributosContinuousList2;
     private javax.swing.JButton baixoAtributoStarGlyphButton;
     private javax.swing.JButton baixoBotao_treemap;
     private javax.swing.JButton baixoButton;
     private javax.swing.JButton botaoGerarContinuosGlyphs;
     private javax.swing.JButton botaoGerarGlyphs;
     private javax.swing.JButton botaoGerarVisualizacao;
+    private javax.swing.JButton categoricalFilterButton;
     private javax.swing.JCheckBox checkCategoricalGlyph;
     private javax.swing.JCheckBox checkContinuousGlyph;
     private javax.swing.JCheckBox checkLegenda;
@@ -1920,6 +2171,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JList<String> colunasHierarquicasList1;
     private javax.swing.JList<String> colunasHierarquicasList2;
     private javax.swing.JMenuItem consoleMenuItem;
+    private javax.swing.JButton continuousFilterButton;
     private javax.swing.JComboBox<String> corTreemapComboBox;
     private javax.swing.JCheckBoxMenuItem decisionTreeActivate;
     private javax.swing.JMenu decisionTreeMenu;
@@ -1928,6 +2180,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JMenuItem finishMenuItem;
     private javax.swing.JComboBox<String> glyphContinuosType;
     private javax.swing.JButton inserirAtributoStarGlyphButton;
+    private javax.swing.JButton inserirBotaoCategoricalFilter;
+    private javax.swing.JButton inserirBotaoContinuousFilter;
     private javax.swing.JButton inserirBotao_detalhes;
     private javax.swing.JButton inserirBotao_treemap;
     private javax.swing.JButton inserirVarVisualButton;
@@ -1945,8 +2199,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1967,6 +2227,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JPanel painelLegendaVis;
     private javax.swing.JProgressBar progressoBarra;
     private javax.swing.JButton removerAtributoStarGlyphButton;
+    private javax.swing.JButton removerBotaoCategoricalFilter;
+    private javax.swing.JButton removerBotaoContinuousFilter;
     private javax.swing.JButton removerBotao_detalhes;
     private javax.swing.JButton removerBotao_treemap;
     private javax.swing.JButton removerVarVisualButton;

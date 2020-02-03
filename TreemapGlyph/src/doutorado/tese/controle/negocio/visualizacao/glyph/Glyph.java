@@ -18,6 +18,8 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -55,6 +57,11 @@ public abstract class Glyph implements Cloneable {
             }
             if (activatedDecisionTree) {
                 TreeMapItem item = (TreeMapItem) nodeTreemap;
+//                try {
+//                    item.setHidenClone(item.getGlyph().clone());
+//                } catch (CloneNotSupportedException ex) {
+//                    Logger.getLogger(Glyph.class.getName()).log(Level.SEVERE, null, ex);
+//                }
                 if (item.getWhat2Draw()[0] == 1 && getChild().whoAmI() == Textura.class) {
                     getChild().setDecisionTreeActivate(activatedDecisionTree);
                     getChild().paint(g2d);

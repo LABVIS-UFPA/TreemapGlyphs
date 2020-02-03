@@ -10,13 +10,10 @@ import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.numbers.Numeral;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
-import doutorado.tese.controle.negocio.visualizacao.legenda.IconeLegenda;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
-import javax.swing.JToolTip;
 
 /**
  * A simple implementation of the AbstractNode interface.
@@ -32,6 +29,7 @@ public class TreeMapItem extends TreeMapNode {
     private Text letra;
     private Numeral numero;
     private boolean possuiGlyphResposta;
+    private Glyph glyphClone;
 
     public TreeMapItem(double size, int order) {
         this.size = size;
@@ -53,22 +51,6 @@ public class TreeMapItem extends TreeMapNode {
     public TreeMapItem() {
         this(1, 0);
     }
-
-//    @Override
-//    public JToolTip createToolTip() {
-//        JToolTip tip = super.createToolTip();
-//        tip.setBackground(Color.YELLOW);
-//
-//        if (getGlyph() != null) {            
-//            IconeLegenda icon = new IconeLegenda();
-//            icon.setIconWidth(48);
-//            icon.setIconHeight(48);
-//            icon.setGlyph(getGlyph());
-//            icon.paintIcon(tip, this.getGraphics(), this.getMousePosition().x, this.getMousePosition().y);
-//            tip.createImage(icon.getIconWidth(), icon.getIconHeight());
-//        }
-//        return tip;
-//    }
 
     /**
      * @return the folha
@@ -132,6 +114,20 @@ public class TreeMapItem extends TreeMapNode {
         } else {
             return familia;
         }
+    }
+    
+    /**
+     * Metodo criado para que seja guardado o glyph clonado com todas as suas 
+     * camadas para quando o glyph adaptativo estiver ativo, o clone possa 
+     * aparecer nos detalhes sob demanda sem a remocao de camadas.
+     * @param clone
+     */
+    public void setHidenClone(Glyph clone) {
+        glyphClone = clone;
+    }
+    
+    public Glyph getHidenClone(){
+        return glyphClone;
     }
 
     public int[] getWhat2Draw() {
@@ -214,5 +210,7 @@ public class TreeMapItem extends TreeMapNode {
     public void setId(long id) {
         this.id = id;
     }
+
+    
 
 }

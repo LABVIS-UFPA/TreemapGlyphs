@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.visao;
+package doutorado.tese.visao.detalhessobdemanda;
 
 import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
 import doutorado.tese.controle.negocio.visualizacao.legenda.IconeLegenda;
@@ -11,7 +11,6 @@ import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.modelo.Coluna;
 import doutorado.tese.modelo.TreeMapItem;
 import doutorado.tese.modelo.TreeMapLevel;
-import java.awt.Color;
 
 /**
  *
@@ -152,7 +151,7 @@ public class DetailsOnDemandVisao extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 
-    void updateGlyphIcon(boolean showGlyphIcon) {
+    public void updateGlyphIcon(boolean showGlyphIcon) {
         icon.setGlyph(getGlyphOnToolTip());
         icon.setIconWidth(glyphIconLabel.getBounds().width);
         icon.setIconHeight(glyphIconLabel.getBounds().height);
