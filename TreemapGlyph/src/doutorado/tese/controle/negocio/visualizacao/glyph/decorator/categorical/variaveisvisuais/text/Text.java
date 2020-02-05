@@ -35,26 +35,26 @@ public class Text extends Glyph {
     private Shape shapeLetra;
     private int x, y;
     private Rectangle newBounds;
+    private Color corTexto;
 
     public Text() {
+        corTexto = new Color(255, 255, 255, 0);
     }
 
     @Override
     public void paint(Graphics2D g2d) {
-        int fontSize = Math.round(newBounds.height * 1.2f);
-        setFonte(new Font("Arial black", Font.PLAIN, fontSize));
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setFont(getFonte());
+        if (visible) {
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setFont(getFonte());
 
-        g2d.setColor(new Color(255, 255, 255, 0));
-        g2d.fillRect(newBounds.x, newBounds.y, newBounds.width, newBounds.height);
-        g2d.setColor(Color.white);
-        shapeLetra = getShapeLetra(letra);
-        g2d.draw(shapeLetra);
+            g2d.setColor(corTexto);
+            g2d.fillRect(newBounds.x, newBounds.y, newBounds.width, newBounds.height);
+            g2d.setColor(Color.white);
+            g2d.draw(shapeLetra);
 
-        g2d.setColor(Color.black);
-        g2d.fill(shapeLetra);
-
+            g2d.setColor(Color.black);
+            g2d.fill(shapeLetra);
+        }
         super.paint(g2d);
     }
 
@@ -76,6 +76,10 @@ public class Text extends Glyph {
     public void setBounds(Rectangle rect) {
         super.setBounds(rect);
         montarRetangulo();
+        int fontSize = Math.round(newBounds.height * 1.2f);
+        setFonte(new Font("Arial black", Font.PLAIN, fontSize));
+        shapeLetra = getShapeLetra(letra);
+
     }
 
     private void montarRetangulo() {
@@ -106,7 +110,7 @@ public class Text extends Glyph {
     }
 
     @Override
-    public Shape getClipShape() {        
+    public Shape getClipShape() {
         if (isOverlappingActivated()) {
             return this.getBounds();
         } else {
@@ -153,7 +157,6 @@ public class Text extends Glyph {
 
     public void setLetra(String letra) {
         this.letra = letra;
-//        shapeLetra = getShapeLetra(letra);
     }
 
     /**
@@ -170,6 +173,7 @@ public class Text extends Glyph {
         this.ativo = ativo;
     }
 
+    @Override
     public int getArea() {
         return heightLetra * widthLetra;
     }

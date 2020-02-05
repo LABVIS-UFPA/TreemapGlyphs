@@ -12,14 +12,13 @@ import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
 import doutorado.tese.modelo.TreeMapItem;
 import doutorado.tese.modelo.TreeMapNode;
+import doutorado.tese.util.Constantes;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -41,10 +40,11 @@ public abstract class Glyph implements Cloneable {
     protected int[] yPoints;
     private String number;
     private boolean hasNumber;
-    private boolean activatedDecisionTree;
+    protected boolean visible;
     private TreeMapNode nodeTreemap;
 
     public Glyph() {
+        visible = true;
     }
 
     public void paint(Graphics2D g2d) {
@@ -55,32 +55,21 @@ public abstract class Glyph implements Cloneable {
             if (getClipShape() != null) {
                 g2d.clip(getClipShape());
             }
-            if (activatedDecisionTree) {
+            if (Constantes.DECISION_TREE_ACTIVATED) {
+                getChild().visible = false;
                 TreeMapItem item = (TreeMapItem) nodeTreemap;
-//                try {
-//                    item.setHidenClone(item.getGlyph().clone());
-//                } catch (CloneNotSupportedException ex) {
-//                    Logger.getLogger(Glyph.class.getName()).log(Level.SEVERE, null, ex);
-//                }
                 if (item.getWhat2Draw()[0] == 1 && getChild().whoAmI() == Textura.class) {
-                    getChild().setDecisionTreeActivate(activatedDecisionTree);
-                    getChild().paint(g2d);
+                    getChild().visible = true;
                 } else if (item.getWhat2Draw()[1] == 1 && getChild().whoAmI() == Cor.class) {
-                    getChild().setDecisionTreeActivate(activatedDecisionTree);
-                    getChild().paint(g2d);
+                    getChild().visible = true;
                 } else if (item.getWhat2Draw()[2] == 1 && getChild().whoAmI() == FormaGeometrica.class) {
-                    getChild().setDecisionTreeActivate(activatedDecisionTree);
-                    getChild().paint(g2d);
+                    getChild().visible = true;
                 } else if (item.getWhat2Draw()[3] == 1 && getChild().whoAmI() == Text.class) {
-                    getChild().setDecisionTreeActivate(activatedDecisionTree);
-                    getChild().paint(g2d);
-                } else if (item.getWhat2Draw()[4] == 1 && getChild().whoAmI() == Numeral.class) {
-                    getChild().setDecisionTreeActivate(activatedDecisionTree);
-                    getChild().paint(g2d);
-                }
-            } else {
-                getChild().paint(g2d);
+                    getChild().visible = true;
+                } 
             }
+
+            getChild().paint(g2d);
         }
     }
 
@@ -257,18 +246,13 @@ public abstract class Glyph implements Cloneable {
     /**
      * @param letter the letter to set
      */
-    public void setText(String letter) {
-        this.letter = letter;
-    }
-
+//    public void setText(String letter) {
+//        this.letter = letter;
+//    }
     public void setNumber(String numeroUtilizado) {
         number = numeroUtilizado;
     }
 
-    public void setDecisionTreeActivate(boolean activatedDT) {
-        this.activatedDecisionTree = activatedDT;
-    }
-    
     /**
      * @return the nodeTreemap
      */

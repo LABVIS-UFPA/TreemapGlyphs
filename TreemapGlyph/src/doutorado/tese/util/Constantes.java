@@ -21,7 +21,7 @@ public class Constantes {
     private static boolean showStarGlyph = false;
     public static Color ALICE_BLUE = Color.decode("#F0F8FF");
     public static final int PRESENCA_TEXTURA = 0;
-    public static final int PRESENCA_COR_FORMA = 1;
+    public static final int PRESENCA_COR = 1;
     public static final int PRESENCA_FORMA = 2;//SP -SHAPE PRESENCE
     public static final int PRESENCA_LETRA = 3;
     public static final int PRESENCA_NUMERO = 4;
@@ -31,13 +31,14 @@ public class Constantes {
     public static final int FEATURE_ASPECT = 8;
     public static final int PRESENCA_COR_TREEMAP = 9;//
     public static final int AREA_TEXTURA = 10;//TA - TEXTURE AREA
-    public static final int AREA_CIRCULO_COLORIDO = 11;//CCA - Colored circle area
+    public static final int AREA_COR = 11;//CCA - Colored circle area
     public static final int AREA_SHAPE = 12;//SA - SHAPE AREA
     public static final int AREA_LETRA = 13;
     public static final int AREA_NUMERO = 14;//NA - NUMBER AREA
     public static final int PRESENTE = 1;
     public static final int AUSENTE = 0;
     public static int QUANT_HIERARQUIAS = 0;
+    public static boolean DECISION_TREE_ACTIVATED = false;
     
 //    private static Color[] cores = {Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
     private static String[] corTreemap = {

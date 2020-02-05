@@ -73,7 +73,7 @@ public class Circulo implements DrawBehavior{
     
     @Override
     public int getArea() {
-        return xPoints[1]*yPoints[1];
+        return xPoints[1] * yPoints[1];
     }
 
     @Override

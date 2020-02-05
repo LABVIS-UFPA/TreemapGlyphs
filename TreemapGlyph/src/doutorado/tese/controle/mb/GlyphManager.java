@@ -26,6 +26,7 @@ import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.E
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.PieChartGlyph;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.Slice;
 import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory;
+import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -53,7 +54,6 @@ public final class GlyphManager {
     private static String[] shufflerColors;
 
     private HashMap<String, Integer> configs;
-    private boolean decisionTreeActivate;
     private String[] variaveisVisuaisEscolhidas;
 //    private float perctOverlap;
     private int quantValoresVarVisuais;
@@ -88,11 +88,7 @@ public final class GlyphManager {
             }
         }
     }
-
-    public void setUseDecisionTree(boolean decisionTreeActivate) {
-        this.decisionTreeActivate = decisionTreeActivate;
-    }
-
+    
     public void prepare2Draw() {
         if (getRootNodeZoom() != null) {
 //            System.out.println("getRootNodeZoom() =  "+getRootNodeZoom().getRoot().getTitle()+
@@ -115,7 +111,7 @@ public final class GlyphManager {
             TMNodeEncapsulator nodeEncapsulator = (TMNodeEncapsulator) nodo.getNode();
             TreeMapItem item = (TreeMapItem) nodeEncapsulator.getNode();
             ArrayList<Glyph> list = new ArrayList<>();
-            item.getGlyph().setDecisionTreeActivate(decisionTreeActivate);
+//            item.getGlyph().setDecisionTreeActivate(decisionTreeActivate);
             item.getGlyph().paint(g2d);
             item.getGlyph().getChildren(list);
             g2d.setClip(0, 0, bounds.width, bounds.height);
@@ -146,7 +142,7 @@ public final class GlyphManager {
     }
 
     private double[] getFeatures(TreeMapItem item, double[] features) {
-        limparGlyphsTreemapItem(item);
+//        limparGlyphsTreemapItem(item);
         features[Constantes.FEATURE_LARGURA] = item.getBounds().width;
         features[Constantes.FEATURE_ALTURA] = item.getBounds().height;
         features[Constantes.PRESENCA_COR_TREEMAP] = item.getColor().equals(Constantes.ALICE_BLUE) ? Constantes.AUSENTE : Constantes.PRESENTE;
@@ -161,34 +157,39 @@ public final class GlyphManager {
         List<Glyph> glyphFamily = item.getGlyphFamily(item.getGlyph(), new ArrayList<>());
         glyphFamily.forEach((glyph) -> {
             if (glyph instanceof Textura) {
-                features[Constantes.AREA_TEXTURA] = ((Textura) glyph).getArea();//aqui a area ainda nao foi calculada
+                features[Constantes.AREA_TEXTURA] =  glyph.getArea();//aqui a area ainda nao foi calculada
+//                System.out.println("(AREA_TEXTURA: "+((Textura) glyph).getArea());
                 features[Constantes.PRESENCA_TEXTURA] = Constantes.PRESENTE;
             } else if (glyph instanceof Cor) {
-                features[Constantes.AREA_CIRCULO_COLORIDO] = ((Cor) glyph).getArea();
-                features[Constantes.PRESENCA_COR_FORMA] = Constantes.PRESENTE;
+                features[Constantes.AREA_COR] =  glyph.getArea();
+//                System.out.println("(cor: "+glyph.getArea());
+                features[Constantes.PRESENCA_COR] = Constantes.PRESENTE;
             } else if (glyph instanceof FormaGeometrica) {
-                features[Constantes.AREA_SHAPE] = ((FormaGeometrica) glyph).getArea();
+                features[Constantes.AREA_SHAPE] = glyph.getArea();
+//                System.out.println("(shape: "+((FormaGeometrica) glyph).getArea());
                 features[Constantes.PRESENCA_FORMA] = Constantes.PRESENTE;
             } else if (glyph instanceof Text) {
-                features[Constantes.AREA_LETRA] = ((Text) glyph).getArea();
+//                System.out.println("(Text.getArea(): "+glyph.getArea());
+                features[Constantes.AREA_LETRA] = glyph.getArea();
                 features[Constantes.PRESENCA_LETRA] = Constantes.PRESENTE;
             } else if (glyph instanceof Numeral) {
                 features[Constantes.AREA_NUMERO] = ((Numeral) glyph).getArea();
                 features[Constantes.PRESENCA_NUMERO] = Constantes.PRESENTE;
             }
         });
-        item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = DecisionTreeClassifier.predict(features)[0];
-        item.getWhat2Draw()[Constantes.PRESENCA_COR_FORMA] = DecisionTreeClassifier.predict(features)[1];
-        item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = DecisionTreeClassifier.predict(features)[2];
-        item.getWhat2Draw()[Constantes.PRESENCA_LETRA] = DecisionTreeClassifier.predict(features)[3];
-        item.getWhat2Draw()[Constantes.PRESENCA_NUMERO] = DecisionTreeClassifier.predict(features)[4];
+        int [] predictions = DecisionTreeClassifier.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = predictions[0];
+        item.getWhat2Draw()[Constantes.PRESENCA_COR] = predictions[1];
+        item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = predictions[2];
+        item.getWhat2Draw()[Constantes.PRESENCA_LETRA] = predictions[3];
+//        item.getWhat2Draw()[Constantes.PRESENCA_NUMERO] = predictions[4];
 //        item.getWhat2Draw()[Constantes.PRESENCA_STAR] = DecisionTreeClassifier.predict(features)[5];
         return features;
     }
 
     /**
      * Recebe um TreeMapItem, mata todos os seus filhos antigos, e adiciona seus
-     * novos filhos de acordo com a hierarquia passada atraves da funcao
+     * novos filhos de acordo com a hierarquia de Layers passada atraves da funcao
      * variaveisVisuaisEscolhidas(). Por fim, é definido o tamanho de cada item
      * no layout treemap.
      *
@@ -197,7 +198,7 @@ public final class GlyphManager {
      */
     public TreeMapItem configLayers(TreeMapItem item) {
         Glyph father = item.getGlyph();
-        father.killAllChild();
+        father.killAllChild();//e feito um kill para garantir que nao ha filhos
         String glyphContinuo = getGlyphContinuoEscolhido();
 
         for (int i = 0; i < getVariaveisVisuaisEscolhidas().length; i++) {
@@ -207,8 +208,8 @@ public final class GlyphManager {
             father.appendChild(child);
             if (i == getVariaveisVisuaisEscolhidas().length - 1) {//se ja estiver na ultima camada
                 if (continuosGlyphActivated) {
-                    Glyph childStarGlyph = setLayerInGlyph(glyphContinuo, item, -1);
-                    father.appendChild(childStarGlyph);
+                    Glyph childContinuousGlyph = setLayerInGlyph(glyphContinuo, item, -1);
+                    father.appendChild(childContinuousGlyph);
                 }
             }
         }
@@ -219,7 +220,7 @@ public final class GlyphManager {
         if (father.getBounds() != null) {
             father.setBounds(father.getBounds());
         }
-        if (decisionTreeActivate) {
+        if (Constantes.DECISION_TREE_ACTIVATED) {
             double[] features = new double[15];
             getFeatures(item, features);
         }
@@ -371,7 +372,7 @@ public final class GlyphManager {
     public Glyph prepareDimensaoShapeDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                Glyph shape = defineShape(doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j]);
+                Glyph shape = defineShape(FORMAS.GLYPH_FORMAS.values()[j]);
                 shape.setNodeTreemap(item);
                 return shape;
             }
@@ -382,17 +383,18 @@ public final class GlyphManager {
     public Glyph prepareDimensaoTextDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.LETRAS_ALFABETO.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                Glyph result = defineText(Constantes.LETRAS_ALFABETO[j]);
-                result.usingText(true);
+                Glyph text = defineText(Constantes.LETRAS_ALFABETO[j]);
+                text.usingText(true);
                 letraUtilizada = Constantes.LETRAS_ALFABETO[j];
-                result.setText(letraUtilizada);
-                result.setNodeTreemap(item);
-                return result;
+//                result.setText(letraUtilizada);
+                text.setNodeTreemap(item);
+                return text;
             }
         }
         return null;
     }
 
+    @Deprecated
     public Glyph prepareDimensaoNumberDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.NUMEROS.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
@@ -425,8 +427,8 @@ public final class GlyphManager {
         return glyph;
     }
 
-    private Glyph defineShape(doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS.GLYPH_FORMAS forma) {
-        Glyph glyph = new doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica();
+    private Glyph defineShape(FORMAS.GLYPH_FORMAS forma) {
+        Glyph glyph = new FormaGeometrica();
         FormaGeometrica shape = (FormaGeometrica) glyph;
         shape.setDrawBehavior(GeometryFactory.create(forma));
         shape.setPectSobreposicao(0.65f);
@@ -435,21 +437,26 @@ public final class GlyphManager {
     }
 
     private Glyph defineText(String letter) {
-        Glyph glyph = new Text();
-        Text text = (Text) glyph;
+//        Glyph glyph = new Text();
+//        Text text = (Text) glyph;
+//        text.setLetra(letter);
+//        text.setPectSobreposicao(0.65f);
+//        text.setOverlappingActivated(overlappingActivated);
+        
+        Text text = new Text();
         text.setLetra(letter);
         text.setPectSobreposicao(0.65f);
         text.setOverlappingActivated(overlappingActivated);
-        return glyph;
+        return text;
     }
 
-    private void limparGlyphsTreemapItem(TreeMapItem item) {
-        item.setTextura(null);
-        item.setCorForma(null);
-        item.setFormaGeometrica(null);
-        item.setText(null);
-        item.setNumero(null);
-    }
+//    private void limparGlyphsTreemapItem(TreeMapItem item) {
+//        item.setTextura(null);
+//        item.setCorForma(null);
+//        item.setFormaGeometrica(null);
+//        item.setText(null);
+//        item.setNumero(null);
+//    }
 
     /**
      * Mapeia as dimenssões 0 - textura, 1 - cor, 2 - forma, 3 - text, 4 -

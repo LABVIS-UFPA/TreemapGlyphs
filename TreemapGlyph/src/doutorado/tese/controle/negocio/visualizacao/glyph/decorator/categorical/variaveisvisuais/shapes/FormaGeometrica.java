@@ -68,13 +68,17 @@ public class FormaGeometrica extends Glyph {
 
     @Override
     public void paint(Graphics2D g2d) {
-        drawBehavior.paint(g2d);
-        if (isOverlappingActivated()) {
-            drawBehavior.drawForeground(g2d);
+        if (visible) {
+            drawBehavior.paint(g2d);
+            if (isOverlappingActivated()) {
+                drawBehavior.drawForeground(g2d);
+            }
         }
         super.paint(g2d);
-        if (!isOverlappingActivated()) {
-            drawBehavior.drawForeground(g2d);
+        if (visible) {
+            if (!isOverlappingActivated()) {
+                drawBehavior.drawForeground(g2d);
+            }
         }
     }
 
@@ -82,7 +86,7 @@ public class FormaGeometrica extends Glyph {
     public Object whoAmI() {
         return this.getClass();
     }
-    
+
     @Override
     public Rectangle getBounds() {
         return bounds;
@@ -92,7 +96,7 @@ public class FormaGeometrica extends Glyph {
     public void setBounds(Rectangle bounds) {
         super.setBounds(bounds);
         drawBehavior.setBounds(bounds);
-        if(this.drawBehavior instanceof Retangulo){
+        if (this.drawBehavior instanceof Retangulo) {
             Retangulo retanguloLegenda = (Retangulo) this.drawBehavior;
             retanguloLegenda.setIsLegenda(true);
             retanguloLegenda.setCor(corLegenda);

@@ -8,7 +8,6 @@ package doutorado.tese.visao;
 import doutorado.tese.visao.detalhessobdemanda.DetailsOnDemandVisao;
 import doutorado.tese.controle.mb.testelaboratorioMB.TestMB;
 import doutorado.tese.controle.negocio.teste.ManipuladorLog;
-import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.modelo.Coluna;
 import doutorado.tese.util.Constantes;
@@ -18,6 +17,8 @@ import doutorado.tese.controle.negocio.visualizacao.glyph.factorys.variaveisvisu
 import doutorado.tese.modelo.TreeMapItem;
 import doutorado.tese.modelo.TreeMapNode;
 import doutorado.tese.util.Util;
+import doutorado.tese.visao.filtro.CategoricalFilterSetUp;
+import doutorado.tese.visao.filtro.ContinuousFilterSetUp;
 import doutorado.tese.visao.teste.ConsoleTest;
 import doutorado.tese.visao.teste.MainScreenLog;
 import java.awt.Color;
@@ -1726,7 +1727,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         //Acoes para desenhar os glyphs
         glyphPanel.setBounds(painelEsquerda.getBounds());
-        glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());
         atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
         glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
         glyphPanel.setVisible(true);
@@ -1860,8 +1860,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_checkCategoricalGlyphActionPerformed
 
     private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
-        System.gc();
-
         //zerando tudo
         variaveisVisuaisEscolhidas = null;
         //acoes para configurar os glyphs
@@ -1872,7 +1870,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         //        glyphPanel.setTipoGlyphContinuoEscolhido(atributosEscolhidosStarGlyph);
         //Acoes para desenhar os glyphs
         glyphPanel.setBounds(painelEsquerda.getBounds());
-        glyphPanel.setUseDecisionTree(decisionTreeActivate.isSelected());
+        Constantes.DECISION_TREE_ACTIVATED = decisionTreeActivate.isSelected();        
+        
         atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
         glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
         glyphPanel.setVisible(true);
@@ -2046,11 +2045,55 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_version_jMenuItemActionPerformed
 
     private void inserirBotaoCategoricalFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotaoCategoricalFilterActionPerformed
-        // TODO add your handling code here:
+//        List<Object> newListaAtribTreemap = new ArrayList<>();
+//        List<Object> atributosEscolhidos = new ArrayList<>();
+//        for (int i = 0; i < colunasDetalhesList2.getModel().getSize(); i++) {
+//            String elementAt = colunasDetalhesList2.getModel().getElementAt(i);
+//            atributosEscolhidos.add(elementAt);
+//        }
+//        atributosEscolhidos.addAll(colunasDetalhesList1.getSelectedValuesList());
+//        atributosEscolhidos.sort(null);
+//        reloadListGUI(atributosEscolhidos.toArray(), colunasDetalhesList2);
+//        colunasDetalhesList2.setEnabled(true);
+////        botaoGerarVisualizacao.setEnabled(true);
+//
+//        //remover o conteudo da lista de atributos original
+//        ListModel<String> modelOriginal = colunasDetalhesList1.getModel();
+//        List<String> selectedValuesList = colunasDetalhesList1.getSelectedValuesList();
+//        for (int i = 0; i < modelOriginal.getSize(); i++) {
+//            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
+//                newListaAtribTreemap.add(modelOriginal.getElementAt(i));
+//            }
+//        }
+//        loadItensDetalhes(newListaAtribTreemap.toArray());
+//        updateDetailsButton.setEnabled(true);
     }//GEN-LAST:event_inserirBotaoCategoricalFilterActionPerformed
 
     private void removerBotaoCategoricalFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotaoCategoricalFilterActionPerformed
-        // TODO add your handling code here:
+//        List<Object> newListaAtribTreemap = new ArrayList<>();
+//        List<Object> atributos = new ArrayList<>();
+//
+//        for (int i = 0; i < colunasDetalhesList1.getModel().getSize(); i++) {
+//            String elementAt = colunasDetalhesList1.getModel().getElementAt(i);
+//            atributos.add(elementAt);
+//        }
+//        atributos.addAll(colunasDetalhesList2.getSelectedValuesList());
+//        atributos.sort(null);
+//        loadItensDetalhes(atributos.toArray());
+//
+//        //remover o conteudo da lista de hierarquia treemap
+//        ListModel<String> modelGlyphs = colunasDetalhesList2.getModel();
+//        List<String> selectedValuesList = colunasDetalhesList2.getSelectedValuesList();
+//        for (int i = 0; i < modelGlyphs.getSize(); i++) {
+//            if (!selectedValuesList.contains(modelGlyphs.getElementAt(i))) {
+//                newListaAtribTreemap.add(modelGlyphs.getElementAt(i));
+//            }
+//        }
+//        reloadListGUI(newListaAtribTreemap.toArray(), colunasDetalhesList2);
+//
+//        if (colunasDetalhesList2.getModel().getSize() == 0) {
+//            colunasDetalhesList2.setEnabled(false);
+//        }
     }//GEN-LAST:event_removerBotaoCategoricalFilterActionPerformed
 
     private void inserirBotaoContinuousFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotaoContinuousFilterActionPerformed
@@ -2062,27 +2105,47 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_removerBotaoContinuousFilterActionPerformed
 
     private void categoricalFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoricalFilterButtonActionPerformed
-        // TODO add your handling code here:
+        CategoricalFilterSetUp categoricalFrame = new CategoricalFilterSetUp();
+        categoricalFrame.setVisible(true);
+        
+        
     }//GEN-LAST:event_categoricalFilterButtonActionPerformed
 
     private void continuousFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continuousFilterButtonActionPerformed
-        // TODO add your handling code here:
+        ContinuousFilterSetUp continuousFrame = new ContinuousFilterSetUp();
+        continuousFrame.setVisible(true);
     }//GEN-LAST:event_continuousFilterButtonActionPerformed
 
     private void atributosCategoricosListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosCategoricosListValueChanged
-        // TODO add your handling code here:
+        if (atributosCategoricosList.getSelectedValuesList().size() >= 1) {
+            inserirBotaoCategoricalFilter.setEnabled(true);
+        } else {
+            inserirBotaoCategoricalFilter.setEnabled(false);
+        }
     }//GEN-LAST:event_atributosCategoricosListValueChanged
 
     private void atributosCategoricosList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosCategoricosList2ValueChanged
-        // TODO add your handling code here:
+        if (atributosCategoricosList2.getSelectedValuesList().size() >= 1) {
+            removerBotaoCategoricalFilter.setEnabled(true);
+        } else {
+            removerBotaoCategoricalFilter.setEnabled(false);
+        }
     }//GEN-LAST:event_atributosCategoricosList2ValueChanged
 
     private void atributosContinuousListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosContinuousListValueChanged
-        // TODO add your handling code here:
+        if (atributosContinuousList.getSelectedValuesList().size() >= 1) {
+            inserirBotaoContinuousFilter.setEnabled(true);
+        } else {
+            inserirBotaoContinuousFilter.setEnabled(false);
+        }
     }//GEN-LAST:event_atributosContinuousListValueChanged
 
     private void atributosContinuousList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosContinuousList2ValueChanged
-        // TODO add your handling code here:
+        if (atributosContinuousList2.getSelectedValuesList().size() >= 1) {
+            removerBotaoContinuousFilter.setEnabled(true);
+        } else {
+            removerBotaoContinuousFilter.setEnabled(false);
+        }
     }//GEN-LAST:event_atributosContinuousList2ValueChanged
 
     private ArrayList<Object> getAtributosEscolhidosGlyph() {

@@ -21,7 +21,7 @@ public class GlyphConcrete extends Glyph {
     public void setBounds(Rectangle bounds) {
         this.bounds = bounds;
         if (this.getChild() != null) {
-            this.getChild().setBounds(new Rectangle(bounds));
+            this.getChild().setBounds(bounds);
         }
         
     }

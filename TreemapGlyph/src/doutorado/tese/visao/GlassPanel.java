@@ -34,7 +34,6 @@ public class GlassPanel extends JPanel {
     private GlyphManager glyphManager;
     private TMNodeModelRoot nodeModelRoot;
     private TMView view;
-    private boolean decisioTree;
     private boolean starGlyphActivated;
     private String[] variaveisVisuaisEscolhidas;
     private String glyphContinuoEscolhido;
@@ -97,7 +96,6 @@ public class GlassPanel extends JPanel {
 
     public void setAtributosEscolhidos(List<Object> atributosEscolhidos) {
         glyphManager = new GlyphManager(getManipulador(), atributosEscolhidos, view.getBounds());
-        glyphManager.setUseDecisionTree(decisioTree);
         glyphManager.setRootNodeZoom(view.getRootAnderson());
         glyphManager.setStarGlyphActivated(starGlyphActivated);
         if (starGlyphActivated) {
@@ -176,10 +174,6 @@ public class GlassPanel extends JPanel {
 
     public void setTMView(TMView view) {
         this.view = view;
-    }
-
-    public void setUseDecisionTree(boolean decisioTree) {
-        this.decisioTree = decisioTree;
     }
 
     /**

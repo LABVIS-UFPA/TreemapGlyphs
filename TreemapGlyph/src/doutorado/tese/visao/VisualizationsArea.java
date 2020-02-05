@@ -258,17 +258,22 @@ public class VisualizationsArea {
         if (nodoPaiModel instanceof TMNodeModelComposite) {//treemapLevel
             for (int i = 0; i < nodo.getChildren().size(); i++) {
 
-                TreeMapNode filho = nodo.getChildren().get(i);
+                TreeMapNode treemapItem = nodo.getChildren().get(i);
                 TMNodeModel filhoModel = ((TMNodeModelComposite) nodoPaiModel).getChildrenList().get(i);
 
-                filho.setBounds(filhoModel.getArea());
-                filho.setLabel(filhoModel.getTitle());
-                filho.setParent(nodo);
-                if (filho instanceof TreeMapItem) {
-                    filho.getGlyph().setBounds(filho.getBounds());
+                treemapItem.setBounds(filhoModel.getArea());
+                treemapItem.setLabel(filhoModel.getTitle());
+                treemapItem.setParent(nodo);
+                if (treemapItem instanceof TreeMapItem) {
+                    treemapItem.getGlyph().setBounds(treemapItem.getBounds());
                 }
-                setAreaNodesTree(filho, filhoModel);
+                setAreaNodesTree(treemapItem, filhoModel);
             }
+//            System.out.println(
+//            ((TMNodeModelComposite) nodoPaiModel).getId() +"\t"+
+//            ((TMNodeModelComposite) nodoPaiModel).getTitle() +"\t"+
+//            ((TMNodeModelComposite) nodoPaiModel).getArea()
+//            );
         }
     }
 

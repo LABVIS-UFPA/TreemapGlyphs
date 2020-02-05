@@ -23,13 +23,13 @@ public class TreeMapItem extends TreeMapNode {
     private long id;
     private String columnLabel;
     private int[] what2Draw;
-    private Textura textura;
-    private FormaGeometrica corForma;
-    private FormaGeometrica formaGeometrica;
-    private Text letra;
-    private Numeral numero;
+//    private Textura textura;
+//    private FormaGeometrica corForma;
+//    private FormaGeometrica formaGeometrica;
+//    private Text letra;
+//    private Numeral numero;
     private boolean possuiGlyphResposta;
-    private Glyph glyphClone;
+//    private Glyph glyphClone;
 
     public TreeMapItem(double size, int order) {
         this.size = size;
@@ -122,14 +122,18 @@ public class TreeMapItem extends TreeMapNode {
      * aparecer nos detalhes sob demanda sem a remocao de camadas.
      * @param clone
      */
-    public void setHidenClone(Glyph clone) {
-        glyphClone = clone;
-    }
-    
-    public Glyph getHidenClone(){
-        return glyphClone;
-    }
-
+//    public void setHidenClone(Glyph clone) {
+//        glyphClone = clone;
+//    }
+//    
+//    public Glyph getHidenClone(){
+//        return glyphClone;
+//    }
+ 
+    /**
+    * Define which layer will be drawn
+    * @return 
+    */
     public int[] getWhat2Draw() {
         return what2Draw;
     }
@@ -139,7 +143,7 @@ public class TreeMapItem extends TreeMapNode {
     }
 
     /**
-     * Metodo usado para indicar que o ItemGrid em questão possui um gliph com
+     * Metodo usado para indicar que o Item em questão possui um gliph com
      * pelo menos um de seus filhos sendo a resposta correta (gabarito) da
      * questão (pergunta) proposta.
      *
@@ -157,45 +161,45 @@ public class TreeMapItem extends TreeMapNode {
         this.possuiGlyphResposta = possuiGlyphResposta;
     }
 
-    public Textura getTextura() {
-        return textura;
-    }
-
-    public void setTextura(Textura textura) {
-        this.textura = textura;
-    }
-
-    public FormaGeometrica getCorForma() {
-        return corForma;
-    }
-
-    public void setCorForma(FormaGeometrica corForma) {
-        this.corForma = corForma;
-    }
-
-    public FormaGeometrica getFormaGeometrica() {
-        return formaGeometrica;
-    }
-
-    public void setFormaGeometrica(FormaGeometrica formaGeometrica) {
-        this.formaGeometrica = formaGeometrica;
-    }
-
-    public Text getLetra() {
-        return letra;
-    }
-
-    public void setText(Text letra) {
-        this.letra = letra;
-    }
-
-    public Numeral getNumero() {
-        return numero;
-    }
-
-    public void setNumero(Numeral numero) {
-        this.numero = numero;
-    }
+//    public Textura getTextura() {
+//        return textura;
+//    }
+//
+//    public void setTextura(Textura textura) {
+//        this.textura = textura;
+//    }
+//
+//    public FormaGeometrica getCorForma() {
+//        return corForma;
+//    }
+//
+//    public void setCorForma(FormaGeometrica corForma) {
+//        this.corForma = corForma;
+//    }
+//
+//    public FormaGeometrica getFormaGeometrica() {
+//        return formaGeometrica;
+//    }
+//
+//    public void setFormaGeometrica(FormaGeometrica formaGeometrica) {
+//        this.formaGeometrica = formaGeometrica;
+//    }
+//
+//    public Text getLetra() {
+//        return letra;
+//    }
+//
+//    public void setText(Text letra) {
+//        this.letra = letra;
+//    }
+//
+//    public Numeral getNumero() {
+//        return numero;
+//    }
+//
+//    public void setNumero(Numeral numero) {
+//        this.numero = numero;
+//    }
 
     /**
      * @return the id
