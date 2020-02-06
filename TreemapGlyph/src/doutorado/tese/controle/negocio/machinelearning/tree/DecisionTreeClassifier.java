@@ -41,19 +41,17 @@ public class DecisionTreeClassifier {
      */
     public static int[] predict(double[] features) {
         int[][] classes = new int[5][2];
-        boolean flag = false;
         if(features[Constantes.AREA_COR] <= 12.5){ // CCA
             if(features[Constantes.AREA_TEXTURA] <= 182.5){ // TA
                 if(features[Constantes.AREA_SHAPE] <= 72.5){ //SA
                     //Editado Manualmente com expertise do Gustavo
                     if(features[Constantes.AREA_COR] <= 5){ //CCA - para de desenhar o circulo colorido quando chegar em 5 pixels quadrados
-                        System.out.println("1 - dentro do if: "+ features[Constantes.AREA_COR]);
                         classes[0][0] = 110;classes[0][1] = 5;
                         classes[1][0] = 115;classes[1][1] = 0;
                         classes[2][0] = 111;classes[2][1] = 4;
                         classes[3][0] = 102;classes[3][1] = 13;
                         classes[4][0] = 107;classes[4][1] = 8;
-                    }else{System.out.println("Constantes.PRESENCA_COR_TREEMAP "+Constantes.PRESENCA_COR_TREEMAP);
+                    }else{
                         if(features[Constantes.PRESENCA_COR_TREEMAP] <= 0.5){
                             classes[0][0] = 110;classes[0][1] = 5;
                             classes[1][0] = 0;  classes[1][1] = 115;
@@ -67,8 +65,7 @@ public class DecisionTreeClassifier {
                             classes[3][0] = 102;classes[3][1] = 13;
                             classes[4][0] = 107;classes[4][1] = 8;
                         }
-                    }
-                    
+                    }                    
                 }else{
                     classes[0][0] = 64;classes[0][1] = 0;
                     classes[1][0] = 64;classes[1][1] = 0;
@@ -94,10 +91,7 @@ public class DecisionTreeClassifier {
         }else{
             if(features[Constantes.AREA_SHAPE] <= 76.5){ //SA
                 if(features[Constantes.AREA_TEXTURA] <= 442){ // TA
-                    System.out.println("2 - Constantes.PRESENCA_COR_TREEMAP "+features[Constantes.PRESENCA_COR_TREEMAP]);
                     if(features[Constantes.PRESENCA_COR_TREEMAP] <= 0.5){ //Editado Manualmente com expertise do Anderson
-                        System.out.println("entrouuuuuu");
-                        flag = true;
                         classes[0][0] = 108;classes[0][1] = 4;
                         classes[1][0] = 3;  classes[1][1] = 109;
                         classes[2][0] = 109;classes[2][1] = 3;
@@ -116,10 +110,8 @@ public class DecisionTreeClassifier {
                             classes[2][0] = 3;  classes[2][1] = 109;
                             classes[3][0] = 103;classes[3][1] = 9;
                             classes[4][0] = 106;classes[4][1] = 6;
-                        }
-                        
-                    }
-                    
+                        }                        
+                    }                    
                 }else{
                     classes[0][0] = 3; classes[0][1] = 60;
                     classes[1][0] = 2; classes[1][1] = 61;
@@ -152,9 +144,7 @@ public class DecisionTreeClassifier {
             }
         }
         
-        int[] vetor = findMax(classes);
-        if(flag)        System.out.println(Arrays.toString(vetor));
-        return vetor;
+        return findMax(classes);
     }
 
     public static void main(String[] args) {

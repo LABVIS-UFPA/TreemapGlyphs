@@ -59,9 +59,9 @@ public final class GlyphManager {
     private int quantValoresVarVisuais;
     private Rectangle bounds;
     private boolean overlappingActivated;
-    private boolean continuosGlyphActivated;
+//    private boolean continuosGlyphActivated;
     private String numeroUtilizado;
-    private List<String> atributosEscolhidosStarGlyph;
+    private List<String> atributosEscolhidosGlyphContinuo;
     private String glyphContinuoEscolhido;
 
     public GlyphManager() {
@@ -207,7 +207,7 @@ public final class GlyphManager {
             Glyph child = setLayerInGlyph(varVisual, item, dimensao);
             father.appendChild(child);
             if (i == getVariaveisVisuaisEscolhidas().length - 1) {//se ja estiver na ultima camada
-                if (continuosGlyphActivated) {
+                if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
                     Glyph childContinuousGlyph = setLayerInGlyph(glyphContinuo, item, -1);
                     father.appendChild(childContinuousGlyph);
                 }
@@ -537,32 +537,32 @@ public final class GlyphManager {
         this.quantValoresVarVisuais = quantValoresVarVisuais;
     }
 
-    /**
-     * @return the continuosGlyphActivated
-     */
-    public boolean isStarGlyphActivated() {
-        return continuosGlyphActivated;
-    }
-
-    /**
-     * @param starGlyphActivated the continuosGlyphActivated to set
-     */
-    public void setStarGlyphActivated(boolean starGlyphActivated) {
-        this.continuosGlyphActivated = starGlyphActivated;
-    }
+//    /**
+//     * @return the continuosGlyphActivated
+//     */
+//    public boolean isStarGlyphActivated() {
+//        return continuosGlyphActivated;
+//    }
+//
+//    /**
+//     * @param starGlyphActivated the continuosGlyphActivated to set
+//     */
+//    public void setStarGlyphActivated(boolean starGlyphActivated) {
+//        this.continuosGlyphActivated = starGlyphActivated;
+//    }
 
     /**
      * @return the atributosEscolhidosStarGlyph
      */
     public List<String> getAtributosEscolhidosGlyphContinuo() {
-        return atributosEscolhidosStarGlyph;
+        return atributosEscolhidosGlyphContinuo;
     }
 
     /**
      * @param atributosEscolhidosStarGlyph the atributosEscolhidosStarGlyph to
      * set
      */
-    public void setAtributosEscolhidosStarGlyph(List<String> atributosEscolhidosStarGlyph) {
-        this.atributosEscolhidosStarGlyph = atributosEscolhidosStarGlyph;
+    public void setAtributosEscolhidosGlyphContinuo(List<String> atributosEscolhidosStarGlyph) {
+        this.atributosEscolhidosGlyphContinuo = atributosEscolhidosStarGlyph;
     }
 }

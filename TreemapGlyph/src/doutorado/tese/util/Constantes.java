@@ -39,6 +39,8 @@ public class Constantes {
     public static final int AUSENTE = 0;
     public static int QUANT_HIERARQUIAS = 0;
     public static boolean DECISION_TREE_ACTIVATED = false;
+    public static boolean CONTINUOUS_GLYPH_ACTIVATED = false;
+    public static boolean CATEGORICAL_GLYPH_ACTIVATED = false;
     
 //    private static Color[] cores = {Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
     private static String[] corTreemap = {

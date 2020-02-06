@@ -123,7 +123,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jScrollPane8 = new javax.swing.JScrollPane();
         painelAbas_jTabbedPane = new javax.swing.JTabbedPane();
         abaTreemap = new javax.swing.JPanel();
-        botaoGerarVisualizacao = new javax.swing.JButton();
+        botaoGerarTreemap = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         colunasHierarquicasList1 = new javax.swing.JList<>();
@@ -153,14 +153,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         baixoButton = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        atributo1Glyph = new javax.swing.JComboBox<>();
+        textureGlyphComboBox = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        atributo2Glyph = new javax.swing.JComboBox<>();
+        colorGlyphComboBox = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        atributo3Glyph = new javax.swing.JComboBox<>();
+        shapeGlyphComboBox = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        atributo4Glyph = new javax.swing.JComboBox<>();
-        botaoGerarGlyphs = new javax.swing.JButton();
+        textGlyphComboBox = new javax.swing.JComboBox<>();
+        botaoGerarCategoricalGlyphs = new javax.swing.JButton();
         checkCategoricalGlyph = new javax.swing.JCheckBox();
         abaContinuosGlyphs = new javax.swing.JPanel();
         checkContinuousGlyph = new javax.swing.JCheckBox();
@@ -218,6 +218,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         consoleMenuItem = new javax.swing.JMenuItem();
         finishMenuItem = new javax.swing.JMenuItem();
         aboutMenu = new javax.swing.JMenu();
+        screenshotMenuItem = new javax.swing.JMenuItem();
         version_jMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -273,11 +274,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         separadorCimaBaixo.setLeftComponent(painelCima);
 
-        botaoGerarVisualizacao.setText("View Treemap");
-        botaoGerarVisualizacao.setEnabled(false);
-        botaoGerarVisualizacao.addActionListener(new java.awt.event.ActionListener() {
+        botaoGerarTreemap.setText("View Treemap");
+        botaoGerarTreemap.setEnabled(false);
+        botaoGerarTreemap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoGerarVisualizacaoActionPerformed(evt);
+                botaoGerarTreemapActionPerformed(evt);
             }
         });
 
@@ -386,7 +387,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                                     .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addComponent(botaoGerarVisualizacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botaoGerarTreemap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(abaTreemapLayout.createSequentialGroup()
                             .addComponent(checkLegenda)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -433,8 +434,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(corTreemapComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoGerarVisualizacao)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(botaoGerarTreemap)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Treemap", abaTreemap);
@@ -503,69 +504,69 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         jLabel7.setText("Texture:");
 
-        atributo1Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
-        atributo1Glyph.setEnabled(false);
-        atributo1Glyph.addItemListener(new java.awt.event.ItemListener() {
+        textureGlyphComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        textureGlyphComboBox.setEnabled(false);
+        textureGlyphComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                atributo1GlyphItemStateChanged(evt);
+                textureGlyphComboBoxItemStateChanged(evt);
             }
         });
-        atributo1Glyph.addActionListener(new java.awt.event.ActionListener() {
+        textureGlyphComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                atributo1GlyphActionPerformed(evt);
+                textureGlyphComboBoxActionPerformed(evt);
             }
         });
 
         jLabel8.setText("Color:");
 
-        atributo2Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
-        atributo2Glyph.setEnabled(false);
-        atributo2Glyph.addItemListener(new java.awt.event.ItemListener() {
+        colorGlyphComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        colorGlyphComboBox.setEnabled(false);
+        colorGlyphComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                atributo2GlyphItemStateChanged(evt);
+                colorGlyphComboBoxItemStateChanged(evt);
             }
         });
-        atributo2Glyph.addActionListener(new java.awt.event.ActionListener() {
+        colorGlyphComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                atributo2GlyphActionPerformed(evt);
+                colorGlyphComboBoxActionPerformed(evt);
             }
         });
 
         jLabel9.setText("Shape:");
 
-        atributo3Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
-        atributo3Glyph.setEnabled(false);
-        atributo3Glyph.addItemListener(new java.awt.event.ItemListener() {
+        shapeGlyphComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        shapeGlyphComboBox.setEnabled(false);
+        shapeGlyphComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                atributo3GlyphItemStateChanged(evt);
+                shapeGlyphComboBoxItemStateChanged(evt);
             }
         });
-        atributo3Glyph.addActionListener(new java.awt.event.ActionListener() {
+        shapeGlyphComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                atributo3GlyphActionPerformed(evt);
+                shapeGlyphComboBoxActionPerformed(evt);
             }
         });
 
         jLabel10.setText("Text:");
 
-        atributo4Glyph.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
-        atributo4Glyph.setEnabled(false);
-        atributo4Glyph.addItemListener(new java.awt.event.ItemListener() {
+        textGlyphComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        textGlyphComboBox.setEnabled(false);
+        textGlyphComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                atributo4GlyphItemStateChanged(evt);
+                textGlyphComboBoxItemStateChanged(evt);
             }
         });
-        atributo4Glyph.addActionListener(new java.awt.event.ActionListener() {
+        textGlyphComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                atributo4GlyphActionPerformed(evt);
+                textGlyphComboBoxActionPerformed(evt);
             }
         });
 
-        botaoGerarGlyphs.setText("View Glyphs");
-        botaoGerarGlyphs.setEnabled(false);
-        botaoGerarGlyphs.addActionListener(new java.awt.event.ActionListener() {
+        botaoGerarCategoricalGlyphs.setText("View Glyphs");
+        botaoGerarCategoricalGlyphs.setEnabled(false);
+        botaoGerarCategoricalGlyphs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoGerarGlyphsActionPerformed(evt);
+                botaoGerarCategoricalGlyphsActionPerformed(evt);
             }
         });
 
@@ -601,7 +602,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(baixoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cimaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(botaoGerarGlyphs, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoGerarCategoricalGlyphs, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
                     .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -609,16 +610,16 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(atributo1Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(atributo2Glyph, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textureGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(colorGlyphComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(atributo3Glyph, 0, 90, Short.MAX_VALUE)
-                            .addComponent(atributo4Glyph, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(shapeGlyphComboBox, 0, 90, Short.MAX_VALUE)
+                            .addComponent(textGlyphComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(checkCategoricalGlyph))
                 .addContainerGap())
         );
@@ -647,22 +648,22 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                        .addComponent(atributo3Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(shapeGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(atributo4Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10)))
                     .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(atributo1Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textureGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7))
                     .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(atributo2Glyph, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(colorGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoGerarGlyphs)
+                .addComponent(botaoGerarCategoricalGlyphs)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -796,7 +797,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoGerarContinuosGlyphs)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Glyph Continuo", abaContinuosGlyphs);
@@ -892,7 +893,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(updateDetailsButton)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Details", abaDetalhes);
@@ -1133,7 +1134,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(taskCountLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nextTest_Button)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Task", abaTask);
@@ -1220,6 +1221,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jMenuBar1.add(testMenu);
 
         aboutMenu.setText("About");
+
+        screenshotMenuItem.setText("Screenshot");
+        screenshotMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                screenshotMenuItemActionPerformed(evt);
+            }
+        });
+        aboutMenu.add(screenshotMenuItem);
 
         version_jMenuItem.setText("Version");
         version_jMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -1413,9 +1422,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }//GEN-LAST:event_colunasHierarquicasList1ValueChanged
 
-    private void botaoGerarVisualizacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarVisualizacaoActionPerformed
-        System.gc();
-        limparPainelEsquerda();
+    private void botaoGerarTreemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarTreemapActionPerformed
+        cleanAllVisualizations();
         loadSetupTreemap();
         //zerando tudo
         visualizationTreemap = null;
@@ -1431,7 +1439,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 });
         Constantes.QUANT_HIERARQUIAS = itensHierarquia.length;
         painelEsquerda.add(layerPane);
-        view = visualizationTreemap.getView();
+        view = visualizationTreemap.getView();//view e o Jpanel do treemap
         layerPane.setBounds(view.getBounds());
 
         atualizarLegendaTreemap(itemCor);
@@ -1439,7 +1447,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         checkCategoricalGlyph.setEnabled(true);
         checkContinuousGlyph.setEnabled(true);
 
-        limparCacheGlyphs();
+        cleanCacheCategoricalGlyph();
+        cleanCacheContinuousGlyph();
         clickPanel = null;
         clickPanel = new GlassPanelClick();
         clickPanel.setTMView(view);
@@ -1456,86 +1465,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             loadGabaritoTarefa();
         }
 
-        clickPanel.setOnMouseOverListener(new GlassPanelClick.OnMouseOver() {
-            @Override
-            public void getDetailsOnDemand(MouseEvent evt) {
-                itensDetalhes = Util.parseListModel2ArrayString(colunasDetalhesList2.getModel());
-//                if (detailsOnDemandCheckBox.isSelected()) {
-//                    view.dispatchEvent(evt);
-//                }
-            }
+        configDetalhesSobDemanda();
 
-            @Override
-            public String tooltipEvent(MouseEvent evt) {
-                return view.getToolTipText(evt);
-            }
-
-            @Override
-            public void move(MouseEvent evt) {
-                Point locationOnScreen = evt.getLocationOnScreen();
-
-                if ((locationOnScreen.getY() + details.getHeight()) > (view.getHeight())) {
-                    if (showGlyphOnDetailsCheckBox.isSelected()) {
-                        locationOnScreen.translate(15, -60);
-                    } else {
-                        locationOnScreen.translate(15, -50);
-                    }
-                } else {
-                    locationOnScreen.translate(15, 5);
-                }
-                details.setLocation(locationOnScreen);
-
-                TreeMapNode nodeUnderTheMouse = (TreeMapNode) view.getNodeUnderTheMouse(evt);
-                details.getGlyphIconLabel().setVisible(showGlyphOnDetailsCheckBox.isSelected());
-                if (showGlyphOnDetailsCheckBox.isSelected()) {
-                    if (nodeUnderTheMouse instanceof TreeMapItem) {
-                        if (nodeUnderTheMouse.getGlyph() != null) {
-                            if (!nodeUnderTheMouse.getGlyph().getChildren().isEmpty()) {
-                                if (decisionTreeActivate.isSelected()) {
-//                                    Glyph original = ((TreeMapItem) nodeUnderTheMouse).getGlyph();
-//                                    Glyph clone = ((TreeMapItem) nodeUnderTheMouse).getHidenClone();
-//                                    
-//                                    for (Glyph g : ((TreeMapItem) nodeUnderTheMouse).getGlyphFamily(original, new ArrayList<Glyph>())) {
-//                                        System.out.println("original: "+g.whoAmI().toString());
-//                                    }
-//                                    for (Glyph g : ((TreeMapItem) nodeUnderTheMouse).getGlyphFamily(clone, new ArrayList<Glyph>())) {
-//                                        System.out.println("clone: "+g.whoAmI().toString());
-//                                    }
-//                                    details.setGlyphOnToolTip(clone);
-                                    System.out.println("Desenhar o glyph com todas as camadas no detalhes sob demanda.");
-                                }else{
-                                    details.setGlyphOnToolTip(nodeUnderTheMouse.getGlyph());
-                                }
-                                    details.updateGlyphIcon(true);
-                                    details.setSize(240, 127);
-                            }
-                        }
-                    } else {
-                        details.updateGlyphIcon(false);
-                    }
-                } else {
-//                    details.getGlyphIconLabel().setVisible(false);
-                    details.setSize(details.getDetalhesTextPane().getWidth(), details.getDetalhesTextPane().getHeight());
-                }
-                details.setVisible(true);
-                details.setColunasDetalhesDemanda(itensDetalhes);
-                details.getDetalhesTextPane().setText("");//limpando o quadro dos detalhes sob demanda
-                String tooltipText = details.getTooltipOfObject(nodeUnderTheMouse).toString();
-
-                details.getDetalhesTextPane().setEditable(true);
-
-                Util.appendToPane(details.getDetalhesTextPane(), tooltipText, Color.decode("#000000"), StyleConstants.ALIGN_JUSTIFIED, 10);
-
-                details.getDetalhesTextPane().setEditable(false);
-            }
-
-            @Override
-            public void exit(MouseEvent evt) {
-                details.setVisible(false);
-            }
-        });
         clickPanel.repaint();
-    }//GEN-LAST:event_botaoGerarVisualizacaoActionPerformed
+    }//GEN-LAST:event_botaoGerarTreemapActionPerformed
 
     private void colunasDetalhesList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasDetalhesList1ValueChanged
         if (colunasDetalhesList1.getSelectedValuesList().size() >= 1) {
@@ -1610,13 +1543,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         visualizationTreemap.setColunasDetalhesDemanda(valoresEscolhidos);
         visualizationTreemap.updateDetalhesDemanda();
 
-        botaoGerarVisualizacaoActionPerformed(evt);
+        botaoGerarTreemapActionPerformed(evt);
     }//GEN-LAST:event_updateDetailsButtonActionPerformed
 
     private void decisionTreeActivateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decisionTreeActivateActionPerformed
-        botaoGerarGlyphsActionPerformed(evt);
-        if (decisionTreeActivate.isSelected()) {
-            logger.info("Árvore de decisão avivada");
+        botaoGerarCategoricalGlyphsActionPerformed(evt);
+        if (Constantes.DECISION_TREE_ACTIVATED) {
+            logger.info("Arvore de decisao avivada");
         }
     }//GEN-LAST:event_decisionTreeActivateActionPerformed
 
@@ -1625,19 +1558,15 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_corTreemapComboBoxActionPerformed
 
     private void checkContinuousGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkContinuousGlyphActionPerformed
-        System.gc();
-        if (checkContinuousGlyph.isSelected()) {
-            Constantes.setShowGlyph(true);
-            glyphContinuosType.setEnabled(true);
-            if (glyphPanel == null) {
-                glyphPanel = new GlassPanel();
-                glyphPanel.setTMView(view);
-
-                layerPane.add(glyphPanel, new Integer(1), 0);
+        Constantes.CONTINUOUS_GLYPH_ACTIVATED = checkContinuousGlyph.isSelected();
+        if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
+            if (glassPanel == null) {
+                createGlassPanel();
             }
-            listaAtributosContinuousGlyph.setEnabled(true);
+            glyphContinuosType.setEnabled(true);
+
         } else {
-            limparCacheGlyphs();
+            cleanCacheContinuousGlyph();
         }
     }//GEN-LAST:event_checkContinuousGlyphActionPerformed
 
@@ -1715,23 +1644,23 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_listaAtributosContinuousGlyph2ValueChanged
 
     private void botaoGerarContinuosGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarContinuosGlyphsActionPerformed
-        System.gc();
-        glyphPanel.setManipulador(manipulador);
-        glyphPanel.setContinuousGlyphActivated(checkContinuousGlyph.isSelected());
-
-        glyphPanel.setTipoGlyphContinuoEscolhido((String) glyphContinuosType.getSelectedItem());
+        if (glassPanel == null) {
+            createGlassPanel();
+        }
+        glassPanel.setManipulador(manipulador);
+        glassPanel.setTipoGlyphContinuoEscolhido((String) glyphContinuosType.getSelectedItem());
         variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
-        glyphPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
+        glassPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
         atributosEscolhidosContinuousGlyph = parseListModelString2Array(listaAtributosContinuousGlyph2.getModel());
-        glyphPanel.setAtributosEscolhidosContinuousGlyph(atributosEscolhidosContinuousGlyph);
+        glassPanel.setAtributosEscolhidosContinuousGlyph(atributosEscolhidosContinuousGlyph);
 
         //Acoes para desenhar os glyphs
-        glyphPanel.setBounds(painelEsquerda.getBounds());
+        glassPanel.setBounds(painelEsquerda.getBounds());
         atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
-        glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
-        glyphPanel.setVisible(true);
-        glyphPanel.repaint();
-
+        glassPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
+        glassPanel.setVisible(true);
+        glassPanel.repaint();
+        
         atualizarLegendaGlyphs(atributosEscolhidosGlyph);
 //        prepararLegendaStarGlyph(Arrays.asList(atributosEscolhidosStarGlyph));
         atualizarLegendaGlyphsContinuos(atributosEscolhidosContinuousGlyph);
@@ -1783,11 +1712,22 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_listaAtributosContinuousGlyphValueChanged
 
     private void glyphContinuosTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_glyphContinuosTypeItemStateChanged
-        // TODO add your handling code here:
+        listaAtributosContinuousGlyph.setEnabled(Constantes.CONTINUOUS_GLYPH_ACTIVATED);
     }//GEN-LAST:event_glyphContinuosTypeItemStateChanged
 
     private void glyphContinuosTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_glyphContinuosTypeActionPerformed
-        // TODO add your handling code here:
+        if (glyphContinuosType.getSelectedIndex() != 0) {
+            if (listaAtributosContinuousGlyph.getModel().getSize() != 0) {
+                listaAtributosContinuousGlyph.setEnabled(true);
+            } else {
+                List<String> lista = loadContinuousAttributes();
+                lista.remove(lista.size() - 1);
+                Object[] newList = lista.toArray();
+
+                DefaultComboBoxModel model = new DefaultComboBoxModel(newList);
+                listaAtributosContinuousGlyph.setModel(model);
+            }
+        }
     }//GEN-LAST:event_glyphContinuosTypeActionPerformed
 
     private void nextTest_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextTest_ButtonActionPerformed
@@ -1843,74 +1783,75 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_consoleMenuItemActionPerformed
 
     private void checkCategoricalGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCategoricalGlyphActionPerformed
-        //zerando
-        glyphPanel = null;
-
-        if (checkCategoricalGlyph.isSelected()) {
-            Constantes.setShowGlyph(true);
-            glyphPanel = new GlassPanel();
-            glyphPanel.setTMView(view);
-
+        Constantes.CATEGORICAL_GLYPH_ACTIVATED = checkCategoricalGlyph.isSelected();
+        if (Constantes.CATEGORICAL_GLYPH_ACTIVATED) {
+            createGlassPanel();
             varVisuaisList1.setEnabled(true);
-
-            layerPane.add(glyphPanel, new Integer(1), 0);
         } else {
-            limparCacheGlyphs();
+            cleanCacheCategoricalGlyph();
         }
     }//GEN-LAST:event_checkCategoricalGlyphActionPerformed
 
-    private void botaoGerarGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarGlyphsActionPerformed
+    private void botaoGerarCategoricalGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarCategoricalGlyphsActionPerformed
         //zerando tudo
         variaveisVisuaisEscolhidas = null;
         //acoes para configurar os glyphs
-
         variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
-        glyphPanel.setManipulador(manipulador);
-        glyphPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
-        //        glyphPanel.setTipoGlyphContinuoEscolhido(atributosEscolhidosStarGlyph);
+        if (glassPanel == null) {
+            createGlassPanel();
+        }
+        glassPanel.setManipulador(manipulador);
+        glassPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
         //Acoes para desenhar os glyphs
-        glyphPanel.setBounds(painelEsquerda.getBounds());
-        Constantes.DECISION_TREE_ACTIVATED = decisionTreeActivate.isSelected();        
-        
+        glassPanel.setBounds(painelEsquerda.getBounds());
+        Constantes.DECISION_TREE_ACTIVATED = decisionTreeActivate.isSelected();
+
         atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
-        glyphPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
-        glyphPanel.setVisible(true);
-        glyphPanel.repaint();
+        if (!esqueceuSelecionarAtributo()) {
+            glassPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
+            glassPanel.setVisible(true);
+            atualizarLegendaGlyphs(atributosEscolhidosGlyph);
+            glassPanel.repaint();
+        } else {
+            if (glassPanel != null) {
+                JOptionPane.showMessageDialog(null, "Please, select a attribute!", "Select a attribute", JOptionPane.WARNING_MESSAGE);
+            } else {
+                System.err.println("esqueceu de selecionar um atributo... e o glyphPanel ta null");
+            }
+        }
+    }//GEN-LAST:event_botaoGerarCategoricalGlyphsActionPerformed
 
-        atualizarLegendaGlyphs(atributosEscolhidosGlyph);
-    }//GEN-LAST:event_botaoGerarGlyphsActionPerformed
-
-    private void atributo4GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo4GlyphActionPerformed
+    private void textGlyphComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textGlyphComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_atributo4GlyphActionPerformed
+    }//GEN-LAST:event_textGlyphComboBoxActionPerformed
 
-    private void atributo4GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo4GlyphItemStateChanged
-        botaoGerarGlyphs.setEnabled(true);
-    }//GEN-LAST:event_atributo4GlyphItemStateChanged
+    private void textGlyphComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_textGlyphComboBoxItemStateChanged
+        botaoGerarCategoricalGlyphs.setEnabled(true);
+    }//GEN-LAST:event_textGlyphComboBoxItemStateChanged
 
-    private void atributo3GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo3GlyphActionPerformed
+    private void shapeGlyphComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shapeGlyphComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_atributo3GlyphActionPerformed
+    }//GEN-LAST:event_shapeGlyphComboBoxActionPerformed
 
-    private void atributo3GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo3GlyphItemStateChanged
-        botaoGerarGlyphs.setEnabled(true);
-    }//GEN-LAST:event_atributo3GlyphItemStateChanged
+    private void shapeGlyphComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_shapeGlyphComboBoxItemStateChanged
+        botaoGerarCategoricalGlyphs.setEnabled(true);
+    }//GEN-LAST:event_shapeGlyphComboBoxItemStateChanged
 
-    private void atributo2GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo2GlyphActionPerformed
+    private void colorGlyphComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorGlyphComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_atributo2GlyphActionPerformed
+    }//GEN-LAST:event_colorGlyphComboBoxActionPerformed
 
-    private void atributo2GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo2GlyphItemStateChanged
-        botaoGerarGlyphs.setEnabled(true);
-    }//GEN-LAST:event_atributo2GlyphItemStateChanged
+    private void colorGlyphComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_colorGlyphComboBoxItemStateChanged
+        botaoGerarCategoricalGlyphs.setEnabled(true);
+    }//GEN-LAST:event_colorGlyphComboBoxItemStateChanged
 
-    private void atributo1GlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atributo1GlyphActionPerformed
+    private void textureGlyphComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textureGlyphComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_atributo1GlyphActionPerformed
+    }//GEN-LAST:event_textureGlyphComboBoxActionPerformed
 
-    private void atributo1GlyphItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_atributo1GlyphItemStateChanged
-        botaoGerarGlyphs.setEnabled(true);
-    }//GEN-LAST:event_atributo1GlyphItemStateChanged
+    private void textureGlyphComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_textureGlyphComboBoxItemStateChanged
+        botaoGerarCategoricalGlyphs.setEnabled(true);
+    }//GEN-LAST:event_textureGlyphComboBoxItemStateChanged
 
     private void baixoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baixoButtonActionPerformed
         List<String> novaLista = new ArrayList<>(varVisuaisList2.getModel().getSize());
@@ -1968,7 +1909,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             baixoButton.setEnabled(false);
         }
         if (varVisuaisList2.getModel().getSize() < 1) {
-            botaoGerarGlyphs.setEnabled(false);
+            botaoGerarCategoricalGlyphs.setEnabled(false);
         }
     }//GEN-LAST:event_varVisuaisList2ValueChanged
 
@@ -2107,8 +2048,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void categoricalFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoricalFilterButtonActionPerformed
         CategoricalFilterSetUp categoricalFrame = new CategoricalFilterSetUp();
         categoricalFrame.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_categoricalFilterButtonActionPerformed
 
     private void continuousFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continuousFilterButtonActionPerformed
@@ -2148,13 +2089,17 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }//GEN-LAST:event_atributosContinuousList2ValueChanged
 
+    private void screenshotMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_screenshotMenuItemActionPerformed
+
+    }//GEN-LAST:event_screenshotMenuItemActionPerformed
+
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
 
         ArrayList<Object> atributosGlyph = new ArrayList<>();
-        atributosGlyph.add(atributo1Glyph.getSelectedItem());
-        atributosGlyph.add(atributo2Glyph.getSelectedItem());
-        atributosGlyph.add(atributo3Glyph.getSelectedItem());
-        atributosGlyph.add(atributo4Glyph.getSelectedItem());
+        atributosGlyph.add(textureGlyphComboBox.getSelectedItem());
+        atributosGlyph.add(colorGlyphComboBox.getSelectedItem());
+        atributosGlyph.add(shapeGlyphComboBox.getSelectedItem());
+        atributosGlyph.add(textGlyphComboBox.getSelectedItem());
 //        atributosGlyph.add(atributo5Glyph.getSelectedItem());
 
         return atributosGlyph;
@@ -2208,10 +2153,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JPanel abaTask;
     private javax.swing.JPanel abaTreemap;
     private javax.swing.JMenu aboutMenu;
-    private javax.swing.JComboBox<String> atributo1Glyph;
-    private javax.swing.JComboBox<String> atributo2Glyph;
-    private javax.swing.JComboBox<String> atributo3Glyph;
-    private javax.swing.JComboBox<String> atributo4Glyph;
     private javax.swing.JList<String> atributosCategoricosList;
     private javax.swing.JList<String> atributosCategoricosList2;
     private javax.swing.JList<String> atributosContinuousList;
@@ -2219,9 +2160,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JButton baixoAtributoStarGlyphButton;
     private javax.swing.JButton baixoBotao_treemap;
     private javax.swing.JButton baixoButton;
+    private javax.swing.JButton botaoGerarCategoricalGlyphs;
     private javax.swing.JButton botaoGerarContinuosGlyphs;
-    private javax.swing.JButton botaoGerarGlyphs;
-    private javax.swing.JButton botaoGerarVisualizacao;
+    private javax.swing.JButton botaoGerarTreemap;
     private javax.swing.JButton categoricalFilterButton;
     private javax.swing.JCheckBox checkCategoricalGlyph;
     private javax.swing.JCheckBox checkContinuousGlyph;
@@ -2229,6 +2170,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JButton cimaAtributoStarGlyphButton;
     private javax.swing.JButton cimaBotao_treemap;
     private javax.swing.JButton cimaButton;
+    private javax.swing.JComboBox<String> colorGlyphComboBox;
     private javax.swing.JList<String> colunasDetalhesList1;
     private javax.swing.JList<String> colunasDetalhesList2;
     private javax.swing.JList<String> colunasHierarquicasList1;
@@ -2296,14 +2238,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JButton removerBotao_treemap;
     private javax.swing.JButton removerVarVisualButton;
     private javax.swing.JButton saveAnswerButton;
+    private javax.swing.JMenuItem screenshotMenuItem;
     private javax.swing.JSplitPane separadorCimaBaixo;
     private javax.swing.JSplitPane separadorEsqueDir_jSplitPane;
+    private javax.swing.JComboBox<String> shapeGlyphComboBox;
     private javax.swing.JCheckBox showGlyphOnDetailsCheckBox;
     private javax.swing.JMenuItem startMenuItem;
     private javax.swing.JComboBox<String> tamanhoTreemapComboBox;
     private javax.swing.JLabel taskCountLabel;
     private javax.swing.JTextPane task_TextPane;
     private javax.swing.JMenu testMenu;
+    private javax.swing.JComboBox<String> textGlyphComboBox;
+    private javax.swing.JComboBox<String> textureGlyphComboBox;
     private javax.swing.JButton updateDetailsButton;
     private javax.swing.JList<String> varVisuaisList1;
     private javax.swing.JList<String> varVisuaisList2;
@@ -2311,7 +2257,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     // End of variables declaration//GEN-END:variables
     static Main frame;
     private JLayeredPane layerPane;
-    private GlassPanel glyphPanel;
+    private GlassPanel glassPanel;
     private GlassPanelClick clickPanel;
     private LegendaVisualizacao legendaVisualizacao;
     private String itemTamanho;
@@ -2378,53 +2324,86 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }
 
-    private void limparCacheGlyphs() {
-        Constantes.setShowGlyph(false);
-        botaoGerarGlyphs.setEnabled(false);
+    private boolean verificarGlyphCategoricoAtivo() {
+        Constantes.CATEGORICAL_GLYPH_ACTIVATED = false;
+        if (checkCategoricalGlyph.isSelected()) {
+            Constantes.CATEGORICAL_GLYPH_ACTIVATED = true;
+        }
+        return Constantes.CATEGORICAL_GLYPH_ACTIVATED;
+    }
+
+    private boolean verificarStatusGlyphContinuo() {
+        Constantes.CONTINUOUS_GLYPH_ACTIVATED = false;
+        if (checkContinuousGlyph.isSelected()) {
+            Constantes.CONTINUOUS_GLYPH_ACTIVATED = true;
+        }
+        return Constantes.CONTINUOUS_GLYPH_ACTIVATED;
+    }
+
+    private void cleanCacheCategoricalGlyph() {
+        botaoGerarCategoricalGlyphs.setEnabled(verificarGlyphCategoricoAtivo());
+
+        cleanCacheClickPanel();
+
+        if (glassPanel != null) {//se existe glassPanel entao apaga ele
+            glassPanel.setVisible(false);
+            layerPane.remove(glassPanel);
+            glassPanel = null;
+        }
+        if (!verificarGlyphCategoricoAtivo()) {
+            varVisuaisList1.setEnabled(false);
+            varVisuaisList2.setEnabled(false);
+            Object[] vazio = {};
+            DefaultComboBoxModel emptyList = new DefaultComboBoxModel(vazio);
+            varVisuaisList2.setModel(emptyList);
+            varVisuaisList1.setModel(emptyList);
+            Object[] newList = new Object[4];
+            newList[0] = "Texture";
+            newList[1] = "Color";
+            newList[2] = "Shape";
+            newList[3] = "Text";//newList[4] = "Number";
+            DefaultComboBoxModel model = new DefaultComboBoxModel(newList);
+            varVisuaisList1.setModel(model);
+            textureGlyphComboBox.setEnabled(false);
+            colorGlyphComboBox.setEnabled(false);
+            shapeGlyphComboBox.setEnabled(false);
+            textGlyphComboBox.setEnabled(false);
+        }
+
+        painelLegendaVis.removeAll();
+        painelLegendaVis.repaint();
+    }
+
+    public void cleanCacheContinuousGlyph() {
+        botaoGerarContinuosGlyphs.setEnabled(verificarStatusGlyphContinuo());
+
+        cleanCacheClickPanel();
+
+        if (glassPanel != null) {//se existe glassPanel entao apaga ele
+            glassPanel.setVisible(false);
+            layerPane.remove(glassPanel);
+            glassPanel = null;
+        }
+        if (!verificarStatusGlyphContinuo()) {
+            listaAtributosContinuousGlyph.setEnabled(false);
+            listaAtributosContinuousGlyph2.setEnabled(false);
+            glyphContinuosType.setSelectedIndex(0);
+            glyphContinuosType.setEnabled(false);
+            Object[] vazio = {};
+            DefaultComboBoxModel emptyList = new DefaultComboBoxModel(vazio);
+            listaAtributosContinuousGlyph.setModel(emptyList);
+            listaAtributosContinuousGlyph2.setModel(emptyList);
+        }
+        painelLegendaVis.removeAll();
+        painelLegendaVis.repaint();
+    }
+
+    public void cleanCacheClickPanel() {
         if (clickPanel != null) {
             clickPanel.setVisible(false);
             layerPane.remove(clickPanel);
             clickPanel = null;
         }
-        if (glyphPanel != null) {
-            glyphPanel.setVisible(false);
-            layerPane.remove(glyphPanel);
-            glyphPanel = null;
-
-            if (checkCategoricalGlyph.isSelected()) {
-                checkCategoricalGlyph.setSelected(false);
-                checkContinuousGlyph.setSelected(false);
-                varVisuaisList1.setEnabled(false);
-                varVisuaisList2.setEnabled(false);
-                Object[] vazio = {};
-                DefaultComboBoxModel emptyList = new DefaultComboBoxModel(vazio);
-                varVisuaisList2.setModel(emptyList);
-                varVisuaisList1.setModel(emptyList);
-                Object[] newList = new Object[4];
-                newList[0] = "Texture";
-                newList[1] = "Color";
-                newList[2] = "Shape";
-//                newList[3] = "Letter";//newList[4] = "Number";
-                newList[3] = "Text";//newList[4] = "Number";
-                DefaultComboBoxModel model = new DefaultComboBoxModel(newList);
-                varVisuaisList1.setModel(model);
-                atributo1Glyph.setEnabled(false);
-                atributo2Glyph.setEnabled(false);
-                atributo3Glyph.setEnabled(false);
-                atributo4Glyph.setEnabled(false);
-//                atributo5Glyph.setEnabled(false);
-            }
-            if (checkContinuousGlyph.isSelected()) {
-                checkContinuousGlyph.setSelected(false);
-                listaAtributosContinuousGlyph.setEnabled(false);
-                listaAtributosContinuousGlyph2.setEnabled(false);
-//                painelStarGlyphLegenda.removeAll();
-
-            }
-            painelLegendaVis.removeAll();
-            painelLegendaVis.repaint();
-        }
-
     }
 
     private void loadAtributosDetalhes() {
@@ -2448,29 +2427,29 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void limparResquiciosBasesAnteriores() {
         limparPainelEsquerda();
-        limparCacheGlyphs();
+        cleanCacheCategoricalGlyph();
+        cleanCacheContinuousGlyph();
         painelLegendaVis.removeAll();
         Object[] vazio = {};
         DefaultComboBoxModel model = new DefaultComboBoxModel(vazio);
         colunasHierarquicasList2.setModel(model);
         listaAtributosContinuousGlyph2.setModel(model);
-
     }
 
     private void habilitarVarVisuaisUtilizadasGUI(List<String> variaveis) {
         for (String var : variaveis) {
             switch (var) {
                 case "Texture":
-                    atributo1Glyph.setEnabled(true);
+                    textureGlyphComboBox.setEnabled(true);
                     break;
                 case "Color":
-                    atributo2Glyph.setEnabled(true);
+                    colorGlyphComboBox.setEnabled(true);
                     break;
                 case "Shape":
-                    atributo3Glyph.setEnabled(true);
+                    shapeGlyphComboBox.setEnabled(true);
                     break;
                 case "Text"://case "Letter":
-                    atributo4Glyph.setEnabled(true);
+                    textGlyphComboBox.setEnabled(true);
                     break;
                 case "Number":
 //                    atributo5Glyph.setEnabled(true);
@@ -2483,20 +2462,20 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         for (String var : variaveis) {
             switch (var) {
                 case "Texture":
-                    atributo1Glyph.setEnabled(false);
-                    atributo1Glyph.setSelectedIndex(0);
+                    textureGlyphComboBox.setEnabled(false);
+                    textureGlyphComboBox.setSelectedIndex(0);
                     break;
                 case "Color":
-                    atributo2Glyph.setEnabled(false);
-                    atributo2Glyph.setSelectedIndex(0);
+                    colorGlyphComboBox.setEnabled(false);
+                    colorGlyphComboBox.setSelectedIndex(0);
                     break;
                 case "Shape":
-                    atributo3Glyph.setEnabled(false);
-                    atributo3Glyph.setSelectedIndex(0);
+                    shapeGlyphComboBox.setEnabled(false);
+                    shapeGlyphComboBox.setSelectedIndex(0);
                     break;
                 case "Text"://case "Letter":
-                    atributo4Glyph.setEnabled(false);
-                    atributo4Glyph.setSelectedIndex(0);
+                    textGlyphComboBox.setEnabled(false);
+                    textGlyphComboBox.setSelectedIndex(0);
                     break;
                 case "Number":
 //                    atributo5Glyph.setEnabled(false);
@@ -2537,6 +2516,127 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 //                }
 //            }
 //        }
+    }
+
+    private void configDetalhesSobDemanda() {
+        clickPanel.setOnMouseOverListener(new GlassPanelClick.OnMouseOver() {
+            @Override
+            public void getDetailsOnDemand(MouseEvent evt) {
+                itensDetalhes = Util.parseListModel2ArrayString(colunasDetalhesList2.getModel());
+                //detalhes sob demanda original da api do treemap
+//                if (detailsOnDemandCheckBox.isSelected()) {
+//                    view.dispatchEvent(evt);
+//                }
+            }
+
+            @Override
+            public String tooltipEvent(MouseEvent evt) {
+                return view.getToolTipText(evt);
+            }
+
+            @Override
+            public void move(MouseEvent evt) {
+                Point locationOnScreen = evt.getLocationOnScreen();
+
+                if ((locationOnScreen.getY() + details.getHeight()) > (view.getHeight())) {
+                    if (showGlyphOnDetailsCheckBox.isSelected()) {
+                        locationOnScreen.translate(15, -60);
+                    } else {
+                        locationOnScreen.translate(15, -50);
+                    }
+                } else {
+                    locationOnScreen.translate(15, 5);
+                }
+                details.setLocation(locationOnScreen);
+
+                TreeMapNode nodeUnderTheMouse = (TreeMapNode) view.getNodeUnderTheMouse(evt);
+                details.getGlyphIconLabel().setVisible(showGlyphOnDetailsCheckBox.isSelected());
+                if (showGlyphOnDetailsCheckBox.isSelected()) {
+                    if (nodeUnderTheMouse instanceof TreeMapItem) {
+                        if (nodeUnderTheMouse.getGlyph() != null) {
+                            if (!nodeUnderTheMouse.getGlyph().getChildren().isEmpty()) {
+                                if (Constantes.DECISION_TREE_ACTIVATED) {
+                                    //TODO Desenhar o glyph com todas as camadas no detalhes sob demanda
+//                                    System.out.println("Desenhar o glyph com todas as camadas no detalhes sob demanda.");
+                                } else {
+                                    details.setGlyphOnToolTip(nodeUnderTheMouse.getGlyph());
+                                }
+                                details.updateGlyphIcon(true);
+                                details.setSize(240, 127);
+                            }
+                        }
+                    } else {
+                        details.updateGlyphIcon(false);
+                    }
+                } else {
+//                    details.getGlyphIconLabel().setVisible(false);
+                    details.setSize(details.getDetalhesTextPane().getWidth(), details.getDetalhesTextPane().getHeight());
+                }
+                details.setVisible(true);
+                details.setColunasDetalhesDemanda(itensDetalhes);
+                details.getDetalhesTextPane().setText("");//limpando o quadro dos detalhes sob demanda
+                String tooltipText = details.getTooltipOfObject(nodeUnderTheMouse).toString();
+
+                details.getDetalhesTextPane().setEditable(true);
+
+                Util.appendToPane(details.getDetalhesTextPane(), tooltipText, Color.decode("#000000"), StyleConstants.ALIGN_JUSTIFIED, 10);
+
+                details.getDetalhesTextPane().setEditable(false);
+            }
+
+            @Override
+            public void exit(MouseEvent evt) {
+                details.setVisible(false);
+            }
+        });
+    }
+
+    private boolean esqueceuSelecionarAtributo() {
+        boolean esqueceu = false;
+
+        for (int i = 0; i < variaveisVisuaisEscolhidas.length; i++) {
+            String var = variaveisVisuaisEscolhidas[i];
+            switch (var) {
+                case "Texture":
+                    if (textureGlyphComboBox.getSelectedIndex() == 0) {
+                        esqueceu = true;
+                    }
+                    break;
+                case "Color":
+                    if (colorGlyphComboBox.getSelectedIndex() == 0) {
+                        esqueceu = true;
+                    }
+                    break;
+                case "Shape":
+                    if (shapeGlyphComboBox.getSelectedIndex() == 0) {
+                        esqueceu = true;
+                    }
+                    break;
+                case "Text":
+                    if (textGlyphComboBox.getSelectedIndex() == 0) {
+                        esqueceu = true;
+                    }
+                    break;
+            }
+        }
+        return esqueceu;
+    }
+
+    private void createGlassPanel() {
+        glassPanel = new GlassPanel();
+        glassPanel.setTMView(view);
+        layerPane.add(glassPanel, new Integer(1), 0);
+    }
+
+    private void cleanAllVisualizations() {
+        limparPainelEsquerda();
+
+        checkCategoricalGlyph.setSelected(false);
+        cleanCacheCategoricalGlyph();
+
+        checkContinuousGlyph.setSelected(false);
+        cleanCacheContinuousGlyph();
+
     }
 
     class Task extends SwingWorker<Void, Void> {
@@ -2620,14 +2720,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     }
                 } catch (Exception e) {
                     logger.error("Erro ao definir a descrição das colunas. \n", e);
-                    JOptionPane.showMessageDialog(null, 
+                    JOptionPane.showMessageDialog(null,
                             "There was an error reading your file. \nPlease, "
-                             + "make sure your file is set up correctly \n"
-                             + "and try again. \n"
-                             + "-Make sure your file has headers (Column Name and Data Type, each in a row, first Column Name then Data Type) \n"
-                             + "-Data types are written with the first letter uppercase and the rest lowercase (e.g. String, Double) \n"
-                             + "-The accepted data types are: Integer, Double, String, Float, Boolean",
-                             "There is a problem with your file !.",
+                            + "make sure your file is set up correctly \n"
+                            + "and try again. \n"
+                            + "-Make sure your file has headers (Column Name and Data Type, each in a row, first Column Name then Data Type) \n"
+                            + "-Data types are written with the first letter uppercase and the rest lowercase (e.g. String, Double) \n"
+                            + "-The accepted data types are: Integer, Double, String, Float, Boolean",
+                            "There is a problem with your file !.",
                             JOptionPane.ERROR_MESSAGE);
                     e.printStackTrace();
                     break;
@@ -2663,10 +2763,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 break;
             case 9:
                 logger.info("Preparando variáveis glyphs.");
-                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_1, true), atributo1Glyph);
-                loadVariaveisGlyph(loadColorAttributes2Glyphs(), atributo2Glyph);
-                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_3, true), atributo3Glyph);
-                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_4, true), atributo4Glyph);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_1, true), textureGlyphComboBox);
+                loadVariaveisGlyph(loadColorAttributes2Glyphs(), colorGlyphComboBox);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_3, true), shapeGlyphComboBox);
+                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_4, true), textGlyphComboBox);
 //                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_5, true), atributo5Glyph);
 
                 porcentagem = (ordem * 100) / tarefas;
@@ -2700,7 +2800,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 logger.info("Preparando atributos para o continuous glyph.");
                 String[] attributes = new String[continuousAttributes.size() - 1];
                 for (int i = 0; i < continuousAttributes.size() - 1; i++) {
-                    attributes [i] = continuousAttributes.get(i);
+                    attributes[i] = continuousAttributes.get(i);
                 }
                 loadItensContinuouGlyph(attributes);
                 porcentagem = (ordem * 100) / tarefas;
@@ -2727,7 +2827,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         itens.addAll(Arrays.asList(manipulador.getCabecalho()));
         itens.remove(manipulador.getCabecalho().length - 1);
         atualizarComboBox(legendaComboBox, itens);
-        botaoGerarVisualizacao.setEnabled(true);
+        botaoGerarTreemap.setEnabled(true);
     }
 
     private void loadItensHierarquiaTreemap(Object[] objs) {
@@ -2850,11 +2950,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         }
         return list;
-    }
-
-    private void loadVariaveisStarGlyph() {
-        Object[] items = loadContinuousAttributes().toArray();
-        reloadListGUI(items, listaAtributosContinuousGlyph);
     }
 
     private void appendToPane(JTextPane tp, String msg, Color c) {

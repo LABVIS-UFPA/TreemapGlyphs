@@ -80,6 +80,14 @@
             <Property name="text" type="java.lang.String" value="About"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="screenshotMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Screenshot"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="screenshotMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="version_jMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Version"/>
@@ -319,7 +327,7 @@
                                                       </Group>
                                                   </Group>
                                               </Group>
-                                              <Component id="botaoGerarVisualizacao" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="botaoGerarTreemap" alignment="0" max="32767" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="checkLegenda" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
@@ -381,20 +389,20 @@
                                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="botaoGerarVisualizacao" min="-2" max="-2" attributes="0"/>
+                                      <Component id="botaoGerarTreemap" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace pref="21" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
                           </Layout>
                           <SubComponents>
-                            <Component class="javax.swing.JButton" name="botaoGerarVisualizacao">
+                            <Component class="javax.swing.JButton" name="botaoGerarTreemap">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="View Treemap"/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarVisualizacaoActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarTreemapActionPerformed"/>
                               </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel2">
@@ -601,7 +609,7 @@
                                                   <Component id="cimaButton" min="-2" pref="42" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <Component id="botaoGerarGlyphs" min="-2" pref="156" max="-2" attributes="0"/>
+                                          <Component id="botaoGerarCategoricalGlyphs" min="-2" pref="156" max="-2" attributes="0"/>
                                           <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -610,8 +618,8 @@
                                               </Group>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="atributo1Glyph" min="-2" pref="104" max="-2" attributes="0"/>
-                                                  <Component id="atributo2Glyph" alignment="1" min="-2" pref="104" max="-2" attributes="0"/>
+                                                  <Component id="textureGlyphComboBox" min="-2" pref="104" max="-2" attributes="0"/>
+                                                  <Component id="colorGlyphComboBox" alignment="1" min="-2" pref="104" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
@@ -620,8 +628,8 @@
                                               </Group>
                                               <EmptySpace min="-2" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="atributo3Glyph" pref="90" max="32767" attributes="0"/>
-                                                  <Component id="atributo4Glyph" max="32767" attributes="0"/>
+                                                  <Component id="shapeGlyphComboBox" pref="90" max="32767" attributes="0"/>
+                                                  <Component id="textGlyphComboBox" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Component id="checkCategoricalGlyph" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -660,28 +668,28 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="atributo3Glyph" min="-2" pref="20" max="-2" attributes="0"/>
+                                              <Component id="shapeGlyphComboBox" min="-2" pref="20" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="atributo4Glyph" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="textGlyphComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="atributo1Glyph" min="-2" max="-2" attributes="0"/>
+                                              <Component id="textureGlyphComboBox" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="atributo2Glyph" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="colorGlyphComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="botaoGerarGlyphs" min="-2" max="-2" attributes="0"/>
+                                      <Component id="botaoGerarCategoricalGlyphs" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
@@ -798,7 +806,7 @@
                                 <Property name="text" type="java.lang.String" value="Texture:"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JComboBox" name="atributo1Glyph">
+                            <Component class="javax.swing.JComboBox" name="textureGlyphComboBox">
                               <Properties>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                   <StringArray count="1">
@@ -808,8 +816,8 @@
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="atributo1GlyphItemStateChanged"/>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atributo1GlyphActionPerformed"/>
+                                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="textureGlyphComboBoxItemStateChanged"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textureGlyphComboBoxActionPerformed"/>
                               </Events>
                               <AuxValues>
                                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -820,7 +828,7 @@
                                 <Property name="text" type="java.lang.String" value="Color:"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JComboBox" name="atributo2Glyph">
+                            <Component class="javax.swing.JComboBox" name="colorGlyphComboBox">
                               <Properties>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                   <StringArray count="1">
@@ -830,8 +838,8 @@
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="atributo2GlyphItemStateChanged"/>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atributo2GlyphActionPerformed"/>
+                                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="colorGlyphComboBoxItemStateChanged"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorGlyphComboBoxActionPerformed"/>
                               </Events>
                               <AuxValues>
                                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -842,7 +850,7 @@
                                 <Property name="text" type="java.lang.String" value="Shape:"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JComboBox" name="atributo3Glyph">
+                            <Component class="javax.swing.JComboBox" name="shapeGlyphComboBox">
                               <Properties>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                   <StringArray count="1">
@@ -852,8 +860,8 @@
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="atributo3GlyphItemStateChanged"/>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atributo3GlyphActionPerformed"/>
+                                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="shapeGlyphComboBoxItemStateChanged"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="shapeGlyphComboBoxActionPerformed"/>
                               </Events>
                               <AuxValues>
                                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -864,7 +872,7 @@
                                 <Property name="text" type="java.lang.String" value="Text:"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JComboBox" name="atributo4Glyph">
+                            <Component class="javax.swing.JComboBox" name="textGlyphComboBox">
                               <Properties>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                   <StringArray count="1">
@@ -874,20 +882,20 @@
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="atributo4GlyphItemStateChanged"/>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atributo4GlyphActionPerformed"/>
+                                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="textGlyphComboBoxItemStateChanged"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textGlyphComboBoxActionPerformed"/>
                               </Events>
                               <AuxValues>
                                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                               </AuxValues>
                             </Component>
-                            <Component class="javax.swing.JButton" name="botaoGerarGlyphs">
+                            <Component class="javax.swing.JButton" name="botaoGerarCategoricalGlyphs">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="View Glyphs"/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarGlyphsActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoGerarCategoricalGlyphsActionPerformed"/>
                               </Events>
                             </Component>
                             <Component class="javax.swing.JCheckBox" name="checkCategoricalGlyph">

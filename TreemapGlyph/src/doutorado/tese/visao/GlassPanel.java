@@ -8,6 +8,7 @@ package doutorado.tese.visao;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.controle.mb.GlyphManager;
 import doutorado.tese.modelo.TreeMapItem;
+import doutorado.tese.util.Constantes;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -34,14 +35,14 @@ public class GlassPanel extends JPanel {
     private GlyphManager glyphManager;
     private TMNodeModelRoot nodeModelRoot;
     private TMView view;
-    private boolean starGlyphActivated;
+//    private boolean starGlyphActivated;
     private String[] variaveisVisuaisEscolhidas;
     private String glyphContinuoEscolhido;
     private ArrayList<TreeMapItem> gabarito;
     private float quantOlverlap;
     private int quantValoresVarVisuais;
     private boolean overlappingActivated;
-    private String[] atributosEscolhidosStarGlyph;
+    private String[] atributosEscolhidosContinuousGlyph;
     private Graphics graphicsGlobal;
 
     /**
@@ -83,7 +84,7 @@ public class GlassPanel extends JPanel {
                     glyphManager.setRootNodeZoom(view.getRootAnderson());
                     logger.info("Acionando prepare2Draw() a partir do onDrawFinished() - Root: " + glyphManager.getRootNodeZoom());
                     glyphManager.prepare2Draw();//chamado para redesenhar os glyphs no drill-down
-                }else{
+                } else {
 //                    System.err.println("glyphManager == null ou view.getRootAnderson() == null");
                 }
             }
@@ -91,15 +92,15 @@ public class GlassPanel extends JPanel {
     }
 
     public void setAtributosEscolhidosContinuousGlyph(String[] atributosEscolhidosStarGlyph) {
-        this.atributosEscolhidosStarGlyph = atributosEscolhidosStarGlyph;
+        this.atributosEscolhidosContinuousGlyph = atributosEscolhidosStarGlyph;
     }
 
     public void setAtributosEscolhidos(List<Object> atributosEscolhidos) {
         glyphManager = new GlyphManager(getManipulador(), atributosEscolhidos, view.getBounds());
         glyphManager.setRootNodeZoom(view.getRootAnderson());
-        glyphManager.setStarGlyphActivated(starGlyphActivated);
-        if (starGlyphActivated) {
-            glyphManager.setAtributosEscolhidosStarGlyph(Arrays.asList(atributosEscolhidosStarGlyph));
+//        glyphManager.setStarGlyphActivated(starGlyphActivated);
+        if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
+            glyphManager.setAtributosEscolhidosGlyphContinuo(Arrays.asList(atributosEscolhidosContinuousGlyph));
         }
         setGlyphOverlappingModel(true);
         logger.info("Acionando setCofigItensGrid() a partir do setAtributosEscolhidos() - Root: " + glyphManager.getRootNodeZoom());
@@ -152,8 +153,10 @@ public class GlassPanel extends JPanel {
         g.setColor(new Color(0, 255, 0, 0));//painel com fundo transparente
         Rectangle r = getBounds();
         g.fillRect(r.x, r.y, r.width, r.height);
-        synchronized (glyphManager) {
-            glyphManager.paint(g);
+        if (glyphManager != null) {
+            synchronized (glyphManager) {
+                glyphManager.paint(g);
+            }
         }
         g.dispose();
     }
@@ -212,17 +215,17 @@ public class GlassPanel extends JPanel {
         this.gabarito = gabarito;
     }
 
-    /**
-     * @return the starGlyphActivated
-     */
-    public boolean isStarGlyphActivated() {
-        return starGlyphActivated;
-    }
-
-    /**
-     * @param starGlyphActivated the starGlyphActivated to set
-     */
-    public void setContinuousGlyphActivated(boolean starGlyphActivated) {
-        this.starGlyphActivated = starGlyphActivated;
-    }
+//    /**
+//     * @return the starGlyphActivated
+//     */
+//    public boolean isStarGlyphActivated() {
+//        return starGlyphActivated;
+//    }
+//
+//    /**
+//     * @param starGlyphActivated the starGlyphActivated to set
+//     */
+//    public void setContinuousGlyphActivated(boolean starGlyphActivated) {
+//        this.starGlyphActivated = starGlyphActivated;
+//    }
 }
