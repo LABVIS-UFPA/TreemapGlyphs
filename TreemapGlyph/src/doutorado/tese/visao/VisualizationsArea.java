@@ -60,9 +60,9 @@ public class VisualizationsArea {
     private TMModel_Draw cDraw = null;
     private TMModel_Size cSize = null;
 //    private String itemCor;
-    private String[] colunasDetalhesDemanda =null;
+    private String[] colunasDetalhesDemanda = null;
     private TreeMapNode itemRespostaUsuario = null;
-    private List<TreeMapNode> respostasUsuario= null;
+    private List<TreeMapNode> respostasUsuario = null;
 
     public VisualizationsArea(int w, int h, ManipuladorArquivo manipulador,
             String itemTamanho, String[] itensHierarquia, String itemLegenda, String itemCor, String[] itensDetalhes,
@@ -79,7 +79,7 @@ public class VisualizationsArea {
         cDraw = null;
         this.view = null;
         System.gc();
-        
+
         this.manipulador = manipulador;
         this.hierarquiaFila = new LinkedList<>();
         this.respostasUsuario = new ArrayList<>();
@@ -123,7 +123,7 @@ public class VisualizationsArea {
         });
         TMThreadModel.listeners.add(listener);
         TMUpdaterConcrete.listeners.add(listener);
-        
+
         this.view.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -164,7 +164,7 @@ public class VisualizationsArea {
         }
     }
 
-    private void highLightTreemapLevel(TreeMapLevel node) { 
+    private void highLightTreemapLevel(TreeMapLevel node) {
         if (node.isHighLighted()) {
             node.setHighLight(false);
             getNodosSelecionadosUsuario().remove(node);
@@ -184,7 +184,7 @@ public class VisualizationsArea {
         }
     }
 
-    public void changeHighLight(TreeMapNode nodeUnderTheMouse) {  
+    public void changeHighLight(TreeMapNode nodeUnderTheMouse) {
         if (nodeUnderTheMouse instanceof TreeMapItem) {
             TreeMapItem node = (TreeMapItem) nodeUnderTheMouse;
             highLightTreemapItem(node);
@@ -269,12 +269,23 @@ public class VisualizationsArea {
                 }
                 setAreaNodesTree(treemapItem, filhoModel);
             }
-//            System.out.println(
-//            ((TMNodeModelComposite) nodoPaiModel).getId() +"\t"+
-//            ((TMNodeModelComposite) nodoPaiModel).getTitle() +"\t"+
-//            ((TMNodeModelComposite) nodoPaiModel).getArea()
-//            );
+            imprimirAreasTreemap(nodoPaiModel);
         }
+    }
+
+    private void imprimirAreasTreemap(TMNodeModel nodoPaiModel) {
+        int x = ((TMNodeModelComposite) nodoPaiModel).getArea().x;
+        int y = ((TMNodeModelComposite) nodoPaiModel).getArea().y;
+        int w = ((TMNodeModelComposite) nodoPaiModel).getArea().width;
+        int h = ((TMNodeModelComposite) nodoPaiModel).getArea().height;
+        System.out.println(
+                ((TMNodeModelComposite) nodoPaiModel).getId() + "\t"
+                + ((TMNodeModelComposite) nodoPaiModel).getTitle() + "\t"
+                + "x: " + x + "\t"
+                + "x: " + y + "\t"
+                + "x: " + w + "\t"
+                + "x: " + h
+        );
     }
 
     public void setHierarchy(String[] hierarquia) {

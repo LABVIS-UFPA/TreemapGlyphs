@@ -88,7 +88,7 @@ public final class GlyphManager {
             }
         }
     }
-    
+
     public void prepare2Draw() {
         if (getRootNodeZoom() != null) {
 //            System.out.println("getRootNodeZoom() =  "+getRootNodeZoom().getRoot().getTitle()+
@@ -134,10 +134,14 @@ public final class GlyphManager {
             TreeMapItem treemapItem = (TreeMapItem) nodeEncapsulator.getNode();
 //            prepareDimension2DrawGlyph(treemapItem);
             configLayers(treemapItem);
-//            System.out.println("item name: "+treemapItem.getLabel()+
-//                    " - Glyph pai: "+treemapItem.getGlyph().toString()+" - "+treemapItem.getGlyph().getBounds() +
-//                    " Filho: "+treemapItem.getGlyph().getChild().toString()+" - "+treemapItem.getGlyph().getChild().getBounds());
+//            imprimirTamanhoGlyphs(treemapItem);
         }
+    }
+
+    private void imprimirTamanhoGlyphs(TreeMapItem treemapItem) {
+        System.out.println("item name: " + treemapItem.getLabel()
+                + " - Glyph pai: " + treemapItem.getGlyph().toString() + " - " + treemapItem.getGlyph().getBounds()
+                + " Filho: " + treemapItem.getGlyph().getChild().toString() + " - " + treemapItem.getGlyph().getChild().getBounds());
     }
 
     private double[] getFeatures(TreeMapItem item, double[] features) {
@@ -156,27 +160,24 @@ public final class GlyphManager {
         List<Glyph> glyphFamily = item.getGlyphFamily(item.getGlyph(), new ArrayList<>());
         glyphFamily.forEach((glyph) -> {
             if (glyph instanceof Textura) {
-                features[Constantes.AREA_TEXTURA] =  glyph.getArea();//aqui a area ainda nao foi calculada
-//                System.out.println("(AREA_TEXTURA: "+((Textura) glyph).getArea());
+                features[Constantes.AREA_TEXTURA] = glyph.getArea();//aqui a area sera calculada no getArea()
                 features[Constantes.PRESENCA_TEXTURA] = Constantes.PRESENTE;
             } else if (glyph instanceof Cor) {
-                features[Constantes.AREA_COR] =  glyph.getArea();
-//                System.out.println("(cor: "+glyph.getArea());
+                features[Constantes.AREA_COR] = glyph.getArea();
                 features[Constantes.PRESENCA_COR] = Constantes.PRESENTE;
             } else if (glyph instanceof FormaGeometrica) {
                 features[Constantes.AREA_SHAPE] = glyph.getArea();
-//                System.out.println("(shape: "+((FormaGeometrica) glyph).getArea());
                 features[Constantes.PRESENCA_FORMA] = Constantes.PRESENTE;
             } else if (glyph instanceof Text) {
-//                System.out.println("(Text.getArea(): "+glyph.getArea());
                 features[Constantes.AREA_LETRA] = glyph.getArea();
                 features[Constantes.PRESENCA_LETRA] = Constantes.PRESENTE;
-            } else if (glyph instanceof Numeral) {
-                features[Constantes.AREA_NUMERO] = ((Numeral) glyph).getArea();
-                features[Constantes.PRESENCA_NUMERO] = Constantes.PRESENTE;
             }
+//            else if (glyph instanceof Numeral) {
+//                features[Constantes.AREA_NUMERO] = ((Numeral) glyph).getArea();
+//                features[Constantes.PRESENCA_NUMERO] = Constantes.PRESENTE;
+//            }
         });
-        int [] predictions = DecisionTreeClassifier.predict(features);
+        int[] predictions = DecisionTreeClassifier.predict(features);
         item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = predictions[0];
         item.getWhat2Draw()[Constantes.PRESENCA_COR] = predictions[1];
         item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = predictions[2];
@@ -188,9 +189,9 @@ public final class GlyphManager {
 
     /**
      * Recebe um TreeMapItem, mata todos os seus filhos antigos, e adiciona seus
-     * novos filhos de acordo com a hierarquia de Layers passada atraves da funcao
-     * variaveisVisuaisEscolhidas(). Por fim, é definido o tamanho de cada item
-     * no layout treemap.
+     * novos filhos de acordo com a hierarquia de Layers passada atraves da
+     * funcao variaveisVisuaisEscolhidas(). Por fim, é definido o tamanho de
+     * cada item no layout treemap.
      *
      * @param item
      * @return item com as layers configuradas
@@ -435,7 +436,7 @@ public final class GlyphManager {
         return glyph;
     }
 
-    private Glyph defineText(String letter) {        
+    private Glyph defineText(String letter) {
         Text text = new Text();
         text.setLetra(letter);
         text.setPectSobreposicao(0.65f);
