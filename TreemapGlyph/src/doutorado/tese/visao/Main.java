@@ -22,17 +22,24 @@ import doutorado.tese.visao.filtro.ContinuousFilterSetUp;
 import doutorado.tese.visao.teste.ConsoleTest;
 import doutorado.tese.visao.teste.MainScreenLog;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -1166,6 +1173,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         fileMenu.setText("File");
 
+        fileMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/openFile_16x16.png"))); // NOI18N
         fileMenuItem.setText("File");
         fileMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1176,7 +1184,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         jMenuBar1.add(fileMenu);
 
-        decisionTreeMenu.setText("Adaptative Glyph");
+        decisionTreeMenu.setText("Adaptive Glyph");
         decisionTreeMenu.setToolTipText("");
 
         decisionTreeActivate.setText("Activate");
@@ -1222,6 +1230,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         aboutMenu.setText("About");
 
+        screenshotMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cam16x16.png"))); // NOI18N
         screenshotMenuItem.setText("Screenshot");
         screenshotMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1230,6 +1239,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         });
         aboutMenu.add(screenshotMenuItem);
 
+        version_jMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/info16x16.png"))); // NOI18N
         version_jMenuItem.setText("Version");
         version_jMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1660,7 +1670,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         glassPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
         glassPanel.setVisible(true);
         glassPanel.repaint();
-        
+
         atualizarLegendaGlyphs(atributosEscolhidosGlyph);
 //        prepararLegendaStarGlyph(Arrays.asList(atributosEscolhidosStarGlyph));
         atualizarLegendaGlyphsContinuos(atributosEscolhidosContinuousGlyph);
@@ -1981,7 +1991,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         //Gerar o .jar clicando com o botao direito no arquivo build.xml ->
         //executar destino -> outros destinos -> package-for-store
         //o arquivo .jar sera gerado em uma pasta TreemapGlyph\store
-        JOptionPane.showMessageDialog(null, "Version 17.0\n"
+        JOptionPane.showMessageDialog(null, "Version 18.0\n"
                 + "Developed by LabVis ( http://www.labvis.ufpa.br/ )");
     }//GEN-LAST:event_version_jMenuItemActionPerformed
 
@@ -2090,7 +2100,20 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_atributosContinuousList2ValueChanged
 
     private void screenshotMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_screenshotMenuItemActionPerformed
+        BufferedImage combined;
+        if (glassPanel != null) {
+            BufferedImage treemapImg = captureComponent(view);
+            BufferedImage glyphsImg = captureComponent(glassPanel);
 
+            int w = view.getWidth();
+            int h = view.getHeight();
+            combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+
+            combiningBufferedImages(treemapImg, glyphsImg, combined);
+        } else {
+            combined = captureComponent(view);            
+        }
+        saveScreenShot(combined);
     }//GEN-LAST:event_screenshotMenuItemActionPerformed
 
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
@@ -2637,6 +2660,48 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         checkContinuousGlyph.setSelected(false);
         cleanCacheContinuousGlyph();
 
+    }
+    /**
+     * Metodo que recebe uma BufferedImage (screenshot) e a salva no disco
+     * @param captureImage screenshot de um componente
+     */
+    private void saveScreenShot(BufferedImage captureImage) {
+        String format = "png";
+        String fileName = "screenshot." + format;
+        try {
+            ImageIO.write(captureImage, format, new File(fileName));//salvando no disco
+            System.out.println("salvou...");
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex);
+        }
+    }
+
+    /**
+     * Metodo que recebe um componente para pegar sua screenshot
+     * @param component
+     * @return A BufferedImage com a screenshot do component
+     */
+    private BufferedImage captureComponent(Component component) {
+        Rectangle rect = component.getBounds();
+
+        BufferedImage captureImage;
+
+        captureImage = new BufferedImage(rect.width, rect.height, BufferedImage.TYPE_INT_ARGB);
+        component.paint(captureImage.getGraphics());
+
+        return captureImage;
+    }
+    
+    /**
+     * This method combine 2 images. It paint both images (img1 and img2), preserving the alpha channels
+     * @param img1
+     * @param img2 
+     */
+    private void combiningBufferedImages(BufferedImage img1, BufferedImage img2, BufferedImage result) {
+        Graphics g = result.getGraphics();
+        g.drawImage(img1, 0, 0, null);
+        g.drawImage(img2, 0, 0, null);
     }
 
     class Task extends SwingWorker<Void, Void> {

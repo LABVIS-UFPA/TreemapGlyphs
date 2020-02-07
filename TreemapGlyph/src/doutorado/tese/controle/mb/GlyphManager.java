@@ -111,7 +111,6 @@ public final class GlyphManager {
             TMNodeEncapsulator nodeEncapsulator = (TMNodeEncapsulator) nodo.getNode();
             TreeMapItem item = (TreeMapItem) nodeEncapsulator.getNode();
             ArrayList<Glyph> list = new ArrayList<>();
-//            item.getGlyph().setDecisionTreeActivate(decisionTreeActivate);
             item.getGlyph().paint(g2d);
             item.getGlyph().getChildren(list);
             g2d.setClip(0, 0, bounds.width, bounds.height);
@@ -436,27 +435,13 @@ public final class GlyphManager {
         return glyph;
     }
 
-    private Glyph defineText(String letter) {
-//        Glyph glyph = new Text();
-//        Text text = (Text) glyph;
-//        text.setLetra(letter);
-//        text.setPectSobreposicao(0.65f);
-//        text.setOverlappingActivated(overlappingActivated);
-        
+    private Glyph defineText(String letter) {        
         Text text = new Text();
         text.setLetra(letter);
         text.setPectSobreposicao(0.65f);
         text.setOverlappingActivated(overlappingActivated);
         return text;
     }
-
-//    private void limparGlyphsTreemapItem(TreeMapItem item) {
-//        item.setTextura(null);
-//        item.setCorForma(null);
-//        item.setFormaGeometrica(null);
-//        item.setText(null);
-//        item.setNumero(null);
-//    }
 
     /**
      * Mapeia as dimenssões 0 - textura, 1 - cor, 2 - forma, 3 - text, 4 -
@@ -536,20 +521,6 @@ public final class GlyphManager {
     public void setQuantValoresVarVisuais(int quantValoresVarVisuais) {
         this.quantValoresVarVisuais = quantValoresVarVisuais;
     }
-
-//    /**
-//     * @return the continuosGlyphActivated
-//     */
-//    public boolean isStarGlyphActivated() {
-//        return continuosGlyphActivated;
-//    }
-//
-//    /**
-//     * @param starGlyphActivated the continuosGlyphActivated to set
-//     */
-//    public void setStarGlyphActivated(boolean starGlyphActivated) {
-//        this.continuosGlyphActivated = starGlyphActivated;
-//    }
 
     /**
      * @return the atributosEscolhidosStarGlyph
