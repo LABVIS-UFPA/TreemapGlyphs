@@ -43,7 +43,7 @@ public class Text extends Glyph {
 
     @Override
     public void paint(Graphics2D g2d) {
-        if (visible) {
+        if (isVisible()) {
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.setFont(getFonte());
 

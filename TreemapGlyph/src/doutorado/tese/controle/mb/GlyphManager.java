@@ -14,7 +14,6 @@ import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.B
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.color.Cor;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.text.Text;
-import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.numbers.Numeral;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
 import doutorado.tese.modelo.TreeMapItem;
@@ -56,11 +55,11 @@ public final class GlyphManager {
     private HashMap<String, Integer> configs;
     private String[] variaveisVisuaisEscolhidas;
 //    private float perctOverlap;
-    private int quantValoresVarVisuais;
+//    private int quantValoresVarVisuais;
     private Rectangle bounds;
     private boolean overlappingActivated;
 //    private boolean continuosGlyphActivated;
-    private String numeroUtilizado;
+//    private String numeroUtilizado;
     private List<String> atributosEscolhidosGlyphContinuo;
     private String glyphContinuoEscolhido;
 
@@ -241,37 +240,39 @@ public final class GlyphManager {
             col = ManipuladorArquivo.getColuna(colunaEscolhida);
             dadosDistintos = colunaDadosDist.get(colunaEscolhida);
         }
-        switch (varVisual) {
-            case "Texture":
-                glyph = prepareDimensaoTexturaDinamica(col, item, dadosDistintos);
-                break;
-            case "Color":
-                glyph = prepareDimensaoCorDinamica(col, item, dadosDistintos);
-                break;
-            case "Shape":
-                glyph = prepareDimensaoShapeDinamico(col, item, dadosDistintos);
-                break;
-            case "Text"://case "Letter":
-                glyph = prepareDimensaoTextDinamico(col, item, dadosDistintos);
-                break;
-            case "Number":
-                glyph = prepareDimensaoNumberDinamico(col, item, dadosDistintos);
-                break;
-            case "Star":
-                glyph = configureStarGlyph(item);
-                break;
-            case "Profile":
-                glyph = configureProfileGlyph(item);
-                break;
-            case "Pie":
-                glyph = configureSliceGlyph(item);
-                break;
-            case "Ang":
-                glyph = configureArcGlyph(item);
-                break;
-            default:
-                System.out.println("error ");
-                break;
+        if (varVisual != null) {
+            switch (varVisual) {
+                case "Texture":
+                    glyph = prepareDimensaoTexturaDinamica(col, item, dadosDistintos);
+                    break;
+                case "Color":
+                    glyph = prepareDimensaoCorDinamica(col, item, dadosDistintos);
+                    break;
+                case "Shape":
+                    glyph = prepareDimensaoShapeDinamico(col, item, dadosDistintos);
+                    break;
+                case "Text"://case "Letter":
+                    glyph = prepareDimensaoTextDinamico(col, item, dadosDistintos);
+                    break;
+                case "Number":
+                    glyph = prepareDimensaoNumberDinamico(col, item, dadosDistintos);
+                    break;
+                case "Star":
+                    glyph = configureStarGlyph(item);
+                    break;
+                case "Profile":
+                    glyph = configureProfileGlyph(item);
+                    break;
+                case "Pie":
+                    glyph = configureSliceGlyph(item);
+                    break;
+                case "Ang":
+                    glyph = configureArcGlyph(item);
+                    break;
+                default:
+                    System.out.println("error ");
+                    break;
+            }
         }
         return glyph;
     }
@@ -384,7 +385,7 @@ public final class GlyphManager {
         for (int j = 0; j < Constantes.LETRAS_ALFABETO.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 Glyph text = defineText(Constantes.LETRAS_ALFABETO[j]);
-                text.usingText(true);
+//                text.usingText(true);
                 letraUtilizada = Constantes.LETRAS_ALFABETO[j];
 //                result.setText(letraUtilizada);
                 text.setNodeTreemap(item);
@@ -399,9 +400,9 @@ public final class GlyphManager {
         for (int j = 0; j < Constantes.NUMEROS.length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 Glyph result = defineText(Constantes.NUMEROS[j]);
-                result.usingNumber(true);
-                numeroUtilizado = Constantes.NUMEROS[j];
-                result.setNumber(numeroUtilizado);
+//                result.usingNumber(true);
+//                numeroUtilizado = Constantes.NUMEROS[j];
+//                result.setNumber(numeroUtilizado);
                 result.setNodeTreemap(item);
                 return result;
             }
@@ -519,10 +520,9 @@ public final class GlyphManager {
         this.variaveisVisuaisEscolhidas = variaveisVisuaisEscolhidas;
     }
 
-    public void setQuantValoresVarVisuais(int quantValoresVarVisuais) {
-        this.quantValoresVarVisuais = quantValoresVarVisuais;
-    }
-
+//    public void setQuantValoresVarVisuais(int quantValoresVarVisuais) {
+//        this.quantValoresVarVisuais = quantValoresVarVisuais;
+//    }
     /**
      * @return the atributosEscolhidosStarGlyph
      */

@@ -24,7 +24,7 @@ public class Cor extends Glyph {
 
     @Override
     public void paint(Graphics2D g2d) {
-        if (visible) {
+        if (isVisible()) {
             if (isOverlappingActivated()) {
                 g2d.setColor(getCor());
             } else {

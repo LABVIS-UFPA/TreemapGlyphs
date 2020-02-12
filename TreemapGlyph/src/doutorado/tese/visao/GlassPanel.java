@@ -33,17 +33,16 @@ public class GlassPanel extends JPanel {
     private static final Logger logger = LogManager.getLogger(GlassPanel.class);
     private ManipuladorArquivo manipulador;
     private GlyphManager glyphManager;
-    private TMNodeModelRoot nodeModelRoot;
+//    private TMNodeModelRoot nodeModelRoot;
     private TMView view;
 //    private boolean starGlyphActivated;
     private String[] variaveisVisuaisEscolhidas;
     private String glyphContinuoEscolhido;
     private ArrayList<TreeMapItem> gabarito;
-    private float quantOlverlap;
+//    private float quantOlverlap;
     private int quantValoresVarVisuais;
     private boolean overlappingActivated;
     private String[] atributosEscolhidosContinuousGlyph;
-    private Graphics graphicsGlobal;
 
     /**
      * Construtor chamado ao selecionar o checkbox indicando que os glyphs serao
@@ -99,11 +98,13 @@ public class GlassPanel extends JPanel {
         glyphManager = new GlyphManager(getManipulador(), atributosEscolhidos, view.getBounds());
         glyphManager.setRootNodeZoom(view.getRootAnderson());
         if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
-            glyphManager.setAtributosEscolhidosGlyphContinuo(Arrays.asList(atributosEscolhidosContinuousGlyph));
+            if (atributosEscolhidosContinuousGlyph != null) {
+                glyphManager.setAtributosEscolhidosGlyphContinuo(Arrays.asList(atributosEscolhidosContinuousGlyph));
+            }
         }
         setGlyphOverlappingModel(true);
         logger.info("Acionando setCofigItensGrid() a partir do setAtributosEscolhidos() - Root: " + glyphManager.getRootNodeZoom());
-        
+
         //Aqui prepara para desenhar os glyphs da nova versao
         setCofigItensGrid();
     }
@@ -122,7 +123,7 @@ public class GlassPanel extends JPanel {
         gabarito = new ArrayList();
         glyphManager.setGlyphContinuoEscolhido(getGlyphContinuoEscolhido());
         glyphManager.setVariaveisVisuaisEscolhidas(getVariaveisVisuaisEscolhidas());
-        glyphManager.setQuantValoresVarVisuais(quantValoresVarVisuais);
+//        glyphManager.setQuantValoresVarVisuais(quantValoresVarVisuais);
 
         for (TreeMapItem itemTreemap : getManipulador().getItensTreemap()) {
 //            glyphManager.setPerctOverlap(quantOlverlap);
@@ -147,7 +148,7 @@ public class GlassPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.graphicsGlobal = g;
+//        this.graphicsGlobal = g;
         g.setColor(new Color(0, 255, 0, 0));//painel com fundo transparente
         Rectangle r = getBounds();
         g.fillRect(r.x, r.y, r.width, r.height);

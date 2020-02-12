@@ -68,14 +68,14 @@ public class FormaGeometrica extends Glyph {
 
     @Override
     public void paint(Graphics2D g2d) {
-        if (visible) {
+        if (isVisible()) {
             drawBehavior.paint(g2d);
             if (isOverlappingActivated()) {
                 drawBehavior.drawForeground(g2d);
             }
         }
         super.paint(g2d);
-        if (visible) {
+        if (isVisible()) {
             if (!isOverlappingActivated()) {
                 drawBehavior.drawForeground(g2d);
             }

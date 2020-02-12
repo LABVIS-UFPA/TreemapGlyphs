@@ -36,7 +36,7 @@ public class Textura extends Glyph {
 
     @Override
     public void paint(Graphics2D g2d) {
-        if (visible) {
+        if (isVisible()) {
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.setPaint(textura.get(getNomeTextura()));
             g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);

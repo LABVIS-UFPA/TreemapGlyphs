@@ -15,6 +15,7 @@ import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.util.List;
+import javax.swing.JOptionPane;
 //import util.Constantes;
 
 /**
@@ -231,8 +232,8 @@ public class ProfileGlyph extends Glyph {
     }
 
     @Override
-    public Object whoAmI() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object whoAmI() {        
+        return this.getClass();
     }
 
     /**

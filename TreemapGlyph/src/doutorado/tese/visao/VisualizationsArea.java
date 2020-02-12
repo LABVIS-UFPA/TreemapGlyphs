@@ -62,14 +62,12 @@ public class VisualizationsArea {
 //    private String itemCor;
     private String[] colunasDetalhesDemanda = null;
     private TreeMapNode itemRespostaUsuario = null;
-    private List<TreeMapNode> respostasUsuario = null;
 
     public VisualizationsArea(int w, int h, ManipuladorArquivo manipulador,
             String itemTamanho, String[] itensHierarquia, String itemLegenda, String itemCor, String[] itensDetalhes,
             FinishedSetupCallBack callback) {
 
         this.hierarquiaFila = null;
-        this.respostasUsuario = null;
         this.listClickedItems = null;
         root = null;
         fixedRoot = null;
@@ -82,7 +80,6 @@ public class VisualizationsArea {
 
         this.manipulador = manipulador;
         this.hierarquiaFila = new LinkedList<>();
-        this.respostasUsuario = new ArrayList<>();
         this.listClickedItems = new ArrayList<>();
         Rectangle rect = new Rectangle(0, 0, w, h);
         root = new TreeMapLevel(new Rect(rect.x, rect.y, rect.width, rect.height));//TMModelNode
@@ -269,7 +266,7 @@ public class VisualizationsArea {
                 }
                 setAreaNodesTree(treemapItem, filhoModel);
             }
-            imprimirAreasTreemap(nodoPaiModel);
+//            imprimirAreasTreemap(nodoPaiModel);
         }
     }
 
@@ -282,9 +279,9 @@ public class VisualizationsArea {
                 ((TMNodeModelComposite) nodoPaiModel).getId() + "\t"
                 + ((TMNodeModelComposite) nodoPaiModel).getTitle() + "\t"
                 + "x: " + x + "\t"
-                + "x: " + y + "\t"
-                + "x: " + w + "\t"
-                + "x: " + h
+                + "y: " + y + "\t"
+                + "w: " + w + "\t"
+                + "h: " + h
         );
     }
 

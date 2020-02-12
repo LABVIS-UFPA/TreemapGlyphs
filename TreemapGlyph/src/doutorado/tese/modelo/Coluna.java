@@ -12,12 +12,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Anderson Soares
  */
 public class Coluna {
+
     public double[] maiorMenorValues = new double[2];
     private String name;
     private Metadados.Descricao description;
@@ -128,7 +130,7 @@ public class Coluna {
         return oficial;
     }
 
-    public void configurarDescricao(String[] dadosColunas) throws Exception{
+    public void configurarDescricao(String[] dadosColunas) throws Exception {
         dadosDistintos = analisarDadosDistintos(Arrays.asList(dadosColunas));
         this.quantValoresDistintos = getDadosDistintos().size();
         //pass 1: define description
@@ -148,14 +150,20 @@ public class Coluna {
             double lower = Integer.MAX_VALUE;
             for (int i = 2; i < dadosColunas.length; i++) {
 //                System.out.println("linha["+i+"]: "+dadosColunas[i]);
-                double dado = Double.valueOf(dadosColunas[i]);
-                higher = findMax(dado, higher);
-                lower = findMin(dado, lower);
+                try {
+                    double dado = Double.valueOf(dadosColunas[i]);
+                    higher = findMax(dado, higher);
+                    lower = findMin(dado, lower);
+                    maiorMenorValues[0] = higher;
+                    maiorMenorValues[1] = lower;
+                    mapaMaiorMenor.put(getName(), maiorMenorValues);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "We can't parse the value: \""+dadosColunas[i]+"\""+
+                            ". Column name: "+name, "Erro!", JOptionPane.ERROR_MESSAGE);
+                    break;
+                }
             }
-            
-            maiorMenorValues[0] = higher; 
-            maiorMenorValues[1] = lower;
-            mapaMaiorMenor.put(getName(), maiorMenorValues);
+
         }// else {        
         setDadosColuna(dadosColunas);
         //}
@@ -170,8 +178,7 @@ public class Coluna {
 
     @Override
     public String toString() {
-        return this.name; 
+        return this.name;
     }
-    
-    
+
 }

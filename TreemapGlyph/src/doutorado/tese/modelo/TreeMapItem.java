@@ -6,10 +6,6 @@
 package doutorado.tese.modelo;
 
 import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
-import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.text.Text;
-import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.numbers.Numeral;
-import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
-import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +17,6 @@ import java.util.Queue;
 public class TreeMapItem extends TreeMapNode {
 
     private long id;
-    private String columnLabel;
     private int[] what2Draw;
 //    private Textura textura;
 //    private FormaGeometrica corForma;
@@ -63,14 +58,7 @@ public class TreeMapItem extends TreeMapNode {
     public void setSize(Coluna colunaTamanho) {
         this.size = Double.parseDouble(mapaDetalhesItem.get(colunaTamanho));
     }
-
-    /**
-     * @param coluna o obj coluna para definir o label
-     */
-    public void setLabel(Coluna coluna) {
-        this.columnLabel = coluna.getName();
-    }
-
+    
     @Override
     public void inserirFilhos(Queue<String> hierarquia, TreeMapNode item, TreeMapNode pai) {
         throw new UnsupportedOperationException("A TreeMapItem can't have children.");
@@ -115,21 +103,7 @@ public class TreeMapItem extends TreeMapNode {
             return familia;
         }
     }
-    
-    /**
-     * Metodo criado para que seja guardado o glyph clonado com todas as suas 
-     * camadas para quando o glyph adaptativo estiver ativo, o clone possa 
-     * aparecer nos detalhes sob demanda sem a remocao de camadas.
-     * @param clone
-     */
-//    public void setHidenClone(Glyph clone) {
-//        glyphClone = clone;
-//    }
-//    
-//    public Glyph getHidenClone(){
-//        return glyphClone;
-//    }
- 
+     
     /**
     * Define which layer will be drawn
     * @return 
@@ -160,46 +134,6 @@ public class TreeMapItem extends TreeMapNode {
     public void setPossuiGlyphResposta(boolean possuiGlyphResposta) {
         this.possuiGlyphResposta = possuiGlyphResposta;
     }
-
-//    public Textura getTextura() {
-//        return textura;
-//    }
-//
-//    public void setTextura(Textura textura) {
-//        this.textura = textura;
-//    }
-//
-//    public FormaGeometrica getCorForma() {
-//        return corForma;
-//    }
-//
-//    public void setCorForma(FormaGeometrica corForma) {
-//        this.corForma = corForma;
-//    }
-//
-//    public FormaGeometrica getFormaGeometrica() {
-//        return formaGeometrica;
-//    }
-//
-//    public void setFormaGeometrica(FormaGeometrica formaGeometrica) {
-//        this.formaGeometrica = formaGeometrica;
-//    }
-//
-//    public Text getLetra() {
-//        return letra;
-//    }
-//
-//    public void setText(Text letra) {
-//        this.letra = letra;
-//    }
-//
-//    public Numeral getNumero() {
-//        return numero;
-//    }
-//
-//    public void setNumero(Numeral numero) {
-//        this.numero = numero;
-//    }
 
     /**
      * @return the id

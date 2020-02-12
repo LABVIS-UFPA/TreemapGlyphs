@@ -7,9 +7,9 @@ package doutorado.tese.controle.negocio.visualizacao.glyph;
 
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.color.Cor;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.text.Text;
-import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.numbers.Numeral;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
 import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
+import doutorado.tese.controle.negocio.visualizacao.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.modelo.TreeMapItem;
 import doutorado.tese.modelo.TreeMapNode;
 import doutorado.tese.util.Constantes;
@@ -19,6 +19,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,13 +35,10 @@ public abstract class Glyph implements Cloneable {
     public Boolean selectedByUser = false;
     private boolean overlappingActivated = false;
     private boolean glyphResposta;
-    private boolean hasLetter;
     private String letter;
     protected int[] xPoints;
     protected int[] yPoints;
-    private String number;
-    private boolean hasNumber;
-    protected boolean visible;
+    private boolean visible;
     private TreeMapNode nodeTreemap;
 
     public Glyph() {
@@ -56,17 +54,21 @@ public abstract class Glyph implements Cloneable {
                 g2d.clip(getClipShape());
             }
             if (Constantes.DECISION_TREE_ACTIVATED) {
-                getChild().visible = false;
+                getChild().setVisible(false);
                 TreeMapItem item = (TreeMapItem) nodeTreemap;
                 if (item.getWhat2Draw()[0] == 1 && getChild().whoAmI() == Textura.class) {
-                    getChild().visible = true;
+                    getChild().setVisible(true);
                 } else if (item.getWhat2Draw()[1] == 1 && getChild().whoAmI() == Cor.class) {
-                    getChild().visible = true;
+                    getChild().setVisible(true);
                 } else if (item.getWhat2Draw()[2] == 1 && getChild().whoAmI() == FormaGeometrica.class) {
-                    getChild().visible = true;
+                    getChild().setVisible(true);
                 } else if (item.getWhat2Draw()[3] == 1 && getChild().whoAmI() == Text.class) {
-                    getChild().visible = true;
+                    getChild().setVisible(true);
                 } 
+//                else if(getChild().whoAmI() == ProfileGlyph.class){
+//                    JOptionPane.showMessageDialog(null, "This continuous glyph will be available with the adaptive glyph as soon as possible.",
+//                            "Sorry!", JOptionPane.INFORMATION_MESSAGE);
+//                }
             }
 
             getChild().paint(g2d);
@@ -215,42 +217,10 @@ public abstract class Glyph implements Cloneable {
     }
 
     /**
-     * @return the hasLetter
-     */
-    public boolean hasLetter() {
-        return hasLetter;
-    }
-
-    /**
-     * @param hasLetter the hasLetter to set
-     */
-    public void usingText(boolean hasLetter) {
-        this.hasLetter = hasLetter;
-    }
-
-    public boolean hasNumber() {
-        return hasNumber;
-    }
-
-    public void usingNumber(boolean hasNumber) {
-        this.hasNumber = hasNumber;
-    }
-
-    /**
      * @return the letter
      */
     public String getLetter() {
         return letter;
-    }
-
-    /**
-     * @param letter the letter to set
-     */
-//    public void setText(String letter) {
-//        this.letter = letter;
-//    }
-    public void setNumber(String numeroUtilizado) {
-        number = numeroUtilizado;
     }
 
     /**
@@ -265,6 +235,20 @@ public abstract class Glyph implements Cloneable {
      */
     public void setNodeTreemap(TreeMapNode nodeTreemap) {
         this.nodeTreemap = nodeTreemap;
+    }
+
+    /**
+     * @return the visible
+     */
+    public boolean isVisible() {
+        return visible;
+    }
+
+    /**
+     * @param visible the visible to set
+     */
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
 }

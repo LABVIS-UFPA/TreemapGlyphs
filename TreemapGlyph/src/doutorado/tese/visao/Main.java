@@ -1290,8 +1290,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             limparResquiciosBasesAnteriores();
-            checkCategoricalGlyph.setEnabled(false);
-            checkContinuousGlyph.setEnabled(false);
+
             selectedFile = chooser.getSelectedFile();
             progressoBarra.setVisible(true);
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -1304,7 +1303,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             task.execute();
         } else {
             JOptionPane.showMessageDialog(null, "The file type can not be read.", "Erro!", JOptionPane.ERROR_MESSAGE);
-            logger.error("The file type can not be read. - Did it again!");
+            logger.error("The file type can not be read. - Try it again!");
         }
     }//GEN-LAST:event_fileMenuItemActionPerformed
 
@@ -1434,22 +1433,15 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void botaoGerarTreemapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarTreemapActionPerformed
         cleanAllVisualizations();
-        loadSetupTreemap();
-        //zerando tudo
-        visualizationTreemap = null;
-        view = null;
 
-        atualizarLegendaTreemap(itemCor);
-        progressoBarra.setVisible(false);
-        checkCategoricalGlyph.setEnabled(true);
-        checkContinuousGlyph.setEnabled(true);
+        loadSetupTreemap();
 
         visualizationTreemap = new VisualizationsArea(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
                 manipulador, itemTamanho, itensHierarquia, itemLegenda, itemCor, itensDetalhes, () -> {
                 });
         Constantes.QUANT_HIERARQUIAS = itensHierarquia.length;
         painelEsquerda.add(layerPane);
-        view = visualizationTreemap.getView();//view e o Jpanel do treemap
+        view = visualizationTreemap.getView();//view eh o Jpanel do treemap
         layerPane.setBounds(view.getBounds());
 
         atualizarLegendaTreemap(itemCor);
@@ -1457,27 +1449,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         checkCategoricalGlyph.setEnabled(true);
         checkContinuousGlyph.setEnabled(true);
 
-        cleanCacheCategoricalGlyph();
-        cleanCacheContinuousGlyph();
-        clickPanel = null;
-        clickPanel = new GlassPanelClick();
-        clickPanel.setTMView(view);
-        clickPanel.setListaItensClicados(visualizationTreemap.getNodosSelecionadosUsuario());
-        clickPanel.setBounds(view.getBounds());
-        layerPane.add(view, new Integer(0), 0);
-        layerPane.add(clickPanel, new Integer(1), 0);
-
-        clickPanel.setOnClickListener((MouseEvent evt1) -> {
-            view.dispatchEvent(evt1);
-        });
-
-        if (!cenario.equals(Constantes.CENARIOS.SEM_CENARIO.toString())) {
-            loadGabaritoTarefa();
-        }
-
+        configGlassPanelClick();
         configDetalhesSobDemanda();
-
-        clickPanel.repaint();
     }//GEN-LAST:event_botaoGerarTreemapActionPerformed
 
     private void colunasDetalhesList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasDetalhesList1ValueChanged
@@ -1557,9 +1530,16 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_updateDetailsButtonActionPerformed
 
     private void decisionTreeActivateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decisionTreeActivateActionPerformed
-        botaoGerarCategoricalGlyphsActionPerformed(evt);
         if (Constantes.DECISION_TREE_ACTIVATED) {
-            logger.info("Arvore de decisao avivada");
+            if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
+                JOptionPane.showMessageDialog(null, "Continuous glyphs will be available with the adaptive glyph as soon as possible.",
+                        "Sorry!", JOptionPane.INFORMATION_MESSAGE);
+                decisionTreeActivate.setSelected(false);
+                checkContinuousGlyph.setSelected(false);
+            } else {
+                botaoGerarCategoricalGlyphsActionPerformed(evt);
+                logger.info("Arvore de decisao avivada");
+            }
         }
     }//GEN-LAST:event_decisionTreeActivateActionPerformed
 
@@ -1569,14 +1549,24 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void checkContinuousGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkContinuousGlyphActionPerformed
         Constantes.CONTINUOUS_GLYPH_ACTIVATED = checkContinuousGlyph.isSelected();
+        if (checkCategoricalGlyph.isSelected() || checkContinuousGlyph.isSelected()) {
+            showGlyphOnDetailsCheckBox.setEnabled(true);
+        }
         if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
             if (glassPanel == null) {
                 createGlassPanel();
+                configGlassPanelClick();
+                configDetalhesSobDemanda();
             }
             glyphContinuosType.setEnabled(true);
-
         } else {
             cleanCacheContinuousGlyph();
+            if (verificarGlyphCategoricoAtivo()) {
+                createGlassPanel();
+                configGlassPanelClick();
+                configDetalhesSobDemanda();
+                botaoGerarCategoricalGlyphsActionPerformed(evt);
+            }
         }
     }//GEN-LAST:event_checkContinuousGlyphActionPerformed
 
@@ -1654,9 +1644,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_listaAtributosContinuousGlyph2ValueChanged
 
     private void botaoGerarContinuosGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarContinuosGlyphsActionPerformed
-        if (glassPanel == null) {
-            createGlassPanel();
-        }
+        createGlassPanel();
+        configGlassPanelClick();
+        configDetalhesSobDemanda();
+
         glassPanel.setManipulador(manipulador);
         glassPanel.setTipoGlyphContinuoEscolhido((String) glyphContinuosType.getSelectedItem());
         variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
@@ -1670,10 +1661,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         glassPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
         glassPanel.setVisible(true);
         glassPanel.repaint();
-
-        atualizarLegendaGlyphs(atributosEscolhidosGlyph);
+        atualizarLegendaCategoricalGlyphs(atributosEscolhidosGlyph);
 //        prepararLegendaStarGlyph(Arrays.asList(atributosEscolhidosStarGlyph));
-        atualizarLegendaGlyphsContinuos(atributosEscolhidosContinuousGlyph);
+        desenhouContinuousGlyph = atualizarLegendaGlyphsContinuos(atributosEscolhidosContinuousGlyph);
     }//GEN-LAST:event_botaoGerarContinuosGlyphsActionPerformed
 
     private void cimaAtributoStarGlyphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaAtributoStarGlyphButtonActionPerformed
@@ -1794,8 +1784,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void checkCategoricalGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCategoricalGlyphActionPerformed
         Constantes.CATEGORICAL_GLYPH_ACTIVATED = checkCategoricalGlyph.isSelected();
+        if (checkCategoricalGlyph.isSelected() || checkContinuousGlyph.isSelected()) {
+            showGlyphOnDetailsCheckBox.setEnabled(true);
+        }
         if (Constantes.CATEGORICAL_GLYPH_ACTIVATED) {
             createGlassPanel();
+            configGlassPanelClick();
+            configDetalhesSobDemanda();
             varVisuaisList1.setEnabled(true);
         } else {
             cleanCacheCategoricalGlyph();
@@ -1807,9 +1802,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         variaveisVisuaisEscolhidas = null;
         //acoes para configurar os glyphs
         variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
-        if (glassPanel == null) {
-            createGlassPanel();
-        }
+        
+        createGlassPanel();
+        configGlassPanelClick();
+        configDetalhesSobDemanda();
+
         glassPanel.setManipulador(manipulador);
         glassPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
         //Acoes para desenhar os glyphs
@@ -1818,10 +1815,14 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
         if (!esqueceuSelecionarAtributo()) {
-            glassPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
-            glassPanel.setVisible(true);
-            atualizarLegendaGlyphs(atributosEscolhidosGlyph);
-            glassPanel.repaint();
+            if (Constantes.CONTINUOUS_GLYPH_ACTIVATED && !desenhouContinuousGlyph) {
+                JOptionPane.showMessageDialog(null, "You forget to set up the continuous glyph!","Opps!", JOptionPane.WARNING_MESSAGE);
+            } else {
+                glassPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
+                glassPanel.setVisible(true);
+                atualizarLegendaCategoricalGlyphs(atributosEscolhidosGlyph);
+                glassPanel.repaint();
+            }
         } else {
             if (glassPanel != null) {
                 JOptionPane.showMessageDialog(null, "Please, select a attribute!", "Select a attribute", JOptionPane.WARNING_MESSAGE);
@@ -2111,7 +2112,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
             combiningBufferedImages(treemapImg, glyphsImg, combined);
         } else {
-            combined = captureComponent(view);            
+            combined = captureComponent(view);
         }
         saveScreenShot(combined);
     }//GEN-LAST:event_screenshotMenuItemActionPerformed
@@ -2304,8 +2305,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private String[] itensHierarquia;
     private String[] itensDetalhes;
     DetailsOnDemandVisao details;
+    private boolean desenhouContinuousGlyph;
 
-    private void atualizarLegendaGlyphs(ArrayList<Object> atributosEscolhidosGlyph) {
+    private void atualizarLegendaCategoricalGlyphs(ArrayList<Object> atributosEscolhidosGlyph) {
         painelLegendaVis.removeAll();
         atualizarLegendaTreemap(itemCor);
         legendaVisualizacao.setAtributosGlyphs(atributosEscolhidosGlyph);
@@ -2319,24 +2321,30 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }
 
-    private void atualizarLegendaGlyphsContinuos(String[] atributosEscolhidosGlyphContinuo) {
-        painelLegendaVis.removeAll();
-        atualizarLegendaTreemap(itemCor);
-        atualizarLegendaGlyphs(atributosEscolhidosGlyph);
-        ArrayList<String> lista = new ArrayList();
-        //converndo lista<object>
-        for (int i = 0; i < atributosEscolhidosGlyphContinuo.length; i++) {
-            lista.add(atributosEscolhidosGlyphContinuo[i]);
-        }
+    private boolean atualizarLegendaGlyphsContinuos(String[] atributosEscolhidosGlyphContinuo) {
+        boolean atualizado = false;
+        try {
+            painelLegendaVis.removeAll();
+            atualizarLegendaTreemap(itemCor);
+            atualizarLegendaCategoricalGlyphs(atributosEscolhidosGlyph);
+            ArrayList<String> lista = new ArrayList();
+            //converndo lista<object>
+            for (int i = 0; i < atributosEscolhidosGlyphContinuo.length; i++) {
+                lista.add(atributosEscolhidosGlyphContinuo[i]);
+            }
 //        legendaVisualizacao.setAtributosGlyphs(lista);
-        legendaVisualizacao.setAtributosGlyphsontinuos(lista);
+            legendaVisualizacao.setAtributosGlyphsontinuos(lista);
 //        for (int i = 0; i < atributosEscolhidosGlyphContinuo.size(); i++) {   
-        JPanel painelDimensao = legendaVisualizacao.addLegendaDimensao(5);
-        painelLegendaVis.setLayout(new BoxLayout(painelLegendaVis, BoxLayout.Y_AXIS));
-        painelLegendaVis.add(painelDimensao);
+            JPanel painelDimensao = legendaVisualizacao.addLegendaDimensao(5);
+            painelLegendaVis.setLayout(new BoxLayout(painelLegendaVis, BoxLayout.Y_AXIS));
+            painelLegendaVis.add(painelDimensao);
 
-        painelLegendaVis.revalidate();
-//        }
+            painelLegendaVis.revalidate();
+            atualizado = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return atualizado;
     }
 
     private void atualizarLegendaTreemap(String itemCor) {
@@ -2393,6 +2401,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             textGlyphComboBox.setEnabled(false);
         }
 
+        if (!checkCategoricalGlyph.isSelected() && !checkContinuousGlyph.isSelected()) {
+            showGlyphOnDetailsCheckBox.setEnabled(false);
+        }
         painelLegendaVis.removeAll();
         painelLegendaVis.repaint();
     }
@@ -2417,6 +2428,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             listaAtributosContinuousGlyph.setModel(emptyList);
             listaAtributosContinuousGlyph2.setModel(emptyList);
         }
+
+        if (!checkCategoricalGlyph.isSelected() && !checkContinuousGlyph.isSelected()) {
+            showGlyphOnDetailsCheckBox.setEnabled(false);
+        }
+
         painelLegendaVis.removeAll();
         painelLegendaVis.repaint();
     }
@@ -2450,6 +2466,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void limparResquiciosBasesAnteriores() {
         limparPainelEsquerda();
+        checkCategoricalGlyph.setEnabled(false);
+        checkContinuousGlyph.setEnabled(false);
         cleanCacheCategoricalGlyph();
         cleanCacheContinuousGlyph();
         painelLegendaVis.removeAll();
@@ -2530,17 +2548,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }
 
-    private void loadGabaritoTarefa() {
-//        for (TarefaTestes tarefa : tarefasTeste) {
-//            
-//            for (TreeMapItem treeMapItem : manipulador.getItensTreemap()) {
-//                if(){
-//                    tarefa.getGabarito().add(treeMapItem);
-//                }
-//            }
-//        }
-    }
-
     private void configDetalhesSobDemanda() {
         clickPanel.setOnMouseOverListener(new GlassPanelClick.OnMouseOver() {
             @Override
@@ -2572,18 +2579,19 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 }
                 details.setLocation(locationOnScreen);
 
-                TreeMapNode nodeUnderTheMouse = (TreeMapNode) view.getNodeUnderTheMouse(evt);
                 details.getGlyphIconLabel().setVisible(showGlyphOnDetailsCheckBox.isSelected());
+                TreeMapNode nodeUnderTheMouse = (TreeMapNode) view.getNodeUnderTheMouse(evt);
                 if (showGlyphOnDetailsCheckBox.isSelected()) {
                     if (nodeUnderTheMouse instanceof TreeMapItem) {
                         if (nodeUnderTheMouse.getGlyph() != null) {
                             if (!nodeUnderTheMouse.getGlyph().getChildren().isEmpty()) {
                                 if (Constantes.DECISION_TREE_ACTIVATED) {
-                                    //TODO Desenhar o glyph com todas as camadas no detalhes sob demanda
-//                                    System.out.println("Desenhar o glyph com todas as camadas no detalhes sob demanda.");
-                                } else {
-                                    details.setGlyphOnToolTip(nodeUnderTheMouse.getGlyph());
+                                    ((TreeMapItem) nodeUnderTheMouse).getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = 1;
+                                    ((TreeMapItem) nodeUnderTheMouse).getWhat2Draw()[Constantes.PRESENCA_COR] = 1;
+                                    ((TreeMapItem) nodeUnderTheMouse).getWhat2Draw()[Constantes.PRESENCA_FORMA] = 1;
+                                    ((TreeMapItem) nodeUnderTheMouse).getWhat2Draw()[Constantes.PRESENCA_LETRA] = 1;
                                 }
+                                details.setGlyphOnToolTip(nodeUnderTheMouse.getGlyph());
                                 details.updateGlyphIcon(true);
                                 details.setSize(240, 127);
                             }
@@ -2646,12 +2654,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
     private void createGlassPanel() {
-        glassPanel = new GlassPanel();
-        glassPanel.setTMView(view);
-        layerPane.add(glassPanel, new Integer(1), 0);
+        if (glassPanel == null) {
+            glassPanel = new GlassPanel();
+            glassPanel.setTMView(view);
+            layerPane.add(glassPanel, new Integer(1), 0);
+        }
     }
 
     private void cleanAllVisualizations() {
+        visualizationTreemap = null;
+        view = null;
+        clickPanel = null;
+
         limparPainelEsquerda();
 
         checkCategoricalGlyph.setSelected(false);
@@ -2660,9 +2674,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         checkContinuousGlyph.setSelected(false);
         cleanCacheContinuousGlyph();
 
+        showGlyphOnDetailsCheckBox.setSelected(false);
+        showGlyphOnDetailsCheckBox.setEnabled(false);
     }
+
     /**
      * Metodo que recebe uma BufferedImage (screenshot) e a salva no disco
+     *
      * @param captureImage screenshot de um componente
      */
     private void saveScreenShot(BufferedImage captureImage) {
@@ -2679,6 +2697,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     /**
      * Metodo que recebe um componente para pegar sua screenshot
+     *
      * @param component
      * @return A BufferedImage com a screenshot do component
      */
@@ -2692,16 +2711,34 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         return captureImage;
     }
-    
+
     /**
-     * This method combine 2 images. It paint both images (img1 and img2), preserving the alpha channels
+     * This method combine 2 images. It paint both images (img1 and img2),
+     * preserving the alpha channels
+     *
      * @param img1
-     * @param img2 
+     * @param img2
      */
     private void combiningBufferedImages(BufferedImage img1, BufferedImage img2, BufferedImage result) {
         Graphics g = result.getGraphics();
         g.drawImage(img1, 0, 0, null);
         g.drawImage(img2, 0, 0, null);
+    }
+
+    private void configGlassPanelClick() {
+        if (clickPanel == null) {
+            clickPanel = new GlassPanelClick();
+            clickPanel.setTMView(view);
+            clickPanel.setListaItensClicados(visualizationTreemap.getNodosSelecionadosUsuario());
+            clickPanel.setBounds(view.getBounds());
+            layerPane.add(view, new Integer(0), 0);
+            layerPane.add(clickPanel, new Integer(1), 0);
+
+            clickPanel.setOnClickListener((MouseEvent evt1) -> {
+                view.dispatchEvent(evt1);
+            });
+            clickPanel.repaint();
+        }
     }
 
     class Task extends SwingWorker<Void, Void> {
