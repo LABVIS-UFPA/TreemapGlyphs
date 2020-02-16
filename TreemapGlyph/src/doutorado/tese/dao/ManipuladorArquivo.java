@@ -5,11 +5,11 @@
  */
 package doutorado.tese.dao;
 
-import doutorado.tese.modelo.Coluna;
+import doutorado.tese.model.Coluna;
 import doutorado.tese.util.Constantes;
-import doutorado.tese.controle.negocio.visualizacao.glyph.Glyph;
-import doutorado.tese.controle.negocio.visualizacao.glyph.GlyphConcrete;
-import doutorado.tese.modelo.TreeMapItem;
+import doutorado.tese.control.business.visualizations.glyph.Glyph;
+import doutorado.tese.control.business.visualizations.glyph.GlyphConcrete;
+import doutorado.tese.model.TreeMapItem;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;

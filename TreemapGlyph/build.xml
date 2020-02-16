@@ -70,6 +70,13 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <!--
+    //Atualizar o arquivo build.xml com o numero da versao
+    //Ex: <property name="store.jar.name" value="TreemapGlyph_v17"/> 
+    //Gerar o .jar clicando com o botao direito no arquivo build.xml ->
+    //executar destino -> outros destinos -> package-for-store
+    //o arquivo .jar sera gerado em uma pasta TreemapGlyph\store
+    -->
     <target name="package-for-store" depends="jar"> 
         <property name="store.jar.name" value="TreemapGlyph_v18"/> 
         <property name="store.dir" value="store"/> 
