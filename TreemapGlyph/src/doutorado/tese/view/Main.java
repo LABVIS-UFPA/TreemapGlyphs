@@ -2546,6 +2546,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         itensDetalhes = Util.parseListModel2ArrayString(colunasDetalhesList2.getModel());
         for (TreeMapItem treeMapItem : manipulador.getItensTreemap()) {
             treeMapItem.setHighLight(false);
+            System.out.println("treeMapItem id: "+treeMapItem.getId()+" - "+treeMapItem.isHighLighted());
         }
     }
 
@@ -2665,7 +2666,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void cleanAllVisualizations() {
         visualizationTreemap = null;
         view = null;
-        clickPanel = null;
+//        clickPanel = null;
+        cleanCacheClickPanel();
 
         limparPainelEsquerda();
 

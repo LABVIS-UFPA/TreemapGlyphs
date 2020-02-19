@@ -335,7 +335,10 @@ public final class GlyphMB {
         Glyph glyphCor = null;
         if (col.getDescription() == Metadados.Descricao.CONTINUOUS) {
             ColorInterpolator interpolator = new ColorInterpolator();
-            interpolator.config(col.maiorMenorValues[0], col.maiorMenorValues[1], Color.YELLOW, Color.WHITE);
+            //255,244,233 - branco
+            //223,83,8    - laranja
+            //129,40,4    - marrom
+            interpolator.config(col.maiorMenorValues[0], col.maiorMenorValues[1], Color.yellow, Color.WHITE);
             Color cor = interpolator.interpolate(Double.parseDouble(item.getMapaDetalhesItem().get(col)));
             glyphCor = defineColor(cor);
             glyphCor.setNodeTreemap(item);
