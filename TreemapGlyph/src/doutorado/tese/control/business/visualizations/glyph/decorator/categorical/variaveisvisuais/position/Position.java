@@ -35,28 +35,26 @@ public class Position extends Glyph{
         double y = yPoints[0];
         double w = xPoints[1];
         double h = xPoints[1];
+        double wCirculo = w / 4;
+        double hCirculo = wCirculo;
         switch (getPosicao()) {            
             case DIR_SUP:
-                System.out.println("DIR_SUP: "+x+","+y+","+w+","+h);
-                x = x + (w / 2);
+                x = x + (w - wCirculo);
                 break;
             case DIR_INF:                
-                System.out.println("DIR_SUP: ");
-                x = x + w / 2;
-                y = y + h / 2;
+                x = x + (w - wCirculo);
+                y = y + (h - hCirculo);
                 break;
             case ESQ_INF:
-                System.out.println("ESQ_INF: "+x+","+y+","+w+","+h);
-                y = y + h / 2;
+                y = y + (h - hCirculo);
                 break;
             case ESQ_SUP:
-                System.out.println("ESQ_SUP: ");
                 break;
             default:
                 throw new AssertionError();
         }
         p = new Path2D.Double();       
-        p.append(new Ellipse2D.Double(x, y, w / 4, w / 4), true);   
+        p.append(new Ellipse2D.Double(x, y, wCirculo, hCirculo), true);   
     }
 
     private void montarRetangulo() {
