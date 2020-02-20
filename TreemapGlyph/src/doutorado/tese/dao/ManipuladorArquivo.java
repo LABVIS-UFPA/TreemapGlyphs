@@ -10,6 +10,7 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.control.business.visualizations.glyph.GlyphConcrete;
 import doutorado.tese.model.TreeMapItem;
+import doutorado.tese.util.Metadados;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -64,13 +65,12 @@ public class ManipuladorArquivo {
 
             while ((line = reader.readLine()) != null) {
                 if (numLinha == 0) {
-                    cabecalho = lerLinhaNomeAtributos(line);
+                    cabecalho = getCabecalhoArquivo(line);
                 }
                 if (numLinha == 1) {
-                    tipos = lerLinhaTiposDados(line);
+                    tipos = getTiposDadosArquivo(line);
                     montarMapaCabecalhoTipos(getCabecalho(), tipos);
                 }
-//                montarColunas(cabecalho, tipos);
                 if (numLinha <= 1) {
                     bufferArquivo.append(line).append("\n");
                 } else {
@@ -95,14 +95,7 @@ public class ManipuladorArquivo {
         String[] dados = new String[getLinhas().length - 2];
         for (int numLinha = 2; numLinha < getLinhas().length; numLinha++) {
             String[] vetorLinha = getDadosLinha(numLinha);
-//            if (extensaoArquivo.equalsIgnoreCase("txt") || extensaoArquivo.equalsIgnoreCase("tsv")) {
-//                vetorLinha = getLinhas()[numLinha].replace("\"", "").split("\t");
-//            } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
-//                vetorLinha = getLinhas()[numLinha].split(",");
-//                if (vetorLinha.length == 1) {//se o temanho do vetor for zero, provavelmente o separador deve ser ponto e virgula (;)
-//                    vetorLinha = getLinhas()[numLinha].replace("\t", ";").split(";");
-//                }
-//            }            
+
             for (int j = 0; j < cabecalho.length; j++) {
                 if (cabecalho[j].equalsIgnoreCase(nomeColuna)) {
                     try {
@@ -141,15 +134,15 @@ public class ManipuladorArquivo {
         return c;
     }
 
-    private String[] lerLinhaNomeAtributos(String line) {
+    private String[] getCabecalhoArquivo(String line) {
         List<String> asList = new ArrayList<>();
         if (extensaoArquivo.equalsIgnoreCase("txt") || extensaoArquivo.equalsIgnoreCase("tsv")) {
             asList.addAll(Arrays.asList(line.replace("\"", "").split("\t")));
         } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
-            asList.addAll(Arrays.asList(line.split(",")));
-            if (asList.size() == 1) {//se o temanho do vetor for zero, provavelmente o separador deve ser ponto e virgula (;)
-                asList.clear();
-                asList.addAll(Arrays.asList(line.split(";")));
+            if (line.contains(",")) {
+                asList.addAll(Arrays.asList(line.replace("\t", ",").split(",")));
+            } else if (line.contains(";")) {//deve ser ponto e virgula (;)
+                asList.addAll(Arrays.asList(line.replace("\t", ";").split(";")));
             }
         }
         asList.add("SAME_SIZE");
@@ -161,16 +154,16 @@ public class ManipuladorArquivo {
         return cabecalhoLocal;
     }
 
-    private String[] lerLinhaTiposDados(String line) {
+    private String[] getTiposDadosArquivo(String line) {
         List<String> asList = new ArrayList<>();
         if (extensaoArquivo.equalsIgnoreCase("txt") || extensaoArquivo.equalsIgnoreCase("tsv")) {
             asList.addAll(Arrays.asList(line.replace("\"", "").split("\t")));
         } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
             asList.clear();
-            asList.addAll(Arrays.asList(line.split(",")));
-            if (asList.size() == 1) {//se o temanho do vetor for zero, provavelmente o separador deve ser ponto e virgula (;)
-                asList.clear();
-                asList.addAll(Arrays.asList(line.split(";")));
+            if (line.contains(",")) {
+                asList.addAll(Arrays.asList(line.replace("\t", ",").split(",")));
+            } else if (line.contains(";")) {//deve ser ponto e virgula (;)
+                asList.addAll(Arrays.asList(line.replace("\t", ";").split(";")));
             }
         }
         asList.add("Integer");//adicionado aqui para ser o tipo do SAME_SIZE
@@ -187,8 +180,9 @@ public class ManipuladorArquivo {
         if (extensaoArquivo.equalsIgnoreCase("txt") || extensaoArquivo.equalsIgnoreCase("tsv")) {
             vetorLinha = getLinhas()[numLinha].replace("\"", "").split("\t");
         } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
-            vetorLinha = getLinhas()[numLinha].split(",");
-            if (vetorLinha.length == 1) {//se o temanho do vetor for zero, provavelmente o separador deve ser ponto e virgula (;)
+            if (getLinhas()[numLinha].contains(",")) {
+                vetorLinha = getLinhas()[numLinha].replace("\t", ",").split(",");
+            } else if (getLinhas()[numLinha].contains(";")) {//deve ser ponto e virgula (;)
                 vetorLinha = getLinhas()[numLinha].replace("\t", ";").split(";");
             }
         }
@@ -224,12 +218,25 @@ public class ManipuladorArquivo {
         return bufferArquivo;
     }
 
-    public Coluna[] montarColunas(String[] nomeColunas, String[] tipos) {
+    public void montarColunas(String[] nomeColunas, String[] tipos) throws Exception{
         colunas = new Coluna[cabecalho.length];
         for (int i = 0; i < nomeColunas.length; i++) {
-            colunas[i] = new Coluna(this, nomeColunas[i], tipos[i]);
+            String type = "";
+            if (tipos[i].equalsIgnoreCase(Metadados.TipoDados.String.name())) {
+                type = Metadados.TipoDados.String.name();
+            } else if (tipos[i].equalsIgnoreCase(Metadados.TipoDados.Double.name())) {
+                type = Metadados.TipoDados.Double.name();
+            } else if (tipos[i].equalsIgnoreCase(Metadados.TipoDados.Integer.name())) {
+                type = Metadados.TipoDados.Integer.name();
+            } else if (tipos[i].equalsIgnoreCase(Metadados.TipoDados.Float.name())) {
+                type = Metadados.TipoDados.Float.name();
+            } else if (tipos[i].equalsIgnoreCase(Metadados.TipoDados.Boolean.name())) {
+                type = Metadados.TipoDados.Boolean.name();
+            } else {
+                System.err.println("Fail to create the column, the type does not exist!");
+            }
+            colunas[i] = new Coluna(this, nomeColunas[i], type);
         }
-        return colunas;
     }
 
     public Coluna[] montarColunas() throws Exception {

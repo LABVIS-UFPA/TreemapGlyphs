@@ -26,7 +26,7 @@ public class Coluna {
     private Metadados.TipoDados type;
     private String[] dadosColuna;
     private int quantValoresDistintos = 0;
-    private final int categoricalLimit = 8;
+    private final int categoricalLimitGlyph = 8;
     private ManipuladorArquivo manipulador;
     private Map<String, double[]> mapaMaiorMenor;
     private List<String> dadosDistintos;
@@ -136,7 +136,7 @@ public class Coluna {
         //pass 1: define description
         if (type.equals(Metadados.TipoDados.String)) {
             this.setDescription(Metadados.Descricao.CATEGORICAL);
-        } else if (this.quantValoresDistintos > categoricalLimit) {
+        } else if (this.quantValoresDistintos > categoricalLimitGlyph) {
             setDescription(Metadados.Descricao.CONTINUOUS);
         } else {
             setDescription(Metadados.Descricao.CATEGORICAL);
@@ -146,7 +146,6 @@ public class Coluna {
                 || (getDescription() == Metadados.Descricao.CATEGORICAL && type.equals(Metadados.TipoDados.Integer))
                 || (getDescription() == Metadados.Descricao.CATEGORICAL && type.equals(Metadados.TipoDados.Double))) {
             double higher = Double.MIN_VALUE;
-//            System.out.println("Coluna: "+this.getName()+"\t Description: "+getDescription()+"\t Tipo: "+this.getType());
             double lower = Integer.MAX_VALUE;
             for (int i = 2; i < dadosColunas.length; i++) {
 //                System.out.println("linha["+i+"]: "+dadosColunas[i]);
