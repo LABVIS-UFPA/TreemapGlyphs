@@ -31,7 +31,7 @@ public class GlassPanel extends JPanel {
 
     private static final Logger logger = LogManager.getLogger(GlassPanel.class);
     private ManipuladorArquivo manipulador;
-    private GlyphMB glyphManager;
+    private GlyphMB glyphMB;
 //    private TMNodeModelRoot nodeModelRoot;
     private TMView view;
 //    private boolean starGlyphActivated;
@@ -56,10 +56,7 @@ public class GlassPanel extends JPanel {
 //        this.addMouseListener(new MouseAdapter() {
 //            public void mouseClicked(MouseEvent evt) {
 //                mouseClicando();
-//              
-//                
 //            }
-//
 //        });
 
     }
@@ -78,10 +75,10 @@ public class GlassPanel extends JPanel {
             @Override
             public void onDrawFinished(String text) {
                 logger.info("Acionando onDrawFinished()", text);
-                if (glyphManager != null && view.getRootAnderson() != null) {
-                    glyphManager.setRootNodeZoom(view.getRootAnderson());
-                    logger.info("Acionando prepare2Draw() a partir do onDrawFinished() - Root: " + glyphManager.getRootNodeZoom());
-                    glyphManager.prepare2Draw();//chamado para redesenhar os glyphs no drill-down
+                if (getGlyphMB() != null && view.getRootAnderson() != null) {
+                    getGlyphMB().setRootNodeZoom(view.getRootAnderson());
+                    logger.info("Acionando prepare2Draw() a partir do onDrawFinished() - Root: " + getGlyphMB().getRootNodeZoom());
+                    getGlyphMB().prepare2Draw();//chamado para redesenhar os glyphs no drill-down
                 } else {
 //                    System.err.println("glyphManager == null ou view.getRootAnderson() == null");
                 }
@@ -92,17 +89,27 @@ public class GlassPanel extends JPanel {
     public void setAtributosEscolhidosContinuousGlyph(String[] atributosEscolhidosStarGlyph) {
         this.atributosEscolhidosContinuousGlyph = atributosEscolhidosStarGlyph;
     }
+    
+    public void verificaGlyphMB(List<Object> atributosEscolhidos){
+        if (getGlyphMB() == null) {
+            setGlyphMB(new GlyphMB(atributosEscolhidos, view.getBounds()));
+        }else{
+            getGlyphMB().setAtributosCategoricosEscolhidos(atributosEscolhidos);
+            getGlyphMB().setBounds(view.getBounds());
+            getGlyphMB().analisarAtributosEscolhidos();
+        }
+    }
 
     public void setAtributosEscolhidos(List<Object> atributosEscolhidos) {
-        glyphManager = new GlyphMB(getManipulador(), atributosEscolhidos, view.getBounds());
-        glyphManager.setRootNodeZoom(view.getRootAnderson());
+        verificaGlyphMB(atributosEscolhidos);
+        getGlyphMB().setRootNodeZoom(view.getRootAnderson());
         if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
             if (atributosEscolhidosContinuousGlyph != null) {
-                glyphManager.setAtributosEscolhidosGlyphContinuo(Arrays.asList(atributosEscolhidosContinuousGlyph));
+                getGlyphMB().setAtributosEscolhidosGlyphContinuo(Arrays.asList(atributosEscolhidosContinuousGlyph));
             }
         }
         setGlyphOverlappingModel(true);
-        logger.info("Acionando setCofigItensGrid() a partir do setAtributosEscolhidos() - Root: " + glyphManager.getRootNodeZoom());
+        logger.info("Acionando setCofigItensGrid() a partir do setAtributosEscolhidos() - Root: " + getGlyphMB().getRootNodeZoom());
 
         //Aqui prepara para desenhar os glyphs da nova versao
         setCofigItensGrid();
@@ -120,13 +127,13 @@ public class GlassPanel extends JPanel {
      */
     public ArrayList<TreeMapItem> setCofigItensGrid() {
         gabarito = new ArrayList();
-        glyphManager.setGlyphContinuoEscolhido(getGlyphContinuoEscolhido());
-        glyphManager.setVariaveisVisuaisEscolhidas(getVariaveisVisuaisEscolhidas());
+        getGlyphMB().setGlyphContinuoEscolhido(getGlyphContinuoEscolhido());
+        getGlyphMB().setVariaveisVisuaisEscolhidas(getVariaveisVisuaisEscolhidas());
 //        glyphManager.setQuantValoresVarVisuais(quantValoresVarVisuais);
 
         for (TreeMapItem itemTreemap : getManipulador().getItensTreemap()) {
 //            glyphManager.setPerctOverlap(quantOlverlap);
-            glyphManager.configLayers(itemTreemap);
+            getGlyphMB().configLayers(itemTreemap);
 
             if (itemTreemap.isPossuiGlyphResposta()) {
                 getGabarito().add(itemTreemap);
@@ -137,7 +144,7 @@ public class GlassPanel extends JPanel {
 
     public void setGlyphOverlappingModel(boolean overlappingActivated) {
         this.overlappingActivated = overlappingActivated;
-        glyphManager.configGlyphDesingModel(this.overlappingActivated);
+        getGlyphMB().configGlyphDesingModel(this.overlappingActivated);
     }
 
     public boolean getGlyphOverlappingModel() {
@@ -151,9 +158,9 @@ public class GlassPanel extends JPanel {
         g.setColor(new Color(0, 255, 0, 0));//painel com fundo transparente
         Rectangle r = getBounds();
         g.fillRect(r.x, r.y, r.width, r.height);
-        if (glyphManager != null) {
-            synchronized (glyphManager) {
-                glyphManager.paint(g);
+        if (getGlyphMB() != null) {
+            synchronized (getGlyphMB()) {
+                getGlyphMB().paint(g);
             }
         }
         g.dispose();
@@ -211,6 +218,20 @@ public class GlassPanel extends JPanel {
      */
     public void setGabarito(ArrayList<TreeMapItem> gabarito) {
         this.gabarito = gabarito;
+    }
+
+    /**
+     * @return the glyphMB
+     */
+    public GlyphMB getGlyphMB() {
+        return glyphMB;
+    }
+
+    /**
+     * @param glyphMB the glyphMB to set
+     */
+    public void setGlyphMB(GlyphMB glyphMB) {
+        this.glyphMB = glyphMB;
     }
 
 }

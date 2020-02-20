@@ -9,7 +9,6 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.categorica
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
-import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.model.TreeMapNode;
 import doutorado.tese.util.Constantes;
@@ -19,7 +18,6 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *

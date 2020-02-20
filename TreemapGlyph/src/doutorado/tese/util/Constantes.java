@@ -94,9 +94,14 @@ public class Constantes {
     public final static String[] NUMEROS = {
         "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
     };
+    
     public static final int LIMITE_TESTES = 100;
     public static int PRESENCA_STAR;
 
+    public enum POSICOES{
+        ESQ_SUP, ESQ_INF, DIR_SUP, DIR_INF;
+    }
+    
     public enum CENARIOS{
         A, B, C, D, E, SEM_CENARIO;
     }
@@ -118,6 +123,24 @@ public class Constantes {
 
         private double nivel() {
             return nivelGlyph;
+        }
+    }
+    
+    public enum VAR_VISUAIS_CATEGORICAS {
+        TEXTURE("Texture"),
+        COLOR("Color"),
+        SHAPE("Shape"),
+        TEXT("Text"),
+        POSITION("Position");        
+
+        private final String varVisual;
+
+        VAR_VISUAIS_CATEGORICAS(String varVisual) {
+            this.varVisual = varVisual;
+        }
+
+        public String variavel() {
+            return varVisual;
         }
     }
 

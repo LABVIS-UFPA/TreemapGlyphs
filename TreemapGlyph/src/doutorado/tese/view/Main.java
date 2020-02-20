@@ -7,7 +7,6 @@ package doutorado.tese.view;
 
 import doutorado.tese.control.mb.DrawAreaMB;
 import doutorado.tese.view.detalhessobdemanda.DetailsOnDemandVisao;
-import doutorado.tese.control.mb.testelaboratorioMB.TestMB;
 import doutorado.tese.control.business.userTest.ManipuladorLog;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
@@ -15,7 +14,8 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.control.business.visualizations.legenda.LegendaVisualizacao;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
-import doutorado.tese.control.mb.detailsMB.DetailsOnDemandMB;
+import doutorado.tese.control.mb.GlyphMB;
+import doutorado.tese.control.mb.SetUpMB;
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.model.TreeMapNode;
 import doutorado.tese.util.Util;
@@ -92,7 +92,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         layerPane = null;
         atributosEscolhidosGlyph = null;
         legendaVisualizacao = null;
-        cenario = null;
 
         layerPane = new JLayeredPane();
         atributosEscolhidosGlyph = new ArrayList<>();
@@ -101,14 +100,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         separadorEsqueDir_jSplitPane.setOneTouchExpandable(true);
         separadorCimaBaixo.setOneTouchExpandable(true);
-//        atributo5Glyph.setVisible(false);
-//        numeroLabelLabel.setVisible(false);
-//        painelAbas_jTabbedPane.setSelectedIndex(painelAbas_jTabbedPane.getTabCount() - 1);//ultima aba
-        nextTest_Button.setVisible(false);
-        saveAnswerButton.setVisible(false);
-        numMaxTarefas = 3;
-        cenario = Constantes.CENARIOS.SEM_CENARIO.toString();
+
         details = new DetailsOnDemandVisao();
+        glyphMB = new GlyphMB();
+        setupMB = new SetUpMB();
     }
 
     /**
@@ -171,6 +166,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         textGlyphComboBox = new javax.swing.JComboBox<>();
         botaoGerarCategoricalGlyphs = new javax.swing.JButton();
         checkCategoricalGlyph = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
+        positionGlyphComboBox = new javax.swing.JComboBox<>();
         abaContinuosGlyphs = new javax.swing.JPanel();
         checkContinuousGlyph = new javax.swing.JCheckBox();
         botaoGerarContinuosGlyphs = new javax.swing.JButton();
@@ -211,12 +208,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jScrollPane14 = new javax.swing.JScrollPane();
         atributosContinuousList2 = new javax.swing.JList<>();
         continuousFilterButton = new javax.swing.JButton();
-        abaTask = new javax.swing.JPanel();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        task_TextPane = new javax.swing.JTextPane();
-        nextTest_Button = new javax.swing.JButton();
-        saveAnswerButton = new javax.swing.JButton();
-        taskCountLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         fileMenuItem = new javax.swing.JMenuItem();
@@ -377,39 +368,39 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             .addGroup(abaTreemapLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(abaTreemapLayout.createSequentialGroup()
-                            .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addGroup(abaTreemapLayout.createSequentialGroup()
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(removerBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(inserirBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addGroup(abaTreemapLayout.createSequentialGroup()
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addComponent(botaoGerarTreemap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(abaTreemapLayout.createSequentialGroup()
-                            .addComponent(checkLegenda)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(legendaComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(botaoGerarTreemap, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(abaTreemapLayout.createSequentialGroup()
+                        .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(abaTreemapLayout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(removerBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inserirBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(abaTreemapLayout.createSequentialGroup()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(abaTreemapLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel4))
-                        .addGap(12, 12, 12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tamanhoTreemapComboBox, 0, 253, Short.MAX_VALUE)
-                            .addComponent(corTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(corTreemapComboBox, 0, 208, Short.MAX_VALUE)
+                            .addComponent(tamanhoTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(abaTreemapLayout.createSequentialGroup()
+                        .addComponent(checkLegenda)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(legendaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         abaTreemapLayout.setVerticalGroup(
             abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,7 +413,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(abaTreemapLayout.createSequentialGroup()
                         .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
@@ -444,7 +435,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoGerarTreemap)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Treemap", abaTreemap);
@@ -520,11 +511,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 textureGlyphComboBoxItemStateChanged(evt);
             }
         });
-        textureGlyphComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textureGlyphComboBoxActionPerformed(evt);
-            }
-        });
 
         jLabel8.setText("Color:");
 
@@ -533,11 +519,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         colorGlyphComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 colorGlyphComboBoxItemStateChanged(evt);
-            }
-        });
-        colorGlyphComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colorGlyphComboBoxActionPerformed(evt);
             }
         });
 
@@ -550,11 +531,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 shapeGlyphComboBoxItemStateChanged(evt);
             }
         });
-        shapeGlyphComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                shapeGlyphComboBoxActionPerformed(evt);
-            }
-        });
 
         jLabel10.setText("Text:");
 
@@ -563,11 +539,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         textGlyphComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 textGlyphComboBoxItemStateChanged(evt);
-            }
-        });
-        textGlyphComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textGlyphComboBoxActionPerformed(evt);
             }
         });
 
@@ -585,6 +556,16 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         checkCategoricalGlyph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkCategoricalGlyphActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Position:");
+
+        positionGlyphComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
+        positionGlyphComboBox.setEnabled(false);
+        positionGlyphComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                positionGlyphComboBoxItemStateChanged(evt);
             }
         });
 
@@ -611,25 +592,28 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(baixoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cimaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(botaoGerarCategoricalGlyphs, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
+                    .addComponent(checkCategoricalGlyph)
                     .addGroup(abaConfigGlyphsLayout.createSequentialGroup()
-                        .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textureGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(colorGlyphComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textureGlyphComboBox, 0, 104, Short.MAX_VALUE)
+                            .addComponent(colorGlyphComboBox, 0, 104, Short.MAX_VALUE)
+                            .addComponent(positionGlyphComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(botaoGerarCategoricalGlyphs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(shapeGlyphComboBox, 0, 90, Short.MAX_VALUE)
-                            .addComponent(textGlyphComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(checkCategoricalGlyph))
+                            .addComponent(textGlyphComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         abaConfigGlyphsLayout.setVerticalGroup(
@@ -672,8 +656,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addComponent(colorGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botaoGerarCategoricalGlyphs)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoGerarCategoricalGlyphs)
+                    .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(positionGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Categorical Glyph", abaConfigGlyphs);
@@ -782,7 +770,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addGroup(abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cimaAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(baixoAtributoStarGlyphButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         abaContinuosGlyphsLayout.setVerticalGroup(
             abaContinuosGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -806,7 +794,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoGerarContinuosGlyphs)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Continuous Glyph", abaContinuosGlyphs);
@@ -881,7 +869,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                             .addGroup(abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         abaDetalhesLayout.setVerticalGroup(
             abaDetalhesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -902,7 +890,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(updateDetailsButton)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Details", abaDetalhes);
@@ -952,7 +940,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         });
 
-        categoricalFilterButton.setText("Open Filter");
+        categoricalFilterButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/filter16.png"))); // NOI18N
         categoricalFilterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 categoricalFilterButtonActionPerformed(evt);
@@ -973,7 +961,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(categoricalFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(categoricalFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1035,7 +1024,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         });
         jScrollPane14.setViewportView(atributosContinuousList2);
 
-        continuousFilterButton.setText("Open Filter");
+        continuousFilterButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/filter16.png"))); // NOI18N
         continuousFilterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 continuousFilterButtonActionPerformed(evt);
@@ -1055,7 +1044,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(continuousFilterButton)
+                .addComponent(continuousFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -1079,10 +1068,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaFiltrosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         abaFiltrosLayout.setVerticalGroup(
             abaFiltrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1095,59 +1084,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         );
 
         painelAbas_jTabbedPane.addTab("Filter", abaFiltros);
-
-        task_TextPane.setEditable(false);
-        task_TextPane.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jScrollPane10.setViewportView(task_TextPane);
-
-        nextTest_Button.setText("Next");
-        nextTest_Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nextTest_ButtonActionPerformed(evt);
-            }
-        });
-
-        saveAnswerButton.setText("Submit answer");
-        saveAnswerButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveAnswerButtonActionPerformed(evt);
-            }
-        });
-
-        taskCountLabel.setText("Task:");
-
-        javax.swing.GroupLayout abaTaskLayout = new javax.swing.GroupLayout(abaTask);
-        abaTask.setLayout(abaTaskLayout);
-        abaTaskLayout.setHorizontalGroup(
-            abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(abaTaskLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(abaTaskLayout.createSequentialGroup()
-                            .addComponent(saveAnswerButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(taskCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(nextTest_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(189, Short.MAX_VALUE))
-        );
-        abaTaskLayout.setVerticalGroup(
-            abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(abaTaskLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(abaTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saveAnswerButton)
-                    .addComponent(taskCountLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nextTest_Button)
-                .addContainerGap(85, Short.MAX_VALUE))
-        );
-
-        painelAbas_jTabbedPane.addTab("Task", abaTask);
-        painelAbas_jTabbedPane.remove(painelAbas_jTabbedPane.getTabCount() - 1);
 
         jScrollPane8.setViewportView(painelAbas_jTabbedPane);
 
@@ -1309,6 +1245,621 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }//GEN-LAST:event_fileMenuItemActionPerformed
 
+    private void decisionTreeActivateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decisionTreeActivateActionPerformed
+        Constantes.DECISION_TREE_ACTIVATED = decisionTreeActivate.isSelected();
+        if (Constantes.DECISION_TREE_ACTIVATED && Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
+            JOptionPane.showMessageDialog(null, "Continuous glyphs will be available with the adaptive glyph as soon as possible.",
+                    "Sorry!", JOptionPane.INFORMATION_MESSAGE);
+            decisionTreeActivate.setSelected(false);
+            checkContinuousGlyph.setSelected(false);
+        }
+        botaoGerarCategoricalGlyphsActionPerformed(evt);
+        logger.info("Arvore de decisao esta ativada? " + Constantes.DECISION_TREE_ACTIVATED);
+    }//GEN-LAST:event_decisionTreeActivateActionPerformed
+
+    private void startMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startMenuItemActionPerformed
+        MainScreenLog screenLog = new MainScreenLog();
+        screenLog.setVisible(true);
+        JOptionPane.showMessageDialog(null, "To start testing, make sure that the answersTraining.tsv "
+                + "and answers.tsv files are in the same directory as the .jar file.",
+                "Files TSV", JOptionPane.WARNING_MESSAGE);
+        ManipuladorLog.setTesteAcontecendo(true);
+    }//GEN-LAST:event_startMenuItemActionPerformed
+
+    private void finishMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishMenuItemActionPerformed
+        int resposta = JOptionPane.showConfirmDialog(this, "O teste e toda a aplicação serão encerrados."
+                + "Deseja realmente encerrar a aplicação?");
+        if (resposta == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_finishMenuItemActionPerformed
+
+    private void consoleMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consoleMenuItemActionPerformed
+        ConsoleTest console = new ConsoleTest();
+        console.setVisible(true);
+    }//GEN-LAST:event_consoleMenuItemActionPerformed
+
+    private void version_jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_version_jMenuItemActionPerformed
+        //Atualizar o arquivo build.xml com o numero da versao
+        //Ex: <property name="store.jar.name" value="TreemapGlyph_v17"/> 
+        //Gerar o .jar clicando com o botao direito no arquivo build.xml ->
+        //executar destino -> outros destinos -> package-for-store
+        //o arquivo .jar sera gerado em uma pasta TreemapGlyph\store
+        JOptionPane.showMessageDialog(null, "Version 18.0\n"
+                + "Developed by LabVis ( http://www.labvis.ufpa.br/ )");
+    }//GEN-LAST:event_version_jMenuItemActionPerformed
+
+    private void screenshotMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_screenshotMenuItemActionPerformed
+        BufferedImage combined;
+        if (glassPanel != null) {
+            BufferedImage treemapImg = captureComponent(view);
+            BufferedImage glyphsImg = captureComponent(glassPanel);
+
+            int w = view.getWidth();
+            int h = view.getHeight();
+            combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+
+            combiningBufferedImages(treemapImg, glyphsImg, combined);
+        } else {
+            combined = captureComponent(view);
+        }
+        saveScreenShot(combined);
+    }//GEN-LAST:event_screenshotMenuItemActionPerformed
+
+    private void continuousFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continuousFilterButtonActionPerformed
+        ContinuousFilterSetUp continuousFrame = new ContinuousFilterSetUp();
+        continuousFrame.setVisible(true);
+    }//GEN-LAST:event_continuousFilterButtonActionPerformed
+
+    private void atributosContinuousList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosContinuousList2ValueChanged
+        if (atributosContinuousList2.getSelectedValuesList().size() >= 1) {
+            removerBotaoContinuousFilter.setEnabled(true);
+        } else {
+            removerBotaoContinuousFilter.setEnabled(false);
+        }
+    }//GEN-LAST:event_atributosContinuousList2ValueChanged
+
+    private void removerBotaoContinuousFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotaoContinuousFilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removerBotaoContinuousFilterActionPerformed
+
+    private void inserirBotaoContinuousFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotaoContinuousFilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inserirBotaoContinuousFilterActionPerformed
+
+    private void atributosContinuousListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosContinuousListValueChanged
+        if (atributosContinuousList.getSelectedValuesList().size() >= 1) {
+            inserirBotaoContinuousFilter.setEnabled(true);
+        } else {
+            inserirBotaoContinuousFilter.setEnabled(false);
+        }
+    }//GEN-LAST:event_atributosContinuousListValueChanged
+
+    private void categoricalFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoricalFilterButtonActionPerformed
+        CategoricalFilterSetUp categoricalFrame = new CategoricalFilterSetUp();
+        categoricalFrame.setVisible(true);
+
+    }//GEN-LAST:event_categoricalFilterButtonActionPerformed
+
+    private void removerBotaoCategoricalFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotaoCategoricalFilterActionPerformed
+        //        List<Object> newListaAtribTreemap = new ArrayList<>();
+        //        List<Object> atributos = new ArrayList<>();
+        //
+        //        for (int i = 0; i < colunasDetalhesList1.getModel().getSize(); i++) {
+        //            String elementAt = colunasDetalhesList1.getModel().getElementAt(i);
+        //            atributos.add(elementAt);
+        //        }
+        //        atributos.addAll(colunasDetalhesList2.getSelectedValuesList());
+        //        atributos.sort(null);
+        //        loadItensDetalhes(atributos.toArray());
+        //
+        //        //remover o conteudo da lista de hierarquia treemap
+        //        ListModel<String> modelGlyphs = colunasDetalhesList2.getModel();
+        //        List<String> selectedValuesList = colunasDetalhesList2.getSelectedValuesList();
+        //        for (int i = 0; i < modelGlyphs.getSize(); i++) {
+        //            if (!selectedValuesList.contains(modelGlyphs.getElementAt(i))) {
+        //                newListaAtribTreemap.add(modelGlyphs.getElementAt(i));
+        //            }
+        //        }
+        //        reloadListGUI(newListaAtribTreemap.toArray(), colunasDetalhesList2);
+        //
+        //        if (colunasDetalhesList2.getModel().getSize() == 0) {
+        //            colunasDetalhesList2.setEnabled(false);
+        //        }
+    }//GEN-LAST:event_removerBotaoCategoricalFilterActionPerformed
+
+    private void inserirBotaoCategoricalFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotaoCategoricalFilterActionPerformed
+        //        List<Object> newListaAtribTreemap = new ArrayList<>();
+        //        List<Object> atributosEscolhidos = new ArrayList<>();
+        //        for (int i = 0; i < colunasDetalhesList2.getModel().getSize(); i++) {
+        //            String elementAt = colunasDetalhesList2.getModel().getElementAt(i);
+        //            atributosEscolhidos.add(elementAt);
+        //        }
+        //        atributosEscolhidos.addAll(colunasDetalhesList1.getSelectedValuesList());
+        //        atributosEscolhidos.sort(null);
+        //        reloadListGUI(atributosEscolhidos.toArray(), colunasDetalhesList2);
+        //        colunasDetalhesList2.setEnabled(true);
+        ////        botaoGerarVisualizacao.setEnabled(true);
+        //
+        //        //remover o conteudo da lista de atributos original
+        //        ListModel<String> modelOriginal = colunasDetalhesList1.getModel();
+        //        List<String> selectedValuesList = colunasDetalhesList1.getSelectedValuesList();
+        //        for (int i = 0; i < modelOriginal.getSize(); i++) {
+        //            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
+        //                newListaAtribTreemap.add(modelOriginal.getElementAt(i));
+        //            }
+        //        }
+        //        loadItensDetalhes(newListaAtribTreemap.toArray());
+        //        updateDetailsButton.setEnabled(true);
+    }//GEN-LAST:event_inserirBotaoCategoricalFilterActionPerformed
+
+    private void atributosCategoricosListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosCategoricosListValueChanged
+        if (atributosCategoricosList.getSelectedValuesList().size() >= 1) {
+            inserirBotaoCategoricalFilter.setEnabled(true);
+        } else {
+            inserirBotaoCategoricalFilter.setEnabled(false);
+        }
+    }//GEN-LAST:event_atributosCategoricosListValueChanged
+
+    private void atributosCategoricosList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosCategoricosList2ValueChanged
+        if (atributosCategoricosList2.getSelectedValuesList().size() >= 1) {
+            removerBotaoCategoricalFilter.setEnabled(true);
+        } else {
+            removerBotaoCategoricalFilter.setEnabled(false);
+        }
+    }//GEN-LAST:event_atributosCategoricosList2ValueChanged
+
+    private void updateDetailsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDetailsButtonActionPerformed
+        String[] valoresEscolhidos = Util.parseListModel2ArrayString(colunasDetalhesList2.getModel());
+        visualizationTreemap.setColunasDetalhesDemanda(valoresEscolhidos);
+        visualizationTreemap.updateDetalhesDemanda();
+
+        botaoGerarTreemapActionPerformed(evt);
+    }//GEN-LAST:event_updateDetailsButtonActionPerformed
+
+    private void colunasDetalhesList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasDetalhesList2ValueChanged
+        if (colunasDetalhesList2.getSelectedValuesList().size() >= 1) {
+            removerBotao_detalhes.setEnabled(true);
+        } else {
+            removerBotao_detalhes.setEnabled(false);
+        }
+    }//GEN-LAST:event_colunasDetalhesList2ValueChanged
+
+    private void removerBotao_detalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotao_detalhesActionPerformed
+        List<Object> newListaAtribTreemap = new ArrayList<>();
+        List<Object> atributos = new ArrayList<>();
+
+        for (int i = 0; i < colunasDetalhesList1.getModel().getSize(); i++) {
+            String elementAt = colunasDetalhesList1.getModel().getElementAt(i);
+            atributos.add(elementAt);
+        }
+        atributos.addAll(colunasDetalhesList2.getSelectedValuesList());
+        atributos.sort(null);
+        loadItensDetalhes(atributos.toArray());
+
+        //remover o conteudo da lista de hierarquia treemap
+        ListModel<String> modelGlyphs = colunasDetalhesList2.getModel();
+        List<String> selectedValuesList = colunasDetalhesList2.getSelectedValuesList();
+        for (int i = 0; i < modelGlyphs.getSize(); i++) {
+            if (!selectedValuesList.contains(modelGlyphs.getElementAt(i))) {
+                newListaAtribTreemap.add(modelGlyphs.getElementAt(i));
+            }
+        }
+        reloadListGUI(newListaAtribTreemap.toArray(), colunasDetalhesList2);
+
+        if (colunasDetalhesList2.getModel().getSize() == 0) {
+            colunasDetalhesList2.setEnabled(false);
+        }
+    }//GEN-LAST:event_removerBotao_detalhesActionPerformed
+
+    private void inserirBotao_detalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotao_detalhesActionPerformed
+        List<Object> newListaAtribTreemap = new ArrayList<>();
+        List<Object> atributosEscolhidos = new ArrayList<>();
+        for (int i = 0; i < colunasDetalhesList2.getModel().getSize(); i++) {
+            String elementAt = colunasDetalhesList2.getModel().getElementAt(i);
+            atributosEscolhidos.add(elementAt);
+        }
+        atributosEscolhidos.addAll(colunasDetalhesList1.getSelectedValuesList());
+        atributosEscolhidos.sort(null);
+        reloadListGUI(atributosEscolhidos.toArray(), colunasDetalhesList2);
+        colunasDetalhesList2.setEnabled(true);
+        //        botaoGerarVisualizacao.setEnabled(true);
+
+        //remover o conteudo da lista de atributos original
+        ListModel<String> modelOriginal = colunasDetalhesList1.getModel();
+        List<String> selectedValuesList = colunasDetalhesList1.getSelectedValuesList();
+        for (int i = 0; i < modelOriginal.getSize(); i++) {
+            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
+                newListaAtribTreemap.add(modelOriginal.getElementAt(i));
+            }
+        }
+        loadItensDetalhes(newListaAtribTreemap.toArray());
+        updateDetailsButton.setEnabled(true);
+    }//GEN-LAST:event_inserirBotao_detalhesActionPerformed
+
+    private void colunasDetalhesList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasDetalhesList1ValueChanged
+        if (colunasDetalhesList1.getSelectedValuesList().size() >= 1) {
+            inserirBotao_detalhes.setEnabled(true);
+        } else {
+            inserirBotao_detalhes.setEnabled(false);
+        }
+    }//GEN-LAST:event_colunasDetalhesList1ValueChanged
+
+    private void glyphContinuosTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_glyphContinuosTypeActionPerformed
+        if (glyphContinuosType.getSelectedIndex() != 0) {
+            if (listaAtributosContinuousGlyph.getModel().getSize() != 0) {
+                listaAtributosContinuousGlyph.setEnabled(true);
+            } else {
+                List<String> lista = setupMB.getAtributosContinuos();
+//                lista.remove(lista.size() - 1);
+                Object[] newList = lista.toArray();
+
+                DefaultComboBoxModel model = new DefaultComboBoxModel(newList);
+                listaAtributosContinuousGlyph.setModel(model);
+            }
+        }
+    }//GEN-LAST:event_glyphContinuosTypeActionPerformed
+
+    private void glyphContinuosTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_glyphContinuosTypeItemStateChanged
+        listaAtributosContinuousGlyph.setEnabled(Constantes.CONTINUOUS_GLYPH_ACTIVATED);
+    }//GEN-LAST:event_glyphContinuosTypeItemStateChanged
+
+    private void listaAtributosContinuousGlyphValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaAtributosContinuousGlyphValueChanged
+        if (listaAtributosContinuousGlyph.getSelectedValuesList().size() >= 1) {
+            inserirAtributoStarGlyphButton.setEnabled(true);
+        } else {
+            inserirAtributoStarGlyphButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_listaAtributosContinuousGlyphValueChanged
+
+    private void baixoAtributoStarGlyphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baixoAtributoStarGlyphButtonActionPerformed
+        List<String> novaLista = new ArrayList<>(listaAtributosContinuousGlyph2.getModel().getSize());
+        for (int i = 0; i < listaAtributosContinuousGlyph2.getModel().getSize(); i++) {
+            novaLista.add(listaAtributosContinuousGlyph2.getModel().getElementAt(i));
+        }
+        int[] selectedValuesList = listaAtributosContinuousGlyph2.getSelectedIndices();
+        for (int i = 0; i < novaLista.size(); i++) {
+            for (int j = 0; j < selectedValuesList.length; j++) {
+                if (i == selectedValuesList[j]) {
+                    String caraFrente = novaLista.get(i + 1);
+                    String caraAtual = novaLista.get(i);
+                    novaLista.add(i + 1, caraAtual);
+                    novaLista.add(i, caraFrente);
+                    novaLista.remove(i + 2);
+                    novaLista.remove(i + 2);
+                    break;
+                }
+            }
+        }
+        reloadListGUI(novaLista.toArray(), listaAtributosContinuousGlyph2);
+    }//GEN-LAST:event_baixoAtributoStarGlyphButtonActionPerformed
+
+    private void cimaAtributoStarGlyphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaAtributoStarGlyphButtonActionPerformed
+        List<String> novaLista = new ArrayList<>();
+        int[] selectedValuesList = listaAtributosContinuousGlyph2.getSelectedIndices();
+        for (int i = 0; i < listaAtributosContinuousGlyph2.getModel().getSize(); i++) {
+            for (int j = 0; j < selectedValuesList.length; j++) {
+                if (i == selectedValuesList[j]) {
+                    novaLista.add(i - 1, listaAtributosContinuousGlyph2.getModel().getElementAt(i));
+                } else {
+                    novaLista.add(listaAtributosContinuousGlyph2.getModel().getElementAt(i));
+                }
+            }
+        }
+        reloadListGUI(novaLista.toArray(), listaAtributosContinuousGlyph2);
+    }//GEN-LAST:event_cimaAtributoStarGlyphButtonActionPerformed
+
+    private void listaAtributosContinuousGlyph2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaAtributosContinuousGlyph2ValueChanged
+        if (listaAtributosContinuousGlyph2.getSelectedValuesList().size() >= 1) {
+            removerAtributoStarGlyphButton.setEnabled(true);
+            if (listaAtributosContinuousGlyph2.getSelectedIndex() > 0) {
+                cimaAtributoStarGlyphButton.setEnabled(true);
+            } else {
+                cimaAtributoStarGlyphButton.setEnabled(false);
+            }
+            if (listaAtributosContinuousGlyph2.getSelectedIndex() < listaAtributosContinuousGlyph2.getModel().getSize() - 1) {
+                baixoAtributoStarGlyphButton.setEnabled(true);
+            } else {
+                baixoAtributoStarGlyphButton.setEnabled(false);
+            }
+        } else {
+            removerAtributoStarGlyphButton.setEnabled(false);
+            cimaAtributoStarGlyphButton.setEnabled(false);
+            baixoAtributoStarGlyphButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_listaAtributosContinuousGlyph2ValueChanged
+
+    private void removerAtributoStarGlyphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerAtributoStarGlyphButtonActionPerformed
+        List<Object> newListaAtribTreemap = new ArrayList<>();
+        List<Object> atributos = new ArrayList<>();
+
+        for (int i = 0; i < listaAtributosContinuousGlyph.getModel().getSize(); i++) {
+            String elementAt = listaAtributosContinuousGlyph.getModel().getElementAt(i);
+            atributos.add(elementAt);
+        }
+        atributos.addAll(listaAtributosContinuousGlyph2.getSelectedValuesList());
+        atributos.sort(null);
+        reloadListGUI(atributos.toArray(), listaAtributosContinuousGlyph);
+
+        //remover o conteudo da lista de hierarquia treemap
+        ListModel<String> modelGlyphs = listaAtributosContinuousGlyph2.getModel();
+        List<String> selectedValuesList = listaAtributosContinuousGlyph2.getSelectedValuesList();
+        for (int i = 0; i < modelGlyphs.getSize(); i++) {
+            if (!selectedValuesList.contains(modelGlyphs.getElementAt(i))) {
+                newListaAtribTreemap.add(modelGlyphs.getElementAt(i));
+            }
+        }
+        reloadListGUI(newListaAtribTreemap.toArray(), listaAtributosContinuousGlyph2);
+
+        if (listaAtributosContinuousGlyph2.getModel().getSize() == 0) {
+            listaAtributosContinuousGlyph2.setEnabled(false);
+            botaoGerarContinuosGlyphs.setEnabled(false);
+        } else {
+            botaoGerarContinuosGlyphs.setEnabled(true);
+        }
+    }//GEN-LAST:event_removerAtributoStarGlyphButtonActionPerformed
+
+    private void inserirAtributoStarGlyphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirAtributoStarGlyphButtonActionPerformed
+        List<Object> newListaVarVisuais = new ArrayList<>();
+        List<Object> atributosEscolhidos = new ArrayList<>();
+        for (int i = 0; i < listaAtributosContinuousGlyph2.getModel().getSize(); i++) {
+            String elementAt = listaAtributosContinuousGlyph2.getModel().getElementAt(i);
+            atributosEscolhidos.add(elementAt);
+        }
+        atributosEscolhidos.addAll(listaAtributosContinuousGlyph.getSelectedValuesList());
+        reloadListGUI(atributosEscolhidos.toArray(), listaAtributosContinuousGlyph2);
+        listaAtributosContinuousGlyph2.setEnabled(true);
+
+        //remover o conteudo da lista de atributos original
+        ListModel<String> modelOriginal = listaAtributosContinuousGlyph.getModel();
+        List<String> selectedValuesList = listaAtributosContinuousGlyph.getSelectedValuesList();
+        for (int i = 0; i < modelOriginal.getSize(); i++) {
+            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
+                newListaVarVisuais.add(modelOriginal.getElementAt(i));
+            }
+        }
+        reloadListGUI(newListaVarVisuais.toArray(), listaAtributosContinuousGlyph);
+        botaoGerarContinuosGlyphs.setEnabled(true);
+    }//GEN-LAST:event_inserirAtributoStarGlyphButtonActionPerformed
+
+    private void botaoGerarContinuosGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarContinuosGlyphsActionPerformed
+        createGlassPanel();
+        configGlassPanelClick();
+        configDetalhesSobDemanda();
+
+        glassPanel.setManipulador(manipulador);
+        glassPanel.setTipoGlyphContinuoEscolhido((String) glyphContinuosType.getSelectedItem());
+        variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
+        glassPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
+        atributosEscolhidosContinuousGlyph = parseListModelString2Array(listaAtributosContinuousGlyph2.getModel());
+        glassPanel.setAtributosEscolhidosContinuousGlyph(atributosEscolhidosContinuousGlyph);
+
+        //Acoes para desenhar os glyphs
+        glassPanel.setBounds(painelEsquerda.getBounds());
+        atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
+        glassPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
+        glassPanel.setVisible(true);
+        glassPanel.repaint();
+        atualizarLegendaCategoricalGlyphs(atributosEscolhidosGlyph);
+        //        prepararLegendaStarGlyph(Arrays.asList(atributosEscolhidosStarGlyph));
+        desenhouContinuousGlyph = atualizarLegendaGlyphsContinuos(atributosEscolhidosContinuousGlyph);
+    }//GEN-LAST:event_botaoGerarContinuosGlyphsActionPerformed
+
+    private void checkContinuousGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkContinuousGlyphActionPerformed
+        Constantes.CONTINUOUS_GLYPH_ACTIVATED = checkContinuousGlyph.isSelected();
+        if (checkCategoricalGlyph.isSelected() || checkContinuousGlyph.isSelected()) {
+            showGlyphOnDetailsCheckBox.setEnabled(true);
+        }
+        if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
+            if (glassPanel == null) {
+                createGlassPanel();
+                configGlassPanelClick();
+                configDetalhesSobDemanda();
+            }
+            glyphContinuosType.setEnabled(true);
+        } else {
+            cleanCacheContinuousGlyph();
+            if (verificarGlyphCategoricoAtivo()) {
+                createGlassPanel();
+                configGlassPanelClick();
+                configDetalhesSobDemanda();
+                botaoGerarCategoricalGlyphsActionPerformed(evt);
+            }
+        }
+    }//GEN-LAST:event_checkContinuousGlyphActionPerformed
+
+    private void checkCategoricalGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCategoricalGlyphActionPerformed
+        Constantes.CATEGORICAL_GLYPH_ACTIVATED = checkCategoricalGlyph.isSelected();
+        if (checkCategoricalGlyph.isSelected() || checkContinuousGlyph.isSelected()) {
+            showGlyphOnDetailsCheckBox.setEnabled(true);
+        }
+        if (Constantes.CATEGORICAL_GLYPH_ACTIVATED) {
+            createGlassPanel();
+            configGlassPanelClick();
+            configDetalhesSobDemanda();
+            varVisuaisList1.setEnabled(true);
+        } else {
+            cleanCacheCategoricalGlyph();
+        }
+    }//GEN-LAST:event_checkCategoricalGlyphActionPerformed
+
+    private void botaoGerarCategoricalGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarCategoricalGlyphsActionPerformed
+        //zerando tudo
+        variaveisVisuaisEscolhidas = null;
+        //acoes para configurar os glyphs
+        variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
+
+        createGlassPanel();
+        configGlassPanelClick();
+        configDetalhesSobDemanda();
+
+        glassPanel.setManipulador(manipulador);
+        glassPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
+        //Acoes para desenhar os glyphs
+        glassPanel.setBounds(painelEsquerda.getBounds());
+        Constantes.DECISION_TREE_ACTIVATED = decisionTreeActivate.isSelected();
+
+        atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
+        if (!esqueceuSelecionarAtributo()) {
+            if (Constantes.CONTINUOUS_GLYPH_ACTIVATED && !desenhouContinuousGlyph) {
+                JOptionPane.showMessageDialog(null, "You forget to set up the continuous glyph!", "Opps!", JOptionPane.WARNING_MESSAGE);
+            } else {
+                glassPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
+                glassPanel.setVisible(true);
+                atualizarLegendaCategoricalGlyphs(atributosEscolhidosGlyph);
+                glassPanel.repaint();
+            }
+        } else {
+            if (glassPanel != null) {
+                JOptionPane.showMessageDialog(null, "Please, select a attribute!", "Select a attribute", JOptionPane.WARNING_MESSAGE);
+            } else {
+                System.err.println("esqueceu de selecionar um atributo... e o glyphPanel ta null");
+            }
+        }
+    }//GEN-LAST:event_botaoGerarCategoricalGlyphsActionPerformed
+
+    private void textGlyphComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_textGlyphComboBoxItemStateChanged
+        botaoGerarCategoricalGlyphs.setEnabled(true);
+    }//GEN-LAST:event_textGlyphComboBoxItemStateChanged
+
+    private void shapeGlyphComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_shapeGlyphComboBoxItemStateChanged
+        botaoGerarCategoricalGlyphs.setEnabled(true);
+    }//GEN-LAST:event_shapeGlyphComboBoxItemStateChanged
+
+    private void colorGlyphComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_colorGlyphComboBoxItemStateChanged
+        botaoGerarCategoricalGlyphs.setEnabled(true);
+    }//GEN-LAST:event_colorGlyphComboBoxItemStateChanged
+
+    private void textureGlyphComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_textureGlyphComboBoxItemStateChanged
+        botaoGerarCategoricalGlyphs.setEnabled(true);
+    }//GEN-LAST:event_textureGlyphComboBoxItemStateChanged
+
+    private void baixoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baixoButtonActionPerformed
+        List<String> novaLista = new ArrayList<>(varVisuaisList2.getModel().getSize());
+        for (int i = 0; i < varVisuaisList2.getModel().getSize(); i++) {
+            novaLista.add(varVisuaisList2.getModel().getElementAt(i));
+        }
+        int[] selectedValuesList = varVisuaisList2.getSelectedIndices();
+        for (int i = 0; i < novaLista.size(); i++) {
+            for (int j = 0; j < selectedValuesList.length; j++) {
+                if (i == selectedValuesList[j]) {
+                    String caraFrente = novaLista.get(i + 1);
+                    String caraAtual = novaLista.get(i);
+                    novaLista.add(i + 1, caraAtual);
+                    novaLista.add(i, caraFrente);
+                    novaLista.remove(i + 2);
+                    novaLista.remove(i + 2);
+                    break;
+                }
+            }
+        }
+        reloadListGUI(novaLista.toArray(), varVisuaisList2);
+    }//GEN-LAST:event_baixoButtonActionPerformed
+
+    private void cimaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaButtonActionPerformed
+        List<String> novaLista = new ArrayList<>();
+        int[] selectedValuesList = varVisuaisList2.getSelectedIndices();
+        for (int i = 0; i < varVisuaisList2.getModel().getSize(); i++) {
+            for (int j = 0; j < selectedValuesList.length; j++) {
+                if (i == selectedValuesList[j]) {
+                    novaLista.add(i - 1, varVisuaisList2.getModel().getElementAt(i));
+                } else {
+                    novaLista.add(varVisuaisList2.getModel().getElementAt(i));
+                }
+            }
+        }
+        reloadListGUI(novaLista.toArray(), varVisuaisList2);
+    }//GEN-LAST:event_cimaButtonActionPerformed
+
+    private void varVisuaisList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_varVisuaisList2ValueChanged
+        if (varVisuaisList2.getSelectedValuesList().size() >= 1) {
+            removerVarVisualButton.setEnabled(true);
+            if (varVisuaisList2.getSelectedIndex() > 0) {
+                cimaButton.setEnabled(true);
+            } else {
+                cimaButton.setEnabled(false);
+            }
+            if (varVisuaisList2.getSelectedIndex() < varVisuaisList2.getModel().getSize() - 1) {
+                baixoButton.setEnabled(true);
+            } else {
+                baixoButton.setEnabled(false);
+            }
+        } else {
+            removerVarVisualButton.setEnabled(false);
+            cimaButton.setEnabled(false);
+            baixoButton.setEnabled(false);
+        }
+        if (varVisuaisList2.getModel().getSize() < 1) {
+            botaoGerarCategoricalGlyphs.setEnabled(false);
+        }
+    }//GEN-LAST:event_varVisuaisList2ValueChanged
+
+    private void removerVarVisualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerVarVisualButtonActionPerformed
+        List<Object> newListaAtribTreemap = new ArrayList<>();
+        List<Object> atributos = new ArrayList<>();
+
+        for (int i = 0; i < varVisuaisList1.getModel().getSize(); i++) {
+            String elementAt = varVisuaisList1.getModel().getElementAt(i);
+            atributos.add(elementAt);
+        }
+        atributos.addAll(varVisuaisList2.getSelectedValuesList());
+        //        atributos.sort(null);
+        loadVarVisuais(atributos.toArray());
+        desabilitarVarVisuaisUtilizadasGUI(varVisuaisList2.getSelectedValuesList());
+
+        //remover o conteudo da lista de hierarquia treemap
+        ListModel<String> modelGlyphs = varVisuaisList2.getModel();
+        List<String> selectedValuesList = varVisuaisList2.getSelectedValuesList();
+        for (int i = 0; i < modelGlyphs.getSize(); i++) {
+            if (!selectedValuesList.contains(modelGlyphs.getElementAt(i))) {
+                newListaAtribTreemap.add(modelGlyphs.getElementAt(i));
+            }
+        }
+        reloadListGUI(newListaAtribTreemap.toArray(), varVisuaisList2);
+
+        if (varVisuaisList2.getModel().getSize() == 0) {
+            varVisuaisList2.setEnabled(false);
+        }
+    }//GEN-LAST:event_removerVarVisualButtonActionPerformed
+
+    private void inserirVarVisualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirVarVisualButtonActionPerformed
+        List<Object> newListaVarVisuais = new ArrayList<>();
+        List<Object> atributosEscolhidos = new ArrayList<>();
+        for (int i = 0; i < varVisuaisList2.getModel().getSize(); i++) {
+            String elementAt = varVisuaisList2.getModel().getElementAt(i);
+            atributosEscolhidos.add(elementAt);
+        }
+        atributosEscolhidos.addAll(varVisuaisList1.getSelectedValuesList());
+        //        atributosEscolhidos.sort(null);
+        reloadListGUI(atributosEscolhidos.toArray(), varVisuaisList2);
+        varVisuaisList2.setEnabled(true);
+        //        botaoConfiVarVisuais.setEnabled(true);
+        habilitarVarVisuaisUtilizadasGUI(varVisuaisList1.getSelectedValuesList());
+
+        //remover o conteudo da lista de atributos original
+        ListModel<String> modelOriginal = varVisuaisList1.getModel();
+        List<String> selectedValuesList = varVisuaisList1.getSelectedValuesList();
+        for (int i = 0; i < modelOriginal.getSize(); i++) {
+            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
+                newListaVarVisuais.add(modelOriginal.getElementAt(i));
+            }
+        }
+        reloadListGUI(newListaVarVisuais.toArray(), varVisuaisList1);
+        //loadVarVisuais(newListaVarVisuais.toArray());
+    }//GEN-LAST:event_inserirVarVisualButtonActionPerformed
+
+    private void varVisuaisList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_varVisuaisList1ValueChanged
+        if (varVisuaisList1.getSelectedValuesList().size() >= 1) {
+            inserirVarVisualButton.setEnabled(true);
+        } else {
+            inserirVarVisualButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_varVisuaisList1ValueChanged
+
+    private void corTreemapComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corTreemapComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_corTreemapComboBoxActionPerformed
+
     private void checkLegendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLegendaActionPerformed
         if (checkLegenda.isSelected()) {
             Constantes.setShowLegenda(true);
@@ -1455,667 +2006,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         configDetalhesSobDemanda();
     }//GEN-LAST:event_botaoGerarTreemapActionPerformed
 
-    private void colunasDetalhesList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasDetalhesList1ValueChanged
-        if (colunasDetalhesList1.getSelectedValuesList().size() >= 1) {
-            inserirBotao_detalhes.setEnabled(true);
-        } else {
-            inserirBotao_detalhes.setEnabled(false);
-        }
-    }//GEN-LAST:event_colunasDetalhesList1ValueChanged
-
-    private void inserirBotao_detalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotao_detalhesActionPerformed
-        List<Object> newListaAtribTreemap = new ArrayList<>();
-        List<Object> atributosEscolhidos = new ArrayList<>();
-        for (int i = 0; i < colunasDetalhesList2.getModel().getSize(); i++) {
-            String elementAt = colunasDetalhesList2.getModel().getElementAt(i);
-            atributosEscolhidos.add(elementAt);
-        }
-        atributosEscolhidos.addAll(colunasDetalhesList1.getSelectedValuesList());
-        atributosEscolhidos.sort(null);
-        reloadListGUI(atributosEscolhidos.toArray(), colunasDetalhesList2);
-        colunasDetalhesList2.setEnabled(true);
-//        botaoGerarVisualizacao.setEnabled(true);
-
-        //remover o conteudo da lista de atributos original
-        ListModel<String> modelOriginal = colunasDetalhesList1.getModel();
-        List<String> selectedValuesList = colunasDetalhesList1.getSelectedValuesList();
-        for (int i = 0; i < modelOriginal.getSize(); i++) {
-            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
-                newListaAtribTreemap.add(modelOriginal.getElementAt(i));
-            }
-        }
-        loadItensDetalhes(newListaAtribTreemap.toArray());
-        updateDetailsButton.setEnabled(true);
-    }//GEN-LAST:event_inserirBotao_detalhesActionPerformed
-
-    private void removerBotao_detalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotao_detalhesActionPerformed
-        List<Object> newListaAtribTreemap = new ArrayList<>();
-        List<Object> atributos = new ArrayList<>();
-
-        for (int i = 0; i < colunasDetalhesList1.getModel().getSize(); i++) {
-            String elementAt = colunasDetalhesList1.getModel().getElementAt(i);
-            atributos.add(elementAt);
-        }
-        atributos.addAll(colunasDetalhesList2.getSelectedValuesList());
-        atributos.sort(null);
-        loadItensDetalhes(atributos.toArray());
-
-        //remover o conteudo da lista de hierarquia treemap
-        ListModel<String> modelGlyphs = colunasDetalhesList2.getModel();
-        List<String> selectedValuesList = colunasDetalhesList2.getSelectedValuesList();
-        for (int i = 0; i < modelGlyphs.getSize(); i++) {
-            if (!selectedValuesList.contains(modelGlyphs.getElementAt(i))) {
-                newListaAtribTreemap.add(modelGlyphs.getElementAt(i));
-            }
-        }
-        reloadListGUI(newListaAtribTreemap.toArray(), colunasDetalhesList2);
-
-        if (colunasDetalhesList2.getModel().getSize() == 0) {
-            colunasDetalhesList2.setEnabled(false);
-        }
-    }//GEN-LAST:event_removerBotao_detalhesActionPerformed
-
-    private void colunasDetalhesList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_colunasDetalhesList2ValueChanged
-        if (colunasDetalhesList2.getSelectedValuesList().size() >= 1) {
-            removerBotao_detalhes.setEnabled(true);
-        } else {
-            removerBotao_detalhes.setEnabled(false);
-        }
-    }//GEN-LAST:event_colunasDetalhesList2ValueChanged
-
-    private void updateDetailsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDetailsButtonActionPerformed
-        String[] valoresEscolhidos = Util.parseListModel2ArrayString(colunasDetalhesList2.getModel());
-        visualizationTreemap.setColunasDetalhesDemanda(valoresEscolhidos);
-        visualizationTreemap.updateDetalhesDemanda();
-
-        botaoGerarTreemapActionPerformed(evt);
-    }//GEN-LAST:event_updateDetailsButtonActionPerformed
-
-    private void decisionTreeActivateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decisionTreeActivateActionPerformed
-        Constantes.DECISION_TREE_ACTIVATED = decisionTreeActivate.isSelected();
-        if (Constantes.DECISION_TREE_ACTIVATED && Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
-            JOptionPane.showMessageDialog(null, "Continuous glyphs will be available with the adaptive glyph as soon as possible.",
-                    "Sorry!", JOptionPane.INFORMATION_MESSAGE);
-            decisionTreeActivate.setSelected(false);
-            checkContinuousGlyph.setSelected(false);
-        }
-        botaoGerarCategoricalGlyphsActionPerformed(evt);
-        logger.info("Arvore de decisao esta ativada? " + Constantes.DECISION_TREE_ACTIVATED);
-    }//GEN-LAST:event_decisionTreeActivateActionPerformed
-
-    private void corTreemapComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corTreemapComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_corTreemapComboBoxActionPerformed
-
-    private void checkContinuousGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkContinuousGlyphActionPerformed
-        Constantes.CONTINUOUS_GLYPH_ACTIVATED = checkContinuousGlyph.isSelected();
-        if (checkCategoricalGlyph.isSelected() || checkContinuousGlyph.isSelected()) {
-            showGlyphOnDetailsCheckBox.setEnabled(true);
-        }
-        if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
-            if (glassPanel == null) {
-                createGlassPanel();
-                configGlassPanelClick();
-                configDetalhesSobDemanda();
-            }
-            glyphContinuosType.setEnabled(true);
-        } else {
-            cleanCacheContinuousGlyph();
-            if (verificarGlyphCategoricoAtivo()) {
-                createGlassPanel();
-                configGlassPanelClick();
-                configDetalhesSobDemanda();
-                botaoGerarCategoricalGlyphsActionPerformed(evt);
-            }
-        }
-    }//GEN-LAST:event_checkContinuousGlyphActionPerformed
-
-    private void removerAtributoStarGlyphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerAtributoStarGlyphButtonActionPerformed
-        List<Object> newListaAtribTreemap = new ArrayList<>();
-        List<Object> atributos = new ArrayList<>();
-
-        for (int i = 0; i < listaAtributosContinuousGlyph.getModel().getSize(); i++) {
-            String elementAt = listaAtributosContinuousGlyph.getModel().getElementAt(i);
-            atributos.add(elementAt);
-        }
-        atributos.addAll(listaAtributosContinuousGlyph2.getSelectedValuesList());
-        atributos.sort(null);
-        reloadListGUI(atributos.toArray(), listaAtributosContinuousGlyph);
-
-        //remover o conteudo da lista de hierarquia treemap
-        ListModel<String> modelGlyphs = listaAtributosContinuousGlyph2.getModel();
-        List<String> selectedValuesList = listaAtributosContinuousGlyph2.getSelectedValuesList();
-        for (int i = 0; i < modelGlyphs.getSize(); i++) {
-            if (!selectedValuesList.contains(modelGlyphs.getElementAt(i))) {
-                newListaAtribTreemap.add(modelGlyphs.getElementAt(i));
-            }
-        }
-        reloadListGUI(newListaAtribTreemap.toArray(), listaAtributosContinuousGlyph2);
-
-        if (listaAtributosContinuousGlyph2.getModel().getSize() == 0) {
-            listaAtributosContinuousGlyph2.setEnabled(false);
-            botaoGerarContinuosGlyphs.setEnabled(false);
-        } else {
-            botaoGerarContinuosGlyphs.setEnabled(true);
-        }
-    }//GEN-LAST:event_removerAtributoStarGlyphButtonActionPerformed
-
-    private void inserirAtributoStarGlyphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirAtributoStarGlyphButtonActionPerformed
-        List<Object> newListaVarVisuais = new ArrayList<>();
-        List<Object> atributosEscolhidos = new ArrayList<>();
-        for (int i = 0; i < listaAtributosContinuousGlyph2.getModel().getSize(); i++) {
-            String elementAt = listaAtributosContinuousGlyph2.getModel().getElementAt(i);
-            atributosEscolhidos.add(elementAt);
-        }
-        atributosEscolhidos.addAll(listaAtributosContinuousGlyph.getSelectedValuesList());
-        reloadListGUI(atributosEscolhidos.toArray(), listaAtributosContinuousGlyph2);
-        listaAtributosContinuousGlyph2.setEnabled(true);
-
-        //remover o conteudo da lista de atributos original
-        ListModel<String> modelOriginal = listaAtributosContinuousGlyph.getModel();
-        List<String> selectedValuesList = listaAtributosContinuousGlyph.getSelectedValuesList();
-        for (int i = 0; i < modelOriginal.getSize(); i++) {
-            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
-                newListaVarVisuais.add(modelOriginal.getElementAt(i));
-            }
-        }
-        reloadListGUI(newListaVarVisuais.toArray(), listaAtributosContinuousGlyph);
-        botaoGerarContinuosGlyphs.setEnabled(true);
-    }//GEN-LAST:event_inserirAtributoStarGlyphButtonActionPerformed
-
-    private void listaAtributosContinuousGlyph2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaAtributosContinuousGlyph2ValueChanged
-        if (listaAtributosContinuousGlyph2.getSelectedValuesList().size() >= 1) {
-            removerAtributoStarGlyphButton.setEnabled(true);
-            if (listaAtributosContinuousGlyph2.getSelectedIndex() > 0) {
-                cimaAtributoStarGlyphButton.setEnabled(true);
-            } else {
-                cimaAtributoStarGlyphButton.setEnabled(false);
-            }
-            if (listaAtributosContinuousGlyph2.getSelectedIndex() < listaAtributosContinuousGlyph2.getModel().getSize() - 1) {
-                baixoAtributoStarGlyphButton.setEnabled(true);
-            } else {
-                baixoAtributoStarGlyphButton.setEnabled(false);
-            }
-        } else {
-            removerAtributoStarGlyphButton.setEnabled(false);
-            cimaAtributoStarGlyphButton.setEnabled(false);
-            baixoAtributoStarGlyphButton.setEnabled(false);
-        }
-    }//GEN-LAST:event_listaAtributosContinuousGlyph2ValueChanged
-
-    private void botaoGerarContinuosGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarContinuosGlyphsActionPerformed
-        createGlassPanel();
-        configGlassPanelClick();
-        configDetalhesSobDemanda();
-
-        glassPanel.setManipulador(manipulador);
-        glassPanel.setTipoGlyphContinuoEscolhido((String) glyphContinuosType.getSelectedItem());
-        variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
-        glassPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
-        atributosEscolhidosContinuousGlyph = parseListModelString2Array(listaAtributosContinuousGlyph2.getModel());
-        glassPanel.setAtributosEscolhidosContinuousGlyph(atributosEscolhidosContinuousGlyph);
-
-        //Acoes para desenhar os glyphs
-        glassPanel.setBounds(painelEsquerda.getBounds());
-        atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
-        glassPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
-        glassPanel.setVisible(true);
-        glassPanel.repaint();
-        atualizarLegendaCategoricalGlyphs(atributosEscolhidosGlyph);
-//        prepararLegendaStarGlyph(Arrays.asList(atributosEscolhidosStarGlyph));
-        desenhouContinuousGlyph = atualizarLegendaGlyphsContinuos(atributosEscolhidosContinuousGlyph);
-    }//GEN-LAST:event_botaoGerarContinuosGlyphsActionPerformed
-
-    private void cimaAtributoStarGlyphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaAtributoStarGlyphButtonActionPerformed
-        List<String> novaLista = new ArrayList<>();
-        int[] selectedValuesList = listaAtributosContinuousGlyph2.getSelectedIndices();
-        for (int i = 0; i < listaAtributosContinuousGlyph2.getModel().getSize(); i++) {
-            for (int j = 0; j < selectedValuesList.length; j++) {
-                if (i == selectedValuesList[j]) {
-                    novaLista.add(i - 1, listaAtributosContinuousGlyph2.getModel().getElementAt(i));
-                } else {
-                    novaLista.add(listaAtributosContinuousGlyph2.getModel().getElementAt(i));
-                }
-            }
-        }
-        reloadListGUI(novaLista.toArray(), listaAtributosContinuousGlyph2);
-    }//GEN-LAST:event_cimaAtributoStarGlyphButtonActionPerformed
-
-    private void baixoAtributoStarGlyphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baixoAtributoStarGlyphButtonActionPerformed
-        List<String> novaLista = new ArrayList<>(listaAtributosContinuousGlyph2.getModel().getSize());
-        for (int i = 0; i < listaAtributosContinuousGlyph2.getModel().getSize(); i++) {
-            novaLista.add(listaAtributosContinuousGlyph2.getModel().getElementAt(i));
-        }
-        int[] selectedValuesList = listaAtributosContinuousGlyph2.getSelectedIndices();
-        for (int i = 0; i < novaLista.size(); i++) {
-            for (int j = 0; j < selectedValuesList.length; j++) {
-                if (i == selectedValuesList[j]) {
-                    String caraFrente = novaLista.get(i + 1);
-                    String caraAtual = novaLista.get(i);
-                    novaLista.add(i + 1, caraAtual);
-                    novaLista.add(i, caraFrente);
-                    novaLista.remove(i + 2);
-                    novaLista.remove(i + 2);
-                    break;
-                }
-            }
-        }
-        reloadListGUI(novaLista.toArray(), listaAtributosContinuousGlyph2);
-    }//GEN-LAST:event_baixoAtributoStarGlyphButtonActionPerformed
-
-    private void listaAtributosContinuousGlyphValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaAtributosContinuousGlyphValueChanged
-        if (listaAtributosContinuousGlyph.getSelectedValuesList().size() >= 1) {
-            inserirAtributoStarGlyphButton.setEnabled(true);
-        } else {
-            inserirAtributoStarGlyphButton.setEnabled(false);
-        }
-    }//GEN-LAST:event_listaAtributosContinuousGlyphValueChanged
-
-    private void glyphContinuosTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_glyphContinuosTypeItemStateChanged
-        listaAtributosContinuousGlyph.setEnabled(Constantes.CONTINUOUS_GLYPH_ACTIVATED);
-    }//GEN-LAST:event_glyphContinuosTypeItemStateChanged
-
-    private void glyphContinuosTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_glyphContinuosTypeActionPerformed
-        if (glyphContinuosType.getSelectedIndex() != 0) {
-            if (listaAtributosContinuousGlyph.getModel().getSize() != 0) {
-                listaAtributosContinuousGlyph.setEnabled(true);
-            } else {
-                List<String> lista = loadContinuousAttributes();
-                lista.remove(lista.size() - 1);
-                Object[] newList = lista.toArray();
-
-                DefaultComboBoxModel model = new DefaultComboBoxModel(newList);
-                listaAtributosContinuousGlyph.setModel(model);
-            }
-        }
-    }//GEN-LAST:event_glyphContinuosTypeActionPerformed
-
-    private void nextTest_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextTest_ButtonActionPerformed
-        if (testMB != null) {
-//            totalTarefas = testMB.carregarTarefas();//tarefa ta na tela
-//            logMB.setInicioTempo(System.currentTimeMillis());
-            taskCountLabel.setText("Task: " + totalTarefas + "/" + numMaxTarefas);
-            nextTest_Button.setVisible(false);
-            saveAnswerButton.setVisible(true);
-//            testMB.setTimeOver(false);
-        } else {
-            JOptionPane.showMessageDialog(this, "Please, choose an environment.", "To be careful", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_nextTest_ButtonActionPerformed
-
-    private void saveAnswerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAnswerButtonActionPerformed
-        if (testMB != null) {
-            if (totalTarefas <= numMaxTarefas) {
-                nextTest_Button.setVisible(true);
-                saveAnswerButton.setVisible(false);
-                if (totalTarefas == numMaxTarefas) {
-                    nextTest_Button.setVisible(false);
-                    JOptionPane.showMessageDialog(this, "You fineshed the test. Thanks for participate!");
-                    task_TextPane.setText("");
-                    nextTest_Button.setVisible(false);
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Please, choose an environment.", "To be careful", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_saveAnswerButtonActionPerformed
-
-    private void startMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startMenuItemActionPerformed
-        MainScreenLog screenLog = new MainScreenLog();
-        screenLog.setVisible(true);
-        JOptionPane.showMessageDialog(null, "To start testing, make sure that the answersTraining.tsv "
-                + "and answers.tsv files are in the same directory as the .jar file.",
-                "Files TSV", JOptionPane.WARNING_MESSAGE);
-        ManipuladorLog.setTesteAcontecendo(true);
-    }//GEN-LAST:event_startMenuItemActionPerformed
-
-    private void finishMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishMenuItemActionPerformed
-        int resposta = JOptionPane.showConfirmDialog(this, "O teste e toda a aplicação serão encerrados."
-                + "Deseja realmente encerrar a aplicação?");
-        if (resposta == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
-    }//GEN-LAST:event_finishMenuItemActionPerformed
-
-    private void consoleMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consoleMenuItemActionPerformed
-        ConsoleTest console = new ConsoleTest();
-        console.setVisible(true);
-    }//GEN-LAST:event_consoleMenuItemActionPerformed
-
-    private void checkCategoricalGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCategoricalGlyphActionPerformed
-        Constantes.CATEGORICAL_GLYPH_ACTIVATED = checkCategoricalGlyph.isSelected();
-        if (checkCategoricalGlyph.isSelected() || checkContinuousGlyph.isSelected()) {
-            showGlyphOnDetailsCheckBox.setEnabled(true);
-        }
-        if (Constantes.CATEGORICAL_GLYPH_ACTIVATED) {
-            createGlassPanel();
-            configGlassPanelClick();
-            configDetalhesSobDemanda();
-            varVisuaisList1.setEnabled(true);
-        } else {
-            cleanCacheCategoricalGlyph();
-        }
-    }//GEN-LAST:event_checkCategoricalGlyphActionPerformed
-
-    private void botaoGerarCategoricalGlyphsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoGerarCategoricalGlyphsActionPerformed
-        //zerando tudo
-        variaveisVisuaisEscolhidas = null;
-        //acoes para configurar os glyphs
-        variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
-
-        createGlassPanel();
-        configGlassPanelClick();
-        configDetalhesSobDemanda();
-
-        glassPanel.setManipulador(manipulador);
-        glassPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
-        //Acoes para desenhar os glyphs
-        glassPanel.setBounds(painelEsquerda.getBounds());
-        Constantes.DECISION_TREE_ACTIVATED = decisionTreeActivate.isSelected();
-
-        atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
-        if (!esqueceuSelecionarAtributo()) {
-            if (Constantes.CONTINUOUS_GLYPH_ACTIVATED && !desenhouContinuousGlyph) {
-                JOptionPane.showMessageDialog(null, "You forget to set up the continuous glyph!", "Opps!", JOptionPane.WARNING_MESSAGE);
-            } else {
-                glassPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
-                glassPanel.setVisible(true);
-                atualizarLegendaCategoricalGlyphs(atributosEscolhidosGlyph);
-                glassPanel.repaint();
-            }
-        } else {
-            if (glassPanel != null) {
-                JOptionPane.showMessageDialog(null, "Please, select a attribute!", "Select a attribute", JOptionPane.WARNING_MESSAGE);
-            } else {
-                System.err.println("esqueceu de selecionar um atributo... e o glyphPanel ta null");
-            }
-        }
-    }//GEN-LAST:event_botaoGerarCategoricalGlyphsActionPerformed
-
-    private void textGlyphComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textGlyphComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textGlyphComboBoxActionPerformed
-
-    private void textGlyphComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_textGlyphComboBoxItemStateChanged
+    private void positionGlyphComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_positionGlyphComboBoxItemStateChanged
         botaoGerarCategoricalGlyphs.setEnabled(true);
-    }//GEN-LAST:event_textGlyphComboBoxItemStateChanged
-
-    private void shapeGlyphComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shapeGlyphComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_shapeGlyphComboBoxActionPerformed
-
-    private void shapeGlyphComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_shapeGlyphComboBoxItemStateChanged
-        botaoGerarCategoricalGlyphs.setEnabled(true);
-    }//GEN-LAST:event_shapeGlyphComboBoxItemStateChanged
-
-    private void colorGlyphComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorGlyphComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_colorGlyphComboBoxActionPerformed
-
-    private void colorGlyphComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_colorGlyphComboBoxItemStateChanged
-        botaoGerarCategoricalGlyphs.setEnabled(true);
-    }//GEN-LAST:event_colorGlyphComboBoxItemStateChanged
-
-    private void textureGlyphComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textureGlyphComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textureGlyphComboBoxActionPerformed
-
-    private void textureGlyphComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_textureGlyphComboBoxItemStateChanged
-        botaoGerarCategoricalGlyphs.setEnabled(true);
-    }//GEN-LAST:event_textureGlyphComboBoxItemStateChanged
-
-    private void baixoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baixoButtonActionPerformed
-        List<String> novaLista = new ArrayList<>(varVisuaisList2.getModel().getSize());
-        for (int i = 0; i < varVisuaisList2.getModel().getSize(); i++) {
-            novaLista.add(varVisuaisList2.getModel().getElementAt(i));
-        }
-        int[] selectedValuesList = varVisuaisList2.getSelectedIndices();
-        for (int i = 0; i < novaLista.size(); i++) {
-            for (int j = 0; j < selectedValuesList.length; j++) {
-                if (i == selectedValuesList[j]) {
-                    String caraFrente = novaLista.get(i + 1);
-                    String caraAtual = novaLista.get(i);
-                    novaLista.add(i + 1, caraAtual);
-                    novaLista.add(i, caraFrente);
-                    novaLista.remove(i + 2);
-                    novaLista.remove(i + 2);
-                    break;
-                }
-            }
-        }
-        reloadListGUI(novaLista.toArray(), varVisuaisList2);
-    }//GEN-LAST:event_baixoButtonActionPerformed
-
-    private void cimaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cimaButtonActionPerformed
-        List<String> novaLista = new ArrayList<>();
-        int[] selectedValuesList = varVisuaisList2.getSelectedIndices();
-        for (int i = 0; i < varVisuaisList2.getModel().getSize(); i++) {
-            for (int j = 0; j < selectedValuesList.length; j++) {
-                if (i == selectedValuesList[j]) {
-                    novaLista.add(i - 1, varVisuaisList2.getModel().getElementAt(i));
-                } else {
-                    novaLista.add(varVisuaisList2.getModel().getElementAt(i));
-                }
-            }
-        }
-        reloadListGUI(novaLista.toArray(), varVisuaisList2);
-    }//GEN-LAST:event_cimaButtonActionPerformed
-
-    private void varVisuaisList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_varVisuaisList2ValueChanged
-        if (varVisuaisList2.getSelectedValuesList().size() >= 1) {
-            removerVarVisualButton.setEnabled(true);
-            if (varVisuaisList2.getSelectedIndex() > 0) {
-                cimaButton.setEnabled(true);
-            } else {
-                cimaButton.setEnabled(false);
-            }
-            if (varVisuaisList2.getSelectedIndex() < varVisuaisList2.getModel().getSize() - 1) {
-                baixoButton.setEnabled(true);
-            } else {
-                baixoButton.setEnabled(false);
-            }
-        } else {
-            removerVarVisualButton.setEnabled(false);
-            cimaButton.setEnabled(false);
-            baixoButton.setEnabled(false);
-        }
-        if (varVisuaisList2.getModel().getSize() < 1) {
-            botaoGerarCategoricalGlyphs.setEnabled(false);
-        }
-    }//GEN-LAST:event_varVisuaisList2ValueChanged
-
-    private void removerVarVisualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerVarVisualButtonActionPerformed
-        List<Object> newListaAtribTreemap = new ArrayList<>();
-        List<Object> atributos = new ArrayList<>();
-
-        for (int i = 0; i < varVisuaisList1.getModel().getSize(); i++) {
-            String elementAt = varVisuaisList1.getModel().getElementAt(i);
-            atributos.add(elementAt);
-        }
-        atributos.addAll(varVisuaisList2.getSelectedValuesList());
-        //        atributos.sort(null);
-        loadVarVisuais(atributos.toArray());
-        desabilitarVarVisuaisUtilizadasGUI(varVisuaisList2.getSelectedValuesList());
-
-        //remover o conteudo da lista de hierarquia treemap
-        ListModel<String> modelGlyphs = varVisuaisList2.getModel();
-        List<String> selectedValuesList = varVisuaisList2.getSelectedValuesList();
-        for (int i = 0; i < modelGlyphs.getSize(); i++) {
-            if (!selectedValuesList.contains(modelGlyphs.getElementAt(i))) {
-                newListaAtribTreemap.add(modelGlyphs.getElementAt(i));
-            }
-        }
-        reloadListGUI(newListaAtribTreemap.toArray(), varVisuaisList2);
-
-        if (varVisuaisList2.getModel().getSize() == 0) {
-            varVisuaisList2.setEnabled(false);
-        }
-    }//GEN-LAST:event_removerVarVisualButtonActionPerformed
-
-    private void inserirVarVisualButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirVarVisualButtonActionPerformed
-        List<Object> newListaVarVisuais = new ArrayList<>();
-        List<Object> atributosEscolhidos = new ArrayList<>();
-        for (int i = 0; i < varVisuaisList2.getModel().getSize(); i++) {
-            String elementAt = varVisuaisList2.getModel().getElementAt(i);
-            atributosEscolhidos.add(elementAt);
-        }
-        atributosEscolhidos.addAll(varVisuaisList1.getSelectedValuesList());
-        //        atributosEscolhidos.sort(null);
-        reloadListGUI(atributosEscolhidos.toArray(), varVisuaisList2);
-        varVisuaisList2.setEnabled(true);
-        //        botaoConfiVarVisuais.setEnabled(true);
-        habilitarVarVisuaisUtilizadasGUI(varVisuaisList1.getSelectedValuesList());
-
-        //remover o conteudo da lista de atributos original
-        ListModel<String> modelOriginal = varVisuaisList1.getModel();
-        List<String> selectedValuesList = varVisuaisList1.getSelectedValuesList();
-        for (int i = 0; i < modelOriginal.getSize(); i++) {
-            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
-                newListaVarVisuais.add(modelOriginal.getElementAt(i));
-            }
-        }
-        reloadListGUI(newListaVarVisuais.toArray(), varVisuaisList1);
-        //loadVarVisuais(newListaVarVisuais.toArray());
-    }//GEN-LAST:event_inserirVarVisualButtonActionPerformed
-
-    private void varVisuaisList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_varVisuaisList1ValueChanged
-        if (varVisuaisList1.getSelectedValuesList().size() >= 1) {
-            inserirVarVisualButton.setEnabled(true);
-        } else {
-            inserirVarVisualButton.setEnabled(false);
-        }
-    }//GEN-LAST:event_varVisuaisList1ValueChanged
-
-    private void version_jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_version_jMenuItemActionPerformed
-        //Atualizar o arquivo build.xml com o numero da versao
-        //Ex: <property name="store.jar.name" value="TreemapGlyph_v17"/> 
-        //Gerar o .jar clicando com o botao direito no arquivo build.xml ->
-        //executar destino -> outros destinos -> package-for-store
-        //o arquivo .jar sera gerado em uma pasta TreemapGlyph\store
-        JOptionPane.showMessageDialog(null, "Version 18.0\n"
-                + "Developed by LabVis ( http://www.labvis.ufpa.br/ )");
-    }//GEN-LAST:event_version_jMenuItemActionPerformed
-
-    private void inserirBotaoCategoricalFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotaoCategoricalFilterActionPerformed
-//        List<Object> newListaAtribTreemap = new ArrayList<>();
-//        List<Object> atributosEscolhidos = new ArrayList<>();
-//        for (int i = 0; i < colunasDetalhesList2.getModel().getSize(); i++) {
-//            String elementAt = colunasDetalhesList2.getModel().getElementAt(i);
-//            atributosEscolhidos.add(elementAt);
-//        }
-//        atributosEscolhidos.addAll(colunasDetalhesList1.getSelectedValuesList());
-//        atributosEscolhidos.sort(null);
-//        reloadListGUI(atributosEscolhidos.toArray(), colunasDetalhesList2);
-//        colunasDetalhesList2.setEnabled(true);
-////        botaoGerarVisualizacao.setEnabled(true);
-//
-//        //remover o conteudo da lista de atributos original
-//        ListModel<String> modelOriginal = colunasDetalhesList1.getModel();
-//        List<String> selectedValuesList = colunasDetalhesList1.getSelectedValuesList();
-//        for (int i = 0; i < modelOriginal.getSize(); i++) {
-//            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
-//                newListaAtribTreemap.add(modelOriginal.getElementAt(i));
-//            }
-//        }
-//        loadItensDetalhes(newListaAtribTreemap.toArray());
-//        updateDetailsButton.setEnabled(true);
-    }//GEN-LAST:event_inserirBotaoCategoricalFilterActionPerformed
-
-    private void removerBotaoCategoricalFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotaoCategoricalFilterActionPerformed
-//        List<Object> newListaAtribTreemap = new ArrayList<>();
-//        List<Object> atributos = new ArrayList<>();
-//
-//        for (int i = 0; i < colunasDetalhesList1.getModel().getSize(); i++) {
-//            String elementAt = colunasDetalhesList1.getModel().getElementAt(i);
-//            atributos.add(elementAt);
-//        }
-//        atributos.addAll(colunasDetalhesList2.getSelectedValuesList());
-//        atributos.sort(null);
-//        loadItensDetalhes(atributos.toArray());
-//
-//        //remover o conteudo da lista de hierarquia treemap
-//        ListModel<String> modelGlyphs = colunasDetalhesList2.getModel();
-//        List<String> selectedValuesList = colunasDetalhesList2.getSelectedValuesList();
-//        for (int i = 0; i < modelGlyphs.getSize(); i++) {
-//            if (!selectedValuesList.contains(modelGlyphs.getElementAt(i))) {
-//                newListaAtribTreemap.add(modelGlyphs.getElementAt(i));
-//            }
-//        }
-//        reloadListGUI(newListaAtribTreemap.toArray(), colunasDetalhesList2);
-//
-//        if (colunasDetalhesList2.getModel().getSize() == 0) {
-//            colunasDetalhesList2.setEnabled(false);
-//        }
-    }//GEN-LAST:event_removerBotaoCategoricalFilterActionPerformed
-
-    private void inserirBotaoContinuousFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirBotaoContinuousFilterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inserirBotaoContinuousFilterActionPerformed
-
-    private void removerBotaoContinuousFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerBotaoContinuousFilterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_removerBotaoContinuousFilterActionPerformed
-
-    private void categoricalFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoricalFilterButtonActionPerformed
-        CategoricalFilterSetUp categoricalFrame = new CategoricalFilterSetUp();
-        categoricalFrame.setVisible(true);
-
-
-    }//GEN-LAST:event_categoricalFilterButtonActionPerformed
-
-    private void continuousFilterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continuousFilterButtonActionPerformed
-        ContinuousFilterSetUp continuousFrame = new ContinuousFilterSetUp();
-        continuousFrame.setVisible(true);
-    }//GEN-LAST:event_continuousFilterButtonActionPerformed
-
-    private void atributosCategoricosListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosCategoricosListValueChanged
-        if (atributosCategoricosList.getSelectedValuesList().size() >= 1) {
-            inserirBotaoCategoricalFilter.setEnabled(true);
-        } else {
-            inserirBotaoCategoricalFilter.setEnabled(false);
-        }
-    }//GEN-LAST:event_atributosCategoricosListValueChanged
-
-    private void atributosCategoricosList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosCategoricosList2ValueChanged
-        if (atributosCategoricosList2.getSelectedValuesList().size() >= 1) {
-            removerBotaoCategoricalFilter.setEnabled(true);
-        } else {
-            removerBotaoCategoricalFilter.setEnabled(false);
-        }
-    }//GEN-LAST:event_atributosCategoricosList2ValueChanged
-
-    private void atributosContinuousListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosContinuousListValueChanged
-        if (atributosContinuousList.getSelectedValuesList().size() >= 1) {
-            inserirBotaoContinuousFilter.setEnabled(true);
-        } else {
-            inserirBotaoContinuousFilter.setEnabled(false);
-        }
-    }//GEN-LAST:event_atributosContinuousListValueChanged
-
-    private void atributosContinuousList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_atributosContinuousList2ValueChanged
-        if (atributosContinuousList2.getSelectedValuesList().size() >= 1) {
-            removerBotaoContinuousFilter.setEnabled(true);
-        } else {
-            removerBotaoContinuousFilter.setEnabled(false);
-        }
-    }//GEN-LAST:event_atributosContinuousList2ValueChanged
-
-    private void screenshotMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_screenshotMenuItemActionPerformed
-        BufferedImage combined;
-        if (glassPanel != null) {
-            BufferedImage treemapImg = captureComponent(view);
-            BufferedImage glyphsImg = captureComponent(glassPanel);
-
-            int w = view.getWidth();
-            int h = view.getHeight();
-            combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-
-            combiningBufferedImages(treemapImg, glyphsImg, combined);
-        } else {
-            combined = captureComponent(view);
-        }
-        saveScreenShot(combined);
-    }//GEN-LAST:event_screenshotMenuItemActionPerformed
+    }//GEN-LAST:event_positionGlyphComboBoxItemStateChanged
 
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
 
@@ -2124,15 +2017,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         atributosGlyph.add(colorGlyphComboBox.getSelectedItem());
         atributosGlyph.add(shapeGlyphComboBox.getSelectedItem());
         atributosGlyph.add(textGlyphComboBox.getSelectedItem());
-//        atributosGlyph.add(atributo5Glyph.getSelectedItem());
+        atributosGlyph.add(positionGlyphComboBox.getSelectedItem());
 
         return atributosGlyph;
-    }
-
-    private String getEscolhidosGlyph() {
-        String atributosEscolhidosGlyph = (String) glyphContinuosType.getSelectedItem();
-
-        return atributosEscolhidosGlyph;
     }
 
     /**
@@ -2174,7 +2061,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JPanel abaContinuosGlyphs;
     private javax.swing.JPanel abaDetalhes;
     private javax.swing.JPanel abaFiltros;
-    private javax.swing.JPanel abaTask;
     private javax.swing.JPanel abaTreemap;
     private javax.swing.JMenu aboutMenu;
     private javax.swing.JList<String> atributosCategoricosList;
@@ -2221,6 +2107,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2231,7 +2118,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
@@ -2248,12 +2134,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JComboBox<String> legendaComboBox;
     private javax.swing.JList<String> listaAtributosContinuousGlyph;
     private javax.swing.JList<String> listaAtributosContinuousGlyph2;
-    private javax.swing.JButton nextTest_Button;
     private javax.swing.JTabbedPane painelAbas_jTabbedPane;
     private javax.swing.JPanel painelCima;
     private javax.swing.JPanel painelDireita;
     private javax.swing.JPanel painelEsquerda;
     private javax.swing.JPanel painelLegendaVis;
+    private javax.swing.JComboBox<String> positionGlyphComboBox;
     private javax.swing.JProgressBar progressoBarra;
     private javax.swing.JButton removerAtributoStarGlyphButton;
     private javax.swing.JButton removerBotaoCategoricalFilter;
@@ -2261,7 +2147,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JButton removerBotao_detalhes;
     private javax.swing.JButton removerBotao_treemap;
     private javax.swing.JButton removerVarVisualButton;
-    private javax.swing.JButton saveAnswerButton;
     private javax.swing.JMenuItem screenshotMenuItem;
     private javax.swing.JSplitPane separadorCimaBaixo;
     private javax.swing.JSplitPane separadorEsqueDir_jSplitPane;
@@ -2269,8 +2154,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JCheckBox showGlyphOnDetailsCheckBox;
     private javax.swing.JMenuItem startMenuItem;
     private javax.swing.JComboBox<String> tamanhoTreemapComboBox;
-    private javax.swing.JLabel taskCountLabel;
-    private javax.swing.JTextPane task_TextPane;
     private javax.swing.JMenu testMenu;
     private javax.swing.JComboBox<String> textGlyphComboBox;
     private javax.swing.JComboBox<String> textureGlyphComboBox;
@@ -2291,22 +2174,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private DrawAreaMB visualizationTreemap;
     private String[] variaveisVisuaisEscolhidas;
     private String[] atributosEscolhidosContinuousGlyph;
-    private String[] selectContinuos;
     private List<String> continuousAttributes;
     private List<String> categoricalAttributes;
     private ManipuladorArquivo manipulador;
     private File selectedFile;
     private Task task;
     private ArrayList<Object> atributosEscolhidosGlyph;
-    private String cenario;
-    private TestMB testMB;
-    private int totalTarefas;
-    private int numMaxTarefas;
     private String[] itensHierarquia;
     private String[] itensDetalhes;
     DetailsOnDemandVisao details;
-    private DetailsOnDemandMB detailsMB;
     private boolean desenhouContinuousGlyph;
+    private GlyphMB glyphMB;
+    private SetUpMB setupMB;
 
     private void atualizarLegendaCategoricalGlyphs(ArrayList<Object> atributosEscolhidosGlyph) {
         painelLegendaVis.removeAll();
@@ -2389,17 +2268,19 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             DefaultComboBoxModel emptyList = new DefaultComboBoxModel(vazio);
             varVisuaisList2.setModel(emptyList);
             varVisuaisList1.setModel(emptyList);
-            Object[] newList = new Object[4];
+            Object[] newList = new Object[5];
             newList[0] = "Texture";
             newList[1] = "Color";
             newList[2] = "Shape";
-            newList[3] = "Text";//newList[4] = "Number";
+            newList[3] = "Text";
+            newList[4] = "Position";
             DefaultComboBoxModel model = new DefaultComboBoxModel(newList);
             varVisuaisList1.setModel(model);
             textureGlyphComboBox.setEnabled(false);
             colorGlyphComboBox.setEnabled(false);
             shapeGlyphComboBox.setEnabled(false);
             textGlyphComboBox.setEnabled(false);
+            positionGlyphComboBox.setEnabled(false);
         }
 
         if (!checkCategoricalGlyph.isSelected() && !checkContinuousGlyph.isSelected()) {
@@ -2443,10 +2324,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             clickPanel.setVisible(false);
             layerPane.remove(clickPanel);
             clickPanel = null;
+            glyphMB = null;
         }
     }
 
-    private void loadAtributosDetalhes() {
+    public void loadAtributosDetalhes() {
         List<String> itens = new ArrayList<>();
         List<String> itens2 = new ArrayList<>();
         for (String cabecalho : manipulador.getCabecalho()) {
@@ -2462,7 +2344,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         reloadListGUI(itens2.toArray(), colunasDetalhesList2);
         colunasDetalhesList1.setEnabled(true);
         colunasDetalhesList2.setEnabled(true);
-
     }
 
     private void limparResquiciosBasesAnteriores() {
@@ -2479,7 +2360,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
     private void habilitarVarVisuaisUtilizadasGUI(List<String> variaveis) {
-        for (String var : variaveis) {
+        for (String var : variaveis) {            
             switch (var) {
                 case "Texture":
                     textureGlyphComboBox.setEnabled(true);
@@ -2493,8 +2374,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 case "Text"://case "Letter":
                     textGlyphComboBox.setEnabled(true);
                     break;
-                case "Number":
-//                    atributo5Glyph.setEnabled(true);
+                case "Position":
+                    positionGlyphComboBox.setEnabled(true);
                     break;
             }
         }
@@ -2527,17 +2408,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }
 
-    private Object[] loadColorAttributes2Glyphs() {
-        List<String> itens = new ArrayList<>();
-        List<String> atributosCategoricosCor = new ArrayList<>();
-        for (Object listaAtributosCategorico : getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_2, true)) {
-            atributosCategoricosCor.add((String) listaAtributosCategorico);
-        }
-        itens.addAll(atributosCategoricosCor);
-        itens.addAll(continuousAttributes);
-        return itens.toArray();
-    }
-
     private void loadSetupTreemap() {
         itemTamanho = tamanhoTreemapComboBox.getSelectedItem().toString();
         itemLegenda = legendaComboBox.getSelectedItem().toString();
@@ -2546,7 +2416,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         itensDetalhes = Util.parseListModel2ArrayString(colunasDetalhesList2.getModel());
         for (TreeMapItem treeMapItem : manipulador.getItensTreemap()) {
             treeMapItem.setHighLight(false);
-            System.out.println("treeMapItem id: "+treeMapItem.getId()+" - "+treeMapItem.isHighLighted());
         }
     }
 
@@ -2658,6 +2527,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void createGlassPanel() {
         if (glassPanel == null) {
             glassPanel = new GlassPanel();
+            if (glyphMB != null) {
+                glassPanel.setGlyphMB(glyphMB);
+            }
             glassPanel.setTMView(view);
             layerPane.add(glassPanel, new Integer(1), 0);
         }
@@ -2787,6 +2659,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 logger.info("Leitura do arquivo.");
                 manipulador = new ManipuladorArquivo();
                 manipulador.lerArquivo(selectedFile);
+                setupMB.setManipulador(manipulador);
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Tratando arquivo: " + porcentagem + "%");
                 break;
@@ -2803,7 +2676,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 break;
             case 3:
                 try {
-                    logger.info("Carregando itens no treemap e define um GlyphConcreto a esse item.");
+                    logger.info("Carregando itens no treemap e define um GlyphConcreto a cada item.");
                     manipulador.carregarItensTreemap();
                 } catch (Throwable e) {
                     logger.error("Erro ao criar itens no treemap. \n", e);
@@ -2842,15 +2715,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 break;
             case 5:
                 logger.info("Preparando atributos contínuos.");
-                continuousAttributes = new ArrayList<>();
-                continuousAttributes = loadContinuousAttributes();
+                setupMB.loadContinuousAttributes();
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Preparando atributos contínuos: " + porcentagem + "%");
                 break;
             case 6:
                 logger.info("Preparando atributos categóricos.");
-                categoricalAttributes = new ArrayList<>();
-                categoricalAttributes = loadCategorialAttributes();
+                setupMB.loadCategorialAttributes();
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Preparando atributos categóricos: " + porcentagem + "%");
                 break;
@@ -2868,30 +2739,25 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 break;
             case 9:
                 logger.info("Preparando variáveis glyphs.");
-                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_1, true), textureGlyphComboBox);
-                loadVariaveisGlyph(loadColorAttributes2Glyphs(), colorGlyphComboBox);
-                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_3, true), shapeGlyphComboBox);
-                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_4, true), textGlyphComboBox);
-//                loadVariaveisGlyph(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_5, true), atributo5Glyph);
+                setupMB.loadVariaveisGlyph(setupMB.getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_1, true), textureGlyphComboBox);
+                setupMB.loadVariaveisGlyph(setupMB.loadColorAttributes2Glyphs(), colorGlyphComboBox);
+                setupMB.loadVariaveisGlyph(setupMB.getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_3, true), shapeGlyphComboBox);
+                setupMB.loadVariaveisGlyph(setupMB.getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_4, true), textGlyphComboBox);
+                setupMB.loadVariaveisGlyph(setupMB.loadPositionAttributes2Glyphs(), positionGlyphComboBox);
 
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis glyph: " + porcentagem + "%");
                 break;
             case 10:
                 logger.info("Preparando variáveis hierarquia para o treemap.");
-                loadItensHierarquiaTreemap(categoricalAttributes.toArray());
+                loadItensHierarquiaTreemap(setupMB.getAtributosCategoricos().toArray());
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis hierarquia Treemap: " + porcentagem + "%");
                 break;
             case 11:
                 logger.info("Preparando variáveis Cores para o treemap.");
 //                loadItensCoresTreemap(getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_2, false));
-                List<String> coresTreemap = new ArrayList<>();
-                coresTreemap.add("---");
-                for (String cabecalho : manipulador.getCabecalho()) {
-                    coresTreemap.add(cabecalho);
-                }
-                loadItensCoresTreemap(coresTreemap.toArray());
+                loadItensCoresTreemap(setupMB.loadColorAttributesTreemap());
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Carregando variáveis cores Treemap: " + porcentagem + "%");
                 break;
@@ -2903,11 +2769,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 break;
             case 13:
                 logger.info("Preparando atributos para o continuous glyph.");
-                String[] attributes = new String[continuousAttributes.size() - 1];
-                for (int i = 0; i < continuousAttributes.size() - 1; i++) {
-                    attributes[i] = continuousAttributes.get(i);
-                }
-                loadItensContinuouGlyph(attributes);
+                setupMB.getAtributosContinuos().remove(setupMB.getAtributosContinuos().size() - 1);
+                loadItensContinuouGlyph(setupMB.getAtributosContinuos().toArray());
                 porcentagem = (ordem * 100) / tarefas;
                 progressoBarra.setToolTipText("Preparando atributos para o continuous glyph: " + porcentagem + "%");
                 break;
@@ -2923,7 +2786,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }
 
     private void loadItensTamanhoTreemap() {
-        atualizarComboBox(tamanhoTreemapComboBox, loadContinuousAttributes());
+        atualizarComboBox(tamanhoTreemapComboBox, setupMB.getAtributosContinuos());
         tamanhoTreemapComboBox.setEnabled(true);
     }
 
@@ -2956,72 +2819,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         corTreemapComboBox.setEnabled(true);
     }
 
-    /**
-     * Metodo usado para carregar os atributos categoricos nas listas de glyphs
-     *
-     * @param nivel
-     * @return um array contendo os atributos que serao exibidos nas listas dos
-     * glyphs
-     */
-    private Object[] getListaAtributosCategoricos(Constantes.NivelGlyph nivel, boolean glyph) {
-        ArrayList<String> list = new ArrayList<>();
-        list.add(0, "---");
-        list.addAll(analisarAtributosCategoricos(nivel, glyph));
-        return list.toArray();
-    }
-
-    private List<String> analisarQuantAtributosCategoricos(List<String> list, Object[] obj) {
-        for (String colunasCategorica : categoricalAttributes) {
-            Coluna c = ManipuladorArquivo.getColuna(colunasCategorica);
-            int quantDadosDistintos = c.getDadosDistintos().size();
-            if (quantDadosDistintos <= obj.length) {
-                list.add(c.getName());
-            }
-        }
-        return list;
-    }
-
-    private List<String> analisarAtributosCategoricos(Constantes.NivelGlyph nivel, boolean glyph) {
-        ArrayList<String> list = new ArrayList<>();
-        switch (nivel) {
-            case NIVEL_1:
-                analisarQuantAtributosCategoricos(list, Constantes.TIPO_TEXTURA);
-                break;
-            case NIVEL_2:
-                if (glyph) {
-                    analisarQuantAtributosCategoricos(list, Constantes.getCorGlyphs());
-                } else {
-                    analisarQuantAtributosCategoricos(list, Constantes.getCor());
-                }
-                break;
-            case NIVEL_3:
-                GeometryFactory.FORMAS.GLYPH_FORMAS[] formas = new GeometryFactory.FORMAS.GLYPH_FORMAS[GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1];
-                for (int i = 0; i < formas.length; i++) {
-                    formas[i] = GeometryFactory.FORMAS.GLYPH_FORMAS.values()[i];
-                }
-                analisarQuantAtributosCategoricos(list, formas);
-                break;
-            case NIVEL_4:
-                analisarQuantAtributosCategoricos(list, Constantes.LETRAS_ALFABETO);
-                break;
-            case NIVEL_5:
-                analisarQuantAtributosCategoricos(list, Constantes.NUMEROS);
-                break;
-            default:
-                System.err.println("Nao foi carregar atributos para a dimensão.");
-        }
-        return list;
-    }
-
     private void atualizarComboBox(JComboBox comboBox, List<String> itens) {
         Object[] items = itens.toArray();
         DefaultComboBoxModel model = new DefaultComboBoxModel(items);
         comboBox.setModel(model);
-    }
-
-    private void loadVariaveisGlyph(Object[] objs, JComboBox<String> atributo) {
-        DefaultComboBoxModel model = new DefaultComboBoxModel(objs);
-        atributo.setModel(model);
     }
 
     private void loadVarVisuais(Object[] objs) {
@@ -3034,57 +2835,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         jList.setModel(model);
     }
 
-    private List<String> loadContinuousAttributes() {
-        List<String> data = new ArrayList<>();
-        for (String cabecalho : manipulador.getCabecalho()) {
-            String tipo = manipulador.getMapaCabecalho().get(cabecalho);
-            if (tipo.equalsIgnoreCase(Metadados.TipoDados.Integer.name())
-                    || tipo.equalsIgnoreCase(Metadados.TipoDados.Double.name())) {
-                data.add(cabecalho);
-            }
-        }
-        return data;
-    }
-
-    private List<String> loadCategorialAttributes() {
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < manipulador.getColunas().length - 1; i++) {
-            Coluna c = manipulador.getColunas()[i];
-            if (c.getDescription().equals(Metadados.Descricao.CATEGORICAL)) {
-                list.add(c.getName());
-            }
-        }
-        return list;
-    }
-
-    private void appendToPane(JTextPane tp, String msg, Color c) {
-        StyleContext sc = StyleContext.getDefaultStyleContext();
-        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
-
-        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
-        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-
-        int len = tp.getDocument().getLength();
-        tp.setCaretPosition(len);
-        tp.setCharacterAttributes(aset, false);
-        tp.replaceSelection(msg);
-    }
-
-//    JScrollPane pane = new JScrollPane();
-    private void removerLinhasTableModel(DefaultTableModel dtm) {
-        if (dtm.getRowCount() > 0) {
-            for (int i = dtm.getRowCount() - 1; i > -1; i--) {
-                dtm.removeRow(i);
-            }
-        }
-    }
-
     /**
      * Invoked when task's progress property changes.
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (Constantes.PROGRESS == evt.getPropertyName()) {
+        if (Constantes.PROGRESS.equals(evt.getPropertyName())) {
             int progress = (Integer) evt.getNewValue();
             progressoBarra.setValue(progress);
         }

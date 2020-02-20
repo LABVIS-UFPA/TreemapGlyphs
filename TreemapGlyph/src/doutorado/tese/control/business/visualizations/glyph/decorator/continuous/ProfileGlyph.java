@@ -8,15 +8,12 @@ package doutorado.tese.control.business.visualizations.glyph.decorator.continuou
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
-//import io.ManipuladorArquivo;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.util.List;
-import javax.swing.JOptionPane;
-//import util.Constantes;
 
 /**
  *
@@ -36,8 +33,8 @@ public class ProfileGlyph extends Glyph {
     private int quantBarras;
     private int[] pontosLinhaCentro;
 
-    public ProfileGlyph(List<String> variaveisEscolhidasStarGlyph) {
-        this.atributosEscolhidaoBase = variaveisEscolhidasStarGlyph;
+    public ProfileGlyph(List<String> variaveisEscolhidasProfileGlyph) {
+        this.atributosEscolhidaoBase = variaveisEscolhidasProfileGlyph;
         barras = new Bar[this.atributosEscolhidaoBase.size()];
         quantBarras = this.atributosEscolhidaoBase.size();
     }

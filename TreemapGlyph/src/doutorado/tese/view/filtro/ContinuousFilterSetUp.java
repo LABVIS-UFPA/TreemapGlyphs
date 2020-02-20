@@ -129,7 +129,7 @@ public class ContinuousFilterSetUp extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        //Aqui vai o codigo com as configuracoes para filtrar
+        //TODO Aqui vai o codigo com as configuracoes para filtrar
         
         this.dispose();
     }//GEN-LAST:event_okButtonActionPerformed

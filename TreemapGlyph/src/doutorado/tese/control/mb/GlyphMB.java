@@ -19,6 +19,7 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.categorica
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.util.ColorInterpolator;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.AngChart;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.StarGlyph;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.EixoPolarStarGlyph;
@@ -33,6 +34,8 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import net.bouthier.treemapAWT.TMNodeEncapsulator;
 import net.bouthier.treemapAWT.TMNodeModel;
 import net.bouthier.treemapAWT.TMNodeModelComposite;
@@ -44,7 +47,7 @@ import net.bouthier.treemapAWT.TMNodeModelRoot;
  */
 public final class GlyphMB {
 
-    private List<Object> atributosEscolhidos;
+    private List<Object> atributosCategoricosEscolhidos;
     private HashMap<String, List<String>> colunaDadosDist;
     private TMNodeModelRoot rootNodeZoom;
     private HashMap<String, Integer> configs;
@@ -55,11 +58,12 @@ public final class GlyphMB {
     private String glyphContinuoEscolhido;
 
     public GlyphMB() {
-        this.configs = new HashMap<>();
+        colunaDadosDist = new HashMap<>();
+        this.configs = new HashMap<>();        
     }
 
-    public GlyphMB(ManipuladorArquivo manipulador, List<Object> atributosEscolhidos, Rectangle bounds) {
-        this.atributosEscolhidos = atributosEscolhidos;
+    public GlyphMB(List<Object> atributosEscolhidos, Rectangle bounds) {
+        this.atributosCategoricosEscolhidos = atributosEscolhidos;
         colunaDadosDist = new HashMap<>();
         analisarAtributosEscolhidos();
         this.configs = new HashMap<>();
@@ -67,9 +71,9 @@ public final class GlyphMB {
     }
 
     public void analisarAtributosEscolhidos() {
-        for (int i = 0; i < atributosEscolhidos.size(); i++) {
-            if (!atributosEscolhidos.get(i).equals("---")) {
-                Coluna c = ManipuladorArquivo.getColuna(atributosEscolhidos.get(i).toString());
+        for (int i = 0; i < getAtributosCategoricosEscolhidos().size(); i++) {
+            if (!atributosCategoricosEscolhidos.get(i).equals("---")) {
+                Coluna c = ManipuladorArquivo.getColuna(getAtributosCategoricosEscolhidos().get(i).toString());
                 List<String> dadosDistintos = c.getDadosDistintos();
                 colunaDadosDist.put(c.getName(), dadosDistintos);
             }
@@ -95,7 +99,7 @@ public final class GlyphMB {
             ArrayList<Glyph> list = new ArrayList<>();
             item.getGlyph().paint(g2d);
             item.getGlyph().getChildren(list);
-            g2d.setClip(0, 0, bounds.width, bounds.height);
+            g2d.setClip(0, 0, getBounds().width, getBounds().height);
         }
     }
 
@@ -219,7 +223,7 @@ public final class GlyphMB {
         List<String> dadosDistintos = null;
 
         if (dimensao != -1) {
-            colunaEscolhida = atributosEscolhidos.get(dimensao).toString();
+            colunaEscolhida = getAtributosCategoricosEscolhidos().get(dimensao).toString();
             col = ManipuladorArquivo.getColuna(colunaEscolhida);
             dadosDistintos = colunaDadosDist.get(colunaEscolhida);
         }
@@ -237,8 +241,8 @@ public final class GlyphMB {
                 case "Text"://case "Letter":
                     glyph = prepareDimensaoTextDinamico(col, item, dadosDistintos);
                     break;
-                case "Number":
-                    glyph = prepareDimensaoNumberDinamico(col, item, dadosDistintos);
+                case "Position":
+                    glyph = prepareDimensaoPositionDinamico(col, item, dadosDistintos);
                     break;
                 case "Star":
                     glyph = configureStarGlyph(item);
@@ -377,6 +381,17 @@ public final class GlyphMB {
         }
         return null;
     }
+    
+    public Glyph prepareDimensaoPositionDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos){
+        for (int j = 0; j < Constantes.POSICOES.values().length; j++) {
+            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
+                Glyph position = definePosition(Constantes.POSICOES.values()[j]);
+                position.setNodeTreemap(item);
+                return position;
+            }
+        }
+        return null;
+    }
 
     @Deprecated
     public Glyph prepareDimensaoNumberDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
@@ -428,9 +443,15 @@ public final class GlyphMB {
         return text;
     }
 
+    private Glyph definePosition(Constantes.POSICOES posicao) {
+        Position p = new Position();
+        p.setPosicao(posicao);
+        p.setPectSobreposicao(0.65f);
+        p.setOverlappingActivated(overlappingActivated);
+        return p;
+    }
     /**
-     * Mapeia as dimenssões 0 - textura, 1 - cor, 2 - forma, 3 - text, 4 -
-     * numero
+     * Mapeia as dimenssões 0 - texture, 1 - color, 2 - shape, 3 - text, 4 - position
      *
      * @param varVisual nome da var visual
      * @return int representando a dimensao
@@ -450,18 +471,19 @@ public final class GlyphMB {
             case "Text"://case "Letter":
                 dimensao = 3;
                 break;
-            case "Number":
+            case "Position":
                 dimensao = 4;
                 break;
-            case "Star":
-                dimensao = 4;
-                break;
+//            case "Star":
+//                dimensao = 4;
+//                break;
             default:
+                System.err.println("Erro, dimension not specified!");
                 throw new AssertionError();
         }
         return dimensao;
     }
-
+    
     public void configGlyphDesingModel(boolean overlappingActivated) {
         this.overlappingActivated = overlappingActivated;
     }
@@ -519,5 +541,33 @@ public final class GlyphMB {
      */
     public void setAtributosEscolhidosGlyphContinuo(List<String> atributosEscolhidosStarGlyph) {
         this.atributosEscolhidosGlyphContinuo = atributosEscolhidosStarGlyph;
+    }
+
+    /**
+     * @return the bounds
+     */
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
+    /**
+     * @param bounds the bounds to set
+     */
+    public void setBounds(Rectangle bounds) {
+        this.bounds = bounds;
+    }
+
+    /**
+     * @return the atributosCategoricosEscolhidos
+     */
+    public List<Object> getAtributosCategoricosEscolhidos() {
+        return atributosCategoricosEscolhidos;
+    }
+
+    /**
+     * @param atributosCategoricosEscolhidos the atributosCategoricosEscolhidos to set
+     */
+    public void setAtributosCategoricosEscolhidos(List<Object> atributosCategoricosEscolhidos) {
+        this.atributosCategoricosEscolhidos = atributosCategoricosEscolhidos;
     }
 }

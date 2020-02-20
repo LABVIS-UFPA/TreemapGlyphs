@@ -18,6 +18,7 @@ import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.model.TreeMapLevel;
 import doutorado.tese.model.TreeMapNode;
 import doutorado.tese.util.ColunasLog;
+import doutorado.tese.util.Metadados;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -140,7 +141,7 @@ public class DrawAreaMB {
             }
         });
     }
-
+    
     private void highLightTreemapItem(TreeMapItem node) {
         if (node.isHighLighted()) {
             node.setHighLight(false);

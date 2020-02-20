@@ -30,7 +30,6 @@ public class Text extends Glyph {
     private int heightLetra;
     private String letra;
     private Font fonte;
-    private boolean legenda;
     private boolean ativo = false;
     private Shape shapeLetra;
     private int x, y;
