@@ -34,8 +34,6 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import net.bouthier.treemapAWT.TMNodeEncapsulator;
 import net.bouthier.treemapAWT.TMNodeModel;
 import net.bouthier.treemapAWT.TMNodeModelComposite;

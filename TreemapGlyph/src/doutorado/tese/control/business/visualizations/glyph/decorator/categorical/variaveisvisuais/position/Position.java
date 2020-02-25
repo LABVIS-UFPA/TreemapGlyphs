@@ -20,16 +20,16 @@ import java.awt.geom.Path2D;
  *
  * @author Anderson Soares
  */
-public class Position extends Glyph{
+public class Position extends Glyph {
 
     private int[] xPoints;
     private int[] yPoints;
     private Path2D p;
     private Constantes.POSICOES posicao;
-    
+
     public Position() {
     }
-    
+
     public void montarCirculo() {
         double x = xPoints[0];
         double y = yPoints[0];
@@ -37,11 +37,11 @@ public class Position extends Glyph{
         double h = xPoints[1];
         double wCirculo = w / 4;
         double hCirculo = wCirculo;
-        switch (getPosicao()) {            
+        switch (getPosicao()) {
             case DIR_SUP:
                 x = x + (w - wCirculo);
                 break;
-            case DIR_INF:                
+            case DIR_INF:
                 x = x + (w - wCirculo);
                 y = y + (h - hCirculo);
                 break;
@@ -53,8 +53,8 @@ public class Position extends Glyph{
             default:
                 throw new AssertionError();
         }
-        p = new Path2D.Double();       
-        p.append(new Ellipse2D.Double(x, y, wCirculo, hCirculo), true);   
+        p = new Path2D.Double();
+        p.append(new Ellipse2D.Double(x, y, wCirculo, hCirculo), true);
     }
 
     private void montarRetangulo() {
@@ -77,25 +77,28 @@ public class Position extends Glyph{
         xPoints[1] = width;
         yPoints[1] = height;
     }
-        
+
     @Override
     public void paint(Graphics2D g2d) {
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-               
-        g2d.setColor(Color.white);
-        g2d.fill(p);
-        g2d.setColor(Color.black);
-        g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
-        g2d.draw(p);
+        if (isVisible()) {
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            g2d.setColor(Color.black);
+            g2d.fill(p);
+            g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
+            g2d.setColor(Color.white);
+            g2d.draw(p);
+        }
+        super.paint(g2d);
     }
-    
+
     @Override
-    public void setBounds(Rectangle rect){
+    public void setBounds(Rectangle rect) {
         super.setBounds(rect);
         montarRetangulo();
         montarCirculo();
     }
-    
+
     @Override
     public Shape getClipShape() {
         return getBounds();
@@ -129,8 +132,5 @@ public class Position extends Glyph{
     public void setPosicao(Constantes.POSICOES posicao) {
         this.posicao = posicao;
     }
-    
-    
-    
-    
+
 }

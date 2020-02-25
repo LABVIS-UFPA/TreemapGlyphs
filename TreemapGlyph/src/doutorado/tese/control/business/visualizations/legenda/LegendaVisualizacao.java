@@ -147,7 +147,7 @@ public class LegendaVisualizacao {
                     icon.setValorIcon(Constantes.LETRAS_ALFABETO[i]);
                     break;
                 case 4:
-                    icon.setValorIcon(Constantes.NUMEROS[i]);
+                    icon.setValorIcon(Constantes.POSICOES.values()[i]);
                     break;
                 case 5:
 //                    criarLegendaContinua(5,painel);

@@ -9,6 +9,7 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.numbers.Numeral;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
@@ -43,6 +44,7 @@ public class IconeLegenda implements Icon {
     private BasicStroke stroke = new BasicStroke(4);
     private FORMAS.GLYPH_FORMAS valorForma = null;
     private List<String> atributosEscolhidosGlyphContinuo = null;
+    private Constantes.POSICOES posicao;
 
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
@@ -121,30 +123,25 @@ public class IconeLegenda implements Icon {
                 letra.paint(g2d);
                 break;
             case 4:
-                Glyph glyphNumeral = new Numeral();
-                Numeral num = (Numeral) glyphNumeral;
-                num.setLetra(valor);
-                num.setPectSobreposicao(0.65f);
-                num.setOverlappingActivated(true);
-                num.setBounds(bounds);
-                num.paint(g2d);
+                Position p = new Position();
+                p.setPosicao(posicao);
+                p.setPectSobreposicao(0.65f);
+                p.setOverlappingActivated(true);
+                p.setBounds(bounds);
+                p.paint(g2d);
                 break;
             case 5:
                 if (valor==null) {
-//                    System.out.println(getAtributosEscolhidosGlyphContinuo());
                     ProfileGlyph bar = new ProfileGlyph(getAtributosEscolhidosGlyphContinuo());
                     bar.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
                     bar.setPectSobreposicao(0.85f);
                     bar.setOverlappingActivated(true);
                     double dado = 20;
                     for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
-//                        String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
-//                        Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
                         dado -= 2;
                         double dadoMaxVal = 20;//0 - maxValue; 1 - minValue
                         bar.getBarras()[i] = new Bar(dado, dadoMaxVal);
                     }   
-//                    Rectangle r = new Rectangle(10,10,bounds.width*5,bounds.height*5);
                     Rectangle r = new Rectangle(10,10,bounds.width*3,bounds.height*4);
                     
                     bar.setBounds(r);
@@ -212,6 +209,10 @@ public class IconeLegenda implements Icon {
 
     void setValorIcon(FORMAS.GLYPH_FORMAS forma) {
         this.valorForma = forma;
+    }
+    
+    void setValorIcon(Constantes.POSICOES posicao){
+        this.posicao = posicao;
     }
 
     /**
