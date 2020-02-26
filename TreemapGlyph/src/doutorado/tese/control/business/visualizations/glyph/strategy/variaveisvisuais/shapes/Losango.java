@@ -88,7 +88,7 @@ public class Losango implements DrawBehavior {
     }
 
     @Override
-    public void setBounds(Rectangle bounds) {
+    public void setGlyphBounds(Rectangle bounds) {
         this.bounds = bounds;
         montarLosango();
     }

@@ -5,13 +5,8 @@
  */
 package doutorado.tese.view.detalhessobdemanda;
 
-import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.control.business.visualizations.legenda.IconeLegenda;
 import doutorado.tese.control.mb.detailsMB.DetailsOnDemandMB;
-import doutorado.tese.dao.ManipuladorArquivo;
-import doutorado.tese.model.Coluna;
-import doutorado.tese.model.TreeMapItem;
-import doutorado.tese.model.TreeMapLevel;
 
 /**
  *

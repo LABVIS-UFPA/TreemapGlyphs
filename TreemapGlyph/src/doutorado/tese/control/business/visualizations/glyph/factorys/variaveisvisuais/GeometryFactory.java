@@ -9,10 +9,12 @@ import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvi
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Cruz;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.DrawBehavior;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Ellipse;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Estrela;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Hexagono;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Losango;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Pentagono;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Retangulo;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Quadrado;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Serrinhado;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Trapezio;
 
 /**
@@ -25,13 +27,15 @@ public class GeometryFactory {
 
         public enum GLYPH_FORMAS {
             CRUZ("CRUZ"),
-            LOSANGO("LOSANGO"),
-            TRAPEZIO("TRAPEZIO"),
-            PENTAGONO("PENTAGONO"),
-            RETANGULO("RETANGULO"),
-            HEXAGONO("HEXAGONO"),
+            QUADRADO_SERRILHADO("SERRILHADO"),
+            ESTRELA("ESTRELA"),
             CIRCULO("CIRCULO"),
-            ELLIPSE("ELLIPSE");
+            QUADRADO("QUADRADO");//,
+            //LOSANGO("LOSANGO"),
+            //TRAPEZIO("TRAPEZIO"),
+            //PENTAGONO("PENTAGONO"),
+            //HEXAGONO("HEXAGONO"),
+            //ELLIPSE("ELLIPSE");
 
             private final String nome;
 
@@ -39,7 +43,7 @@ public class GeometryFactory {
                 this.nome = nome;
             }
 
-            private String nome() {
+            public String shapeName() {
                 return nome;
             }
         }
@@ -50,22 +54,26 @@ public class GeometryFactory {
 
     public static DrawBehavior create(FORMAS.GLYPH_FORMAS forma) {
         switch (forma) {
-            case RETANGULO:
-                return new Retangulo();
-            case CRUZ:
-                return new Cruz();
-            case ELLIPSE:
-                return new Ellipse();
             case CIRCULO:
                 return new Circulo();
-            case HEXAGONO:
-                return new Hexagono();
-            case LOSANGO:
-                return new Losango();
-            case PENTAGONO:
-                return new Pentagono();
-            case TRAPEZIO:
-                return new Trapezio();
+            case CRUZ:
+                return new Cruz();
+            case QUADRADO:
+                return new Quadrado();
+            case ESTRELA:
+                return new Estrela();
+            case QUADRADO_SERRILHADO:
+                return new Serrinhado();
+//            case ELLIPSE:
+//                return new Ellipse();
+//            case HEXAGONO:
+//                return new Hexagono();
+//            case LOSANGO:
+//                return new Losango();
+//            case PENTAGONO:
+//                return new Pentagono();
+//            case TRAPEZIO:
+//                return new Trapezio();
             default:
                 return null;
         }

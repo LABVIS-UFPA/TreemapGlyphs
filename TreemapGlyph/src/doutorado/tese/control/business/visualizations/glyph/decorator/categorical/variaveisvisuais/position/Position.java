@@ -50,6 +50,10 @@ public class Position extends Glyph {
                 break;
             case ESQ_SUP:
                 break;
+            case CENTRO:
+                x = (x + (w / 2)) - (wCirculo / 2);
+                y = (y + (h / 2)) - (hCirculo / 2);
+                break;
             default:
                 throw new AssertionError();
         }
@@ -83,11 +87,11 @@ public class Position extends Glyph {
         if (isVisible()) {
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-            g2d.setColor(Color.black);
-            g2d.fill(p);
-            g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
             g2d.setColor(Color.white);
-            g2d.draw(p);
+            g2d.draw(p);//desenha circulo branco
+            g2d.setColor(Color.black);
+            g2d.fill(p);//pinta circulo preto
+            g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);//desenha quadrado preto
         }
         super.paint(g2d);
     }

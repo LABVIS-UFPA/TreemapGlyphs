@@ -18,7 +18,7 @@ import java.awt.TexturePaint;
  *
  * @author Anderson Soares
  */
-public class Cor extends Glyph {
+public class ColorHue extends Glyph {
 
     private Color cor;
 

@@ -66,7 +66,7 @@ public class IconeLegenda implements Icon {
                 } else {
                     Glyph iconColorTreemap = new FormaGeometrica();
                     FormaGeometrica shape = (FormaGeometrica) iconColorTreemap;
-                    shape.setDrawBehavior(GeometryFactory.create(FORMAS.GLYPH_FORMAS.RETANGULO));
+                    shape.setDrawBehavior(GeometryFactory.create(FORMAS.GLYPH_FORMAS.QUADRADO));
                     shape.setPectSobreposicao(0.65f);
                     shape.setOverlappingActivated(true);
                     shape.setCorLegenda(Color.decode(valor));
@@ -96,7 +96,7 @@ public class IconeLegenda implements Icon {
                 } else {
                     Glyph iconRectColor = new FormaGeometrica();
                     FormaGeometrica shapeColor = (FormaGeometrica) iconRectColor;
-                    shapeColor.setDrawBehavior(GeometryFactory.create(FORMAS.GLYPH_FORMAS.RETANGULO));
+                    shapeColor.setDrawBehavior(GeometryFactory.create(FORMAS.GLYPH_FORMAS.QUADRADO));
                     shapeColor.setPectSobreposicao(0.65f);
                     shapeColor.setOverlappingActivated(true);
                     shapeColor.setCorLegenda(Color.decode(valor));

@@ -88,7 +88,7 @@ public class Trapezio implements DrawBehavior {
     }
 
     @Override
-    public void setBounds(Rectangle bounds) {
+    public void setGlyphBounds(Rectangle bounds) {
         this.bounds = bounds;
         montarTrapezio();
     }

@@ -37,41 +37,42 @@ public class SetUpMB {
     /**
      * Metodo usado para carregar os atributos categoricos nas listas de glyphs
      *
-     * @param nivel
+     * @param varVisual
+     * @param glyph
      * @return um array contendo os atributos que serao exibidos nas listas dos
      * glyphs
      */
-    public Object[] getListaAtributosCategoricos(Constantes.NivelGlyph nivel, boolean glyph) {
+    public Object[] getListaAtributosCategoricos(Constantes.VAR_VISUAIS_CATEGORICAS varVisual, boolean glyph) {
         ArrayList<String> list = new ArrayList<>();
         list.add(0, "---");
-        list.addAll(analisarAtributosCategoricos(nivel, glyph));
+        list.addAll(analisarAtributosCategoricos(varVisual, glyph));
         return list.toArray();
     }
 
-    public List<String> analisarAtributosCategoricos(Constantes.NivelGlyph nivel, boolean glyph) {
+    public List<String> analisarAtributosCategoricos(Constantes.VAR_VISUAIS_CATEGORICAS varVisual, boolean glyph) {
         ArrayList<String> list = new ArrayList<>();
-        switch (nivel) {
-            case NIVEL_1:
+        switch (varVisual) {
+            case TEXTURE:
                 analisarQuantAtributosCategoricos(list, Constantes.TIPO_TEXTURA);
                 break;
-            case NIVEL_2:
+            case COLOR_HUE:
                 if (glyph) {
-                    analisarQuantAtributosCategoricos(list, Constantes.getCorGlyphs());
+                    analisarQuantAtributosCategoricos(list, Constantes.getColorHueGlyphs());
                 } else {
                     analisarQuantAtributosCategoricos(list, Constantes.getCor());
                 }
                 break;
-            case NIVEL_3:
-                GeometryFactory.FORMAS.GLYPH_FORMAS[] formas = new GeometryFactory.FORMAS.GLYPH_FORMAS[GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1];
+            case SHAPE:
+                GeometryFactory.FORMAS.GLYPH_FORMAS[] formas = new GeometryFactory.FORMAS.GLYPH_FORMAS[GeometryFactory.FORMAS.GLYPH_FORMAS.values().length];
                 for (int i = 0; i < formas.length; i++) {
                     formas[i] = GeometryFactory.FORMAS.GLYPH_FORMAS.values()[i];
                 }
                 analisarQuantAtributosCategoricos(list, formas);
                 break;
-            case NIVEL_4:
+            case TEXT:
                 analisarQuantAtributosCategoricos(list, Constantes.LETRAS_ALFABETO);
                 break;
-            case NIVEL_5:
+            case POSITION:
                 analisarQuantAtributosCategoricos(list, Constantes.POSICOES.values());
                 break;
             default:
@@ -105,7 +106,7 @@ public class SetUpMB {
     public Object[] loadColorAttributes2Glyphs() {
         List<String> itens = new ArrayList<>();
         List<String> atributosCategoricosCor = new ArrayList<>();
-        for (Object listaAtributosCategorico : getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_2, true)) {
+        for (Object listaAtributosCategorico : getListaAtributosCategoricos(Constantes.VAR_VISUAIS_CATEGORICAS.COLOR_HUE, true)) {
             atributosCategoricosCor.add((String) listaAtributosCategorico);
         }
         itens.addAll(atributosCategoricosCor);
@@ -114,11 +115,11 @@ public class SetUpMB {
     }
 
     public Object[] loadPositionAttributes2Glyphs() {
-        List<String> atributosCategoricos = new ArrayList<>();
-        for (Object listaAtributosCategorico : getListaAtributosCategoricos(Constantes.NivelGlyph.NIVEL_5, true)) {
-            atributosCategoricos.add((String) listaAtributosCategorico);
+        List<String> atributos = new ArrayList<>();
+        for (Object listaAtributosCategorico : getListaAtributosCategoricos(Constantes.VAR_VISUAIS_CATEGORICAS.POSITION, true)) {
+            atributos.add((String) listaAtributosCategorico);
         }
-        return atributosCategoricos.toArray();
+        return atributos.toArray();
     }
 
     public Object[] loadColorAttributesTreemap() {

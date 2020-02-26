@@ -21,7 +21,7 @@ public interface DrawBehavior extends Cloneable{
 
     public int getArea();
 
-    public void setBounds(Rectangle bounds);
+    public void setGlyphBounds(Rectangle bounds);
 
     public Shape getClipShape();
     

@@ -137,7 +137,7 @@ public class LegendaVisualizacao {
                     break;
                 case 1:
                     if (c.getDescription() == Metadados.Descricao.CATEGORICAL) {
-                        icon.setValorIcon(Constantes.getCorGlyphs()[i]);
+                        icon.setValorIcon(Constantes.getColorHueGlyphs()[i]);
                     }
                     break;
                 case 2:

@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 
-public class Retangulo implements DrawBehavior {
+public class Quadrado implements DrawBehavior {
 
     private int[] xPoints;
     private int[] yPoints;
@@ -14,7 +14,7 @@ public class Retangulo implements DrawBehavior {
     private Rectangle bounds;
     private boolean isLegenda;
 
-    public Retangulo() {
+    public Quadrado() {
         isLegenda = false;
     }
 
@@ -22,14 +22,17 @@ public class Retangulo implements DrawBehavior {
     public void paint(Graphics2D g2d) {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g2d.setPaint(Color.WHITE);
+//        g2d.setPaint(Color.WHITE);
         if (isLegenda) {
             g2d.setColor(getCor());
-        }else{
-            g2d.setColor(Color.WHITE);
+        } else {
+//            g2d.setColor(Color.WHITE);
+//            g2d.setColor(Color.decode("#A9A9A9"));
+            g2d.setColor(Color.BLACK);
         }
+//        g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
         g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.WHITE);
         g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
     }
 
@@ -42,27 +45,31 @@ public class Retangulo implements DrawBehavior {
         }
     }
 
-    private void montarRetangulo() {
+    private void montarQuadrado() {
         int[] points = new int[2];
 
-        Rectangle rect = getBounds();
+        Rectangle glyphBounds = getBounds();
 
-        points[0] = rect.width;
-        points[1] = rect.height;
+        points[0] = glyphBounds.width;
+        points[1] = glyphBounds.height;
 
         tornarGlyphQuadrado(points);
+        montarQuadradoSobreposicao(points);
 
-        int width = (int) Math.round(points[0] * percentSobreposicao);
-        int height = (int) Math.round(points[1] * percentSobreposicao);
+    }
+
+    public void montarQuadradoSobreposicao(int[] points) {
+        int widthSobreposicao = (int) Math.round(points[0] * percentSobreposicao);
+        int heightSobreposicao = (int) Math.round(points[1] * percentSobreposicao);
 
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = rect.x + rect.width / 2 - width / 2;
-        yPoints[0] = rect.y + rect.height / 2 - height / 2;
+        xPoints[0] = getBounds().x + (getBounds().width / 2) - (widthSobreposicao / 2);
+        yPoints[0] = getBounds().y + (getBounds().height / 2) - (heightSobreposicao / 2);
 
-        xPoints[1] = width;
-        yPoints[1] = height;
+        xPoints[1] = widthSobreposicao;
+        yPoints[1] = heightSobreposicao;
     }
 
     public Rectangle getBounds() {
@@ -70,9 +77,9 @@ public class Retangulo implements DrawBehavior {
     }
 
     @Override
-    public void setBounds(Rectangle bounds) {
+    public void setGlyphBounds(Rectangle bounds) {
         this.bounds = bounds;
-        montarRetangulo();
+        montarQuadrado();
     }
 
     @Override
@@ -92,10 +99,10 @@ public class Retangulo implements DrawBehavior {
     }
 
     @Override
-    public Retangulo clone() throws CloneNotSupportedException {
+    public Quadrado clone() throws CloneNotSupportedException {
         try {
             // call clone in Object.
-            return (Retangulo) super.clone();
+            return (Quadrado) super.clone();
         } catch (CloneNotSupportedException e) {
             System.err.println("Cloning not allowed.");
             return this;
@@ -105,7 +112,7 @@ public class Retangulo implements DrawBehavior {
     @Override
     public String toString() {
         super.toString();
-        return Retangulo.class.getSimpleName();
+        return Quadrado.class.getSimpleName();
     }
 
     /**

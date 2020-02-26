@@ -17,8 +17,6 @@ public class Circulo implements DrawBehavior{
 
     private int[] xPoints;
     private int[] yPoints;
-    private int numberColor;
-    private Color cor;
     private Rectangle bounds;
     private Path2D p;
 
@@ -28,10 +26,13 @@ public class Circulo implements DrawBehavior{
     @Override
     public void paint(Graphics2D g2d) {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-               
-        g2d.setColor(Color.white);
+        
+        //desenha background da forma
+//        g2d.setColor(Color.decode("#A9A9A9"));
+//        g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
+        g2d.setColor(Color.BLACK);
         g2d.fill(p);
-        g2d.setColor(Color.black);
+        g2d.setColor(Color.WHITE);
         g2d.draw(p);
     }
     
@@ -45,20 +46,30 @@ public class Circulo implements DrawBehavior{
     }
 
     private void montarCirculo() {
-        Rectangle rect = getBounds();
-        
         int[] points = new int[2];
 
         points[0] = getBounds().width;
         points[1] = getBounds().height;
         
         tornarGlyphQuadrado(points);
+        montarQuadradoSobreposicao(points);
         
-        int width = (int) Math.round(points[0] * percentSobreposicao);
-        int height = (int) Math.round(points[1] * percentSobreposicao);
-
         p = new Path2D.Double();       
-        p.append(new Ellipse2D.Double(rect.x + 2, rect.y + 2, width, height), true);   
+        p.append(new Ellipse2D.Double(xPoints[0], yPoints[0], xPoints[1], yPoints[1]), true);   
+    }
+    
+    public void montarQuadradoSobreposicao(int[] points){
+        int widthSobreposicao = (int) Math.round(points[0] * percentSobreposicao);
+        int heightSobreposicao = (int) Math.round(points[1] * percentSobreposicao);
+
+        xPoints = new int[2];
+        yPoints = new int[2];
+
+        xPoints[0] = getBounds().x + (getBounds().width / 2) - (widthSobreposicao / 2);
+        yPoints[0] = getBounds().y + (getBounds().height / 2) - (heightSobreposicao / 2);
+
+        xPoints[1] = widthSobreposicao;
+        yPoints[1] = heightSobreposicao;
     }
 
     public Rectangle getBounds(){
@@ -66,7 +77,7 @@ public class Circulo implements DrawBehavior{
     }
     
     @Override
-    public void setBounds(Rectangle bounds){
+    public void setGlyphBounds(Rectangle bounds){
         this.bounds = bounds;
         montarCirculo();
     }

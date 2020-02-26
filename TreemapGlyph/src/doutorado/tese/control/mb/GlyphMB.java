@@ -12,7 +12,7 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.Bar;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.color.Cor;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.color.ColorHue;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
@@ -146,7 +146,7 @@ public final class GlyphMB {
             if (glyph instanceof Textura) {
                 features[Constantes.AREA_TEXTURA] = glyph.getArea();//aqui a area sera calculada no getArea()
                 features[Constantes.PRESENCA_TEXTURA] = Constantes.PRESENTE;
-            } else if (glyph instanceof Cor) {
+            } else if (glyph instanceof ColorHue) {
                 features[Constantes.AREA_COR] = glyph.getArea();
                 features[Constantes.PRESENCA_COR] = Constantes.PRESENTE;
             } else if (glyph instanceof FormaGeometrica) {
@@ -346,9 +346,9 @@ public final class GlyphMB {
             glyphCor.setNodeTreemap(item);
             return glyphCor;
         } else {
-            for (int j = 0; j < Constantes.getCorGlyphs().length; j++) {
+            for (int j = 0; j < Constantes.getColorHueGlyphs().length; j++) {
                 if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                    Color cor = Color.decode(Constantes.getCorGlyphs()[j]);
+                    Color cor = Color.decode(Constantes.getColorHueGlyphs()[j]);
                     glyphCor = defineColor(cor);
                     glyphCor.setNodeTreemap(item);
                     return glyphCor;
@@ -359,7 +359,7 @@ public final class GlyphMB {
     }
 
     public Glyph prepareDimensaoShapeDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-        for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
+        for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 Glyph shape = defineShape(FORMAS.GLYPH_FORMAS.values()[j]);
                 shape.setNodeTreemap(item);
@@ -416,8 +416,8 @@ public final class GlyphMB {
     }
 
     private Glyph defineColor(Color color) {
-        Glyph glyph = new Cor();
-        Cor cor = (Cor) glyph;
+        Glyph glyph = new ColorHue();
+        ColorHue cor = (ColorHue) glyph;
         cor.setCor(color);
         cor.setPectSobreposicao(0.65f);
         cor.setOverlappingActivated(overlappingActivated);
@@ -425,12 +425,12 @@ public final class GlyphMB {
     }
 
     private Glyph defineShape(FORMAS.GLYPH_FORMAS forma) {
-        Glyph glyph = new FormaGeometrica();
-        FormaGeometrica shape = (FormaGeometrica) glyph;
+        FormaGeometrica shape = new FormaGeometrica();
+//        FormaGeometrica shape = (FormaGeometrica) glyph;
         shape.setDrawBehavior(GeometryFactory.create(forma));
         shape.setPectSobreposicao(0.65f);
         shape.setOverlappingActivated(overlappingActivated);
-        return glyph;
+        return shape;
     }
 
     private Glyph defineText(String letter) {
@@ -451,7 +451,7 @@ public final class GlyphMB {
     /**
      * Mapeia as dimenssões 0 - texture, 1 - color, 2 - shape, 3 - text, 4 - position
      *
-     * @param varVisual nome da var visual
+     * @param varVisual shapeName da var visual
      * @return int representando a dimensao
      */
     private int mapearVarVisual2Dimensao(String varVisual) {

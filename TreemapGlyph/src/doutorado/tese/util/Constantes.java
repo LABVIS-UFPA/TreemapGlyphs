@@ -41,6 +41,8 @@ public class Constantes {
     public static boolean DECISION_TREE_ACTIVATED = false;
     public static boolean CONTINUOUS_GLYPH_ACTIVATED = false;
     public static boolean CATEGORICAL_GLYPH_ACTIVATED = false;
+    public static final int LIMITE_TESTES = 100;
+    public static int PRESENCA_STAR;
     
 //    private static Color[] cores = {Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
     private static String[] corTreemap = {
@@ -57,15 +59,12 @@ public class Constantes {
         "#7f7f7f"
     };
 
-    private static String[] corGlyphs = {
-        "#B51212",
-        "#fae768",
-        "#174580", 
-        "#00a1d7",
-        "#15d400",
-        "#ff3797", 
-        "#8c8589", 
-        "#000000"
+    private static String[] colorHueGlyphs = {
+        //cores IV 2019
+        "#FF0101", "#2C2CFF", "#EBC089", "#FFFF01", "#41BA2F"
+    
+        //cores MDPI information
+        //"#B51212", "#fae768", "#174580", "#00a1d7", "#15d400", "#ff3797", "#8c8589", "#000000"
     };
 
     public final static String[] TIPO_TEXTURA = {
@@ -87,48 +86,26 @@ public class Constantes {
     };
 
     public final static String[] LETRAS_ALFABETO = {
-        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+        "A", "C", "E", "J", "K"
+//        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+//        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
     };
 
     public final static String[] NUMEROS = {
         "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"
     };
-    
-    public static final int LIMITE_TESTES = 100;
-    public static int PRESENCA_STAR;
 
     public enum POSICOES{
-        ESQ_SUP, ESQ_INF, DIR_SUP, DIR_INF;
+        ESQ_SUP, ESQ_INF, DIR_SUP, DIR_INF, CENTRO;
     }
     
     public enum CENARIOS{
         A, B, C, D, E, SEM_CENARIO;
     }
     
-    public enum NivelGlyph {
-        NIVEL_1(1),
-        NIVEL_2(2),
-        NIVEL_3(3),
-        NIVEL_4(4),
-        NIVEL_5(5), 
-        NIVEL_6(6);
-        
-
-        private final int nivelGlyph;
-
-        NivelGlyph(int nivelGlyph) {
-            this.nivelGlyph = nivelGlyph;
-        }
-
-        private double nivel() {
-            return nivelGlyph;
-        }
-    }
-    
     public enum VAR_VISUAIS_CATEGORICAS {
         TEXTURE("Texture"),
-        COLOR("Color"),
+        COLOR_HUE("Color_Hue"),
         SHAPE("Shape"),
         TEXT("Text"),
         POSITION("Position");        
@@ -180,10 +157,10 @@ public class Constantes {
 
     /**
      * Vetor usado no segundo nivel de glyphs
-     * @return the corGlyphs
+     * @return the colorHueGlyphs
      */
-    public static String[] getCorGlyphs() {
-        return corGlyphs;
+    public static String[] getColorHueGlyphs() {
+        return colorHueGlyphs;
     }
 
 }

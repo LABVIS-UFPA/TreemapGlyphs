@@ -16,8 +16,10 @@ public class Cruz implements DrawBehavior {
 
     private int[] xPoints;
     private int[] yPoints;
+    private int[] xPointsSobreposicao;
+    private int[] yPointsSobreposicao;
     private Polygon p;
-    private Rectangle bounds;
+    private Rectangle glyphBounds;
 
     public Cruz() {
     }
@@ -25,12 +27,14 @@ public class Cruz implements DrawBehavior {
     @Override
     public void paint(Graphics2D g2d) {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
+        //desenha background da forma
+//        g2d.setColor(Color.decode("#A9A9A9"));
+//        g2d.fillRect(xPointsSobreposicao[0], yPointsSobreposicao[0], xPointsSobreposicao[1], yPointsSobreposicao[1]);
 
-        g2d.setPaint(Color.BLACK);
-
-        g2d.setColor(Color.white);
-        g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
+        g2d.fillPolygon(p);
+        g2d.setColor(Color.WHITE);
         g2d.drawPolygon(p);
     }
     
@@ -43,15 +47,30 @@ public class Cruz implements DrawBehavior {
         }
     }
 
+    public void montarQuadradoSobreposicao(int[] points) {
+        int widthSobreposicao = (int) Math.round(points[0] * percentSobreposicao);
+        int heightSobreposicao = (int) Math.round(points[1] * percentSobreposicao);
+
+        xPointsSobreposicao = new int[2];
+        yPointsSobreposicao = new int[2];
+
+        xPointsSobreposicao[0] = getGlyphBounds().x + Math.round(getGlyphBounds().width / 2) - Math.round(widthSobreposicao / 2);
+        yPointsSobreposicao[0] = getGlyphBounds().y + Math.round(getGlyphBounds().height / 2) - Math.round(heightSobreposicao / 2);
+
+        xPointsSobreposicao[1] = widthSobreposicao;
+        yPointsSobreposicao[1] = heightSobreposicao;
+    }
+    
     private void montarCruz() {
         int[] points = new int[2];
 
-        Rectangle rect = getBounds();
+        Rectangle rect = getGlyphBounds();
 
-        points[0] = getBounds().width;
-        points[1] = getBounds().height;
+        points[0] = getGlyphBounds().width;
+        points[1] = getGlyphBounds().height;
 
         tornarGlyphQuadrado(points);
+        montarQuadradoSobreposicao(points);
         
         int width = (int) Math.round(points[0] * percentSobreposicao);
         int height = (int) Math.round(points[1] * percentSobreposicao);
@@ -118,13 +137,13 @@ public class Cruz implements DrawBehavior {
         p.addPoint(xPoints[11], yPoints[11]);
     }
 
-    public Rectangle getBounds() {
-        return this.bounds;
+    public Rectangle getGlyphBounds() {
+        return this.glyphBounds;
     }
 
     @Override
-    public void setBounds(Rectangle bounds) {
-        this.bounds = bounds;
+    public void setGlyphBounds(Rectangle bounds) {
+        this.glyphBounds = bounds;
         montarCruz();
     }
 

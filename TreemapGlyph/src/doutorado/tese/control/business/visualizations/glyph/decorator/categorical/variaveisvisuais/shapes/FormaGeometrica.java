@@ -7,7 +7,7 @@ package doutorado.tese.control.business.visualizations.glyph.decorator.categoric
 
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.DrawBehavior;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Retangulo;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Quadrado;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -37,7 +37,7 @@ public class FormaGeometrica extends Glyph {
             }
 
             @Override
-            public void setBounds(Rectangle bounds) {
+            public void setGlyphBounds(Rectangle bounds) {
             }
 
             @Override
@@ -95,9 +95,9 @@ public class FormaGeometrica extends Glyph {
     @Override
     public void setBounds(Rectangle bounds) {
         super.setBounds(bounds);
-        drawBehavior.setBounds(bounds);
-        if (this.drawBehavior instanceof Retangulo) {
-            Retangulo retanguloLegenda = (Retangulo) this.drawBehavior;
+        drawBehavior.setGlyphBounds(bounds);
+        if (this.drawBehavior instanceof Quadrado) {
+            Quadrado retanguloLegenda = (Quadrado) this.drawBehavior;
             retanguloLegenda.setIsLegenda(true);
             retanguloLegenda.setCor(corLegenda);
         }

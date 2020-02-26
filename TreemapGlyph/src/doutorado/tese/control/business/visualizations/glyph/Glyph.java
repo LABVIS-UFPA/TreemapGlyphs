@@ -5,7 +5,7 @@
  */
 package doutorado.tese.control.business.visualizations.glyph;
 
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.color.Cor;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.color.ColorHue;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
@@ -56,7 +56,7 @@ public abstract class Glyph implements Cloneable {
                 TreeMapItem item = (TreeMapItem) nodeTreemap;
                 if (item.getWhat2Draw()[0] == 1 && getChild().whoAmI() == Textura.class) {
                     getChild().setVisible(true);
-                } else if (item.getWhat2Draw()[1] == 1 && getChild().whoAmI() == Cor.class) {
+                } else if (item.getWhat2Draw()[1] == 1 && getChild().whoAmI() == ColorHue.class) {
                     getChild().setVisible(true);
                 } else if (item.getWhat2Draw()[2] == 1 && getChild().whoAmI() == FormaGeometrica.class) {
                     getChild().setVisible(true);
