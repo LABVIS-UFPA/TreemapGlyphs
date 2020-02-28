@@ -35,7 +35,7 @@ public class Estrela implements DrawBehavior {
 //        g2d.fillRect(xPointsSobreposicao[0], yPointsSobreposicao[0], xPointsSobreposicao[1], yPointsSobreposicao[1]);
         g2d.setColor(cor);
         g2d.fillPolygon(p);
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.WHITE);
         g2d.drawPolygon(p);
     }
     
