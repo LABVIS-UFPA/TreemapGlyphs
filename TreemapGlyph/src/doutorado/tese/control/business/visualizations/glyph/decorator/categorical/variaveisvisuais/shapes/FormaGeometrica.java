@@ -24,6 +24,7 @@ public class FormaGeometrica extends Glyph {
     private Rectangle bounds;
     private DrawBehavior drawBehavior;
     private Color corLegenda;
+    private boolean legenda;
 
     public FormaGeometrica() {
         this.drawBehavior = new DrawBehavior() {
@@ -96,9 +97,10 @@ public class FormaGeometrica extends Glyph {
     public void setBounds(Rectangle bounds) {
         super.setBounds(bounds);
         drawBehavior.setGlyphBounds(bounds);
-        if (this.drawBehavior instanceof Quadrado) {
+//        if (this.drawBehavior instanceof Quadrado) {
+        if(isLegenda() && this.drawBehavior instanceof Quadrado){
             Quadrado retanguloLegenda = (Quadrado) this.drawBehavior;
-            retanguloLegenda.setIsLegenda(true);
+//            retanguloLegenda.setIsLegenda(true);
             retanguloLegenda.setCor(corLegenda);
         }
     }
@@ -151,6 +153,20 @@ public class FormaGeometrica extends Glyph {
 
     public void setCorLegenda(Color cor) {
         corLegenda = cor;
+    }
+
+    /**
+     * @return the legenda
+     */
+    public boolean isLegenda() {
+        return legenda;
+    }
+
+    /**
+     * @param legenda the legenda to set
+     */
+    public void setLegenda(boolean legenda) {
+        this.legenda = legenda;
     }
 
 }

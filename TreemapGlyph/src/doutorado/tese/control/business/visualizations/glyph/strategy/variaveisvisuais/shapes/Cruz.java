@@ -20,8 +20,10 @@ public class Cruz implements DrawBehavior {
     private int[] yPointsSobreposicao;
     private Polygon p;
     private Rectangle glyphBounds;
+    private Color cor;
 
     public Cruz() {
+        this.cor = Color.decode("#6c7570");
     }
 
     @Override
@@ -32,9 +34,9 @@ public class Cruz implements DrawBehavior {
 //        g2d.setColor(Color.decode("#A9A9A9"));
 //        g2d.fillRect(xPointsSobreposicao[0], yPointsSobreposicao[0], xPointsSobreposicao[1], yPointsSobreposicao[1]);
 
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(cor);
         g2d.fillPolygon(p);
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);
     }
     

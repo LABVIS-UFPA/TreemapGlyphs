@@ -23,7 +23,7 @@ public class Estrela implements DrawBehavior {
     private Color cor;
 
     public Estrela() {
-        cor = Color.decode("#A9A9A9");
+        cor = Color.decode("#8e8899");
     }
 
     @Override
@@ -33,8 +33,9 @@ public class Estrela implements DrawBehavior {
         //desenha background da forma
 //        g2d.setColor(this.cor);
 //        g2d.fillRect(xPointsSobreposicao[0], yPointsSobreposicao[0], xPointsSobreposicao[1], yPointsSobreposicao[1]);
-        g2d.setColor(Color.black);
+        g2d.setColor(cor);
         g2d.fillPolygon(p);
+        g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);
     }
     

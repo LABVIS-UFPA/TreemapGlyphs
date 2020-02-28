@@ -8,14 +8,9 @@ package doutorado.tese.control.business.visualizations.glyph.factorys.variaveisv
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Circulo;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Cruz;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.DrawBehavior;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Ellipse;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Estrela;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Hexagono;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Losango;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Pentagono;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Quadrado;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Serrinhado;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Trapezio;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Serrilhado;
 
 /**
  *
@@ -26,11 +21,11 @@ public class GeometryFactory {
     public static final class FORMAS {
 
         public enum GLYPH_FORMAS {
-            CRUZ("CRUZ"),
-            QUADRADO_SERRILHADO("SERRILHADO"),
-            ESTRELA("ESTRELA"),
             CIRCULO("CIRCULO"),
-            QUADRADO("QUADRADO");//,
+            QUADRADO_SERRILHADO("SERRILHADO"),
+            CRUZ("CRUZ"),
+            ESTRELA("ESTRELA"),
+            QUADRADO("QUADRADO");
             //LOSANGO("LOSANGO"),
             //TRAPEZIO("TRAPEZIO"),
             //PENTAGONO("PENTAGONO"),
@@ -63,7 +58,7 @@ public class GeometryFactory {
             case ESTRELA:
                 return new Estrela();
             case QUADRADO_SERRILHADO:
-                return new Serrinhado();
+                return new Serrilhado();
 //            case ELLIPSE:
 //                return new Ellipse();
 //            case HEXAGONO:

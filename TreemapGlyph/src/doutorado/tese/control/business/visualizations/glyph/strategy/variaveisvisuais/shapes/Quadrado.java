@@ -12,25 +12,16 @@ public class Quadrado implements DrawBehavior {
     private int[] yPoints;
     private Color cor;
     private Rectangle bounds;
-    private boolean isLegenda;
 
     public Quadrado() {
-        isLegenda = false;
+        cor = Color.decode("#808080");
     }
 
     @Override
     public void paint(Graphics2D g2d) {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-//        g2d.setPaint(Color.WHITE);
-        if (isLegenda) {
-            g2d.setColor(getCor());
-        } else {
-//            g2d.setColor(Color.WHITE);
-//            g2d.setColor(Color.decode("#A9A9A9"));
-            g2d.setColor(Color.BLACK);
-        }
-//        g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
+        g2d.setColor(getCor());
         g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
         g2d.setColor(Color.WHITE);
         g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
@@ -113,20 +104,6 @@ public class Quadrado implements DrawBehavior {
     public String toString() {
         super.toString();
         return Quadrado.class.getSimpleName();
-    }
-
-    /**
-     * @return the isLegenda
-     */
-    public boolean isIsLegenda() {
-        return isLegenda;
-    }
-
-    /**
-     * @param isLegenda the isLegenda to set
-     */
-    public void setIsLegenda(boolean isLegenda) {
-        this.isLegenda = isLegenda;
     }
 
     /**

@@ -19,8 +19,10 @@ public class Circulo implements DrawBehavior{
     private int[] yPoints;
     private Rectangle bounds;
     private Path2D p;
+    private Color cor;
 
     public Circulo() {
+        this.cor = Color.decode("#948d78");
     }
 
     @Override
@@ -30,9 +32,9 @@ public class Circulo implements DrawBehavior{
         //desenha background da forma
 //        g2d.setColor(Color.decode("#A9A9A9"));
 //        g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(getCor());
         g2d.fill(p);
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(Color.BLACK);
         g2d.draw(p);
     }
     
@@ -113,5 +115,19 @@ public class Circulo implements DrawBehavior{
     public String toString() {
         super.toString();
         return Circulo.class.getSimpleName();
+    }
+
+    /**
+     * @return the cor
+     */
+    public Color getCor() {
+        return cor;
+    }
+
+    /**
+     * @param cor the cor to set
+     */
+    public void setCor(Color cor) {
+        this.cor = cor;
     }
 }
