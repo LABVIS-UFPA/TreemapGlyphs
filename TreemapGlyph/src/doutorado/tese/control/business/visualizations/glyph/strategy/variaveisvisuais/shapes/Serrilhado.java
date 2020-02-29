@@ -23,7 +23,7 @@ public class Serrilhado implements DrawBehavior {
     private Path2D path;
 
     public Serrilhado() {
-        cor = Color.decode("#c4c4c4");
+        cor = Color.decode("#cccccc");
     }
 
     @Override
@@ -36,9 +36,9 @@ public class Serrilhado implements DrawBehavior {
                 
         g2d.setColor(cor);
         g2d.fill(path);
+//        g2d.setColor(Color.BLACK);
+//        g2d.draw(path);
 //        g2d.setStroke(new BasicStroke(1.5f));
-        g2d.setColor(Color.BLACK);
-        g2d.draw(path);
 //        g2d.setStroke(new BasicStroke(1.0f));
     }
 
@@ -174,7 +174,7 @@ public class Serrilhado implements DrawBehavior {
 
     @Override
     public void drawForeground(Graphics2D g2d) {
-        g2d.setColor(this.cor);
+        g2d.setColor(Color.BLACK);
         g2d.draw(polygon);
     }
 

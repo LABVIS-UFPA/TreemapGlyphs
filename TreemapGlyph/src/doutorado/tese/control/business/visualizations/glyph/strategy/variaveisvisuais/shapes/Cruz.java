@@ -23,7 +23,7 @@ public class Cruz implements DrawBehavior {
     private Color cor;
 
     public Cruz() {
-        this.cor = Color.decode("#c4c4c4");
+        this.cor = Color.decode("#cccccc");
     }
 
     @Override

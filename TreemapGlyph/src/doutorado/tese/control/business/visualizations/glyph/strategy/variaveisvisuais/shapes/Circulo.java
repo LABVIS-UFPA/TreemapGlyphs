@@ -22,7 +22,7 @@ public class Circulo implements DrawBehavior{
     private Color cor;
 
     public Circulo() {
-        this.cor = Color.decode("#c4c4c4");
+        this.cor = Color.decode("#cccccc");
     }
 
     @Override

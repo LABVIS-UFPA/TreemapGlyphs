@@ -23,7 +23,7 @@ public class Estrela implements DrawBehavior {
     private Color cor;
 
     public Estrela() {
-        cor = Color.decode("#c4c4c4");
+        cor = Color.decode("#cccccc");
     }
 
     @Override
@@ -153,8 +153,8 @@ public class Estrela implements DrawBehavior {
 
     @Override
     public void drawForeground(Graphics2D g2d) {
-//        g2d.setColor(Color.black);
-        g2d.setColor(this.cor);
+        g2d.setColor(Color.black);
+//        g2d.setColor(this.cor);
         g2d.draw(p);
     }
     
