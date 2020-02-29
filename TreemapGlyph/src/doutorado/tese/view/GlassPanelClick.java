@@ -5,7 +5,7 @@
  */
 package doutorado.tese.view;
 
-import doutorado.tese.control.mb.testelaboratorioMB.LoggerMB;
+import doutorado.tese.control.mb.testeMB.usertest.LoggerMB;
 import doutorado.tese.model.TreeMapNode;
 import doutorado.tese.util.ColunasLog;
 import java.awt.BasicStroke;

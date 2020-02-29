@@ -19,14 +19,14 @@ import java.awt.Shape;
  *
  * @author Anderson Soares
  */
-public class FormaGeometrica extends Glyph {
+public class GeometricShape extends Glyph {
 
     private Rectangle bounds;
     private DrawBehavior drawBehavior;
     private Color corLegenda;
     private boolean legenda;
 
-    public FormaGeometrica() {
+    public GeometricShape() {
         this.drawBehavior = new DrawBehavior() {
             @Override
             public void paint(Graphics2D g) {
@@ -136,7 +136,7 @@ public class FormaGeometrica extends Glyph {
     public Glyph clone() throws CloneNotSupportedException {
         try {
             DrawBehavior drawBehaviorClone = this.getDrawBehavior().clone();
-            FormaGeometrica formaClonada = ((FormaGeometrica) super.clone());
+            GeometricShape formaClonada = ((GeometricShape) super.clone());
             formaClonada.setDrawBehavior(drawBehaviorClone);
             formaClonada.killAllChild();
             return (Glyph) formaClonada;

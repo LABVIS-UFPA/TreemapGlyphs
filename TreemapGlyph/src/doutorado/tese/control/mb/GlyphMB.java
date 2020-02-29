@@ -14,8 +14,8 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.continuous
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.color.ColorHue;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.util.ColorInterpolator;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
@@ -143,13 +143,13 @@ public final class GlyphMB {
 
         List<Glyph> glyphFamily = item.getGlyphFamily(item.getGlyph(), new ArrayList<>());
         glyphFamily.forEach((glyph) -> {
-            if (glyph instanceof Textura) {
+            if (glyph instanceof Texture) {
                 features[Constantes.AREA_TEXTURA] = glyph.getArea();//aqui a area sera calculada no getArea()
                 features[Constantes.PRESENCA_TEXTURA] = Constantes.PRESENTE;
             } else if (glyph instanceof ColorHue) {
                 features[Constantes.AREA_COR] = glyph.getArea();
                 features[Constantes.PRESENCA_COR] = Constantes.PRESENTE;
-            } else if (glyph instanceof FormaGeometrica) {
+            } else if (glyph instanceof GeometricShape) {
                 features[Constantes.AREA_SHAPE] = glyph.getArea();
                 features[Constantes.PRESENCA_FORMA] = Constantes.PRESENTE;
             } else if (glyph instanceof Text) {
@@ -342,14 +342,14 @@ public final class GlyphMB {
             //129,40,4    - marrom
             interpolator.config(col.maiorMenorValues[0], col.maiorMenorValues[1], Color.yellow, Color.WHITE);
             Color cor = interpolator.interpolate(Double.parseDouble(item.getMapaDetalhesItem().get(col)));
-            glyphCor = defineColor(cor);
+            glyphCor = defineColorHue(cor);
             glyphCor.setNodeTreemap(item);
             return glyphCor;
         } else {
             for (int j = 0; j < Constantes.getColorHueGlyphs().length; j++) {
                 if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                     Color cor = Color.decode(Constantes.getColorHueGlyphs()[j]);
-                    glyphCor = defineColor(cor);
+                    glyphCor = defineColorHue(cor);
                     glyphCor.setNodeTreemap(item);
                     return glyphCor;
                 }
@@ -406,16 +406,16 @@ public final class GlyphMB {
         return null;
     }
 
-    private Glyph defineTexture(String nomeTextura) {
-        Glyph glyph = new Textura(Color.GRAY, Color.WHITE);
-        Textura textura = (Textura) glyph;
+    public Glyph defineTexture(String nomeTextura) {
+        Glyph glyph = new Texture(Color.GRAY, Color.WHITE);
+        Texture textura = (Texture) glyph;
         textura.setNomeTextura(nomeTextura);
         textura.setPectSobreposicao(0.65f);
         textura.setOverlappingActivated(overlappingActivated);
         return glyph;
     }
 
-    private Glyph defineColor(Color color) {
+    public Glyph defineColorHue(Color color) {
         Glyph glyph = new ColorHue();
         ColorHue cor = (ColorHue) glyph;
         cor.setCor(color);
@@ -424,16 +424,15 @@ public final class GlyphMB {
         return glyph;
     }
 
-    private Glyph defineShape(FORMAS.GLYPH_FORMAS forma) {
-        FormaGeometrica shape = new FormaGeometrica();
-//        FormaGeometrica shape = (FormaGeometrica) glyph;
+    public Glyph defineShape(FORMAS.GLYPH_FORMAS forma) {
+        GeometricShape shape = new GeometricShape();
         shape.setDrawBehavior(GeometryFactory.create(forma));
         shape.setPectSobreposicao(0.65f);
         shape.setOverlappingActivated(overlappingActivated);
         return shape;
     }
 
-    private Glyph defineText(String letter) {
+    public Glyph defineText(String letter) {
         Text text = new Text();
         text.setLetra(letter);
         text.setPectSobreposicao(0.65f);
@@ -441,7 +440,7 @@ public final class GlyphMB {
         return text;
     }
 
-    private Glyph definePosition(Constantes.POSICOES posicao) {
+    public Glyph definePosition(Constantes.POSICOES posicao) {
         Position p = new Position();
         p.setPosicao(posicao);
         p.setPectSobreposicao(0.65f);

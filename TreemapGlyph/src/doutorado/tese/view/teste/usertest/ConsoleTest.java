@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.view.teste;
+package doutorado.tese.view.teste.usertest;
 
-import doutorado.tese.control.mb.testelaboratorioMB.LoggerMB;
+import doutorado.tese.control.mb.testeMB.usertest.LoggerMB;
 import doutorado.tese.control.business.userTest.ManipuladorLog;
 import java.util.logging.Level;
 import java.util.logging.Logger;

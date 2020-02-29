@@ -7,8 +7,8 @@ package doutorado.tese.control.business.visualizations.glyph;
 
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.color.ColorHue;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.model.TreeMapNode;
 import doutorado.tese.util.Constantes;
@@ -54,15 +54,15 @@ public abstract class Glyph implements Cloneable {
             if (Constantes.DECISION_TREE_ACTIVATED) {
                 getChild().setVisible(false);
                 TreeMapItem item = (TreeMapItem) nodeTreemap;
-                if (item.getWhat2Draw()[0] == 1 && getChild().whoAmI() == Textura.class) {
+                if (item.getWhat2Draw()[0] == 1 && getChild().whoAmI() == Texture.class) {
                     getChild().setVisible(true);
                 } else if (item.getWhat2Draw()[1] == 1 && getChild().whoAmI() == ColorHue.class) {
                     getChild().setVisible(true);
-                } else if (item.getWhat2Draw()[2] == 1 && getChild().whoAmI() == FormaGeometrica.class) {
+                } else if (item.getWhat2Draw()[2] == 1 && getChild().whoAmI() == GeometricShape.class) {
                     getChild().setVisible(true);
                 } else if (item.getWhat2Draw()[3] == 1 && getChild().whoAmI() == Text.class) {
                     getChild().setVisible(true);
-                } 
+                }
 //                else if(getChild().whoAmI() == ProfileGlyph.class){
 //                    JOptionPane.showMessageDialog(null, "This continuous glyph will be available with the adaptive glyph as soon as possible.",
 //                            "Sorry!", JOptionPane.INFORMATION_MESSAGE);
@@ -141,9 +141,14 @@ public abstract class Glyph implements Cloneable {
     public void setBounds(Rectangle bounds) {
         this.bounds = bounds;
         if (this.getChild() != null) {
-            this.getChild().setBounds(new Rectangle(bounds.x + Math.round(((bounds.width * (1 - pectSobreposicao)) / 2)),
-                    bounds.y + Math.round(((bounds.height * (1 - pectSobreposicao)) / 2)),
-                    Math.round(bounds.width * pectSobreposicao), Math.round(bounds.height * pectSobreposicao)));
+            this.getChild().setBounds(
+                    new Rectangle(
+                            bounds.x + Math.round(((bounds.width * (1 - pectSobreposicao)) / 2)),
+                            bounds.y + Math.round(((bounds.height * (1 - pectSobreposicao)) / 2)),
+                            Math.round(bounds.width * pectSobreposicao),
+                            Math.round(bounds.height * pectSobreposicao)
+                    )
+            );
         }
     }
 

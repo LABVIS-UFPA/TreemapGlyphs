@@ -5,8 +5,8 @@
  */
 package doutorado.tese.control.mb;
 
-import doutorado.tese.control.mb.testelaboratorioMB.FinishedSetupCallBack;
-import doutorado.tese.control.mb.testelaboratorioMB.LoggerMB;
+import doutorado.tese.control.mb.testeMB.usertest.FinishedSetupCallBack;
+import doutorado.tese.control.mb.testeMB.usertest.LoggerMB;
 import doutorado.tese.control.business.userTest.ManipuladorLog;
 import doutorado.tese.control.business.visualizations.treemap.treemapAPI.TMModel_Draw;
 import doutorado.tese.control.business.visualizations.treemap.treemapAPI.TMModel_Size;
@@ -287,7 +287,7 @@ public class DrawAreaMB {
     }
 
     public void setHierarchy(String[] hierarquia) {
-        for (TreeMapItem treeMapItem : manipulador.getItensTreemap()) {
+        for (TreeMapItem treeMapItem : SetUpMB.getItensTreemap()) {
             hierarquiaFila.addAll(Arrays.asList(hierarquia));
             root.inserirFilhos(hierarquiaFila, treeMapItem, root);
         }

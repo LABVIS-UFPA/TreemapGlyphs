@@ -22,7 +22,7 @@ import java.awt.image.WritableRaster;
  *
  * @author Anderson Soares
  */
-public class Textura extends Glyph {
+public class Texture extends Glyph {
 
     private String nomeTextura;
     TMPatternFactory textura;
@@ -30,7 +30,7 @@ public class Textura extends Glyph {
     private Color backgroundColor;
     BufferedImage clone;
 
-    public Textura(Color cor, Color backgroundColor) {
+    public Texture(Color cor, Color backgroundColor) {
         textura = TMPatternFactory.getInstance(cor, backgroundColor);
     }
 

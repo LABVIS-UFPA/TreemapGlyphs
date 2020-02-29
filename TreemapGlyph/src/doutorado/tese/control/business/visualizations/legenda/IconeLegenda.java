@@ -9,10 +9,10 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.FormaGeometrica;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Textura;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.Bar;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.util.ColorInterpolator;
@@ -97,7 +97,7 @@ public class IconeLegenda implements Icon {
             g2d.setColor(Color.black);
             g2d.drawRect(x, y, 100, height);
         } else {
-            FormaGeometrica iconColorTreemap = new FormaGeometrica();
+            GeometricShape iconColorTreemap = new GeometricShape();
             iconColorTreemap.setDrawBehavior(GeometryFactory.create(FORMAS.GLYPH_FORMAS.QUADRADO));
             iconColorTreemap.setPectSobreposicao(0.65f);
             iconColorTreemap.setOverlappingActivated(true);
@@ -109,7 +109,7 @@ public class IconeLegenda implements Icon {
     }
 
     private void montarIconeGlyphTextura(Graphics2D g2d, String valor, Rectangle bounds) {
-        Textura textura = new Textura(Color.GRAY, Color.WHITE);
+        Texture textura = new Texture(Color.GRAY, Color.WHITE);
         textura.setNomeTextura(valor);
         textura.setPectSobreposicao(0.84f);
         textura.setOverlappingActivated(true);
@@ -126,7 +126,7 @@ public class IconeLegenda implements Icon {
             g2d.setColor(Color.black);
             g2d.drawRect(x, y, 100, height);
         } else {
-            FormaGeometrica shapeColor = new FormaGeometrica();
+            GeometricShape shapeColor = new GeometricShape();
             shapeColor.setDrawBehavior(GeometryFactory.create(FORMAS.GLYPH_FORMAS.QUADRADO));
             shapeColor.setPectSobreposicao(0.65f);
             shapeColor.setOverlappingActivated(true);
@@ -138,7 +138,7 @@ public class IconeLegenda implements Icon {
     }
     
     private void montarIconeGlyphForma(Graphics2D g2d, FORMAS.GLYPH_FORMAS valorForma, Rectangle bounds) {
-        FormaGeometrica shapeIcon = new FormaGeometrica();
+        GeometricShape shapeIcon = new GeometricShape();
         shapeIcon.setDrawBehavior(GeometryFactory.create(valorForma));
         shapeIcon.setPectSobreposicao(0.65f);
         shapeIcon.setOverlappingActivated(true);

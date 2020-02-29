@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.control.mb.testelaboratorioMB;
+package doutorado.tese.control.mb.testeMB.usertest;
 
 import doutorado.tese.model.teste.Pergunta;
 import doutorado.tese.model.teste.PerguntasTesteEnum;

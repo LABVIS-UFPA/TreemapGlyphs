@@ -21,8 +21,8 @@ public class GeometryFactory {
     public static final class FORMAS {
 
         public enum GLYPH_FORMAS {
-            CIRCULO("CIRCULO"),
             QUADRADO_SERRILHADO("SERRILHADO"),
+            CIRCULO("CIRCULO"),
             CRUZ("CRUZ"),
             ESTRELA("ESTRELA"),
             QUADRADO("QUADRADO");

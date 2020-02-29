@@ -37,8 +37,7 @@ public class ManipuladorArquivo {
     private File file;
     private Charset charset;
     private StringBuilder bufferArquivo;
-    private static Coluna[] colunas;
-    private TreeMapItem[] itensTreemap;
+    private static Coluna[] colunas;    
     private String[] linhas;
     private String extensaoArquivo;
 
@@ -284,50 +283,6 @@ public class ManipuladorArquivo {
 //        }
 //        return classes;
 //    }
-    /**
-     * Retorna todos os TreemapItens do treemap
-     *
-     * @return the itensTreemap
-     */
-    public TreeMapItem[] getItensTreemap() {
-        return itensTreemap;
-    }
-
-    /**
-     * @param itensTreemap the itensTreemap to set
-     */
-    public void setItensTreemap(TreeMapItem[] itensTreemap) {
-        this.itensTreemap = itensTreemap;
-    }
-
-    /**
-     * Metodo que cria cada item do treemap, associa os dados da base de dados
-     * ao item correspondete, e define um objeto GlyphConcreto para esse item.
-     */
-    public void carregarItensTreemap() {
-        int totalItens = getDadosColuna(getCabecalho()[0]).length;
-        itensTreemap = new TreeMapItem[totalItens];
-        for (int linha = 0; linha < totalItens; linha++) {
-            String[] dadosLinha = getDadosLinha(linha + 2);
-            TreeMapItem itemLocal = null;
-            try {
-                itemLocal = new TreeMapItem(1, 0);
-                Glyph glyphConcrete = new GlyphConcrete();
-                glyphConcrete.setNodeTreemap(itemLocal);
-                itemLocal.setGlyph(glyphConcrete);
-                itemLocal.setId(linha + 1);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-//            System.out.print("linha:" + linha);
-            for (int coluna = 0; coluna < dadosLinha.length; coluna++) {
-//                System.out.print("\t[" + coluna + "]: " + dadosLinha[coluna]);
-                itemLocal.getMapaDetalhesItem().put(getColunas()[coluna], dadosLinha[coluna]);
-            }
-//            System.out.println("");
-            itensTreemap[linha] = itemLocal;
-        }
-    }
 
     /**
      * @return Total de linhas do arquivo, incluindo cabeçalho e linha de tipos

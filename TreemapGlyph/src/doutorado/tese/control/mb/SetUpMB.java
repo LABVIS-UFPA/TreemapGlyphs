@@ -5,9 +5,12 @@
  */
 package doutorado.tese.control.mb;
 
+import doutorado.tese.control.business.visualizations.glyph.Glyph;
+import doutorado.tese.control.business.visualizations.glyph.GlyphConcrete;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
+import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.util.Metadados;
 import java.util.ArrayList;
@@ -25,8 +28,35 @@ public class SetUpMB {
     private List<String> atributosCategoricos;
     private List<String> atributosContinuos;
     private ManipuladorArquivo manipulador;
+    private static TreeMapItem[] itensTreemap;
 
     public SetUpMB() {
+    }
+    
+    /**
+     * Metodo que cria cada item do treemap, associa os dados da base de dados
+     * ao item correspondete, e define um objeto GlyphConcreto para esse item.
+     */
+    public void carregarItensTreemap() {
+        int totalItens = getManipulador().getDadosColuna(getManipulador().getCabecalho()[0]).length;
+        itensTreemap = new TreeMapItem[totalItens];
+        for (int linha = 0; linha < totalItens; linha++) {
+            String[] dadosLinha = getManipulador().getDadosLinha(linha + 2);
+            TreeMapItem itemLocal = null;
+            try {
+                itemLocal = new TreeMapItem(1, 0);
+                Glyph glyphConcrete = new GlyphConcrete();
+                glyphConcrete.setNodeTreemap(itemLocal);
+                itemLocal.setGlyph(glyphConcrete);
+                itemLocal.setId(linha + 1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            for (int coluna = 0; coluna < dadosLinha.length; coluna++) {
+                itemLocal.getMapaDetalhesItem().put(getManipulador().getColunas()[coluna], dadosLinha[coluna]);
+            }
+            itensTreemap[linha] = itemLocal;
+        }
     }
 
     public void loadVariaveisGlyph(Object[] objs, JComboBox<String> atributo) {
@@ -183,4 +213,20 @@ public class SetUpMB {
         this.atributosContinuos = atributosContinuos;
     }
 
+    /**
+     * Retorna todos os TreemapItens do treemap
+     *
+     * @return the itensTreemap
+     */
+    public static TreeMapItem[] getItensTreemap() {
+        return itensTreemap;
+    }
+
+    /**
+     * @param itensTreemap the itensTreemap to set
+     */
+    public static void setItensTreemap(TreeMapItem[] itensTreemap) {
+        SetUpMB.itensTreemap = itensTreemap;
+    }
+    
 }

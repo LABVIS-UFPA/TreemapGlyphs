@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.view.teste;
+package doutorado.tese.view.teste.usertest;
 
-import doutorado.tese.control.mb.testelaboratorioMB.LoggerMB;
-import doutorado.tese.control.mb.testelaboratorioMB.PerguntaMB;
+import doutorado.tese.control.mb.testeMB.usertest.LoggerMB;
+import doutorado.tese.control.mb.testeMB.usertest.PerguntaMB;
 import doutorado.tese.control.business.userTest.ManipuladorLog;
 import doutorado.tese.model.teste.PerguntasTesteEnum;
 import doutorado.tese.model.teste.PerguntasTreinamentoEnum;

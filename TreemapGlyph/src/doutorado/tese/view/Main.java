@@ -19,8 +19,9 @@ import doutorado.tese.model.TreeMapNode;
 import doutorado.tese.util.Util;
 import doutorado.tese.view.filtro.CategoricalFilterSetUp;
 import doutorado.tese.view.filtro.ContinuousFilterSetUp;
-import doutorado.tese.view.teste.ConsoleTest;
-import doutorado.tese.view.teste.MainScreenLog;
+import doutorado.tese.view.teste.scalability.ScalabilityTesteView;
+import doutorado.tese.view.teste.usertest.ConsoleTest;
+import doutorado.tese.view.teste.usertest.MainScreenLog;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -207,6 +208,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         decisionTreeMenu = new javax.swing.JMenu();
         decisionTreeActivate = new javax.swing.JCheckBoxMenuItem();
         testMenu = new javax.swing.JMenu();
+        scalabilityMenuItem = new javax.swing.JMenuItem();
+        userTestMenu = new javax.swing.JMenu();
         startMenuItem = new javax.swing.JMenuItem();
         consoleMenuItem = new javax.swing.JMenuItem();
         finishMenuItem = new javax.swing.JMenuItem();
@@ -1130,6 +1133,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         testMenu.setText("Test");
 
+        scalabilityMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/scalaTest16.png"))); // NOI18N
+        scalabilityMenuItem.setText("Scalability Test");
+        scalabilityMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                scalabilityMenuItemActionPerformed(evt);
+            }
+        });
+        testMenu.add(scalabilityMenuItem);
+
+        userTestMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/userTest16.png"))); // NOI18N
+        userTestMenu.setText("User Test");
+
         startMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Start-icon.png"))); // NOI18N
         startMenuItem.setText("Start");
         startMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -1137,7 +1152,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 startMenuItemActionPerformed(evt);
             }
         });
-        testMenu.add(startMenuItem);
+        userTestMenu.add(startMenuItem);
 
         consoleMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/console-16.png"))); // NOI18N
         consoleMenuItem.setText("Console");
@@ -1146,7 +1161,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 consoleMenuItemActionPerformed(evt);
             }
         });
-        testMenu.add(consoleMenuItem);
+        userTestMenu.add(consoleMenuItem);
 
         finishMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-close-window-17.png"))); // NOI18N
         finishMenuItem.setText("Finish");
@@ -1155,7 +1170,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 finishMenuItemActionPerformed(evt);
             }
         });
-        testMenu.add(finishMenuItem);
+        userTestMenu.add(finishMenuItem);
+
+        testMenu.add(userTestMenu);
 
         jMenuBar1.add(testMenu);
 
@@ -2003,6 +2020,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         botaoGerarCategoricalGlyphs.setEnabled(true);
     }//GEN-LAST:event_positionGlyphComboBoxItemStateChanged
 
+    private void scalabilityMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scalabilityMenuItemActionPerformed
+        ScalabilityTesteView teste = new ScalabilityTesteView();
+        teste.setVisible(true);
+    }//GEN-LAST:event_scalabilityMenuItemActionPerformed
+
     private ArrayList<Object> getAtributosEscolhidosGlyph() {
 
         ArrayList<Object> atributosGlyph = new ArrayList<>();
@@ -2140,6 +2162,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JButton removerBotao_detalhes;
     private javax.swing.JButton removerBotao_treemap;
     private javax.swing.JButton removerVarVisualButton;
+    private javax.swing.JMenuItem scalabilityMenuItem;
     private javax.swing.JMenuItem screenshotMenuItem;
     private javax.swing.JSplitPane separadorCimaBaixo;
     private javax.swing.JSplitPane separadorEsqueDir_jSplitPane;
@@ -2151,6 +2174,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JComboBox<String> textGlyphComboBox;
     private javax.swing.JComboBox<String> textureGlyphComboBox;
     private javax.swing.JButton updateDetailsButton;
+    private javax.swing.JMenu userTestMenu;
     private javax.swing.JList<String> varVisuaisList1;
     private javax.swing.JList<String> varVisuaisList2;
     private javax.swing.JMenuItem version_jMenuItem;
@@ -2407,7 +2431,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         itemCor = corTreemapComboBox.getSelectedItem().toString();
         itensHierarquia = Util.parseListModel2ArrayString(colunasHierarquicasList2.getModel());
         itensDetalhes = Util.parseListModel2ArrayString(colunasDetalhesList2.getModel());
-        for (TreeMapItem treeMapItem : manipulador.getItensTreemap()) {
+        for (TreeMapItem treeMapItem : SetUpMB.getItensTreemap()) {
             treeMapItem.setHighLight(false);
         }
     }
@@ -2670,7 +2694,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             case 3:
                 try {
                     logger.info("Carregando itens no treemap e define um GlyphConcreto a cada item.");
-                    manipulador.carregarItensTreemap();
+                    setupMB.carregarItensTreemap();
                 } catch (Throwable e) {
                     logger.error("Erro ao criar itens no treemap. \n", e);
                     e.printStackTrace();

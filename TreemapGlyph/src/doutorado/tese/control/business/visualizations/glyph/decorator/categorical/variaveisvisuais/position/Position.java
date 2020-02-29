@@ -136,5 +136,10 @@ public class Position extends Glyph {
     public void setPosicao(Constantes.POSICOES posicao) {
         this.posicao = posicao;
     }
+    
+    @Override
+    public int getArea() {
+        return xPoints[1] * yPoints[1];
+    }
 
 }

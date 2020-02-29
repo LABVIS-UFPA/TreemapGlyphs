@@ -7,6 +7,7 @@ package doutorado.tese.view;
 
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.control.mb.GlyphMB;
+import doutorado.tese.control.mb.SetUpMB;
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.util.Constantes;
 import java.awt.Color;
@@ -112,7 +113,7 @@ public class GlassPanel extends JPanel {
         logger.info("Acionando setCofigItensGrid() a partir do setAtributosEscolhidos() - Root: " + getGlyphMB().getRootNodeZoom());
 
         //Aqui prepara para desenhar os glyphs da nova versao
-        setCofigItensGrid();
+        setCofigItensTreemap();
     }
 
     /**
@@ -125,13 +126,13 @@ public class GlassPanel extends JPanel {
      *
      * @return retorna o gabarito
      */
-    public ArrayList<TreeMapItem> setCofigItensGrid() {
+    public ArrayList<TreeMapItem> setCofigItensTreemap() {
         gabarito = new ArrayList();
         getGlyphMB().setGlyphContinuoEscolhido(getGlyphContinuoEscolhido());
         getGlyphMB().setVariaveisVisuaisEscolhidas(getVariaveisVisuaisEscolhidas());
 //        glyphManager.setQuantValoresVarVisuais(quantValoresVarVisuais);
 
-        for (TreeMapItem itemTreemap : getManipulador().getItensTreemap()) {
+        for (TreeMapItem itemTreemap : SetUpMB.getItensTreemap()) {
 //            glyphManager.setPerctOverlap(quantOlverlap);
             getGlyphMB().configLayers(itemTreemap);
 

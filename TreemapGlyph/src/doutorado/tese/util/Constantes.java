@@ -104,11 +104,11 @@ public class Constantes {
     }
     
     public enum VAR_VISUAIS_CATEGORICAS {
+        POSITION("Position"),        
         TEXTURE("Texture"),
         COLOR_HUE("Color_Hue"),
         SHAPE("Shape"),
-        TEXT("Text"),
-        POSITION("Position");        
+        TEXT("Text");
 
         private final String varVisual;
 

@@ -23,7 +23,7 @@ public class Estrela implements DrawBehavior {
     private Color cor;
 
     public Estrela() {
-        cor = Color.decode("#8e8899");
+        cor = Color.decode("#c4c4c4");
     }
 
     @Override
