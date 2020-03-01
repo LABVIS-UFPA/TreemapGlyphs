@@ -197,9 +197,9 @@ public final class GlyphMB {
                 }
             }
         }
-        if (getVariaveisVisuaisEscolhidas().length == 0) {
-            Glyph childStarGlyph = setLayerInGlyph(glyphContinuo, item, -1);
-            father.appendChild(childStarGlyph);
+        if (getVariaveisVisuaisEscolhidas().length == 0) {//se nao escolher nenhuma var visual, mas vai usar o profile glyph
+            Glyph childContinuousGlyph = setLayerInGlyph(glyphContinuo, item, -1);
+            father.appendChild(childContinuousGlyph);
         }
         if (father.getBounds() != null) {
             father.setBounds(father.getBounds());
@@ -292,7 +292,7 @@ public final class GlyphMB {
         return raio;
     }
 
-    private Glyph configureProfileGlyph(TreeMapItem item) {
+    public Glyph configureProfileGlyph(TreeMapItem item) {
         ProfileGlyph profileGlyph = new ProfileGlyph(getAtributosEscolhidosGlyphContinuo());
         profileGlyph.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
         profileGlyph.setPectSobreposicao(0.75f);
@@ -302,7 +302,8 @@ public final class GlyphMB {
             Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
             double dado = Double.parseDouble(item.getMapaDetalhesItem().get(coluna));
             double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
-            profileGlyph.getBarras()[i] = new Bar(dado, dadoMaxVal);
+            double dadoMinVal = coluna.getMapaMaiorMenor().get(coluna.getName())[1];
+            profileGlyph.getBarras()[i] = new Bar(dado, dadoMaxVal, dadoMinVal);
         }
         return profileGlyph;
     }

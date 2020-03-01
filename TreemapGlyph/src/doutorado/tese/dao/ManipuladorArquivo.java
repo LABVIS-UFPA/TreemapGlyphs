@@ -37,7 +37,7 @@ public class ManipuladorArquivo {
     private File file;
     private Charset charset;
     private StringBuilder bufferArquivo;
-    private static Coluna[] colunas;    
+    private static Coluna[] colunas;
     private String[] linhas;
     private String extensaoArquivo;
 
@@ -217,7 +217,7 @@ public class ManipuladorArquivo {
         return bufferArquivo;
     }
 
-    public void montarColunas(String[] nomeColunas, String[] tipos) throws Exception{
+    public void montarColunas(String[] nomeColunas, String[] tipos) throws Exception {
         colunas = new Coluna[cabecalho.length];
         for (int i = 0; i < nomeColunas.length; i++) {
             String type = "";
@@ -238,15 +238,25 @@ public class ManipuladorArquivo {
         }
     }
 
-    public Coluna[] montarColunas() throws Exception {
-        colunas = new Coluna[cabecalho.length];
-        for (int i = 0; i < cabecalho.length; i++) {
-            Coluna c = new Coluna(this, cabecalho[i], getMapaCabecalho().get(cabecalho[i]));
+    /**
+     * Metodo para criar colunas APENAS para o teste de escalabilidade
+     *
+     * @return Retorna um vetor com tres colunas
+     * @throws Exception
+     */
+    public static Coluna[] montarColunas() throws Exception {
+        String[] atributos = new String[3];
+        atributos[0] = "a1";
+        atributos[1] = "a2";
+        atributos[2] = "a3";
+        colunas = new Coluna[atributos.length];
+        for (int i = 0; i < atributos.length; i++) {
+            Coluna c = new Coluna(atributos[i]);
 //            c.setDadosColuna(getDadosColuna(cabecalho[i]));
-            c.configurarDescricao(getDadosColuna(cabecalho[i]));
+//            c.configurarDescricao(getDadosColuna(atributo[i]));
             colunas[i] = c;
         }
-        return getColunas();
+        return colunas;
     }
 
     /**
@@ -283,7 +293,6 @@ public class ManipuladorArquivo {
 //        }
 //        return classes;
 //    }
-
     /**
      * @return Total de linhas do arquivo, incluindo cabeçalho e linha de tipos
      * (caso tenha)

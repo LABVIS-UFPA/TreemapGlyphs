@@ -41,7 +41,7 @@ public class ProfileGlyph extends Glyph {
 
     /**
      * Calcula quantos porcentos o dado atual da barra corrente equivale ao
-     * valor max da coluna.
+     * valor max da coluna (ou min em casos de dados negativos).
      *
      * @param g2d
      * @param dadoColuna
@@ -96,13 +96,16 @@ public class ProfileGlyph extends Glyph {
                 int alturaBarra = (int) Math.round(calcularPorcentagemAlturaBarra(porcentagemDado, meiaAltura));
                 int novaAltura = meiaAltura - alturaBarra;//aqui a meiaAltura seria a altura max de uma barra
                 barra.setPosicaoBarra(xBarra, yBarra + novaAltura, widthEachbar, alturaBarra);
-
-                xBarra += widthEachbar;
+                xBarra += widthEachbar; 
             } else {
-                porcentagemDado = calcularPorcentagemDado(Math.abs(barra.getDado()), barra.getDadoMaxVal());
+                porcentagemDado = calcularPorcentagemDado(Math.abs(barra.getDado()), Math.abs(barra.getDadoMaxVal()));
+                //casos onde o valor negativo (apos ser transformado em valor absoluto) for maior que o positivo 
+                if(porcentagemDado > 100){
+                    porcentagemDado = 100;
+                }
                 int alturaBarra = (int) Math.round(calcularPorcentagemAlturaBarra(porcentagemDado, meiaAltura));
+                
                 barra.setPosicaoBarra(xBarra, pontosLinhaCentro[1], widthEachbar, alturaBarra);
-
                 xBarra += widthEachbar;
             }
         }
@@ -146,21 +149,10 @@ public class ProfileGlyph extends Glyph {
 //        montarRetanguloInterno();
     }
 
-//    public void montarRetanguloInterno() {
-//        int lado = Math.round(this.rect.height * 0.9f);
-//        xPoints = new int[2];
-//        yPoints = new int[2];
-//        //To aqui
-//        xPoints[0] = this.rect.x + Math.round(this.rect.width / 2) - Math.round(lado / 2);//ponto x inicial retangulo interior
-//        yPoints[0] = this.rect.y + Math.round(this.rect.height / 2) - Math.round(lado / 2);//ponto y inicial retangulo interior
-//        xPoints[1] = lado;
-//        yPoints[1] = lado;
-//        rectGrafico = new Rectangle(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
-//        pontosLinhaCentro = new int[]{this.rectGrafico.x,
-//            this.rectGrafico.y + Math.round(this.rectGrafico.height / 2.f),
-//            this.rectGrafico.x + this.rectGrafico.width,
-//            this.rectGrafico.y + Math.round(this.rectGrafico.height / 2.f)};
-//    }
+    @Override
+    public int getArea() {
+        return xPoints[1] * yPoints[1];
+    }
 
     public int getQuantVar() {
         return quantVar;

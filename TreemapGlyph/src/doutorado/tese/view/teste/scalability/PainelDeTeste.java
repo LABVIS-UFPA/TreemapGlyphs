@@ -83,7 +83,7 @@ public class PainelDeTeste extends javax.swing.JPanel {
 
     public void setInputConfigs(HashMap<String, Integer> inputConfigs) {
         scalabilityTestMB.setInputConfigs(inputConfigs);
-        scalabilityTestMB.configLayersScalability();
+        scalabilityTestMB.configLayersInput();
         repaint();
     }
 

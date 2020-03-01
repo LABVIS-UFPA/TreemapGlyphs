@@ -173,7 +173,8 @@ public class IconeLegenda implements Icon {
         for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
             dado -= 2;
             double dadoMaxVal = 20;//0 - maxValue; 1 - minValue
-            bar.getBarras()[i] = new Bar(dado, dadoMaxVal);
+            double dadoMinVal = -10;
+            bar.getBarras()[i] = new Bar(dado, dadoMaxVal, dadoMinVal);
         }
         Rectangle r = new Rectangle(10, 10, bounds.width * 3, bounds.height * 4);
 

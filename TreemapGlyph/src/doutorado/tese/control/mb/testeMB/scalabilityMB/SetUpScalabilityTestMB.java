@@ -15,12 +15,18 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.categorica
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.control.mb.GlyphMB;
+import doutorado.tese.dao.ManipuladorArquivo;
+import doutorado.tese.model.Coluna;
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.util.Constantes;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,23 +38,40 @@ public class SetUpScalabilityTestMB {
     private TreeMapItem itemOutput = null;
     private HashMap<String, Integer> inputConfigs;
     private HashMap<String, Boolean> outputConfigs;
+    private HashMap<Coluna, String> dadosTreemapItem;
+    private String[] dadosSimulados;
     private final HashMap<String, Integer> areas;
     private final GlyphMB glyphMB;
     private final boolean overlappingActivated;
     private int areaTextura = 0, areaColorHue = 0, areaForma = 0, areaText = 0, areaPosition = 0, areaProfileGlyph = 0;
+    private List<String> atributosEscolhidosGlyphContinuo;
+    private Coluna[] colunas = null;
+    private Random rand;
 
     public SetUpScalabilityTestMB() {
         areas = new HashMap<>();
+        dadosTreemapItem = new HashMap<>();
+        atributosEscolhidosGlyphContinuo = new ArrayList<>();
+        rand = new Random(System.currentTimeMillis());
 
         overlappingActivated = true;
+        try {
+            colunas = ManipuladorArquivo.montarColunas();
+        } catch (Exception ex) {
+            Logger.getLogger(SetUpScalabilityTestMB.class.getName()).log(Level.SEVERE, null, ex);
+        }
         glyphMB = new GlyphMB();
         glyphMB.configGlyphDesingModel(this.overlappingActivated);
+        for (Coluna coluna : colunas) {
+            atributosEscolhidosGlyphContinuo.add(coluna.getName());
+        }
     }
 
     private TreeMapItem criarTreemapItem(TreeMapItem item) {
         Rectangle bounds = new Rectangle(getInputConfigs().get("x"), getInputConfigs().get("y"), getInputConfigs().get("width"), getInputConfigs().get("height"));
         try {
             item.setBounds(bounds);
+            item.setMapaDetalhesItem(dadosTreemapItem);
             Glyph glyphConcrete = new GlyphConcrete();
             glyphConcrete.setNodeTreemap(item);
             item.setGlyph(glyphConcrete);
@@ -82,9 +105,11 @@ public class SetUpScalabilityTestMB {
         getAreas().put("shape", getAreaForma());
         getAreas().put("text", getAreaText());
         getAreas().put("position", getAreaPosition());
+        getAreas().put("profileglyph", getAreaProfileGlyph());
     }
 
-    public void configLayersScalability() {
+    public void configLayersInput() {
+        criarDadosSimulados();
         itemInput = criarTreemapItem(new TreeMapItem(1, 0));
 
         Glyph father = getItemInput().getGlyph();
@@ -113,8 +138,14 @@ public class SetUpScalabilityTestMB {
                     break;
                 case TEXT:
                     if (getInputConfigs().get("text") >= 0) {
-                        child = getGlyphMB().defineText(Constantes.LETRAS_ALFABETO[getInputConfigs().get("text")]);
-                        child.setNodeTreemap(getItemInput());
+                        //0 - text; 1 - profile glyph
+                        if (rand.nextInt(2) == 0) {
+                            child = getGlyphMB().defineText(Constantes.LETRAS_ALFABETO[getInputConfigs().get("text")]);
+                            child.setNodeTreemap(getItemInput());
+                            getInputConfigs().put("profileglyph", 0);
+                        } else {
+                            getInputConfigs().put("profileglyph", 1);
+                        }
                     }
                     break;
                 case POSITION:
@@ -123,6 +154,11 @@ public class SetUpScalabilityTestMB {
                         child.setNodeTreemap(getItemInput());
                     }
                     break;
+            }
+            if (getInputConfigs().get("profileglyph") > 0) {
+                getGlyphMB().setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
+                child = getGlyphMB().configureProfileGlyph(itemInput);
+                child.setNodeTreemap(getItemInput());
             }
             if (child != null) {
                 father.appendChild(child);
@@ -174,12 +210,41 @@ public class SetUpScalabilityTestMB {
                     }
                     break;
             }
+            if (getOutputConfigs().get("profileglyph") && getInputConfigs().get("profileglyph") > 0) {
+                getGlyphMB().setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
+                child = getGlyphMB().configureProfileGlyph(itemOutput);
+                child.setNodeTreemap(getItemOutput());
+            }
             if (child != null) {
                 father.appendChild(child);
             }
         }
         if (father.getBounds() != null) {
             father.setBounds(father.getBounds());
+        }
+    }
+
+    private void criarDadosSimulados() {
+        int valor = 100;
+        List<String[]> dadosColunas = new ArrayList<>();
+        for (int i = 0; i < colunas.length; i++) {
+            dadosSimulados = new String[3];
+            for (int j = 0; j < dadosSimulados.length; j++) {
+                dadosSimulados[j]
+                        = (rand.nextInt(2) == 0)
+                        ? "" + (rand.nextInt(valor) * (-1))
+                        : "" + rand.nextInt(valor);
+            }
+            dadosColunas.add(dadosSimulados);
+        }
+        int linha = rand.nextInt(3);//escolhe entre as linhas 0, 1, e 2 
+        for (int i = 0; i < dadosColunas.size(); i++) {
+            try {
+                dadosTreemapItem.put(colunas[i], dadosColunas.get(i)[linha]);
+                colunas[i].configurarDescricao(dadosColunas.get(i));
+            } catch (Exception ex) {
+                Logger.getLogger(SetUpScalabilityTestMB.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

@@ -28,9 +28,10 @@ public class Bar {
     int[] lineCenter = null;
     int[] lineBottom = null;
 
-    public Bar(double dado, double dadoMaxVal) {
+    public Bar(double dado, double dadoMaxVal, double dadoMinVal) {
         this.dado = dado;
         this.dadoMaxVal = dadoMaxVal;
+        this.dadoMinVal = dadoMinVal;
     }
 
     /**

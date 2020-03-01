@@ -51,10 +51,11 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
      */
     public ScalabilityTesteView() {
 
-        data = "Textura,Cor,Forma,Texto,Posicao,Altura,Largura,"
+        data = "Textura,Cor,Forma,Texto,Posicao,ProfileGlyph,"
+                + "Altura,Largura,"
                 + "AreaItem,AspectoItem,CorItem,"
-                + "AreaTextura,AreaCor,AreaForma,AreaTexto,AreaPosicao,"
-                + "ViuTextura,ViuCor,ViuForma,ViuTexto,ViuPosicao";
+                + "AreaTextura,AreaCor,AreaForma,AreaTexto,AreaPosicao,AreaProfileGlyph"
+                + "ViuTextura,ViuCor,ViuForma,ViuTexto,ViuPosicao,ViuProfileGlyph";
         rand = new Random(System.currentTimeMillis());
         configs = new HashMap<>();
         output = new HashMap<>();
@@ -73,6 +74,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         checkboxes.put("shape", checkboxGeometry);
         checkboxes.put("text", checkboxLetter);
         checkboxes.put("position", checkboxPosition);
+        checkboxes.put("profileglyph", checkboxProfileGlyph);
 
         changeConfigs();
 
@@ -101,6 +103,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         configs.put("shape", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
         configs.put("text", rand.nextInt(Constantes.LETRAS_ALFABETO.length));
         configs.put("position", rand.nextInt(Constantes.POSICOES.values().length));
+        configs.put("profileglyph", rand.nextInt(3));//nesse caso 0 - nao desenha, 1 - desenha ao inves do text; 2 - desenha na ultima camada
         configs.put("x", 50);
         configs.put("y", 50);
         int length = rand.nextInt(50) + 5;
@@ -144,6 +147,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         checkboxPosition = new javax.swing.JCheckBox();
         btnSelectAll = new javax.swing.JButton();
         contadorLabel = new javax.swing.JLabel();
+        checkboxProfileGlyph = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Treemap Glyphs");
@@ -184,7 +188,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 .addGroup(painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelEsquerdaLayout.createSequentialGroup()
                         .addComponent(shouldBeLabel)
-                        .addContainerGap(198, Short.MAX_VALUE))
+                        .addContainerGap(227, Short.MAX_VALUE))
                     .addGroup(painelEsquerdaLayout.createSequentialGroup()
                         .addComponent(glyphsLabel)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -196,7 +200,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         jTextPane1.setEditable(false);
         jTextPane1.setBorder(null);
         jTextPane1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTextPane1.setText("Which of the visual variables do you identify clearly?");
+        jTextPane1.setText("Which of the glyph's layers do you identify clearly?");
         jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTextPane1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextPane1.setEnabled(false);
@@ -253,6 +257,13 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
 
         contadorLabel.setText("0 / 100");
 
+        checkboxProfileGlyph.setText("Profile Glyph");
+        checkboxProfileGlyph.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxProfileGlyphActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -275,8 +286,13 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                             .addComponent(checkboxLetter))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkboxPosition)
-                            .addComponent(btnSelectAll))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(checkboxPosition)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(checkboxProfileGlyph)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSelectAll)))
                         .addContainerGap())
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -296,12 +312,13 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkboxCircle)
                     .addComponent(checkboxLetter)
-                    .addComponent(btnSelectAll))
+                    .addComponent(btnSelectAll)
+                    .addComponent(checkboxProfileGlyph))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(contadorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jSplitPane1.setRightComponent(jPanel4);
@@ -338,6 +355,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 + "," + (configs.get("shape") >= 0 ? 1 : 0)
                 + "," + (configs.get("text") >= 0 ? 1 : 0)
                 + "," + (configs.get("position") >= 0 ? 1 : 0)
+                + "," + (configs.get("profileglyph") >= 0 ? 1 : 0)
                 + "," + configs.get("height")
                 + "," + configs.get("width")
                 + "," + (configs.get("width") * configs.get("height"))
@@ -348,6 +366,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 + "," + areas.get("shape")
                 + "," + areas.get("text")
                 + "," + areas.get("position")
+                + "," + areas.get("profileglyph")
                 + "," + (checkboxTexture.isSelected() ? 1 : 0)
                 + "," + (checkboxCircle.isSelected() ? 1 : 0)
                 + "," + (checkboxGeometry.isSelected() ? 1 : 0)
@@ -364,6 +383,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         output.put("shape", false);
         output.put("text", false);
         output.put("position", false);
+        output.put("profileglyph", false);
 
         if (cont >= numAmostras) {
             PrintWriter writer = null;
@@ -417,12 +437,17 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         updateOutput();
     }//GEN-LAST:event_checkboxPositionActionPerformed
 
+    private void checkboxProfileGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxProfileGlyphActionPerformed
+        updateOutput();
+    }//GEN-LAST:event_checkboxProfileGlyphActionPerformed
+
     private void updateOutput() {
         output.put("texture", checkboxTexture.isSelected());
         output.put("colorhue", checkboxCircle.isSelected());
         output.put("shape", checkboxGeometry.isSelected());
         output.put("text", checkboxLetter.isSelected());
         output.put("position", checkboxPosition.isSelected());
+        output.put("profileglyph", checkboxProfileGlyph.isSelected());
         painelEsquerda.updateOutput(output);
     }
 
@@ -471,6 +496,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkboxGeometry;
     private javax.swing.JCheckBox checkboxLetter;
     private javax.swing.JCheckBox checkboxPosition;
+    private javax.swing.JCheckBox checkboxProfileGlyph;
     private javax.swing.JCheckBox checkboxTexture;
     private javax.swing.JLabel contadorLabel;
     private javax.swing.JLabel glyphsLabel;
@@ -490,6 +516,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkboxLetter;
     private javax.swing.JCheckBox checkboxPosition;
     private javax.swing.JCheckBox checkboxTexture;
+    private javax.swing.JCheckBox checkboxProfileGlyph;
     private javax.swing.JButton btnSelectAll;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;

@@ -31,6 +31,16 @@ public class Coluna {
     private Map<String, double[]> mapaMaiorMenor;
     private List<String> dadosDistintos;
 
+    /**
+     * 
+     * @param name Nome da coluna, assumi-se que o tipo eh Integer
+     */
+    public Coluna(String name) {
+        this.name = name;
+        this.type = Metadados.TipoDados.Integer;
+        mapaMaiorMenor = new HashMap<>();
+    }    
+    
     public Coluna(ManipuladorArquivo manipulador) {
         this.manipulador = manipulador;
         mapaMaiorMenor = new HashMap<>();
@@ -147,7 +157,7 @@ public class Coluna {
                 || (getDescription() == Metadados.Descricao.CATEGORICAL && type.equals(Metadados.TipoDados.Double))) {
             double higher = Double.MIN_VALUE;
             double lower = Integer.MAX_VALUE;
-            for (int i = 2; i < dadosColunas.length; i++) {
+            for (int i = 0; i < dadosColunas.length; i++) {
 //                System.out.println("linha["+i+"]: "+dadosColunas[i]);
                 try {
                     double dado = Double.valueOf(dadosColunas[i]);
@@ -167,7 +177,7 @@ public class Coluna {
         setDadosColuna(dadosColunas);
         //}
     }
-
+    
     /**
      * @return Retorna uma lista com os dados da coluna que sao distintos.
      */
