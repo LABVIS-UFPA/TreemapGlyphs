@@ -103,6 +103,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         configs.put("shape", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
         configs.put("text", rand.nextInt(Constantes.LETRAS_ALFABETO.length));
         configs.put("position", rand.nextInt(Constantes.POSICOES.values().length));
+        //TODO o setupMB preisa atualizar o profile glyph, para ele saber se ele deve ou nao ser desenhado, assim como seu checkbox.
         configs.put("profileglyph", rand.nextInt(3));//nesse caso 0 - nao desenha, 1 - desenha ao inves do text; 2 - desenha na ultima camada
         configs.put("x", 50);
         configs.put("y", 50);

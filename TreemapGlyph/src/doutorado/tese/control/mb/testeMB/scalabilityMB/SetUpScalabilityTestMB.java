@@ -155,15 +155,25 @@ public class SetUpScalabilityTestMB {
                     }
                     break;
             }
-            if (getInputConfigs().get("profileglyph") > 0) {
-                getGlyphMB().setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
-                child = getGlyphMB().configureProfileGlyph(itemInput);
-                child.setNodeTreemap(getItemInput());
-            }
+
             if (child != null) {
                 father.appendChild(child);
             }
         }
+        if (getInputConfigs().get("profileglyph") > 0) {
+            getInputConfigs().put("text", -1);
+            getGlyphMB().setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
+            Glyph child = getGlyphMB().configureProfileGlyph(itemInput);
+            child.setNodeTreemap(getItemInput());
+            father.appendChild(child);
+        }
+        System.out.println("familia: " + getItemInput().getGlyphFamily(father, new ArrayList<>()).toString());
+        System.out.println("position: " + getInputConfigs().get("position"));
+        System.out.println("texture: " + getInputConfigs().get("texture"));
+        System.out.println("color hue: " + getInputConfigs().get("colorhue"));
+        System.out.println("shape: " + getInputConfigs().get("shape"));
+        System.out.println("text: " + getInputConfigs().get("text"));
+        System.out.println("profile glyph: " + getInputConfigs().get("profileglyph"));
         if (father.getBounds() != null) {
             father.setBounds(father.getBounds());
         }
@@ -210,15 +220,17 @@ public class SetUpScalabilityTestMB {
                     }
                     break;
             }
-            if (getOutputConfigs().get("profileglyph") && getInputConfigs().get("profileglyph") > 0) {
-                getGlyphMB().setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
-                child = getGlyphMB().configureProfileGlyph(itemOutput);
-                child.setNodeTreemap(getItemOutput());
-            }
+            
             if (child != null) {
                 father.appendChild(child);
             }
         }
+        if (getOutputConfigs().get("profileglyph") && getInputConfigs().get("profileglyph") > 0) {
+                getGlyphMB().setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
+                Glyph child = getGlyphMB().configureProfileGlyph(itemOutput);
+                child.setNodeTreemap(getItemOutput());
+                father.appendChild(child);
+            }
         if (father.getBounds() != null) {
             father.setBounds(father.getBounds());
         }
