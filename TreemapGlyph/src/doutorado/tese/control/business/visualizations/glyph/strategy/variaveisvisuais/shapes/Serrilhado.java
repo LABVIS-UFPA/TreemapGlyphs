@@ -23,7 +23,7 @@ public class Serrilhado implements DrawBehavior {
     private Path2D path;
 
     public Serrilhado() {
-        cor = Color.decode("#cccccc");
+        cor = Color.decode("#f0f0f0");
     }
 
     @Override

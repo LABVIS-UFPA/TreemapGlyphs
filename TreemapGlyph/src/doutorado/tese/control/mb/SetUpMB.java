@@ -89,7 +89,7 @@ public class SetUpMB {
                 if (glyph) {
                     analisarQuantAtributosCategoricos(list, Constantes.getColorHueGlyphs());
                 } else {
-                    analisarQuantAtributosCategoricos(list, Constantes.getCor());
+                    analisarQuantAtributosCategoricos(list, Constantes.getCorTreemap());
                 }
                 break;
             case SHAPE:

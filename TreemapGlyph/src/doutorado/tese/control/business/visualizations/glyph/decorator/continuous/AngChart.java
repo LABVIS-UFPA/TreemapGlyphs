@@ -91,7 +91,7 @@ public class AngChart extends Glyph {
                  g2.setColor(Color.decode("#fffffff"));
                  g2d.setStroke(new BasicStroke(3f));
                  g2.fillArc(x,y,w,h, s,ang);
-                 g2.setColor(Color.decode(Constantes.getCor()[i]));
+                 g2.setColor(Color.decode(Constantes.getCorTreemap()[i]));
                  g2.fillArc(x,y,w,h, s,ang);
                  g2d.setStroke(new BasicStroke(1.f));
 

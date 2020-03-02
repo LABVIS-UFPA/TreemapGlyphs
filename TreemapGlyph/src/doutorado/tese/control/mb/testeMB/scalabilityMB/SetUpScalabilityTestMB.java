@@ -168,13 +168,6 @@ public class SetUpScalabilityTestMB {
             father.appendChild(child);
         }
         List<Glyph> familiaGlyphs = getItemInput().getGlyphFamily(father, new ArrayList<>());
-        System.out.println("familia: " + familiaGlyphs.toString());
-        System.out.println("position: " + getInputConfigs().get("position"));
-        System.out.println("texture: " + getInputConfigs().get("texture"));
-        System.out.println("color hue: " + getInputConfigs().get("colorhue"));
-        System.out.println("geometricshape: " + getInputConfigs().get("geometricshape"));
-        System.out.println("text: " + getInputConfigs().get("text"));
-        System.out.println("profile glyph: " + getInputConfigs().get("profileglyph"));
         if (father.getBounds() != null) {
             father.setBounds(father.getBounds());
         }

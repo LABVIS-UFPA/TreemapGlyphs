@@ -44,8 +44,8 @@ public class PainelDeTeste extends javax.swing.JPanel {
 
         //desenho esquerda
         coritem = scalabilityTestMB.getInputConfigs().get("coritem") >= 0
-                ? Color.decode(Constantes.getCor()[scalabilityTestMB.getInputConfigs().get("coritem")])
-                : Color.decode(Constantes.getCor()[Constantes.getCor().length - 1]);
+                ? Color.decode(Constantes.getCorTreemap()[scalabilityTestMB.getInputConfigs().get("coritem")])
+                : Color.decode(Constantes.getCorTreemap()[Constantes.getCorTreemap().length - 1]);
         g2d.setColor(coritem);
         g2d.fillRect(scalabilityTestMB.getInputConfigs().get("x"), scalabilityTestMB.getInputConfigs().get("y"),
                 scalabilityTestMB.getInputConfigs().get("width"), scalabilityTestMB.getInputConfigs().get("height"));

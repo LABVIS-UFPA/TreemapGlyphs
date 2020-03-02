@@ -14,7 +14,7 @@ public class Quadrado implements DrawBehavior {
     private Rectangle bounds;
 
     public Quadrado() {
-        cor = Color.decode("#cccccc");
+        cor = Color.decode("#f0f0f0");
     }
 
     @Override

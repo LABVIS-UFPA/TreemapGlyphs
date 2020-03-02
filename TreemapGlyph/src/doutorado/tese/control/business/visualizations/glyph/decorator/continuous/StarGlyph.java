@@ -84,7 +84,7 @@ public class StarGlyph extends Glyph {
     public void paint(Graphics2D g2d) {
         if (getQuantVar() != 0) {
             for (int i = 0; i < getQuantVar(); i++) {
-                g2d.setColor(Color.decode(Constantes.getCor()[i]));
+                g2d.setColor(Color.decode(Constantes.getCorTreemap()[i]));
                 g2d.setStroke(new BasicStroke(4f));
                 getEixosPolares()[i].paint(g2d);
                 g2d.setStroke(new BasicStroke(0.1f));

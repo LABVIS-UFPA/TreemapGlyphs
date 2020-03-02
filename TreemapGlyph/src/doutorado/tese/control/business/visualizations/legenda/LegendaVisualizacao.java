@@ -95,7 +95,7 @@ public class LegendaVisualizacao {
             for (int i = 0; i < dadosDistintos.size(); i++) {
                 IconeLegenda icon = new IconeLegenda();
                 icon.setDimensao(Constantes.COR_TREEMAP);
-                icon.setValorIcon(Constantes.getCor()[i]);
+                icon.setValorIcon(Constantes.getCorTreemap()[i]);
                 JLabel label = criarLabel(dadosDistintos.get(i), icon);
                 painel.add(label);
                 label.setHorizontalAlignment(SwingConstants.LEFT);
@@ -226,7 +226,7 @@ public class LegendaVisualizacao {
             Util.appendToPane(legendas, "\n", Color.decode("#000000"), StyleConstants.ALIGN_JUSTIFIED, 10);
         }
         for (int i = 0; i < atributosEscolhidosGlyphContinuo.size(); i++) {
-            Util.appendToPane(legendas, atributosEscolhidosGlyphContinuo.get(i) + "\n", Color.decode(Constantes.getCor()[i]), StyleConstants.ALIGN_JUSTIFIED, 12);
+            Util.appendToPane(legendas, atributosEscolhidosGlyphContinuo.get(i) + "\n", Color.decode(Constantes.getColorContinuousGlyphs()[i]), StyleConstants.ALIGN_JUSTIFIED, 12);
         }
 
         legendas.setEditable(false);

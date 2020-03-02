@@ -79,9 +79,9 @@ public class TMModel_Draw
                     Color cor = interpolator.interpolate(Double.parseDouble(nodeItem.getMapaDetalhesItem().get(c)));
                     nodeItem.setColor(cor);
                 } else {
-                    for (int j = 0; j < Constantes.getCor().length; j++) {
+                    for (int j = 0; j < Constantes.getCorTreemap().length; j++) {
                         if (nodeItem.getMapaDetalhesItem().get(c).equalsIgnoreCase(dadosDistintos.get(j))) {
-                            nodeItem.setColor(Color.decode(Constantes.getCor()[j]));
+                            nodeItem.setColor(Color.decode(Constantes.getCorTreemap()[j]));
                             break;
                         }
                     }

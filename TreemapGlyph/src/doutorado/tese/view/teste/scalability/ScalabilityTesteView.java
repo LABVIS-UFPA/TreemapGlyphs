@@ -57,7 +57,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         data = "Textura,Cor,Forma,Texto,Posicao,ProfileGlyph,"
                 + "Altura,Largura,"
                 + "AreaItem,AspectoItem,CorItem,"
-                + "AreaTextura,AreaCor,AreaForma,AreaTexto,AreaPosicao,AreaProfileGlyph"
+                + "AreaTextura,AreaCor,AreaForma,AreaTexto,AreaPosicao,AreaProfileGlyph,"
                 + "ViuTextura,ViuCor,ViuForma,ViuTexto,ViuPosicao,ViuProfileGlyph";
         rand = new Random(System.currentTimeMillis());
         configs = new HashMap<>();
@@ -115,14 +115,13 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         configs.put("geometricshape", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
         configs.put("text", rand.nextInt(Constantes.LETRAS_ALFABETO.length));
         configs.put("position", rand.nextInt(Constantes.POSICOES.values().length));
-        //TODO o setupMB preisa atualizar o profile glyph, para ele saber se ele deve ou nao ser desenhado, assim como seu checkbox.
         configs.put("profileglyph", rand.nextInt(3));//nesse caso 0 - nao desenha, 1 - desenha ao inves do text; 2 - desenha na ultima camada
         configs.put("x", 50);
         configs.put("y", 50);
         int length = rand.nextInt(50) + 5;
         configs.put("width", Math.abs(length - rand.nextInt(100)));
         configs.put("height", Math.abs(length - rand.nextInt(100)));
-        configs.put("coritem", rand.nextInt(Constantes.getCor().length));
+        configs.put("coritem", rand.nextInt(Constantes.getCorTreemap().length));
 
         shuffleArray(glyphlayers2draw);
         //dependendo da step as camadas serao removidas (representado por -1) do glyph e seu respectivo checkbox sera desabilitado
@@ -377,7 +376,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 + "," + (configs.get("geometricshape") >= 0 ? 1 : 0)
                 + "," + (configs.get("text") >= 0 ? 1 : 0)
                 + "," + (configs.get("position") >= 0 ? 1 : 0)
-                + "," + (configs.get("profileglyph") >= 0 ? 1 : 0)
+                + "," + (configs.get("profileglyph") > 0 ? 1 : 0)
                 + "," + configs.get("height")
                 + "," + configs.get("width")
                 + "," + (configs.get("width") * configs.get("height"))
@@ -393,7 +392,8 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 + "," + (checkboxColorHue.isSelected() ? 1 : 0)
                 + "," + (checkboxGeometry.isSelected() ? 1 : 0)
                 + "," + (checkboxLetter.isSelected() ? 1 : 0)
-                + "," + (checkboxPosition.isSelected() ? 1 : 0);
+                + "," + (checkboxPosition.isSelected() ? 1 : 0)
+                + "," + (checkboxProfileGlyph.isSelected() ? 1 : 0);
 
         for (JCheckBox c : checkboxes.values()) {
             c.setSelected(false);

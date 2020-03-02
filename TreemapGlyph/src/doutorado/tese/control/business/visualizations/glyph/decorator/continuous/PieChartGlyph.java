@@ -85,7 +85,7 @@ public class PieChartGlyph extends Glyph {
                 //codigo cada barra
                  g2.setColor(Color.decode("#fffffff"));
                  g2.fillArc(x,y,w,h, s,90);
-                 g2.setColor(Color.decode(Constantes.getCor()[i]));
+                 g2.setColor(Color.decode(Constantes.getCorTreemap()[i]));
                  g2.drawArc(x,y,w,h, s,90);
                  g2.fillArc(x,y,w,h, s,ang);
 

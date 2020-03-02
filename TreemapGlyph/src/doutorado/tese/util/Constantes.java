@@ -49,14 +49,14 @@ public class Constantes {
 //        "#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477",
 //        "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc",
 //        "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac", "#F0F8FF"
-        "#7dc3d1",//"#86efff",//"#1f77b4",
-        "#ff9b30",
-        "#248022",
-        "#ff7f78",//"#ff4b45",
-        "#9467bd",
-        "#8c564b",
-        "#e377c2",
-        "#7f7f7f"
+        //"#86efff",//"#1f77b4",//"#ff4b45",
+        //cores MDPI information
+        //"#7dc3d1", "#ff9b30", "#248022", "#ff7f78", "#9467bd", "#8c564b", "#e377c2","#7f7f7f"
+        
+        //D3
+        "#8dd3c7", "#ffffb3", "#bebada", 
+        "#ffbab3",//essa era a cor da paleta do D3: "#fb8072", mas achei melhor deixa-la mais suave
+        "#80b1d3", "#fdb462", "#fccde5", "#ccebc5"
     };
 
     private static String[] colorHueGlyphs = {
@@ -65,6 +65,12 @@ public class Constantes {
     
         //cores MDPI information
         //"#B51212", "#fae768", "#174580", "#00a1d7", "#15d400", "#ff3797", "#8c8589", "#000000"
+    };
+    
+    private static String[] colorContinuousGlyph = {
+        //"#B51212", "#fae768", "#174580", "#00a1d7", "#15d400", "#ff3797", "#8c8589", "#000000"
+        //colors of new tableau 10
+        "#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f", "#b07aa1", "#ff9da7", "#9c755f"
     };
 
     public final static String[] TIPO_TEXTURA = {
@@ -151,7 +157,7 @@ public class Constantes {
      *
      * @return
      */
-    public static String[] getCor() {
+    public static String[] getCorTreemap() {
         return corTreemap;
     }
 
@@ -161,6 +167,14 @@ public class Constantes {
      */
     public static String[] getColorHueGlyphs() {
         return colorHueGlyphs;
+    }
+    
+    /**
+     * Vetor usado nos glyphs continuous
+     * @return the colorContinuousGlyph
+     */
+    public static String[] getColorContinuousGlyphs() {
+        return colorContinuousGlyph;
     }
 
 }
