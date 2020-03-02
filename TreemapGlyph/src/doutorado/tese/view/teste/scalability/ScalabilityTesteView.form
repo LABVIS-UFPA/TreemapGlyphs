@@ -141,7 +141,7 @@
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="checkboxTexture" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="checkboxCircle" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkboxColorHue" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -183,7 +183,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="checkboxCircle" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkboxColorHue" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="checkboxLetter" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnSelectAll" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="checkboxProfileGlyph" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -243,12 +243,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxTextureActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="checkboxCircle">
+            <Component class="javax.swing.JCheckBox" name="checkboxColorHue">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Color Hue"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxCircleActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxColorHueActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkboxGeometry">

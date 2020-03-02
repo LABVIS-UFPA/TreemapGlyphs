@@ -13,6 +13,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -22,6 +23,7 @@ public class PainelDeTeste extends javax.swing.JPanel {
 
     private AreaCallback areaCallback;
     private final SetUpScalabilityTestMB scalabilityTestMB;
+    private List<Glyph> familia2Desenho;
 
     /**
      * Creates new form PainelDeTeste
@@ -83,7 +85,7 @@ public class PainelDeTeste extends javax.swing.JPanel {
 
     public void setInputConfigs(HashMap<String, Integer> inputConfigs) {
         scalabilityTestMB.setInputConfigs(inputConfigs);
-        scalabilityTestMB.configLayersInput();
+        setFamilia2Desenho(scalabilityTestMB.configLayersInput());
         repaint();
     }
 
@@ -113,6 +115,20 @@ public class PainelDeTeste extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * @return the familia2Desenho
+     */
+    public List<Glyph> getFamilia2Desenho() {
+        return familia2Desenho;
+    }
+
+    /**
+     * @param familia2Desenho the familia2Desenho to set
+     */
+    public void setFamilia2Desenho(List<Glyph> familia2Desenho) {
+        this.familia2Desenho = familia2Desenho;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

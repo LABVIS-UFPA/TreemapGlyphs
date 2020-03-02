@@ -102,13 +102,13 @@ public class SetUpScalabilityTestMB {
         }
         getAreas().put("texture", getAreaTextura());
         getAreas().put("colorhue", getAreaColorHue());
-        getAreas().put("shape", getAreaForma());
+        getAreas().put("geometricshape", getAreaForma());
         getAreas().put("text", getAreaText());
         getAreas().put("position", getAreaPosition());
         getAreas().put("profileglyph", getAreaProfileGlyph());
     }
 
-    public void configLayersInput() {
+    public List<Glyph> configLayersInput() {
         criarDadosSimulados();
         itemInput = criarTreemapItem(new TreeMapItem(1, 0));
 
@@ -131,8 +131,8 @@ public class SetUpScalabilityTestMB {
                     }
                     break;
                 case SHAPE:
-                    if (getInputConfigs().get("shape") >= 0) {
-                        child = getGlyphMB().defineShape(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[getInputConfigs().get("shape")]);
+                    if (getInputConfigs().get("geometricshape") >= 0) {
+                        child = getGlyphMB().defineShape(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[getInputConfigs().get("geometricshape")]);
                         child.setNodeTreemap(getItemInput());
                     }
                     break;
@@ -167,17 +167,19 @@ public class SetUpScalabilityTestMB {
             child.setNodeTreemap(getItemInput());
             father.appendChild(child);
         }
-        System.out.println("familia: " + getItemInput().getGlyphFamily(father, new ArrayList<>()).toString());
+        List<Glyph> familiaGlyphs = getItemInput().getGlyphFamily(father, new ArrayList<>());
+        System.out.println("familia: " + familiaGlyphs.toString());
         System.out.println("position: " + getInputConfigs().get("position"));
         System.out.println("texture: " + getInputConfigs().get("texture"));
         System.out.println("color hue: " + getInputConfigs().get("colorhue"));
-        System.out.println("shape: " + getInputConfigs().get("shape"));
+        System.out.println("geometricshape: " + getInputConfigs().get("geometricshape"));
         System.out.println("text: " + getInputConfigs().get("text"));
         System.out.println("profile glyph: " + getInputConfigs().get("profileglyph"));
         if (father.getBounds() != null) {
             father.setBounds(father.getBounds());
         }
         procurarAreaGlyphFilhos(getItemInput());
+        return familiaGlyphs;
     }
 
     public void configLayersOutput() {
@@ -202,8 +204,8 @@ public class SetUpScalabilityTestMB {
                     }
                     break;
                 case SHAPE:
-                    if (getOutputConfigs().get("shape") && getInputConfigs().get("shape") >= 0) {
-                        child = getGlyphMB().defineShape(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[getInputConfigs().get("shape")]);
+                    if (getOutputConfigs().get("geometricshape") && getInputConfigs().get("geometricshape") >= 0) {
+                        child = getGlyphMB().defineShape(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[getInputConfigs().get("geometricshape")]);
                         child.setNodeTreemap(getItemOutput());
                     }
                     break;

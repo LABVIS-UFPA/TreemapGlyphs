@@ -5,6 +5,8 @@
  */
 package doutorado.tese.view.teste.scalability;
 
+import doutorado.tese.control.business.visualizations.glyph.Glyph;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.util.Constantes;
 import java.io.BufferedWriter;
@@ -12,6 +14,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -37,7 +40,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
     private boolean selectAll = true;
     private HashMap<String, Integer> areas;
     private int[] glyphlayers2draw = {0, 1, 2, 3, 4, 5};
-    private String[] layers = new String[]{"texture", "colorhue", "shape", "text", "position", "coritem"};
+    private String[] layers = new String[]{"texture", "colorhue", "geometricshape", "text", "position", "coritem"};
     private HashMap<String, JCheckBox> checkboxes;
 
     private int cont = 0;
@@ -70,12 +73,13 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
 //        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         checkboxes = new HashMap<>();
         checkboxes.put("texture", checkboxTexture);
-        checkboxes.put("colorhue", checkboxCircle);
-        checkboxes.put("shape", checkboxGeometry);
+        checkboxes.put("colorhue", checkboxColorHue);
+        checkboxes.put("geometricshape", checkboxGeometry);
         checkboxes.put("text", checkboxLetter);
         checkboxes.put("position", checkboxPosition);
         checkboxes.put("profileglyph", checkboxProfileGlyph);
 
+        configCheckBox();
         changeConfigs();
 
         this.painelEsquerda.setAreaCallback(new PainelDeTeste.AreaCallback() {
@@ -86,6 +90,14 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         });
 
         updateOutput();
+    }
+
+    private void configCheckBox() {
+        for (JCheckBox c : checkboxes.values()) {
+            c.setSelected(false);
+//            c.setEnabled(true);//antes
+            c.setEnabled(false);
+        }
 
     }
 
@@ -100,7 +112,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
 
         configs.put("texture", rand.nextInt(Constantes.TIPO_TEXTURA.length));
         configs.put("colorhue", rand.nextInt(Constantes.getColorHueGlyphs().length));
-        configs.put("shape", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
+        configs.put("geometricshape", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
         configs.put("text", rand.nextInt(Constantes.LETRAS_ALFABETO.length));
         configs.put("position", rand.nextInt(Constantes.POSICOES.values().length));
         //TODO o setupMB preisa atualizar o profile glyph, para ele saber se ele deve ou nao ser desenhado, assim como seu checkbox.
@@ -116,11 +128,20 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         //dependendo da step as camadas serao removidas (representado por -1) do glyph e seu respectivo checkbox sera desabilitado
         for (int i = 0; i < numLayers2remove; i++) {
             configs.put(layers[glyphlayers2draw[i]], -1);
-            if (checkboxes.get(layers[glyphlayers2draw[i]]) != null) {
-                checkboxes.get(layers[glyphlayers2draw[i]]).setEnabled(false);
-            }
+//            if (checkboxes.get(layers[glyphlayers2draw[i]]) != null) {
+//                checkboxes.get(layers[glyphlayers2draw[i]]).setEnabled(false);
+//            }
         }
         painelEsquerda.setInputConfigs(configs);
+
+        for (int i = 1; i <= painelEsquerda.getFamilia2Desenho().size() - 1; i++) {
+            int index = painelEsquerda.getFamilia2Desenho().get(i).whoAmI().toString().lastIndexOf('.');
+            String nomeClasse = "";
+            if (index > 0) {
+                nomeClasse = painelEsquerda.getFamilia2Desenho().get(i).whoAmI().toString().substring(index + 1).toLowerCase();
+            }
+            checkboxes.get(nomeClasse).setEnabled(true);
+        }
     }
 
     /**
@@ -142,7 +163,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         jTextPane1 = new javax.swing.JTextPane();
         btnConfirm = new javax.swing.JButton();
         checkboxTexture = new javax.swing.JCheckBox();
-        checkboxCircle = new javax.swing.JCheckBox();
+        checkboxColorHue = new javax.swing.JCheckBox();
         checkboxGeometry = new javax.swing.JCheckBox();
         checkboxLetter = new javax.swing.JCheckBox();
         checkboxPosition = new javax.swing.JCheckBox();
@@ -221,10 +242,10 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        checkboxCircle.setText("Color Hue");
-        checkboxCircle.addActionListener(new java.awt.event.ActionListener() {
+        checkboxColorHue.setText("Color Hue");
+        checkboxColorHue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkboxCircleActionPerformed(evt);
+                checkboxColorHueActionPerformed(evt);
             }
         });
 
@@ -280,7 +301,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(checkboxTexture)
-                            .addComponent(checkboxCircle))
+                            .addComponent(checkboxColorHue))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(checkboxGeometry)
@@ -311,7 +332,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                     .addComponent(checkboxPosition))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkboxCircle)
+                    .addComponent(checkboxColorHue)
                     .addComponent(checkboxLetter)
                     .addComponent(btnSelectAll)
                     .addComponent(checkboxProfileGlyph))
@@ -348,12 +369,12 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         float aspect = configs.get("height") > configs.get("width")
-                                                ? (configs.get("width") * 1.f) / configs.get("height")
-                                                : (configs.get("height") * 1.f) / configs.get("width");
+                ? (configs.get("width") * 1.f) / configs.get("height")
+                : (configs.get("height") * 1.f) / configs.get("width");
 
         data += "\n" + (configs.get("texture") >= 0 ? 1 : 0)
                 + "," + (configs.get("colorhue") >= 0 ? 1 : 0)
-                + "," + (configs.get("shape") >= 0 ? 1 : 0)
+                + "," + (configs.get("geometricshape") >= 0 ? 1 : 0)
                 + "," + (configs.get("text") >= 0 ? 1 : 0)
                 + "," + (configs.get("position") >= 0 ? 1 : 0)
                 + "," + (configs.get("profileglyph") >= 0 ? 1 : 0)
@@ -364,24 +385,26 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 + "," + (configs.get("coritem") >= 0 ? 1 : 0)
                 + "," + areas.get("texture")
                 + "," + areas.get("colorhue")
-                + "," + areas.get("shape")
+                + "," + areas.get("geometricshape")
                 + "," + areas.get("text")
                 + "," + areas.get("position")
                 + "," + areas.get("profileglyph")
                 + "," + (checkboxTexture.isSelected() ? 1 : 0)
-                + "," + (checkboxCircle.isSelected() ? 1 : 0)
+                + "," + (checkboxColorHue.isSelected() ? 1 : 0)
                 + "," + (checkboxGeometry.isSelected() ? 1 : 0)
                 + "," + (checkboxLetter.isSelected() ? 1 : 0)
                 + "," + (checkboxPosition.isSelected() ? 1 : 0);
 
         for (JCheckBox c : checkboxes.values()) {
             c.setSelected(false);
-            c.setEnabled(true);
+//            c.setEnabled(true);//antes
+            c.setEnabled(false);
         }
+//        configCheckBox();
 
         output.put("texture", false);
         output.put("colorhue", false);
-        output.put("shape", false);
+        output.put("geometricshape", false);
         output.put("text", false);
         output.put("position", false);
         output.put("profileglyph", false);
@@ -411,9 +434,9 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         updateOutput();
     }//GEN-LAST:event_checkboxTextureActionPerformed
 
-    private void checkboxCircleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxCircleActionPerformed
+    private void checkboxColorHueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxColorHueActionPerformed
         updateOutput();
-    }//GEN-LAST:event_checkboxCircleActionPerformed
+    }//GEN-LAST:event_checkboxColorHueActionPerformed
 
     private void btnSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectAllActionPerformed
         for (JCheckBox c : checkboxes.values()) {
@@ -444,8 +467,8 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
 
     private void updateOutput() {
         output.put("texture", checkboxTexture.isSelected());
-        output.put("colorhue", checkboxCircle.isSelected());
-        output.put("shape", checkboxGeometry.isSelected());
+        output.put("colorhue", checkboxColorHue.isSelected());
+        output.put("geometricshape", checkboxGeometry.isSelected());
         output.put("text", checkboxLetter.isSelected());
         output.put("position", checkboxPosition.isSelected());
         output.put("profileglyph", checkboxProfileGlyph.isSelected());
@@ -493,7 +516,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnSelectAll;
-    private javax.swing.JCheckBox checkboxCircle;
+    private javax.swing.JCheckBox checkboxColorHue;
     private javax.swing.JCheckBox checkboxGeometry;
     private javax.swing.JCheckBox checkboxLetter;
     private javax.swing.JCheckBox checkboxPosition;
@@ -512,7 +535,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
     */
 
     private javax.swing.JButton btnConfirm;
-    private javax.swing.JCheckBox checkboxCircle;
+    private javax.swing.JCheckBox checkboxColorHue;
     private javax.swing.JCheckBox checkboxGeometry;
     private javax.swing.JCheckBox checkboxLetter;
     private javax.swing.JCheckBox checkboxPosition;
@@ -532,6 +555,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
 
     /**
      * Funcao que recebe um vetor de inteiros e mistura seu conteudo
+     *
      * @param ar vetor que tera seu conteudo misturado
      */
     public static void shuffleArray(int[] ar) {
