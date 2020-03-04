@@ -15,6 +15,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
@@ -91,7 +92,7 @@ public class GlassPanel extends JPanel {
         this.atributosEscolhidosContinuousGlyph = atributosEscolhidosStarGlyph;
     }
     
-    public void verificaGlyphMB(List<Object> atributosEscolhidos){
+    public void verificaGlyphMB(HashMap<Constantes.VAR_VISUAIS_CATEGORICAS, Object> atributosEscolhidos){
         if (getGlyphMB() == null) {
             setGlyphMB(new GlyphMB(atributosEscolhidos, view.getBounds()));
         }else{
@@ -101,7 +102,7 @@ public class GlassPanel extends JPanel {
         }
     }
 
-    public void setAtributosEscolhidos(List<Object> atributosEscolhidos) {
+    public void setAtributosEscolhidos(HashMap<Constantes.VAR_VISUAIS_CATEGORICAS, Object> atributosEscolhidos) {
         verificaGlyphMB(atributosEscolhidos);
         getGlyphMB().setRootNodeZoom(view.getRootAnderson());
         if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {

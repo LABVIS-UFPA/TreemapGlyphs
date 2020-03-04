@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes;
+package doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -15,7 +15,7 @@ import java.awt.Shape;
  */
 public interface DrawBehavior extends Cloneable{
 
-    float percentSobreposicao = 0.8f;
+    public float PERCENT_SOBREPOSICAO = 0.65f;
     
     public void paint(Graphics2D g2d);
 
@@ -33,5 +33,5 @@ public interface DrawBehavior extends Cloneable{
      * Função para deixar os glyphs quadrados
      * @param point
      */
-    void tornarGlyphQuadrado(int[] point);
+    public void tornarGlyphQuadrado(int[] point);
 }

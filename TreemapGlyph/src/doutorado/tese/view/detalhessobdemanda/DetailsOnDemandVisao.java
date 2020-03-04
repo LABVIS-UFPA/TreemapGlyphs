@@ -128,7 +128,7 @@ public class DetailsOnDemandVisao extends javax.swing.JFrame {
         icon.setGlyph(getDetailsMB().getGlyphOnToolTip());
         icon.setIconWidth(glyphIconLabel.getBounds().width);
         icon.setIconHeight(glyphIconLabel.getBounds().height);
-        icon.setDimensao(100);
+        icon.setDimensaoCategorical(null);
         glyphIconLabel.setIcon(icon);
         glyphIconLabel.setVisible(showGlyphIcon);
         glyphIconLabel.repaint();

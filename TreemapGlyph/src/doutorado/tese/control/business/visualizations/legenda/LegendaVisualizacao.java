@@ -10,13 +10,16 @@ import doutorado.tese.model.Coluna;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory.ARROW;
 import doutorado.tese.util.Util;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -31,7 +34,7 @@ import javax.swing.text.StyleConstants;
  */
 public class LegendaVisualizacao {
 
-    ArrayList<Object> atributosEscolhidosGlyph = null;
+    HashMap<Constantes.VAR_VISUAIS_CATEGORICAS, Object> atributosEscolhidosGlyph = null;
     private Rectangle bounds = null;
     private ArrayList<String> listaContinuos = null;
 
@@ -66,35 +69,12 @@ public class LegendaVisualizacao {
         Coluna c = ManipuladorArquivo.getColuna(itemCor);
 
         if (c.getDescription() == Metadados.Descricao.CONTINUOUS) {
-            //TODO Criar legenda de cores continuas.
-            IconeLegenda icon = new IconeLegenda();
-            icon.setDimensao(Constantes.COR_TREEMAP);
-            icon.setMaxValorContIcon(c.maiorMenorValues[0]);
-            icon.setMinValorContIcon(c.maiorMenorValues[1]);
-
-            JLabel labelMax = criarLabel(c.maiorMenorValues[1] + "", null);
-//            labelMax.setBorder(BorderFactory.createLineBorder(Color.RED));
-            painel.add(labelMax);
-            labelMax.setHorizontalAlignment(SwingConstants.RIGHT);
-            painel.setAlignmentX(labelMax.RIGHT_ALIGNMENT);
-
-            JLabel labelIcone = criarLabel("", icon);
-//            labelIcone.setBorder(BorderFactory.createLineBorder(Color.yellow));
-            painel.add(labelIcone);
-            labelIcone.setVerticalAlignment(SwingConstants.CENTER);
-            labelIcone.setHorizontalAlignment(SwingConstants.CENTER);
-            painel.setAlignmentX(labelIcone.LEFT_ALIGNMENT);
-
-            JLabel labelMin = criarLabel(c.maiorMenorValues[0] + "", null);
-//            labelMin.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-            painel.add(labelMin);
-            labelMin.setHorizontalAlignment(SwingConstants.LEFT);
-            painel.setAlignmentX(labelMin.LEFT_ALIGNMENT);
+            criarlegendaContinua(null, c, painel);
         } else {
             List<String> dadosDistintos = c.getDadosDistintos();
             for (int i = 0; i < dadosDistintos.size(); i++) {
                 IconeLegenda icon = new IconeLegenda();
-                icon.setDimensao(Constantes.COR_TREEMAP);
+                icon.setDimensaoCategorical(null);//Constantes.COR_TREEMAP
                 icon.setValorIcon(Constantes.getCorTreemap()[i]);
                 JLabel label = criarLabel(dadosDistintos.get(i), icon);
                 painel.add(label);
@@ -105,55 +85,38 @@ public class LegendaVisualizacao {
         return painel;
     }
 
-    /**
-     * Dimensao analisada no treemap representada por um glyph
-     *
-     * @param dimensao varia de 0 a 4, pois sao 5 dimensoes de analise de glyphs
-     * @return
-     */
-    public JPanel addLegendaDimensao(int dimensao) {
-        JPanel painel = new JPanel(new GridLayout(0, 3));
-        painel.setBackground(Color.WHITE);
-        Coluna c = null;
-        List<String> dadosDistintos = null;
-        if (dimensao != 5) {
-            painel.setBorder(BorderFactory.createTitledBorder(this.atributosEscolhidosGlyph.get(dimensao).toString() + "'s Subtitle"));
-            c = ManipuladorArquivo.getColuna(this.atributosEscolhidosGlyph.get(dimensao).toString());
-            dadosDistintos = c.getDadosDistintos();
-        } else {
-            painel.setBorder(BorderFactory.createTitledBorder("Profile" + "'s Subtitle"));
-            return criarLegendaContinua(5, painel, listaContinuos);
-
-        }
-        painel.setBounds(bounds);
-        painel.setVisible(true);
-
+    public void analisarDadosDistintos(JPanel painel, Coluna c, List<String> dadosDistintos, Constantes.VAR_VISUAIS_CATEGORICAS layer) {
         for (int i = 0; i < dadosDistintos.size(); i++) {
             IconeLegenda icon = new IconeLegenda();
-            icon.setDimensao(dimensao);
-            switch (dimensao) {
-                case 0:
+            switch (layer) {
+                case TEXTURE:
+                    icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.TEXTURE);
                     icon.setValorIcon(Constantes.TIPO_TEXTURA[i]);
                     break;
-                case 1:
+                case COLOR_HUE:
                     if (c.getDescription() == Metadados.Descricao.CATEGORICAL) {
+                        icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.COLOR_HUE);
                         icon.setValorIcon(Constantes.getColorHueGlyphs()[i]);
+                    } else {
+                        criarlegendaContinua(Constantes.VAR_VISUAIS_CATEGORICAS.COLOR_HUE, c, painel);
                     }
                     break;
-                case 2:
+                case SHAPE:
+                    icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.SHAPE);
                     icon.setValorIcon(FORMAS.GLYPH_FORMAS.values()[i]);
                     break;
-                case 3:
+                case TEXT:
+                    icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.TEXT);
                     icon.setValorIcon(Constantes.LETRAS_ALFABETO[i]);
                     break;
-                case 4:
+                case POSITION:
+                    icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.POSITION);
                     icon.setValorIcon(Constantes.POSICOES.values()[i]);
                     break;
-                case 5:
-//                    criarLegendaContinua(5,painel);
+                case ORIENTATION:
+                    icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.ORIENTATION);
+                    icon.setValorIcon(ARROW.GLYPH_ORIENTACAO.values()[i]);
                     break;
-                default:
-                    throw new AssertionError();
             }
             if (c.getDescription() == Metadados.Descricao.CATEGORICAL) {
                 JLabel label = criarLabel(dadosDistintos.get(i), icon);
@@ -161,59 +124,68 @@ public class LegendaVisualizacao {
 
                 label.setHorizontalAlignment(SwingConstants.LEFT);
                 painel.setAlignmentX(label.LEFT_ALIGNMENT);
-
             }
         }
-        if (c.getDescription() == Metadados.Descricao.CONTINUOUS && dimensao == 1) {
-            IconeLegenda icon = new IconeLegenda();
-            icon.setDimensao(dimensao);
-            icon.setMaxValorContIcon(c.maiorMenorValues[0]);
-            icon.setMinValorContIcon(c.maiorMenorValues[1]);
+    }
 
-            JLabel labelMax = criarLabel(c.maiorMenorValues[1] + "", null);
-//            labelMax.setBorder(BorderFactory.createLineBorder(Color.RED));
-            painel.add(labelMax);
-            labelMax.setHorizontalAlignment(SwingConstants.RIGHT);
-            painel.setAlignmentX(labelMax.RIGHT_ALIGNMENT);
-
-            JLabel labelIcone = criarLabel("", icon);
-//            labelIcone.setBorder(BorderFactory.createLineBorder(Color.yellow));
-            painel.add(labelIcone);
-            labelIcone.setVerticalAlignment(SwingConstants.CENTER);
-            labelIcone.setHorizontalAlignment(SwingConstants.CENTER);
-            painel.setAlignmentX(labelIcone.LEFT_ALIGNMENT);
-
-            JLabel labelMin = criarLabel(c.maiorMenorValues[0] + "", null);
-//            labelMin.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-            painel.add(labelMin);
-            labelMin.setHorizontalAlignment(SwingConstants.LEFT);
-            painel.setAlignmentX(labelMin.LEFT_ALIGNMENT);
-
+    /**
+     * Dimensao analisada no treemap representada por um glyph
+     *
+     * @param layer
+     * @param atributo atributo escolhido no JCombobox da GUI
+     * @return
+     */
+    public JPanel addLegendaDimensao(Constantes.VAR_VISUAIS_CATEGORICAS layer, Object atributo) {
+        JPanel painel = new JPanel(new GridLayout(0, 3));
+        painel.setBackground(Color.WHITE);
+        Coluna c = null;
+        List<String> dadosDistintos = null;
+        if (atributo != null && layer != null) {
+            painel.setBorder(BorderFactory.createTitledBorder(atributo.toString() + "'s Subtitle"));
+            c = ManipuladorArquivo.getColuna(atributo.toString());
+            dadosDistintos = c.getDadosDistintos();
+            analisarDadosDistintos(painel, c, dadosDistintos, layer);
+        } else {
+            painel.setBorder(BorderFactory.createTitledBorder("Profile" + "'s Subtitle"));
+            return criarLegendaGlyphContinuo(painel, listaContinuos);
         }
+        painel.setBounds(bounds);
+        painel.setVisible(true);
 
         return painel;
     }
 
-    public void setAtributosGlyphs(ArrayList<Object> atributosEscolhidosGlyph) {
-        this.atributosEscolhidosGlyph = atributosEscolhidosGlyph;
-    }
-
-    private void setBounds(Rectangle bounds) {
-        this.bounds = bounds;
-    }
-
-    private Rectangle getBounds() {
-        return this.bounds;
-    }
-
-    private JPanel criarLegendaContinua(int dimensao, JPanel painel, ArrayList<String> atributosEscolhidosGlyphContinuo) {
+    public void criarlegendaContinua(Constantes.VAR_VISUAIS_CATEGORICAS dimensao, Coluna c, JPanel painel) {
         IconeLegenda icon = new IconeLegenda();
-        icon.setDimensao(dimensao);
+        icon.setDimensaoCategorical(dimensao);//Constantes.COR_TREEMAP
+        icon.setMaxValorContIcon(c.maiorMenorValues[0]);
+        icon.setMinValorContIcon(c.maiorMenorValues[1]);
+
+        JLabel labelMax = criarLabel(c.maiorMenorValues[1] + "", null);
+        painel.add(labelMax);
+        labelMax.setHorizontalAlignment(SwingConstants.RIGHT);
+        painel.setAlignmentX(labelMax.RIGHT_ALIGNMENT);
+
+        JLabel labelIcone = criarLabel("", icon);
+        painel.add(labelIcone);
+        labelIcone.setVerticalAlignment(SwingConstants.CENTER);
+        labelIcone.setHorizontalAlignment(SwingConstants.CENTER);
+        painel.setAlignmentX(labelIcone.LEFT_ALIGNMENT);
+
+        JLabel labelMin = criarLabel(c.maiorMenorValues[0] + "", null);
+        painel.add(labelMin);
+        labelMin.setHorizontalAlignment(SwingConstants.LEFT);
+        painel.setAlignmentX(labelMin.LEFT_ALIGNMENT);
+    }
+
+    private JPanel criarLegendaGlyphContinuo(JPanel painel, ArrayList<String> atributosEscolhidosGlyphContinuo) {
+        IconeLegenda icon = new IconeLegenda();
+//        icon.setDimensaoCategorical(dimensao);
         icon.setMaxValorContIcon(10);
         icon.setMinValorContIcon(10);
         icon.setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
+
         JLabel labelIcone = criarLabel("", icon);
-//            labelIcone.setBorder(BorderFactory.createLineBorder(Color.yellow));
         painel.add(labelIcone);
         labelIcone.setVerticalAlignment(SwingConstants.CENTER);
         labelIcone.setHorizontalAlignment(SwingConstants.CENTER);
@@ -234,18 +206,18 @@ public class LegendaVisualizacao {
         return painel;
     }
 
-//    private void appendToPane(JTextPane tp, String msg, Color c) {
-//        StyleContext sc = StyleContext.getDefaultStyleContext();
-//        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
-//
-//        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
-//        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-//
-//        int len = tp.getDocument().getLength();
-//        tp.setCaretPosition(len);
-//        tp.setCharacterAttributes(aset, false);
-//        tp.replaceSelection(msg);
-//    }
+    public void setAtributosEscolhidosGlyphCategorico(HashMap<Constantes.VAR_VISUAIS_CATEGORICAS, Object> atributosEscolhidosGlyph) {
+        this.atributosEscolhidosGlyph = atributosEscolhidosGlyph;
+    }
+
+    private void setBounds(Rectangle bounds) {
+        this.bounds = bounds;
+    }
+
+    private Rectangle getBounds() {
+        return this.bounds;
+    }
+
     public void setAtributosGlyphsontinuos(ArrayList<String> listaContinuos) {
         this.listaContinuos = listaContinuos;
     }

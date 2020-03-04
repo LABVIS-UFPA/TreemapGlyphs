@@ -19,6 +19,7 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.categorica
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.util.ColorInterpolator;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.orientation.Orientation;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.AngChart;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.StarGlyph;
@@ -27,6 +28,8 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.continuous
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.Slice;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory.ARROW;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -45,22 +48,22 @@ import net.bouthier.treemapAWT.TMNodeModelRoot;
  */
 public final class GlyphMB {
 
-    private List<Object> atributosCategoricosEscolhidos;
+    private HashMap<Constantes.VAR_VISUAIS_CATEGORICAS, Object> atributosCategoricosEscolhidos;
     private HashMap<String, List<String>> colunaDadosDist;
     private TMNodeModelRoot rootNodeZoom;
     private HashMap<String, Integer> configs;
-    private String[] variaveisVisuaisEscolhidas;
+    private List<Constantes.VAR_VISUAIS_CATEGORICAS> variaveisVisuaisEscolhidas;
     private Rectangle bounds;
     private boolean overlappingActivated;
     private List<String> atributosEscolhidosGlyphContinuo;
-    private String glyphContinuoEscolhido;
+    private Constantes.CONTINUOUS_GLYPH_TYPE glyphContinuoEscolhido;
 
     public GlyphMB() {
         colunaDadosDist = new HashMap<>();
-        this.configs = new HashMap<>();        
+        this.configs = new HashMap<>();
     }
 
-    public GlyphMB(List<Object> atributosEscolhidos, Rectangle bounds) {
+    public GlyphMB(HashMap<Constantes.VAR_VISUAIS_CATEGORICAS, Object> atributosEscolhidos, Rectangle bounds) {
         this.atributosCategoricosEscolhidos = atributosEscolhidos;
         colunaDadosDist = new HashMap<>();
         analisarAtributosEscolhidos();
@@ -69,13 +72,15 @@ public final class GlyphMB {
     }
 
     public void analisarAtributosEscolhidos() {
-        for (int i = 0; i < getAtributosCategoricosEscolhidos().size(); i++) {
-            if (!atributosCategoricosEscolhidos.get(i).equals("---")) {
-                Coluna c = ManipuladorArquivo.getColuna(getAtributosCategoricosEscolhidos().get(i).toString());
+        for (Object atributo : getAtributosCategoricosEscolhidos().values()) {
+            if (!atributo.equals("---")) {
+                Coluna c = ManipuladorArquivo.getColuna(atributo.toString());
                 List<String> dadosDistintos = c.getDadosDistintos();
                 colunaDadosDist.put(c.getName(), dadosDistintos);
             }
         }
+//        for (int i = 0; i < getAtributosCategoricosEscolhidos().size(); i++) {
+//        }
     }
 
     public void prepare2Draw() {
@@ -183,22 +188,21 @@ public final class GlyphMB {
     public TreeMapItem configLayers(TreeMapItem item) {
         Glyph father = item.getGlyph();
         father.killAllChild();//e feito um kill para garantir que nao ha filhos
-        String glyphContinuo = getGlyphContinuoEscolhido();
+        Constantes.CONTINUOUS_GLYPH_TYPE glyphContinuo = getGlyphContinuoEscolhido();
 
-        for (int i = 0; i < getVariaveisVisuaisEscolhidas().length; i++) {
-            String varVisual = getVariaveisVisuaisEscolhidas()[i];
-            int dimensao = mapearVarVisual2Dimensao(varVisual);
-            Glyph child = setLayerInGlyph(varVisual, item, dimensao);
+        for (int i = 0; i < getVariaveisVisuaisEscolhidas().size(); i++) {
+            Constantes.VAR_VISUAIS_CATEGORICAS varVisual = getVariaveisVisuaisEscolhidas().get(i);
+            Glyph child = setLayerInGlyph(item, varVisual, null);
             father.appendChild(child);
-            if (i == getVariaveisVisuaisEscolhidas().length - 1) {//se ja estiver na ultima camada
+            if (i == getVariaveisVisuaisEscolhidas().size() - 1) {//se ja estiver na ultima camada
                 if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
-                    Glyph childContinuousGlyph = setLayerInGlyph(glyphContinuo, item, -1);
+                    Glyph childContinuousGlyph = setLayerInGlyph(item, varVisual, glyphContinuo);
                     father.appendChild(childContinuousGlyph);
                 }
             }
         }
-        if (getVariaveisVisuaisEscolhidas().length == 0) {//se nao escolher nenhuma var visual, mas vai usar o profile glyph
-            Glyph childContinuousGlyph = setLayerInGlyph(glyphContinuo, item, -1);
+        if (getVariaveisVisuaisEscolhidas().isEmpty()) {//se nao escolher nenhuma var visual, mas vai usar o profile glyph
+            Glyph childContinuousGlyph = setLayerInGlyph(item, null, glyphContinuo);
             father.appendChild(childContinuousGlyph);
         }
         if (father.getBounds() != null) {
@@ -214,48 +218,49 @@ public final class GlyphMB {
         return item;
     }
 
-    public Glyph setLayerInGlyph(String varVisual, TreeMapItem item, int dimensao) {
+    public Glyph setLayerInGlyph(TreeMapItem item,
+            Constantes.VAR_VISUAIS_CATEGORICAS varCategorica,
+            Constantes.CONTINUOUS_GLYPH_TYPE continuousType) {
         Glyph glyph = null;
-        String colunaEscolhida = null;
-        Coluna col = null;
-        List<String> dadosDistintos = null;
 
-        if (dimensao != -1) {
-            colunaEscolhida = getAtributosCategoricosEscolhidos().get(dimensao).toString();
-            col = ManipuladorArquivo.getColuna(colunaEscolhida);
-            dadosDistintos = colunaDadosDist.get(colunaEscolhida);
-        }
-        if (varVisual != null) {
-            switch (varVisual) {
-                case "Texture":
+        if (varCategorica != null) {
+            String colunaEscolhida = getAtributosCategoricosEscolhidos().get(varCategorica).toString();
+            Coluna col = ManipuladorArquivo.getColuna(colunaEscolhida);
+            List<String> dadosDistintos = colunaDadosDist.get(colunaEscolhida);
+            switch (varCategorica) {
+                case TEXTURE:
                     glyph = prepareDimensaoTexturaDinamica(col, item, dadosDistintos);
                     break;
-                case "Color":
+                case COLOR_HUE:
                     glyph = prepareDimensaoCorDinamica(col, item, dadosDistintos);
                     break;
-                case "Shape":
+                case SHAPE:
                     glyph = prepareDimensaoShapeDinamico(col, item, dadosDistintos);
                     break;
-                case "Text"://case "Letter":
+                case TEXT://case "Letter":
                     glyph = prepareDimensaoTextDinamico(col, item, dadosDistintos);
                     break;
-                case "Position":
+                case POSITION:
                     glyph = prepareDimensaoPositionDinamico(col, item, dadosDistintos);
                     break;
-                case "Star":
-                    glyph = configureStarGlyph(item);
+                case ORIENTATION:
+                    glyph = prepareDimensaoOrientationDinamico(col, item, dadosDistintos);
                     break;
-                case "Profile":
+            }
+        }
+        if (continuousType != null) {
+            switch (continuousType) {
+                case PROFILE:
                     glyph = configureProfileGlyph(item);
                     break;
-                case "Pie":
+                case STAR:
+                    glyph = configureStarGlyph(item);
+                    break;
+                case PIE:
                     glyph = configureSliceGlyph(item);
                     break;
-                case "Ang":
+                case ANG:
                     glyph = configureArcGlyph(item);
-                    break;
-                default:
-                    System.out.println("error ");
                     break;
             }
         }
@@ -380,13 +385,24 @@ public final class GlyphMB {
         }
         return null;
     }
-    
-    public Glyph prepareDimensaoPositionDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos){
+
+    public Glyph prepareDimensaoPositionDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
         for (int j = 0; j < Constantes.POSICOES.values().length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 Glyph position = definePosition(Constantes.POSICOES.values()[j]);
                 position.setNodeTreemap(item);
                 return position;
+            }
+        }
+        return null;
+    }
+    
+    public Glyph prepareDimensaoOrientationDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos){
+        for (int j = 0; j < OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length; j++) {
+            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
+                Glyph orientation = defineOrientation(ARROW.GLYPH_ORIENTACAO.values()[j]);
+                orientation.setNodeTreemap(item);
+                return orientation;
             }
         }
         return null;
@@ -448,40 +464,15 @@ public final class GlyphMB {
         p.setOverlappingActivated(overlappingActivated);
         return p;
     }
-    /**
-     * Mapeia as dimenssões 0 - texture, 1 - color, 2 - shape, 3 - text, 4 - position
-     *
-     * @param varVisual shapeName da var visual
-     * @return int representando a dimensao
-     */
-    private int mapearVarVisual2Dimensao(String varVisual) {
-        int dimensao = -1;
-        switch (varVisual) {
-            case "Texture":
-                dimensao = 0;
-                break;
-            case "Color":
-                dimensao = 1;
-                break;
-            case "Shape":
-                dimensao = 2;
-                break;
-            case "Text"://case "Letter":
-                dimensao = 3;
-                break;
-            case "Position":
-                dimensao = 4;
-                break;
-//            case "Star":
-//                dimensao = 4;
-//                break;
-            default:
-                System.err.println("Erro, dimension not specified!");
-                throw new AssertionError();
-        }
-        return dimensao;
-    }
     
+    public Glyph defineOrientation(ARROW.GLYPH_ORIENTACAO orientatcao){
+        Orientation o = new Orientation();
+        o.setDrawBehavior(OrientationFactory.create(orientatcao));
+        o.setPectSobreposicao(0.65f);
+        o.setOverlappingActivated(overlappingActivated);
+        return o;
+    }
+
     public void configGlyphDesingModel(boolean overlappingActivated) {
         this.overlappingActivated = overlappingActivated;
     }
@@ -501,26 +492,65 @@ public final class GlyphMB {
 //        System.out.println("Root Node Zoom: "+this.rootNodeZoom.getRoot().getTitle());
     }
 
-    public String getGlyphContinuoEscolhido() {
+    public Constantes.CONTINUOUS_GLYPH_TYPE getGlyphContinuoEscolhido() {
         return glyphContinuoEscolhido;
     }
 
     public void setGlyphContinuoEscolhido(String glyphContinuoEscolhido) {
-        this.glyphContinuoEscolhido = glyphContinuoEscolhido;
+        if (glyphContinuoEscolhido != null) {
+            
+            switch (glyphContinuoEscolhido) {
+                case "Profile":
+                    this.glyphContinuoEscolhido = Constantes.CONTINUOUS_GLYPH_TYPE.PROFILE;
+                    break;
+                case "Star":
+                    this.glyphContinuoEscolhido = Constantes.CONTINUOUS_GLYPH_TYPE.STAR;
+                    break;
+                case "Pie":
+                    this.glyphContinuoEscolhido = Constantes.CONTINUOUS_GLYPH_TYPE.PIE;
+                    break;
+                case "Ang":
+                    this.glyphContinuoEscolhido = Constantes.CONTINUOUS_GLYPH_TYPE.ANG;
+                    break;
+            }
+        }
     }
 
     /**
      * @return the variaveisVisuaisEscolhidas
      */
-    public String[] getVariaveisVisuaisEscolhidas() {
+    public List<Constantes.VAR_VISUAIS_CATEGORICAS> getVariaveisVisuaisEscolhidas() {
         return variaveisVisuaisEscolhidas;
     }
 
     /**
-     * @param variaveisVisuaisEscolhidas the variaveisVisuaisEscolhidas to set
+     * @param varEscolhidas the variaveisVisuaisEscolhidas to set
      */
-    public void setVariaveisVisuaisEscolhidas(String[] variaveisVisuaisEscolhidas) {
-        this.variaveisVisuaisEscolhidas = variaveisVisuaisEscolhidas;
+    public void setVariaveisVisuaisEscolhidas(String[] varEscolhidas) {
+        variaveisVisuaisEscolhidas = new ArrayList<>();
+
+        for (String variaveisVisuaisEscolhida : varEscolhidas) {
+            switch (variaveisVisuaisEscolhida) {
+                case "Texture":
+                    variaveisVisuaisEscolhidas.add(Constantes.VAR_VISUAIS_CATEGORICAS.TEXTURE);
+                    break;
+                case "Color":
+                    variaveisVisuaisEscolhidas.add(Constantes.VAR_VISUAIS_CATEGORICAS.COLOR_HUE);
+                    break;
+                case "Shape":
+                    variaveisVisuaisEscolhidas.add(Constantes.VAR_VISUAIS_CATEGORICAS.SHAPE);
+                    break;
+                case "Text"://case "Letter":
+                    variaveisVisuaisEscolhidas.add(Constantes.VAR_VISUAIS_CATEGORICAS.TEXT);
+                    break;
+                case "Position":
+                    variaveisVisuaisEscolhidas.add(Constantes.VAR_VISUAIS_CATEGORICAS.POSITION);
+                    break;
+                case "Orientation":
+                    variaveisVisuaisEscolhidas.add(Constantes.VAR_VISUAIS_CATEGORICAS.ORIENTATION);
+                    break;
+            }
+        }
     }
 
 //    public void setQuantValoresVarVisuais(int quantValoresVarVisuais) {
@@ -558,14 +588,15 @@ public final class GlyphMB {
     /**
      * @return the atributosCategoricosEscolhidos
      */
-    public List<Object> getAtributosCategoricosEscolhidos() {
+    public HashMap<Constantes.VAR_VISUAIS_CATEGORICAS, Object> getAtributosCategoricosEscolhidos() {
         return atributosCategoricosEscolhidos;
     }
 
     /**
-     * @param atributosCategoricosEscolhidos the atributosCategoricosEscolhidos to set
+     * @param atributosCategoricosEscolhidos the atributosCategoricosEscolhidos
+     * to set
      */
-    public void setAtributosCategoricosEscolhidos(List<Object> atributosCategoricosEscolhidos) {
+    public void setAtributosCategoricosEscolhidos(HashMap<Constantes.VAR_VISUAIS_CATEGORICAS, Object> atributosCategoricosEscolhidos) {
         this.atributosCategoricosEscolhidos = atributosCategoricosEscolhidos;
     }
 }

@@ -7,7 +7,7 @@ package doutorado.tese.control.business.visualizations.glyph.factorys.variaveisv
 
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Circulo;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Cruz;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.DrawBehavior;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.DrawBehavior;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Estrela;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Quadrado;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Serrilhado;

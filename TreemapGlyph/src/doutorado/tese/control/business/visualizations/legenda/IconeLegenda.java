@@ -7,6 +7,7 @@ package doutorado.tese.control.business.visualizations.legenda;
 
 import doutorado.tese.util.Constantes;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.orientation.Orientation;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
@@ -15,6 +16,8 @@ import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvi
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.Bar;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory.ARROW;
 import doutorado.tese.util.ColorInterpolator;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -34,7 +37,7 @@ public class IconeLegenda implements Icon {
 
     private int width = 32;
     private int height = 32;
-    private int dimensao;
+    private Constantes.VAR_VISUAIS_CATEGORICAS dimensaoCategorical;
     private String valor = null;
     private double maxValorContIcon;
     private double minValorContIcon;
@@ -44,44 +47,38 @@ public class IconeLegenda implements Icon {
     private FORMAS.GLYPH_FORMAS valorForma = null;
     private List<String> atributosEscolhidosGlyphContinuo = null;
     private Constantes.POSICOES posicao;
+    private ARROW.GLYPH_ORIENTACAO orientacao;
+    private Texture valorTextura;
 
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
         Graphics2D g2d = (Graphics2D) g.create();
 
         Rectangle bounds = new Rectangle(x, y, width, height);
-        switch (dimensao) {
-            case Constantes.COR_TREEMAP:
-                montarIconeCorTreemap(g2d, x, y, bounds);
-                break;
-            case 0:
+
+        if (dimensaoCategorical != null) {
+            if (dimensaoCategorical.equals(Constantes.VAR_VISUAIS_CATEGORICAS.TEXTURE)) {
                 montarIconeGlyphTextura(g2d, valor, bounds);
-                break;
-            case 1:
+            } else if (dimensaoCategorical.equals(Constantes.VAR_VISUAIS_CATEGORICAS.COLOR_HUE)) {
                 montarIconeGlyphCor(g2d, x, y, height, valor, bounds);
-                break;
-            case 2:
+            } else if (dimensaoCategorical.equals(Constantes.VAR_VISUAIS_CATEGORICAS.SHAPE)) {
                 montarIconeGlyphForma(g2d, valorForma, bounds);
-                break;
-            case 3:
+            } else if (dimensaoCategorical.equals(Constantes.VAR_VISUAIS_CATEGORICAS.TEXT)) {
                 montarIconeGlyphText(g2d, valor, bounds);
-                break;
-            case 4:
+            } else if (dimensaoCategorical.equals(Constantes.VAR_VISUAIS_CATEGORICAS.POSITION)) {
                 montarIconeGlyphPosition(g2d, posicao, bounds);
-                break;
-            case 5:
-                if (valor == null) {
-                    montarIconeProfileGlyph(g2d, bounds);
-                }
-                break;
-            case 100:
-                //Desenhar glyph como um icone
+            } else if (dimensaoCategorical.equals(Constantes.VAR_VISUAIS_CATEGORICAS.ORIENTATION)) {
+                montarIconeGlyphOrientacao(g2d, orientacao, bounds);
+            }
+        } else {
+            if (Constantes.LEGENDA_COR_TREEMAP) {//legenda da cor do treemap
+                montarIconeCorTreemap(g2d, x, y, bounds);
+            } else if (getAtributosEscolhidosGlyphContinuo() != null && !getAtributosEscolhidosGlyphContinuo().isEmpty()) {//legenda profile glyph
+                montarIconeProfileGlyph(g2d, bounds);
+            } else if (getGlyph() != null) {
                 getGlyph().setBounds(bounds);
                 getGlyph().paint(g2d);
-                break;
-            default:
-                inserirIconeAusente(g2d, x, y);
-                break;
+            }
         }
         g2d.dispose();
     }
@@ -136,7 +133,7 @@ public class IconeLegenda implements Icon {
             shapeColor.paint(g2d);
         }
     }
-    
+
     private void montarIconeGlyphForma(Graphics2D g2d, FORMAS.GLYPH_FORMAS valorForma, Rectangle bounds) {
         GeometricShape shapeIcon = new GeometricShape();
         shapeIcon.setDrawBehavior(GeometryFactory.create(valorForma));
@@ -144,6 +141,15 @@ public class IconeLegenda implements Icon {
         shapeIcon.setOverlappingActivated(true);
         shapeIcon.setBounds(bounds);
         shapeIcon.paint(g2d);
+    }
+
+    private void montarIconeGlyphOrientacao(Graphics2D g2d, ARROW.GLYPH_ORIENTACAO valor, Rectangle bounds) {
+        Orientation iconOrientacao = new Orientation();
+        iconOrientacao.setDrawBehavior(OrientationFactory.create(valor));
+        iconOrientacao.setPectSobreposicao(0.65f);
+        iconOrientacao.setOverlappingActivated(true);
+        iconOrientacao.setBounds(bounds);
+        iconOrientacao.paint(g2d);
     }
 
     private void montarIconeGlyphText(Graphics2D g2d, String valor, Rectangle bounds) {
@@ -206,8 +212,8 @@ public class IconeLegenda implements Icon {
         return height;
     }
 
-    public void setDimensao(int dimensao) {
-        this.dimensao = dimensao;
+    public void setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS dimensaoCategorical) {
+        this.dimensaoCategorical = dimensaoCategorical;
     }
 
     private void inserirIconeAusente(Graphics2D g2d, int x, int y) {
@@ -234,6 +240,14 @@ public class IconeLegenda implements Icon {
 
     void setValorIcon(Constantes.POSICOES posicao) {
         this.posicao = posicao;
+    }
+
+    void setValorIcon(ARROW.GLYPH_ORIENTACAO orientacao) {
+        this.orientacao = orientacao;
+    }
+
+    void setValorIcon(Texture textura) {
+        this.valorTextura = textura;
     }
 
     /**

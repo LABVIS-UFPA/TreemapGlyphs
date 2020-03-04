@@ -1,6 +1,6 @@
 package doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes;
 
-import java.awt.BasicStroke;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.DrawBehavior;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -139,8 +139,8 @@ public class Serrilhado implements DrawBehavior {
     }
 
     public void montarQuadradoSobreposicao(int[] points) {
-        int widthSobreposicao = (int) Math.round(points[0] * percentSobreposicao);
-        int heightSobreposicao = (int) Math.round(points[1] * percentSobreposicao);
+        int widthSobreposicao = (int) Math.round(points[0] * PERCENT_SOBREPOSICAO);
+        int heightSobreposicao = (int) Math.round(points[1] * PERCENT_SOBREPOSICAO);
 
         xPoints = new int[2];
         yPoints = new int[2];

@@ -41,6 +41,7 @@ public class Constantes {
     public static boolean DECISION_TREE_ACTIVATED = false;
     public static boolean CONTINUOUS_GLYPH_ACTIVATED = false;
     public static boolean CATEGORICAL_GLYPH_ACTIVATED = false;
+    public static boolean LEGENDA_COR_TREEMAP = false;
     public static final int LIMITE_TESTES = 100;
     public static int PRESENCA_STAR;
     
@@ -114,7 +115,8 @@ public class Constantes {
         TEXTURE("Texture"),
         COLOR_HUE("Color_Hue"),
         SHAPE("Shape"),
-        TEXT("Text");
+        TEXT("Text"),
+        ORIENTATION("Orientation");
 
         private final String varVisual;
 
@@ -124,6 +126,23 @@ public class Constantes {
 
         public String variavel() {
             return varVisual;
+        }
+    }
+    
+    public enum CONTINUOUS_GLYPH_TYPE{
+        PROFILE ("Profile"),
+        STAR ("Star"),
+        PIE ("Pie"),
+        ANG ("Ang");
+        
+        private final String name;
+
+        private CONTINUOUS_GLYPH_TYPE(String name) {
+            this.name = name;
+        }
+        
+        public String getName(){
+            return name;
         }
     }
 

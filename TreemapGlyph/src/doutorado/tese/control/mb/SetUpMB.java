@@ -8,6 +8,7 @@ package doutorado.tese.control.mb;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.control.business.visualizations.glyph.GlyphConcrete;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
 import doutorado.tese.model.TreeMapItem;
@@ -104,6 +105,13 @@ public class SetUpMB {
                 break;
             case POSITION:
                 analisarQuantAtributosCategoricos(list, Constantes.POSICOES.values());
+                break;
+            case ORIENTATION:
+//                OrientationFactory.ARROW.GLYPH_ORIENTACAO[] orientations = new OrientationFactory.ARROW.GLYPH_ORIENTACAO[OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length];
+//                for (int i = 0; i < orientations.length; i++) {
+//                    orientations[i] = OrientationFactory.ARROW.GLYPH_ORIENTACAO.values()[i];
+//                }
+                analisarQuantAtributosCategoricos(list, OrientationFactory.ARROW.GLYPH_ORIENTACAO.values());
                 break;
             default:
                 System.err.println("Nao foi carregar atributos para a dimensão.");

@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes;
+package doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.orientation;
 
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.DrawBehavior;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Quadrado;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -19,14 +18,13 @@ import java.awt.Shape;
  *
  * @author Anderson Soares
  */
-public class GeometricShape extends Glyph {
+public class Orientation extends Glyph {
 
     private Rectangle bounds;
     private DrawBehavior drawBehavior;
-    private Color corLegenda;
-    private boolean legenda;
+    private Color cor;
 
-    public GeometricShape() {
+    public Orientation() {
         this.drawBehavior = new DrawBehavior() {
             @Override
             public void paint(Graphics2D g) {
@@ -80,9 +78,9 @@ public class GeometricShape extends Glyph {
             if (!isOverlappingActivated()) {
                 drawBehavior.drawForeground(g2d);
             }
-        }
+        }        
     }
-
+    
     @Override
     public Object whoAmI() {
         return this.getClass();
@@ -93,16 +91,14 @@ public class GeometricShape extends Glyph {
         return bounds;
     }
 
+    public void setColor(Color cor) {
+        this.setCor(cor);
+    }
+
     @Override
     public void setBounds(Rectangle bounds) {
         super.setBounds(bounds);
         drawBehavior.setGlyphBounds(bounds);
-//        if (this.drawBehavior instanceof Quadrado) {
-        if(isLegenda() && this.drawBehavior instanceof Quadrado){
-            Quadrado retanguloLegenda = (Quadrado) this.drawBehavior;
-//            retanguloLegenda.setIsLegenda(true);
-            retanguloLegenda.setCor(corLegenda);
-        }
     }
 
     public DrawBehavior getDrawBehavior() {
@@ -136,7 +132,7 @@ public class GeometricShape extends Glyph {
     public Glyph clone() throws CloneNotSupportedException {
         try {
             DrawBehavior drawBehaviorClone = this.getDrawBehavior().clone();
-            GeometricShape formaClonada = ((GeometricShape) super.clone());
+            Orientation formaClonada = ((Orientation) super.clone());
             formaClonada.setDrawBehavior(drawBehaviorClone);
             formaClonada.killAllChild();
             return (Glyph) formaClonada;
@@ -151,22 +147,18 @@ public class GeometricShape extends Glyph {
         return getDrawBehavior().toString();
     }
 
-    public void setCorLegenda(Color cor) {
-        corLegenda = cor;
+    /**
+     * @return the cor
+     */
+    public Color getCor() {
+        return cor;
     }
 
     /**
-     * @return the legenda
+     * @param cor the cor to set
      */
-    public boolean isLegenda() {
-        return legenda;
-    }
-
-    /**
-     * @param legenda the legenda to set
-     */
-    public void setLegenda(boolean legenda) {
-        this.legenda = legenda;
+    public void setCor(Color cor) {
+        this.cor = cor;
     }
 
 }

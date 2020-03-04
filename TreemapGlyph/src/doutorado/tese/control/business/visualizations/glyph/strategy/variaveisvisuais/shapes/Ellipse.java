@@ -1,5 +1,6 @@
 package doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes;
 
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.DrawBehavior;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -48,8 +49,8 @@ public class Ellipse implements DrawBehavior {
 
         tornarGlyphQuadrado(points);
 
-        int width = (int) Math.round(points[0] * percentSobreposicao);
-        int height = (int) Math.round(points[1] * percentSobreposicao);
+        int width = (int) Math.round(points[0] * PERCENT_SOBREPOSICAO);
+        int height = (int) Math.round(points[1] * PERCENT_SOBREPOSICAO);
 
         p = new Path2D.Double();
         p.append(new Ellipse2D.Double(rect.x + 2, rect.y + height / 3, width, height / 1.5), true);

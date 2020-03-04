@@ -5,6 +5,7 @@
  */
 package doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes;
 
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.DrawBehavior;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -49,8 +50,8 @@ public class Estrela implements DrawBehavior {
     }
     
     public void montarQuadradoSobreposicao(int[] points) {
-        int widthSobreposicao = (int) Math.round(points[0] * percentSobreposicao);
-        int heightSobreposicao = (int) Math.round(points[1] * percentSobreposicao);
+        int widthSobreposicao = (int) Math.round(points[0] * PERCENT_SOBREPOSICAO);
+        int heightSobreposicao = (int) Math.round(points[1] * PERCENT_SOBREPOSICAO);
 
         xPointsSobreposicao = new int[2];
         yPointsSobreposicao = new int[2];
@@ -73,8 +74,8 @@ public class Estrela implements DrawBehavior {
         tornarGlyphQuadrado(points);
         montarQuadradoSobreposicao(points);
         
-        int widthSobreposicao = (int) Math.round(points[0] * percentSobreposicao);
-        int heightSobreposicao = (int) Math.round(points[1] * percentSobreposicao);
+        int widthSobreposicao = (int) Math.round(points[0] * PERCENT_SOBREPOSICAO);
+        int heightSobreposicao = (int) Math.round(points[1] * PERCENT_SOBREPOSICAO);
 
         int halfWidth = widthSobreposicao / 2;
         int halfHeight = heightSobreposicao / 2;

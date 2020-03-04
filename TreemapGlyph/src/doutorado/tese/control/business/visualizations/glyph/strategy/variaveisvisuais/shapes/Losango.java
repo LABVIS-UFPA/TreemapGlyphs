@@ -5,6 +5,7 @@
  */
 package doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes;
 
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.DrawBehavior;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -50,8 +51,8 @@ public class Losango implements DrawBehavior {
 
         tornarGlyphQuadrado(points);
         
-        int width = (int) Math.round(points[0] * percentSobreposicao);
-        int height = (int) Math.round(points[1] * percentSobreposicao);
+        int width = (int) Math.round(points[0] * PERCENT_SOBREPOSICAO);
+        int height = (int) Math.round(points[1] * PERCENT_SOBREPOSICAO);
 
         int halfWidth = width / 2;
         int halfHeight = height / 2;
