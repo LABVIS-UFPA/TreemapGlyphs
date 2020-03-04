@@ -675,17 +675,15 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                                     .addComponent(textGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel10)))
                             .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel9)
-                                .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(positionGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel3)
+                                .addComponent(positionGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botaoGerarCategoricalGlyphs)
+                        .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel11)
-                                .addComponent(orientationGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(orientationGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(botaoGerarCategoricalGlyphs))))
                 .addGroup(abaConfigGlyphsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textureGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
@@ -874,6 +872,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         });
 
         showGlyphOnDetailsCheckBox.setText("Show glyph in details");
+        showGlyphOnDetailsCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showGlyphOnDetailsCheckBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout abaDetalhesLayout = new javax.swing.GroupLayout(abaDetalhes);
         abaDetalhes.setLayout(abaDetalhesLayout);
@@ -1690,7 +1693,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void checkContinuousGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkContinuousGlyphActionPerformed
         Constantes.CONTINUOUS_GLYPH_ACTIVATED = checkContinuousGlyph.isSelected();
         if (checkCategoricalGlyph.isSelected() || checkContinuousGlyph.isSelected()) {
-            showGlyphOnDetailsCheckBox.setEnabled(true);
+            showGlyphOnDetailsCheckBox.setEnabled(true);            
         }
         if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
             if (glassPanel == null) {
@@ -2069,6 +2072,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }//GEN-LAST:event_corTreemapComboBoxItemStateChanged
 
+    private void showGlyphOnDetailsCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showGlyphOnDetailsCheckBoxActionPerformed
+        Constantes.SHOW_GLYPH_ON_DETAILS = showGlyphOnDetailsCheckBox.isSelected();
+    }//GEN-LAST:event_showGlyphOnDetailsCheckBoxActionPerformed
+
     private HashMap<Constantes.VAR_VISUAIS_CATEGORICAS, Object> getAtributosEscolhidosGlyph() {
 //        ArrayList<Object> atributosGlyph = new ArrayList<>();
 //        atributosGlyph.add(textureGlyphComboBox.getSelectedItem());
@@ -2262,13 +2269,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         atualizarLegendaTreemap(itemCor);
         legendaVisualizacao.setAtributosEscolhidosGlyphCategorico(atributosEscolhidosGlyph);
         int i = 0;
-        System.out.println(atributosEscolhidosGlyph.keySet().toString());
-        System.out.println(atributosEscolhidosGlyph.values().toString());
-
         for (Object atributo : atributosEscolhidosGlyph.values()) {
             if (!atributo.equals("---")) {
                 Constantes.VAR_VISUAIS_CATEGORICAS layer = (Constantes.VAR_VISUAIS_CATEGORICAS) atributosEscolhidosGlyph.keySet().toArray()[i];
-                System.out.println("name: " + layer);
                 JPanel painelDimensao = legendaVisualizacao.addLegendaDimensao(layer, atributo);
                 painelLegendaVis.setLayout(new BoxLayout(painelLegendaVis, BoxLayout.Y_AXIS));
                 painelLegendaVis.add(painelDimensao);
@@ -2290,7 +2293,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 lista.add(atributosEscolhidosGlyphContinuo[i]);
             }
 //        legendaVisualizacao.setAtributosEscolhidosGlyphCategorico(lista);
-            legendaVisualizacao.setAtributosGlyphsontinuos(lista);
+            legendaVisualizacao.setAtributosGlyphsContinuos(lista);
 //        for (int i = 0; i < atributosEscolhidosGlyphContinuo.size(); i++) {   
             JPanel painelDimensao = legendaVisualizacao.addLegendaDimensao(null, null);
             painelLegendaVis.setLayout(new BoxLayout(painelLegendaVis, BoxLayout.Y_AXIS));
@@ -2526,7 +2529,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 Point locationOnScreen = evt.getLocationOnScreen();
 
                 if ((locationOnScreen.getY() + details.getHeight()) > (view.getHeight())) {
-                    if (showGlyphOnDetailsCheckBox.isSelected()) {
+                    if (Constantes.SHOW_GLYPH_ON_DETAILS) {
                         locationOnScreen.translate(15, -60);
                     } else {
                         locationOnScreen.translate(15, -50);
@@ -2536,9 +2539,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 }
                 details.setLocation(locationOnScreen);
 
-                details.getGlyphIconLabel().setVisible(showGlyphOnDetailsCheckBox.isSelected());
+                details.getGlyphIconLabel().setVisible(Constantes.SHOW_GLYPH_ON_DETAILS);
                 TreeMapNode nodeUnderTheMouse = (TreeMapNode) view.getNodeUnderTheMouse(evt);
-                if (showGlyphOnDetailsCheckBox.isSelected()) {
+                if (Constantes.SHOW_GLYPH_ON_DETAILS) {
                     if (nodeUnderTheMouse instanceof TreeMapItem) {
                         if (nodeUnderTheMouse.getGlyph() != null) {
                             if (!nodeUnderTheMouse.getGlyph().getChildren().isEmpty()) {

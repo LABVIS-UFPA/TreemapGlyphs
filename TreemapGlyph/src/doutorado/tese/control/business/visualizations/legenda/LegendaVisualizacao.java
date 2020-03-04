@@ -19,7 +19,6 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -218,7 +217,7 @@ public class LegendaVisualizacao {
         return this.bounds;
     }
 
-    public void setAtributosGlyphsontinuos(ArrayList<String> listaContinuos) {
+    public void setAtributosGlyphsContinuos(ArrayList<String> listaContinuos) {
         this.listaContinuos = listaContinuos;
     }
 }

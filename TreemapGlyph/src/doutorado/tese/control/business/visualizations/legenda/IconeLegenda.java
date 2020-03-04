@@ -57,27 +57,34 @@ public class IconeLegenda implements Icon {
         Rectangle bounds = new Rectangle(x, y, width, height);
 
         if (dimensaoCategorical != null) {
-            if (dimensaoCategorical.equals(Constantes.VAR_VISUAIS_CATEGORICAS.TEXTURE)) {
-                montarIconeGlyphTextura(g2d, valor, bounds);
-            } else if (dimensaoCategorical.equals(Constantes.VAR_VISUAIS_CATEGORICAS.COLOR_HUE)) {
-                montarIconeGlyphCor(g2d, x, y, height, valor, bounds);
-            } else if (dimensaoCategorical.equals(Constantes.VAR_VISUAIS_CATEGORICAS.SHAPE)) {
-                montarIconeGlyphForma(g2d, valorForma, bounds);
-            } else if (dimensaoCategorical.equals(Constantes.VAR_VISUAIS_CATEGORICAS.TEXT)) {
-                montarIconeGlyphText(g2d, valor, bounds);
-            } else if (dimensaoCategorical.equals(Constantes.VAR_VISUAIS_CATEGORICAS.POSITION)) {
-                montarIconeGlyphPosition(g2d, posicao, bounds);
-            } else if (dimensaoCategorical.equals(Constantes.VAR_VISUAIS_CATEGORICAS.ORIENTATION)) {
-                montarIconeGlyphOrientacao(g2d, orientacao, bounds);
+            switch (dimensaoCategorical) {
+                case TEXTURE:
+                    montarIconeGlyphTextura(g2d, valor, bounds);
+                    break;
+                case COLOR_HUE:
+                    montarIconeGlyphCor(g2d, x, y, height, valor, bounds);
+                    break;
+                case SHAPE:
+                    montarIconeGlyphForma(g2d, valorForma, bounds);
+                    break;
+                case TEXT:
+                    montarIconeGlyphText(g2d, valor, bounds);
+                    break;
+                case POSITION:
+                    montarIconeGlyphPosition(g2d, posicao, bounds);
+                    break;
+                case ORIENTATION:
+                    montarIconeGlyphOrientacao(g2d, orientacao, bounds);
+                    break;
             }
         } else {
-            if (Constantes.LEGENDA_COR_TREEMAP) {//legenda da cor do treemap
-                montarIconeCorTreemap(g2d, x, y, bounds);
-            } else if (getAtributosEscolhidosGlyphContinuo() != null && !getAtributosEscolhidosGlyphContinuo().isEmpty()) {//legenda profile glyph
+            if (getAtributosEscolhidosGlyphContinuo() != null && !getAtributosEscolhidosGlyphContinuo().isEmpty()) {//legenda profile glyph
                 montarIconeProfileGlyph(g2d, bounds);
-            } else if (getGlyph() != null) {
+            } else if (Constantes.SHOW_GLYPH_ON_DETAILS && getGlyph() != null) {
                 getGlyph().setBounds(bounds);
                 getGlyph().paint(g2d);
+            } else if (Constantes.LEGENDA_COR_TREEMAP) {//legenda da cor do treemap
+                montarIconeCorTreemap(g2d, x, y, bounds);
             }
         }
         g2d.dispose();
