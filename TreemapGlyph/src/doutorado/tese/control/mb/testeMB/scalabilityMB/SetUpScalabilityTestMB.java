@@ -22,9 +22,11 @@ import doutorado.tese.util.Constantes;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,6 +49,7 @@ public class SetUpScalabilityTestMB {
     private List<String> atributosEscolhidosGlyphContinuo;
     private Coluna[] colunas = null;
     private Random rand;
+    private Constantes.VAR_VISUAIS_CATEGORICAS[] layersMisturadas;
 
     public SetUpScalabilityTestMB() {
         areas = new HashMap<>();
@@ -115,7 +118,8 @@ public class SetUpScalabilityTestMB {
         Glyph father = getItemInput().getGlyph();
         father.killAllChild();//eh feito um kill para garantir que nao ha filhos
 
-        for (Constantes.VAR_VISUAIS_CATEGORICAS var : Constantes.VAR_VISUAIS_CATEGORICAS.values()) {
+        layersMisturadas = shuffleArray(Constantes.VAR_VISUAIS_CATEGORICAS.values());
+        for (Constantes.VAR_VISUAIS_CATEGORICAS var : layersMisturadas) {
             Glyph child = null;
             switch (var) {
                 case TEXTURE:
@@ -168,6 +172,7 @@ public class SetUpScalabilityTestMB {
             father.appendChild(child);
         }
         List<Glyph> familiaGlyphs = getItemInput().getGlyphFamily(father, new ArrayList<>());
+        System.out.println("familia: "+familiaGlyphs.toString());
         if (father.getBounds() != null) {
             father.setBounds(father.getBounds());
         }
@@ -181,7 +186,7 @@ public class SetUpScalabilityTestMB {
         Glyph father = getItemOutput().getGlyph();
         father.killAllChild();
 
-        for (Constantes.VAR_VISUAIS_CATEGORICAS var : Constantes.VAR_VISUAIS_CATEGORICAS.values()) {
+        for (Constantes.VAR_VISUAIS_CATEGORICAS var : layersMisturadas) {
             Glyph child = null;
             switch (var) {
                 case TEXTURE:
@@ -215,17 +220,17 @@ public class SetUpScalabilityTestMB {
                     }
                     break;
             }
-            
+
             if (child != null) {
                 father.appendChild(child);
             }
         }
         if (getOutputConfigs().get("profileglyph") && getInputConfigs().get("profileglyph") > 0) {
-                getGlyphMB().setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
-                Glyph child = getGlyphMB().configureProfileGlyph(itemOutput);
-                child.setNodeTreemap(getItemOutput());
-                father.appendChild(child);
-            }
+            getGlyphMB().setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
+            Glyph child = getGlyphMB().configureProfileGlyph(itemOutput);
+            child.setNodeTreemap(getItemOutput());
+            father.appendChild(child);
+        }
         if (father.getBounds() != null) {
             father.setBounds(father.getBounds());
         }
@@ -253,6 +258,40 @@ public class SetUpScalabilityTestMB {
                 Logger.getLogger(SetUpScalabilityTestMB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    /**
+     * Funcao que recebe um vetor de inteiros e mistura seu conteudo
+     *
+     * @param ar vetor que tera seu conteudo misturado
+     */
+    public static void shuffleArray(int[] ar) {
+        // If running on Java 6 or older, use `new Random()` on RHS here
+        Random rnd = ThreadLocalRandom.current();
+        for (int i = ar.length - 1; i > 0; i--) {
+            int indexSorteado = rnd.nextInt(i + 1);
+            // Simple swap
+            int valor = ar[indexSorteado];
+            ar[indexSorteado] = ar[i];
+            ar[i] = valor;
+        }
+    }
+
+    public static Constantes.VAR_VISUAIS_CATEGORICAS[] shuffleArray(Constantes.VAR_VISUAIS_CATEGORICAS[] original) {
+        Constantes.VAR_VISUAIS_CATEGORICAS[] novo = new Constantes.VAR_VISUAIS_CATEGORICAS[original.length];
+        
+        System.arraycopy(original, 0, novo, 0, original.length);
+        
+        // If running on Java 6 or older, use `new Random()` on RHS here
+        Random rnd = ThreadLocalRandom.current();
+        for (int i = novo.length - 1; i > 0; i--) {
+            int indexSorteado = rnd.nextInt(i + 1);
+            // Simple swap
+            Constantes.VAR_VISUAIS_CATEGORICAS valor = novo[indexSorteado];
+            novo[indexSorteado] = novo[i];
+            novo[i] = valor;            
+        }
+        return novo;
     }
 
     /**

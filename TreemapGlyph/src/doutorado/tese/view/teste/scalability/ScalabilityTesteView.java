@@ -5,16 +5,14 @@
  */
 package doutorado.tese.view.teste.scalability;
 
-import doutorado.tese.control.business.visualizations.glyph.Glyph;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
+import doutorado.tese.control.mb.testeMB.scalabilityMB.SetUpScalabilityTestMB;
 import doutorado.tese.util.Constantes;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -123,7 +121,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         configs.put("height", Math.abs(length - rand.nextInt(100)));
         configs.put("coritem", rand.nextInt(Constantes.getCorTreemap().length));
 
-        shuffleArray(glyphlayers2draw);
+        SetUpScalabilityTestMB.shuffleArray(glyphlayers2draw);
         //dependendo da step as camadas serao removidas (representado por -1) do glyph e seu respectivo checkbox sera desabilitado
         for (int i = 0; i < numLayers2remove; i++) {
             configs.put(layers[glyphlayers2draw[i]], -1);
@@ -553,20 +551,5 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
     private javax.swing.JLabel shouldBeLabel;
     private JSeparator separador;
 
-    /**
-     * Funcao que recebe um vetor de inteiros e mistura seu conteudo
-     *
-     * @param ar vetor que tera seu conteudo misturado
-     */
-    public static void shuffleArray(int[] ar) {
-        // If running on Java 6 or older, use `new Random()` on RHS here
-        Random rnd = ThreadLocalRandom.current();
-        for (int i = ar.length - 1; i > 0; i--) {
-            int indexSorteado = rnd.nextInt(i + 1);
-            // Simple swap
-            int valor = ar[indexSorteado];
-            ar[indexSorteado] = ar[i];
-            ar[i] = valor;
-        }
-    }
+    
 }
