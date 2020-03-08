@@ -8,12 +8,14 @@ package doutorado.tese.control.mb.testeMB.scalabilityMB;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.control.business.visualizations.glyph.GlyphConcrete;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.color.ColorHue;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.orientation.Orientation;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.control.mb.GlyphMB;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
@@ -22,7 +24,6 @@ import doutorado.tese.util.Constantes;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -45,7 +46,7 @@ public class SetUpScalabilityTestMB {
     private final HashMap<String, Integer> areas;
     private final GlyphMB glyphMB;
     private final boolean overlappingActivated;
-    private int areaTextura = 0, areaColorHue = 0, areaForma = 0, areaText = 0, areaPosition = 0, areaProfileGlyph = 0;
+    private int areaTextura = 0, areaColorHue = 0, areaForma = 0, areaText = 0, areaPosition = 0, areaOrientation = 0, areaProfileGlyph = 0;
     private List<String> atributosEscolhidosGlyphContinuo;
     private Coluna[] colunas = null;
     private Random rand;
@@ -86,7 +87,7 @@ public class SetUpScalabilityTestMB {
     }
 
     public void procurarAreaGlyphFilhos(TreeMapItem item) {
-        areaTextura = areaColorHue = areaForma = areaText = areaPosition = areaProfileGlyph = 0;
+        areaTextura = areaColorHue = areaForma = areaText = areaPosition = areaOrientation = areaProfileGlyph = 0;
 
         for (Glyph child : item.getGlyphFamily(item.getGlyph(), new ArrayList<>())) {
             if (child instanceof Texture) {
@@ -99,7 +100,9 @@ public class SetUpScalabilityTestMB {
                 areaText = child.getArea();
             } else if (child instanceof Position) {
                 areaPosition = child.getArea();
-            } else if (child instanceof ProfileGlyph) {
+            } else if(child instanceof Orientation){
+                areaOrientation = child.getArea();
+            }  else  if (child instanceof ProfileGlyph) {
                 areaProfileGlyph = child.getArea();
             }
         }
@@ -108,6 +111,7 @@ public class SetUpScalabilityTestMB {
         getAreas().put("geometricshape", getAreaForma());
         getAreas().put("text", getAreaText());
         getAreas().put("position", getAreaPosition());
+        getAreas().put("orientation", getAreaOrientation());
         getAreas().put("profileglyph", getAreaProfileGlyph());
     }
 
@@ -155,6 +159,12 @@ public class SetUpScalabilityTestMB {
                 case POSITION:
                     if (getInputConfigs().get("position") >= 0) {
                         child = getGlyphMB().definePosition(Constantes.POSICOES.values()[getInputConfigs().get("position")]);
+                        child.setNodeTreemap(getItemInput());
+                    }
+                    break;
+                case ORIENTATION:
+                    if (getInputConfigs().get("orientation") >= 0) {
+                        child = getGlyphMB().defineOrientation(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values()[getInputConfigs().get("orientation")]);
                         child.setNodeTreemap(getItemInput());
                     }
                     break;
@@ -216,6 +226,12 @@ public class SetUpScalabilityTestMB {
                 case POSITION:
                     if (getOutputConfigs().get("position") && getInputConfigs().get("position") >= 0) {
                         child = getGlyphMB().definePosition(Constantes.POSICOES.values()[getInputConfigs().get("position")]);
+                        child.setNodeTreemap(getItemOutput());
+                    }
+                    break;
+                case ORIENTATION:
+                    if (getOutputConfigs().get("orientation") && getInputConfigs().get("orientation") >= 0) {
+                        child = getGlyphMB().defineOrientation(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values()[getInputConfigs().get("orientation")]);
                         child.setNodeTreemap(getItemOutput());
                     }
                     break;
@@ -390,6 +406,10 @@ public class SetUpScalabilityTestMB {
      */
     public int getAreaPosition() {
         return areaPosition;
+    }
+    
+    public int getAreaOrientation(){
+        return areaOrientation;
     }
 
     /**

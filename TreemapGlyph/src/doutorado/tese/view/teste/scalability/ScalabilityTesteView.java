@@ -6,6 +6,7 @@
 package doutorado.tese.view.teste.scalability;
 
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.control.mb.testeMB.scalabilityMB.SetUpScalabilityTestMB;
 import doutorado.tese.util.Constantes;
 import java.io.BufferedWriter;
@@ -15,7 +16,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
@@ -37,8 +37,8 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
     private String data;
     private boolean selectAll = true;
     private HashMap<String, Integer> areas;
-    private int[] glyphlayers2draw = {0, 1, 2, 3, 4, 5};
-    private String[] layers = new String[]{"texture", "colorhue", "geometricshape", "text", "position", "coritem"};
+    private int[] glyphlayers2draw = {0, 1, 2, 3, 4, 5, 6};
+    private String[] layers = new String[]{"texture", "colorhue", "geometricshape", "text", "position", "orientation", "coritem"};
     private HashMap<String, JCheckBox> checkboxes;
 
     private int cont = 0;
@@ -52,11 +52,11 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
      */
     public ScalabilityTesteView() {
 
-        data = "Textura,Cor,Forma,Texto,Posicao,ProfileGlyph,"
+        data = "Textura,Cor,Forma,Texto,Posicao,Orientacao,ProfileGlyph,"
                 + "Altura,Largura,"
                 + "AreaItem,AspectoItem,CorItem,"
-                + "AreaTextura,AreaCor,AreaForma,AreaTexto,AreaPosicao,AreaProfileGlyph,"
-                + "ViuTextura,ViuCor,ViuForma,ViuTexto,ViuPosicao,ViuProfileGlyph";
+                + "AreaTextura,AreaCor,AreaForma,AreaTexto,AreaPosicao,AreaOrientacao,AreaProfileGlyph,"
+                + "ViuTextura,ViuCor,ViuForma,ViuTexto,ViuPosicao,ViuOrientacao,ViuProfileGlyph";
         rand = new Random(System.currentTimeMillis());
         configs = new HashMap<>();
         output = new HashMap<>();
@@ -75,6 +75,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         checkboxes.put("geometricshape", checkboxGeometry);
         checkboxes.put("text", checkboxLetter);
         checkboxes.put("position", checkboxPosition);
+        checkboxes.put("orientation", checkboxOrientation);
         checkboxes.put("profileglyph", checkboxProfileGlyph);
 
         configCheckBox();
@@ -113,6 +114,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         configs.put("geometricshape", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
         configs.put("text", rand.nextInt(Constantes.LETRAS_ALFABETO.length));
         configs.put("position", rand.nextInt(Constantes.POSICOES.values().length));
+        configs.put("orientation", rand.nextInt(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length));
         configs.put("profileglyph", rand.nextInt(3));//nesse caso 0 - nao desenha, 1 - desenha ao inves do text; 2 - desenha na ultima camada
         configs.put("x", 50);
         configs.put("y", 50);
@@ -167,6 +169,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         btnSelectAll = new javax.swing.JButton();
         contadorLabel = new javax.swing.JLabel();
         checkboxProfileGlyph = new javax.swing.JCheckBox();
+        checkboxOrientation = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Treemap Glyphs");
@@ -283,6 +286,13 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
             }
         });
 
+        checkboxOrientation.setText("Orientation");
+        checkboxOrientation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxOrientationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -307,7 +317,8 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(checkboxPosition)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(checkboxOrientation))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(checkboxProfileGlyph)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -326,7 +337,8 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkboxTexture)
                     .addComponent(checkboxGeometry)
-                    .addComponent(checkboxPosition))
+                    .addComponent(checkboxPosition)
+                    .addComponent(checkboxOrientation))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkboxColorHue)
@@ -374,6 +386,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 + "," + (configs.get("geometricshape") >= 0 ? 1 : 0)
                 + "," + (configs.get("text") >= 0 ? 1 : 0)
                 + "," + (configs.get("position") >= 0 ? 1 : 0)
+                + "," + (configs.get("orientation") >= 0 ? 1 : 0)
                 + "," + (configs.get("profileglyph") > 0 ? 1 : 0)
                 + "," + configs.get("height")
                 + "," + configs.get("width")
@@ -385,12 +398,14 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 + "," + areas.get("geometricshape")
                 + "," + areas.get("text")
                 + "," + areas.get("position")
+                + "," + areas.get("orientation")
                 + "," + areas.get("profileglyph")
                 + "," + (checkboxTexture.isSelected() ? 1 : 0)
                 + "," + (checkboxColorHue.isSelected() ? 1 : 0)
                 + "," + (checkboxGeometry.isSelected() ? 1 : 0)
                 + "," + (checkboxLetter.isSelected() ? 1 : 0)
                 + "," + (checkboxPosition.isSelected() ? 1 : 0)
+                + "," + (checkboxOrientation.isSelected() ? 1 : 0)
                 + "," + (checkboxProfileGlyph.isSelected() ? 1 : 0);
 
         for (JCheckBox c : checkboxes.values()) {
@@ -405,6 +420,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         output.put("geometricshape", false);
         output.put("text", false);
         output.put("position", false);
+        output.put("orientation", false);
         output.put("profileglyph", false);
 
         if (cont >= numAmostras) {
@@ -463,12 +479,17 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         updateOutput();
     }//GEN-LAST:event_checkboxProfileGlyphActionPerformed
 
+    private void checkboxOrientationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxOrientationActionPerformed
+        updateOutput();
+    }//GEN-LAST:event_checkboxOrientationActionPerformed
+
     private void updateOutput() {
         output.put("texture", checkboxTexture.isSelected());
         output.put("colorhue", checkboxColorHue.isSelected());
         output.put("geometricshape", checkboxGeometry.isSelected());
         output.put("text", checkboxLetter.isSelected());
         output.put("position", checkboxPosition.isSelected());
+        output.put("orientation", checkboxOrientation.isSelected());
         output.put("profileglyph", checkboxProfileGlyph.isSelected());
         painelEsquerda.updateOutput(output);
     }
@@ -517,6 +538,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkboxColorHue;
     private javax.swing.JCheckBox checkboxGeometry;
     private javax.swing.JCheckBox checkboxLetter;
+    private javax.swing.JCheckBox checkboxOrientation;
     private javax.swing.JCheckBox checkboxPosition;
     private javax.swing.JCheckBox checkboxProfileGlyph;
     private javax.swing.JCheckBox checkboxTexture;
@@ -537,6 +559,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkboxGeometry;
     private javax.swing.JCheckBox checkboxLetter;
     private javax.swing.JCheckBox checkboxPosition;
+    private javax.swing.JCheckBox checkboxOrientation;
     private javax.swing.JCheckBox checkboxTexture;
     private javax.swing.JCheckBox checkboxProfileGlyph;
     private javax.swing.JButton btnSelectAll;

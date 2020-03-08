@@ -120,7 +120,6 @@ public final class GlyphMB {
             TMNodeEncapsulator nodeEncapsulator = (TMNodeEncapsulator) nodo.getNode();
             TreeMapItem treemapItem = (TreeMapItem) nodeEncapsulator.getNode();
 //            prepareDimension2DrawGlyph(treemapItem);
-            System.out.println("prepareGlyphsInTreeMapItems -> else "+treemapItem.getId());
             configLayers(treemapItem);
 //            imprimirTamanhoGlyphs(treemapItem);
         }
@@ -191,7 +190,6 @@ public final class GlyphMB {
 
         for (int i = 0; i < getVariaveisVisuaisEscolhidas().size(); i++) {
             Constantes.VAR_VISUAIS_CATEGORICAS varVisual = getVariaveisVisuaisEscolhidas().get(i);
-            System.out.println("configLayers -> for "+item.getId());
             Glyph child = setLayerInGlyph(item, varVisual, null);
             father.appendChild(child);
             if (i == getVariaveisVisuaisEscolhidas().size() - 1) {//se ja estiver na ultima camada
@@ -225,7 +223,6 @@ public final class GlyphMB {
 
         if (varCategorica != null) {
             String colunaEscolhida = getAtributosCategoricosEscolhidos().get(varCategorica).toString();
-            System.out.println("coluna: " + colunaEscolhida);
             Coluna col = ManipuladorArquivo.getColuna(colunaEscolhida);
             List<String> dadosDistintos = colunaDadosDist.get(colunaEscolhida);
             switch (varCategorica) {
@@ -245,7 +242,6 @@ public final class GlyphMB {
                     glyph = prepareDimensaoPositionDinamico(col, item, dadosDistintos);
                     break;
                 case ORIENTATION:
-                    System.out.println("setLayerInGlyph -> ORIENTATION: "+item.getId());
                     glyph = prepareDimensaoOrientationDinamico(col, item, dadosDistintos);
                     break;
             }
@@ -400,15 +396,12 @@ public final class GlyphMB {
     }
 
     public Glyph prepareDimensaoOrientationDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-        System.out.println("prepareDimensaoOrientationDinamico -> item.getId() : " + item.getId());
         for (int j = 0; j < OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 Glyph orientation = defineOrientation(ARROW.GLYPH_ORIENTACAO.values()[j]);
-                System.out.println("id: " + item.getId() + " -> " + dadosDistintos.get(j) + " -> " + orientation.getVarValue());
                 orientation.setNodeTreemap(item);
                 return orientation;
             }
-
         }
         return null;
     }
