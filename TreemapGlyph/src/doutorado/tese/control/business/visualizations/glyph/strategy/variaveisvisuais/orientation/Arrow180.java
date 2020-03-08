@@ -49,7 +49,7 @@ public class Arrow180 implements DrawBehavior {
         //center    
         pontosTriangulo[0][0] = xPoints[0];
         pontosTriangulo[0][1] = yPoints[0] + scaleheight;
-        //tob
+        //top
         pontosTriangulo[1][0] = xPoints[0] + scaleheight;
         pontosTriangulo[1][1] = (int) Math.round(yPoints[0] + scaleheight * 0.7);
 
@@ -83,6 +83,7 @@ public class Arrow180 implements DrawBehavior {
         int scalewidth = (int) (xPoints[1] * 0.17);
 
         triangulos = new ArrayList<>();
+        retas = new ArrayList<>();
 
         int pontosTriangulo[][] = montarTriangulo(scalewidth);
 
@@ -96,7 +97,6 @@ public class Arrow180 implements DrawBehavior {
             p.addPoint(pontosTriangulo[2][0], (i * slice) + pontosTriangulo[2][1]);
             triangulos.add(p);
         }
-        retas = new ArrayList<>();
         for (int i = 1; i < slices; i++) {
             retas.add(new Line2D.Float(xPoints[0], yPoints[0] + (i * slice), xPoints[0] + xPoints[1], yPoints[0] + (i * slice)));
         }

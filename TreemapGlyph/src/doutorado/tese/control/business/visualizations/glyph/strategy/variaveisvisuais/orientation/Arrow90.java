@@ -64,10 +64,11 @@ public class Arrow90 implements DrawBehavior {
 
         int slices = 6;
         int slicewidth = xPoints[1] / slices;
-
         int scalewidth = (int) (xPoints[1] * 0.16);
 
         triangulos = new ArrayList<>();
+        pontoRetas = new ArrayList<>();
+        
         for (int i = 0; i < slices - 1; i++) {
             Polygon p = new Polygon();
             //left
@@ -78,7 +79,6 @@ public class Arrow90 implements DrawBehavior {
             p.addPoint((int) ((i * slicewidth + 1) + xPoints[0] + scalewidth * 1.4), yPoints[0] + scalewidth);
             triangulos.add(p);
         }
-        pontoRetas = new ArrayList<>();
         for (int i = 1; i < slices; i++) {
             pontoRetas.add(new Point(xPoints[0] + (i * slicewidth), yPoints[0]));
             pontoRetas.add(new Point(xPoints[0] + (i * slicewidth), yPoints[0] + yPoints[1]));

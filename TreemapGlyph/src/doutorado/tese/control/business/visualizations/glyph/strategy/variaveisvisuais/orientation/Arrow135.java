@@ -1,7 +1,6 @@
 package doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation;
 
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.DrawBehavior;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;

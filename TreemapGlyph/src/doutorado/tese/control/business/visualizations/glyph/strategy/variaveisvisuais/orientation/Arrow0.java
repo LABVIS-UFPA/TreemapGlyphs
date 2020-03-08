@@ -64,11 +64,10 @@ public class Arrow0 implements DrawBehavior {
 
         int slices = 6;
         int slicewidth = xPoints[1] / slices;
-
-//        int scalewidth = (int) (xPoints[1] * 0.16);
         int scaleheight = (int) (yPoints[1] * 0.16d);
 
         triangulos = new ArrayList<>();
+        retas = new ArrayList<>();
 
         int pontosTriangulo[][] = montarTriangulo(scaleheight);
 
@@ -82,7 +81,6 @@ public class Arrow0 implements DrawBehavior {
             p.addPoint(pontosTriangulo[2][0], (i * slicewidth) + pontosTriangulo[2][1]);
             triangulos.add(p);
         }
-        retas = new ArrayList<>();
         for (int i = 1; i < slices; i++) {
             retas.add(new Line2D.Float(xPoints[0], yPoints[0] + (i * slicewidth), xPoints[0] + xPoints[1], yPoints[0] + (i * slicewidth)));
         }

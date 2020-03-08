@@ -17,11 +17,11 @@ public class OrientationFactory {
     public static final class ARROW {
 
         public enum GLYPH_ORIENTACAO {
-            ARROW180("ARROW180"), //4
-            ARROW135("ARROW135"),//135
-            ARROW90("ARROW90"),//90
-            ARROW45("ARROW45"),//45
-            ARROW0("ARROW0");//0
+            ARROW90("ARROW90")  ,//90 - cima
+            ARROW0("ARROW0")    ,//0 - direita
+            ARROW180("ARROW180"), //4 - esquerda
+//            ARROW135("ARROW135");//135 - canto esquerdo **
+            ARROW45("ARROW45")  ;//45 - canto direito **
 
             private final String nome;
 
@@ -47,11 +47,10 @@ public class OrientationFactory {
                 return new Arrow45();
             case ARROW90:
                 return new Arrow90();
-            case ARROW135:
-                return new Arrow135();
+//            case ARROW135:
+//                return new Arrow135();
             case ARROW180:
                 return new Arrow180();
-
             default:
                 return null;
         }

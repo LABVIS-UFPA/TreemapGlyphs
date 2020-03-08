@@ -3,12 +3,16 @@ package doutorado.tese.control.business.visualizations.glyph.strategy.variaveisv
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.DrawBehavior;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +29,7 @@ public class Arrow45 implements DrawBehavior {
     private Rectangle bounds;
     private Path2D path;
     private List<Polygon> triangulos;
-    private List<Line2D.Float> retas;
+    private List<Line2D.Double> retas;
 
     public Arrow45() {
         cor = Color.BLACK;
@@ -37,10 +41,8 @@ public class Arrow45 implements DrawBehavior {
 
         g2d.setColor(Color.WHITE);
         g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
-
         g2d.setColor(cor);
         g2d.fill(path);
-        g2d.draw(path);
     }
 
     @Override
@@ -61,87 +63,103 @@ public class Arrow45 implements DrawBehavior {
         tornarGlyphQuadrado(points);
         montarQuadradoSobreposicao(points);
 
+        int x1Metade = xPoints[0] + (xPoints[1] / 2);
+        int y1Metade = yPoints[0];
+        int x2Metade = xPoints[0] + (xPoints[1] / 2);
+        int y2Metade = yPoints[0] + (yPoints[1] / 2);
+
         int slices = 6;
-        int slice = yPoints[1] / slices;
-        int scalewidth = (int) (xPoints[1] * 0.15);
+        int slicewidth = xPoints[1] / slices;
+        int scalaLadoTriangulo = (int) (yPoints[1] * 0.08);
+
+        Point a = new Point(x1Metade, y1Metade);
+        Point centroQuadrado = new Point(x2Metade, y2Metade);
+
+        double angulo = 45d;
+
+        Point c1 = rotacionar(angulo, centroQuadrado, new Point(a.x, a.y));
+        Point dir = rotacionar(angulo, centroQuadrado, new Point(a.x + scalaLadoTriangulo, a.y + (scalaLadoTriangulo * 2)));
+        Point esq = rotacionar(angulo, centroQuadrado, new Point(a.x - scalaLadoTriangulo, a.y + (scalaLadoTriangulo * 2)));
 
         triangulos = new ArrayList<>();
         retas = new ArrayList<>();
 
-        montarRetas(slice);
-        montarTriangulo(scalewidth);
+        for (int i = 0; i < slices - 3; i++) {
+            int intervaloSetas = (i * slicewidth * 2);
+            Polygon triangulo = null;
+            Point c = new Point(c1.x - intervaloSetas, c1.y);
+            Point d = new Point(dir.x - intervaloSetas, dir.y);
+            Point e = new Point(esq.x - intervaloSetas, esq.y);
+            triangulo = montarTrianguloCentro(scalaLadoTriangulo, c, d, e);
+
+            triangulos.add(triangulo);
+        }
+        for (int i = 1; i <= slices - 4; i++) {
+            int intervaloSetas = (i * slicewidth * 2);
+            Polygon triangulo = null;
+            triangulo = montarTrianguloCentro(scalaLadoTriangulo, c1, dir, esq);
+            triangulo.translate(0, intervaloSetas);
+
+            triangulos.add(triangulo);
+        }
+
+        Point pCima = rotacionar(angulo, centroQuadrado, a);
+        Point pBaixo = rotacionar(angulo * 5, centroQuadrado, a);
+
+        for (int i = 0; i < slices - 3; i++) {
+            int intervaloSetas = (i * slicewidth * 2);
+            Point c = new Point(pCima.x - intervaloSetas, pCima.y);
+            Point b = new Point(pBaixo.x - intervaloSetas, pBaixo.y);
+            Line2D.Double reta = montarRetaCentro(scalaLadoTriangulo, c, b);
+
+            reta.x2 += intervaloSetas;
+            reta.y2 -= intervaloSetas;
+            
+            retas.add(reta);
+        }
+        for (int i = 1; i <= slices - 4; i++) {
+            int intervaloSetas = (i * slicewidth * 2);
+            Point c = new Point(pCima.x, pCima.y + intervaloSetas);
+            Point b = new Point(pBaixo.x, pBaixo.y + intervaloSetas);
+            Line2D.Double reta = montarRetaCentro(scalaLadoTriangulo, c, b);
+
+            reta.x2 += intervaloSetas;
+            reta.y2 -= intervaloSetas;
+
+            retas.add(reta);
+        }
 
         drawSetas();
     }
 
-    private void montarTriangulo(int scaleheight) {
-        int x = 0;
-        int y = 0;
-        while (x <= xPoints[0] + xPoints[1]) {
-            if (x > 0 && x < 5 * scaleheight) {
-                Polygon p = new Polygon();
-                p.addPoint(xPoints[0] + x, yPoints[0]);
-                //top
-                p.addPoint((int) (xPoints[0] + x - scaleheight * 1.25), (int) (yPoints[0] + scaleheight * 0.7));
-                //botton
-                p.addPoint((int) (xPoints[0] + x - scaleheight * 0.6), (int) (yPoints[0] + scaleheight * 1.4));
-                
-                triangulos.add(p);
-            }
-            x += 2 * scaleheight;
-        }
-        while (y < yPoints[0] + yPoints[1]) {
-            if (y < 5 * scaleheight) {
-                Polygon p = new Polygon();
-                p.addPoint(xPoints[0] + xPoints[1], yPoints[0] + y);
-                //top
-                p.addPoint((int) (xPoints[0] + xPoints[1] - scaleheight * 1.25), (int) (yPoints[0] + y + scaleheight * 0.7));
-                //botton
-                p.addPoint((int) (xPoints[0] + xPoints[1] - scaleheight * 0.6), (int) (yPoints[0] + y + scaleheight * 1.4));
-               
-                triangulos.add(p);
-            }
-            y += 2 * scaleheight;
-        }
+    public Point rotacionar(double angle, Point2D pivot, Point2D pointInicio) {
+        Point result = new Point();
+        AffineTransform rotation = new AffineTransform();
+        double angleInRadians = Math.toRadians(angle);
+        rotation.rotate(angleInRadians, pivot.getX(), pivot.getY());
+        rotation.transform(pointInicio, result);
+        return result;
     }
 
-    private void montarRetas(int slice) {
-        int[] line1 = new int[4];
-        line1[0] = xPoints[0];
-        line1[1] = yPoints[0] + 2 * slice;
-        line1[2] = xPoints[0] + 2 * slice;
-        line1[3] = yPoints[0];
+    private Polygon montarTrianguloCentro(int scalaLadoTriangulo, Point c1, Point dir, Point esq) {
+        Polygon poly = new Polygon();
+        //center
+        poly.addPoint(c1.x + (2 * scalaLadoTriangulo), c1.y - (2 * scalaLadoTriangulo));
+        //right
+        poly.addPoint(dir.x + (2 * scalaLadoTriangulo), dir.y - (2 * scalaLadoTriangulo));
+        //left
+        poly.addPoint(esq.x + (2 * scalaLadoTriangulo), esq.y - (2 * scalaLadoTriangulo));
 
-        int[] line2 = new int[4];
-        line2[0] = xPoints[0];
-        line2[1] = yPoints[0] + 4 * slice;
-        line2[2] = xPoints[0] + 4 * slice;
-        line2[3] = yPoints[0];
+        return poly;
+    }
 
-        int[] line3 = new int[4];
-        line3[0] = xPoints[0];
-        line3[1] = yPoints[0] + yPoints[1];
-        line3[2] = xPoints[0] + xPoints[1];
-        line3[3] = yPoints[0];
-        
-        int[] line4 = new int[4];
-        line4[0] = xPoints[0] + 2 * slice;
-        line4[1] = yPoints[0] + yPoints[1];
-        line4[2] = xPoints[0] + xPoints[1];
-        line4[3] = yPoints[0] + 2 * slice;
-        
-        int[] line5 = new int[4];
-        line5[0] = xPoints[0] + 4 * slice;
-        line5[1] = yPoints[0] + yPoints[1];
-        line5[2] = xPoints[0] + xPoints[1];
-        line5[3] = yPoints[0] + 4 * slice;
-        
-//        g2d.setStroke(new BasicStroke(1.5f));
-        retas.add(new Line2D.Float(line1[0], line1[1], line1[2], line1[3]));
-        retas.add(new Line2D.Float(line2[0], line2[1], line2[2], line2[3]));
-        retas.add(new Line2D.Float(line3[0], line3[1], line3[2], line3[3]));
-        retas.add(new Line2D.Float(line4[0], line4[1], line4[2], line4[3]));
-        retas.add(new Line2D.Float(line5[0], line5[1], line5[2], line5[3]));
+    private Line2D.Double montarRetaCentro(int scalaLadoTriangulo, Point pCima, Point pBaixo) {
+        Line2D.Double reta = new Line2D.Double(
+                pCima.x + (2 * scalaLadoTriangulo),
+                pCima.y - (2 * scalaLadoTriangulo),
+                pBaixo.x - (2 * scalaLadoTriangulo),
+                pBaixo.y + (2 * scalaLadoTriangulo));
+        return reta;
     }
 
     private void drawSetas() {
@@ -161,8 +179,8 @@ public class Arrow45 implements DrawBehavior {
         xPoints = new int[2];
         yPoints = new int[2];
 
-        xPoints[0] = getBounds().x + (getBounds().width / 2) - (widthSobreposicao / 2);
-        yPoints[0] = getBounds().y + (getBounds().height / 2) - (heightSobreposicao / 2);
+        xPoints[0] = getBounds().x + Math.round(getBounds().width / 2) - Math.round(widthSobreposicao / 2);
+        yPoints[0] = getBounds().y + Math.round(getBounds().height / 2) - Math.round(heightSobreposicao / 2);
 
         xPoints[1] = widthSobreposicao;
         yPoints[1] = heightSobreposicao;

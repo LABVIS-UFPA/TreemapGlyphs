@@ -7,9 +7,6 @@ package doutorado.tese.dao;
 
 import doutorado.tese.model.Coluna;
 import doutorado.tese.util.Constantes;
-import doutorado.tese.control.business.visualizations.glyph.Glyph;
-import doutorado.tese.control.business.visualizations.glyph.GlyphConcrete;
-import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.util.Metadados;
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,7 +18,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 import javax.swing.JOptionPane;
 
 /**
@@ -232,6 +228,8 @@ public class ManipuladorArquivo {
             } else if (tipos[i].equalsIgnoreCase(Metadados.TipoDados.Boolean.name())) {
                 type = Metadados.TipoDados.Boolean.name();
             } else {
+                System.err.println("nome coluna: "+nomeColunas[i]);
+                System.err.println("tipo: "+tipos[i]);
                 System.err.println("Fail to create the column, the type does not exist!");
             }
             colunas[i] = new Coluna(this, nomeColunas[i], type);
