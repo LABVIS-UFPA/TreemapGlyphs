@@ -13,7 +13,6 @@ import doutorado.tese.model.TreeMapItem;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 import javax.swing.JFrame;
 
 /**
@@ -47,7 +46,7 @@ public class TestesGui extends javax.swing.JPanel {
         item = criarTreemapItem(new TreeMapItem(1, 0));
 
         Glyph father = item.getGlyph();
-        Glyph child = criarOrientacao(OrientationFactory.ARROW.GLYPH_ORIENTACAO.ARROW45);
+        Glyph child = criarOrientacao(OrientationFactory.ARROW.GLYPH_ORIENTACAO.ARROW135);
 
         child.setNodeTreemap(item);
 
