@@ -12,10 +12,11 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.categorica
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture_old;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
 import doutorado.tese.control.mb.GlyphMB;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
@@ -90,7 +91,7 @@ public class SetUpScalabilityTestMB {
         areaTextura = areaColorHue = areaForma = areaText = areaPosition = areaOrientation = areaProfileGlyph = 0;
 
         for (Glyph child : item.getGlyphFamily(item.getGlyph(), new ArrayList<>())) {
-            if (child instanceof Texture) {
+            if (child instanceof Texture_old) {
                 areaTextura = child.getArea();
             } else if (child instanceof ColorHue) {
                 areaColorHue = child.getArea();
@@ -100,9 +101,9 @@ public class SetUpScalabilityTestMB {
                 areaText = child.getArea();
             } else if (child instanceof Position) {
                 areaPosition = child.getArea();
-            } else if(child instanceof Orientation){
+            } else if (child instanceof Orientation) {
                 areaOrientation = child.getArea();
-            }  else  if (child instanceof ProfileGlyph) {
+            } else if (child instanceof ProfileGlyph) {
                 areaProfileGlyph = child.getArea();
             }
         }
@@ -128,7 +129,8 @@ public class SetUpScalabilityTestMB {
             switch (var) {
                 case TEXTURE:
                     if (getInputConfigs().get("texture") >= 0) {
-                        child = getGlyphMB().defineTexture(Constantes.TIPO_TEXTURA[getInputConfigs().get("texture")]);
+//                        child = getGlyphMB().defineTexture(Constantes.TIPO_TEXTURA[getInputConfigs().get("texture")]);
+                        child = getGlyphMB().defineTexture(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values()[getInputConfigs().get("texture")]);
                         child.setNodeTreemap(getItemInput());
                     }
                     break;
@@ -182,7 +184,7 @@ public class SetUpScalabilityTestMB {
             father.appendChild(child);
         }
         List<Glyph> familiaGlyphs = getItemInput().getGlyphFamily(father, new ArrayList<>());
-        System.out.println("familia: "+familiaGlyphs.toString());
+        System.out.println("familia: " + familiaGlyphs.toString());
         if (father.getBounds() != null) {
             father.setBounds(father.getBounds());
         }
@@ -201,7 +203,7 @@ public class SetUpScalabilityTestMB {
             switch (var) {
                 case TEXTURE:
                     if (getOutputConfigs().get("texture") && getInputConfigs().get("texture") >= 0) {
-                        child = getGlyphMB().defineTexture(Constantes.TIPO_TEXTURA[getInputConfigs().get("texture")]);
+                        child = getGlyphMB().defineTexture(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values()[getInputConfigs().get("texture")]);
                         child.setNodeTreemap(getItemOutput());
                     }
                     break;
@@ -295,9 +297,9 @@ public class SetUpScalabilityTestMB {
 
     public static Constantes.VAR_VISUAIS_CATEGORICAS[] shuffleArray(Constantes.VAR_VISUAIS_CATEGORICAS[] original) {
         Constantes.VAR_VISUAIS_CATEGORICAS[] novo = new Constantes.VAR_VISUAIS_CATEGORICAS[original.length];
-        
+
         System.arraycopy(original, 0, novo, 0, original.length);
-        
+
         // If running on Java 6 or older, use `new Random()` on RHS here
         Random rnd = ThreadLocalRandom.current();
         for (int i = novo.length - 1; i > 0; i--) {
@@ -305,7 +307,7 @@ public class SetUpScalabilityTestMB {
             // Simple swap
             Constantes.VAR_VISUAIS_CATEGORICAS valor = novo[indexSorteado];
             novo[indexSorteado] = novo[i];
-            novo[i] = valor;            
+            novo[i] = valor;
         }
         return novo;
     }
@@ -407,8 +409,8 @@ public class SetUpScalabilityTestMB {
     public int getAreaPosition() {
         return areaPosition;
     }
-    
-    public int getAreaOrientation(){
+
+    public int getAreaOrientation() {
         return areaOrientation;
     }
 

@@ -5,18 +5,14 @@
  */
 package doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture;
 
-import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TMPatternFactory;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.DrawBehavior;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
+import java.awt.Polygon;
 import java.awt.Rectangle;
-import java.awt.RenderingHints;
 import java.awt.Shape;
-import java.awt.TexturePaint;
-import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.WritableRaster;
 
 /**
  *
@@ -24,26 +20,124 @@ import java.awt.image.WritableRaster;
  */
 public class Texture extends Glyph {
 
-    private String nomeTextura;
-    TMPatternFactory textura;
+    private Rectangle bounds;
     private Color cor;
-    private Color backgroundColor;
-    BufferedImage clone;
+    private DrawBehavior drawBehavior;
 
-    public Texture(Color cor, Color backgroundColor) {
-        textura = TMPatternFactory.getInstance(cor, backgroundColor);
+    public Texture() {
+        this.drawBehavior = new DrawBehavior() {
+            @Override
+            public void paint(Graphics2D g) {
+
+            }
+
+            @Override
+            public int getArea() {
+                return 0;
+            }
+
+            @Override
+            public Shape getClipShape() {
+                return new Polygon();
+            }
+
+            @Override
+            public void drawForeground(Graphics2D g2d) {
+
+            }
+
+            @Override
+            public DrawBehavior clone() throws CloneNotSupportedException {
+                try {
+                    // call clone in Object.
+                    return (DrawBehavior) super.clone();
+                } catch (CloneNotSupportedException e) {
+                    System.err.println("Cloning not allowed.");
+                    return this;
+                }
+            }
+
+            @Override
+            public void setGlyphBounds(Rectangle bounds) {
+            }
+
+            @Override
+            public void tornarGlyphQuadrado(int[] point) {
+            }
+        };
     }
 
     @Override
     public void paint(Graphics2D g2d) {
-        if (isVisible()) {
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setPaint(textura.get(getNomeTextura()));
-            g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
-            g2d.setColor(Color.BLACK);
-            g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
+        drawBehavior.paint(g2d);
+        if (isOverlappingActivated()) {
+            drawBehavior.drawForeground(g2d);
         }
         super.paint(g2d);
+        if (!isOverlappingActivated()) {
+            drawBehavior.drawForeground(g2d);
+        }
+    }
+
+    public void setColor(Color cor) {
+        this.cor = cor;
+    }
+
+    @Override
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
+    @Override
+    public void setBounds(Rectangle bounds) {
+        super.setBounds(bounds);
+        drawBehavior.setGlyphBounds(bounds);
+    }
+
+    public DrawBehavior getDrawBehavior() {
+        return drawBehavior;
+    }
+
+    public void setDrawBehavior(DrawBehavior drawBehavior) {
+        this.drawBehavior = drawBehavior;
+    }
+
+    @Override
+    public int getArea() {
+        return drawBehavior.getArea();
+    }
+
+    @Override
+    public Shape getClipShape() {
+        if (isOverlappingActivated()) {
+            return this.getBounds();
+        } else {
+            return this.drawBehavior.getClipShape();
+        }
+    }
+
+    @Override
+    public Paint getTexturePaint() {
+        return null;
+    }
+
+    @Override
+    public Glyph clone() throws CloneNotSupportedException {
+        try {
+            DrawBehavior drawBehaviorClone = this.getDrawBehavior().clone();
+            Texture formaClonada = ((Texture) super.clone());
+            formaClonada.setDrawBehavior(drawBehaviorClone);
+            formaClonada.killAllChild();
+            return (Glyph) formaClonada;
+        } catch (CloneNotSupportedException e) {
+            System.err.println("Cloning not allowed.");
+            return this;
+        }
+    }
+
+    @Override
+    public String getVarValue() {
+        return getDrawBehavior().toString();
     }
 
     @Override
@@ -51,99 +145,4 @@ public class Texture extends Glyph {
         return this.getClass();
     }
 
-    @Override
-    public void setBounds(Rectangle rect) {
-        super.setBounds(rect);
-        montarRetangulo();
-    }
-
-    private void montarRetangulo() {
-        int[] points = new int[2];
-
-        points[0] = getBounds().width;
-        points[1] = getBounds().height;
-
-        transformarRetanguloEmQuadrado(points);
-
-        int width = Math.round(points[0] * getPectSobreposicao());
-        int height = Math.round(points[1] * getPectSobreposicao());
-
-        xPoints = new int[2];
-        yPoints = new int[2];
-
-        xPoints[0] = getBounds().x + getBounds().width / 2 - width / 2;
-        yPoints[0] = getBounds().y + getBounds().height / 2 - height / 2;
-
-        xPoints[1] = width;
-        yPoints[1] = height;
-    }
-
-    /**
-     * @return the nomeTextura
-     */
-    public String getNomeTextura() {
-        return nomeTextura;
-    }
-
-    /**
-     * @param nomeTextura the nomeTextura to set
-     */
-    public void setNomeTextura(String nomeTextura) {
-        this.nomeTextura = nomeTextura;
-    }
-
-    public Color getCor() {
-        return cor;
-    }
-
-    public void setCor(Color cor) {
-        this.cor = cor;
-//        textura.setTextureColor(this.cor);
-//        textura.resetTextures();
-    }
-
-    public Color getBackgroundColor() {
-        return backgroundColor;
-    }
-
-    public void setBackgroundColor(Color backgroundColor) {
-        this.backgroundColor = backgroundColor;
-    }
-
-    @Override
-    public Shape getClipShape() {
-        return getBounds();
-    }
-
-    @Override
-    public Paint getTexturePaint() {
-        Rectangle r = new Rectangle(0, 0, 16, 16);
-        BufferedImage original = ((TexturePaint) textura.get(getNomeTextura())).getImage();
-        if (clone == null) {
-            clone = deepCopy(original);
-        }
-        Paint pattern = new TexturePaint(clone, r);
-
-        return pattern;
-    }
-
-    public static BufferedImage deepCopy(BufferedImage bi) {
-        ColorModel cm = bi.getColorModel();
-        boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
-        WritableRaster raster = bi.copyData(null);
-        return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
-    }
-
-    public static BufferedImage copyImage(BufferedImage source) {
-        BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
-        Graphics2D g = (Graphics2D) b.createGraphics();
-        g.drawImage(source, 0, 0, null);
-        g.dispose();
-        return b;
-    }
-
-    @Override
-    public String getVarValue() {
-        return getNomeTextura();
-    }
 }

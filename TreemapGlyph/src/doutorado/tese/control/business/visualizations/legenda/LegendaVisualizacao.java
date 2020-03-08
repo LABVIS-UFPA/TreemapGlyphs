@@ -11,6 +11,7 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.util.Metadados;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory.ARROW;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
 import doutorado.tese.util.Util;
 import java.awt.Color;
 import java.awt.Font;
@@ -90,7 +91,7 @@ public class LegendaVisualizacao {
             switch (layer) {
                 case TEXTURE:
                     icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.TEXTURE);
-                    icon.setValorIcon(Constantes.TIPO_TEXTURA[i]);
+                    icon.setValorIcon(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values()[i]);
                     break;
                 case COLOR_HUE:
                     if (c.getDescription() == Metadados.Descricao.CATEGORICAL) {

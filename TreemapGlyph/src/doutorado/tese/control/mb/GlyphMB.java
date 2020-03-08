@@ -15,12 +15,13 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.continuous
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.color.ColorHue;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture_old;
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.util.ColorInterpolator;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.orientation.Orientation;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.AngChart;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.StarGlyph;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.EixoPolarStarGlyph;
@@ -30,6 +31,9 @@ import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvi
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory.ARROW;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory.TEXTURE;
+import static doutorado.tese.util.Constantes.VAR_VISUAIS_CATEGORICAS.TEXTURE;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -146,7 +150,7 @@ public final class GlyphMB {
 
         List<Glyph> glyphFamily = item.getGlyphFamily(item.getGlyph(), new ArrayList<>());
         glyphFamily.forEach((glyph) -> {
-            if (glyph instanceof Texture) {
+            if (glyph instanceof Texture_old) {
                 features[Constantes.AREA_TEXTURA] = glyph.getArea();//aqui a area sera calculada no getArea()
                 features[Constantes.PRESENCA_TEXTURA] = Constantes.PRESENTE;
             } else if (glyph instanceof ColorHue) {
@@ -327,9 +331,16 @@ public final class GlyphMB {
     }
 
     public Glyph prepareDimensaoTexturaDinamica(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-        for (int j = 0; j < Constantes.TIPO_TEXTURA.length; j++) {
+//        for (int j = 0; j < Constantes.TIPO_TEXTURA.length; j++) {
+//            if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
+//                Glyph textura = defineTexture(Constantes.TIPO_TEXTURA[j]);
+//                textura.setNodeTreemap(item);
+//                return textura;
+//            }
+//        }
+        for (int j = 0; j < TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values().length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
-                Glyph textura = defineTexture(Constantes.TIPO_TEXTURA[j]);
+                Glyph textura = defineTexture(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values()[j]);
                 textura.setNodeTreemap(item);
                 return textura;
             }
@@ -421,12 +432,17 @@ public final class GlyphMB {
         return null;
     }
 
-    public Glyph defineTexture(String nomeTextura) {
-        Glyph glyph = new Texture(Color.GRAY, Color.WHITE);
-        Texture textura = (Texture) glyph;
-        textura.setNomeTextura(nomeTextura);
-        textura.setPectSobreposicao(0.65f);
-        textura.setOverlappingActivated(overlappingActivated);
+    public Glyph defineTexture(TEXTURE.GLYPH_TEXTURAS textura) {
+//    public Glyph defineTexture(String nomeTextura) {
+//        Glyph glyph = new Texture_old(Color.GRAY, Color.WHITE);
+//        Texture_old textura = (Texture_old) glyph;
+//        textura.setNomeTextura(nomeTextura);
+//        textura.setPectSobreposicao(0.65f);
+//        textura.setOverlappingActivated(overlappingActivated);
+        Texture glyph = new Texture();        
+        glyph.setDrawBehavior(TexturesFactory.create(textura));
+        glyph.setPectSobreposicao(0.65f);
+        glyph.setOverlappingActivated(overlappingActivated);
         return glyph;
     }
 

@@ -8,7 +8,7 @@ package doutorado.tese.control.business.visualizations.glyph;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.color.ColorHue;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture_old;
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.model.TreeMapNode;
 import doutorado.tese.util.Constantes;
@@ -54,7 +54,7 @@ public abstract class Glyph implements Cloneable {
             if (Constantes.DECISION_TREE_ACTIVATED) {
                 getChild().setVisible(false);
                 TreeMapItem item = (TreeMapItem) nodeTreemap;
-                if (item.getWhat2Draw()[0] == 1 && getChild().whoAmI() == Texture.class) {
+                if (item.getWhat2Draw()[0] == 1 && getChild().whoAmI() == Texture_old.class) {
                     getChild().setVisible(true);
                 } else if (item.getWhat2Draw()[1] == 1 && getChild().whoAmI() == ColorHue.class) {
                     getChild().setVisible(true);

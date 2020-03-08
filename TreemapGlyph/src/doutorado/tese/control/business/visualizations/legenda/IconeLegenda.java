@@ -11,14 +11,18 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.categorica
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture_old;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.Bar;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory.ARROW;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory.TEXTURE;
 import doutorado.tese.util.ColorInterpolator;
+import static doutorado.tese.util.Constantes.VAR_VISUAIS_CATEGORICAS.TEXTURE;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
@@ -48,7 +52,7 @@ public class IconeLegenda implements Icon {
     private List<String> atributosEscolhidosGlyphContinuo = null;
     private Constantes.POSICOES posicao;
     private ARROW.GLYPH_ORIENTACAO orientacao;
-    private Texture valorTextura;
+    private TEXTURE.GLYPH_TEXTURAS valorTextura;
 
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
@@ -59,7 +63,7 @@ public class IconeLegenda implements Icon {
         if (dimensaoCategorical != null) {
             switch (dimensaoCategorical) {
                 case TEXTURE:
-                    montarIconeGlyphTextura(g2d, valor, bounds);
+                    montarIconeGlyphTextura(g2d, valorTextura, bounds);
                     break;
                 case COLOR_HUE:
                     montarIconeGlyphCor(g2d, x, y, height, valor, bounds);
@@ -112,9 +116,16 @@ public class IconeLegenda implements Icon {
         }
     }
 
-    private void montarIconeGlyphTextura(Graphics2D g2d, String valor, Rectangle bounds) {
-        Texture textura = new Texture(Color.GRAY, Color.WHITE);
-        textura.setNomeTextura(valor);
+    private void montarIconeGlyphTextura(Graphics2D g2d, TEXTURE.GLYPH_TEXTURAS valor, Rectangle bounds) {
+//    private void montarIconeGlyphTextura(Graphics2D g2d, String valor, Rectangle bounds) {
+//        Texture_old textura = new Texture_old(Color.GRAY, Color.WHITE);
+//        textura.setNomeTextura(valor);
+//        textura.setPectSobreposicao(0.84f);
+//        textura.setOverlappingActivated(true);
+//        textura.setBounds(bounds);
+//        textura.paint(g2d);
+        Texture textura = new Texture();
+        textura.setDrawBehavior(TexturesFactory.create(valor));
         textura.setPectSobreposicao(0.84f);
         textura.setOverlappingActivated(true);
         textura.setBounds(bounds);
@@ -253,7 +264,7 @@ public class IconeLegenda implements Icon {
         this.orientacao = orientacao;
     }
 
-    void setValorIcon(Texture textura) {
+    void setValorIcon(TEXTURE.GLYPH_TEXTURAS textura) {
         this.valorTextura = textura;
     }
 

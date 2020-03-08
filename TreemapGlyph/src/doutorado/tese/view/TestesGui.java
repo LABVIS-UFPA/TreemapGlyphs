@@ -9,6 +9,7 @@ import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.control.business.visualizations.glyph.GlyphConcrete;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.orientation.Orientation;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
 import doutorado.tese.model.TreeMapItem;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -46,7 +47,8 @@ public class TestesGui extends javax.swing.JPanel {
         item = criarTreemapItem(new TreeMapItem(1, 0));
 
         Glyph father = item.getGlyph();
-        Glyph child = criarOrientacao(OrientationFactory.ARROW.GLYPH_ORIENTACAO.ARROW135);
+//        Glyph child = criarOrientacao(OrientationFactory.ARROW.GLYPH_ORIENTACAO.ARROW135);
+        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_4X4);
 
         child.setNodeTreemap(item);
 
@@ -60,6 +62,14 @@ public class TestesGui extends javax.swing.JPanel {
     private Orientation criarOrientacao(OrientationFactory.ARROW.GLYPH_ORIENTACAO orientacao) {
         Orientation o = new Orientation();
         o.setDrawBehavior(OrientationFactory.create(orientacao));
+        o.setPectSobreposicao(0.65f);
+        o.setOverlappingActivated(true);
+        return o;
+    }
+    
+    private Orientation criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS textura) {
+        Orientation o = new Orientation();
+        o.setDrawBehavior(TexturesFactory.create(textura));
         o.setPectSobreposicao(0.65f);
         o.setOverlappingActivated(true);
         return o;
