@@ -7,6 +7,7 @@ package doutorado.tese.view.teste.scalability;
 
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
 import doutorado.tese.control.mb.testeMB.scalabilityMB.SetUpScalabilityTestMB;
 import doutorado.tese.util.Constantes;
 import java.io.BufferedWriter;
@@ -109,7 +110,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
             numLayers2remove++;
         }
 
-        configs.put("texture", rand.nextInt(Constantes.TIPO_TEXTURA.length));
+        configs.put("texture", rand.nextInt(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values().length));
         configs.put("colorhue", rand.nextInt(Constantes.getColorHueGlyphs().length));
         configs.put("geometricshape", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
         configs.put("text", rand.nextInt(Constantes.LETRAS_ALFABETO.length));
