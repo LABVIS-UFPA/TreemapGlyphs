@@ -73,7 +73,8 @@ public class CirculoTextura_6x6 implements DrawBehavior {
         int textureWidth = xPoints[1];
 
         int slices = 6;
-        int diametroCirculo = textureWidth / slices;
+        double porcentSlice = (100 / slices) / 100d;
+        int diametroCirculo = (int) Math.round(textureWidth * porcentSlice);
 
         calcularCirculos(diametroCirculo, slices);
     }

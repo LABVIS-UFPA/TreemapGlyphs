@@ -72,13 +72,9 @@ public class CirculoTextura_4x4 implements DrawBehavior {
 
         int textureWidth = xPoints[1];
 
-//        int slices = 4;
-//        double porcentSlice = 25 / 100;
-//        int diametroCirculo = (int) Math.round(textureWidth * porcentSlice);
-//
-//        calcularCirculos(diametroCirculo, slices);
         int slices = 4;
-        int diametroCirculo = textureWidth / slices;
+        double porcentSlice = (100 / slices) / 100d;
+        int diametroCirculo = (int) Math.round(textureWidth * porcentSlice);
 
         calcularCirculos(diametroCirculo, slices);
     }
@@ -96,42 +92,6 @@ public class CirculoTextura_4x4 implements DrawBehavior {
             }
         }
     }
-//    private void montarCirculo() {
-//        int[] points = new int[2];
-//
-//        points[0] = getGlyphBounds().width;
-//        points[1] = getGlyphBounds().height;
-//
-//        tornarGlyphQuadrado(points);
-//        montarQuadradoSobreposicao(points);
-//
-//        int width = xPoints[1];
-//        int height = yPoints[1];
-//
-//        int x = xPoints[0];
-//        int y = yPoints[0];
-//        int spacex = width / 4;
-//        int spacey = height / 4;
-//
-//        p = new Path2D.Double();
-//
-//        int textureWidth = points[0];
-//        int textureHeight = points[1];
-//
-//        p = new Path2D.Double();
-//
-////        for (int j = rect.y; j < rect.y + rect.height - spacey / 2; j = j + spacey) {
-////            for (int i = rect.x; i < rect.x + rect.width - spacex / 2; i = i + spacex) {
-////                p.append(new Ellipse2D.Double(width * 0.025 + i, height * 0.025 + j, textureWidth / 5, textureHeight / 5), false);
-////            }
-////        }
-//        for (int j = y; j < y + height - spacey / 2; j = j + spacey) {
-//            for (int i = x; i < x + width - spacex / 2; i = i + spacex) {
-//                p.append(new Ellipse2D.Double(width * 0.025 + i, height * 0.025 + j, textureWidth / 5, textureHeight / 5), false);
-//            }
-//        }
-//
-//    }
 
     public Rectangle getGlyphBounds() {
         return this.bounds;

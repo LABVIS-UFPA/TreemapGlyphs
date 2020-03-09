@@ -74,7 +74,8 @@ public class CirculoTextura_8x8 implements DrawBehavior {
         int textureWidth = xPoints[1];
 
         int slices = 8;
-        int diametroCirculo = textureWidth / slices;
+        double porcentSlice = (100 / slices) / 100d;
+        int diametroCirculo = (int) Math.round(textureWidth * porcentSlice);
 
         calcularCirculos(diametroCirculo, slices);
     }

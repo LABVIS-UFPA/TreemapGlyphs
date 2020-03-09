@@ -57,7 +57,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 + "Altura,Largura,"
                 + "AreaItem,AspectoItem,CorItem,"
                 + "AreaTextura,AreaCor,AreaForma,AreaTexto,AreaPosicao,AreaOrientacao,AreaProfileGlyph,"
-                + "ViuTextura,ViuCor,ViuForma,ViuTexto,ViuPosicao,ViuOrientacao,ViuProfileGlyph";
+                + "ViuTextura,ViuCor,ViuForma,ViuTexto,ViuPosicao,ViuOrientacao,ViuProfileGlyph,FamiliaGlyph";
         rand = new Random(System.currentTimeMillis());
         configs = new HashMap<>();
         output = new HashMap<>();
@@ -407,7 +407,8 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 + "," + (checkboxLetter.isSelected() ? 1 : 0)
                 + "," + (checkboxPosition.isSelected() ? 1 : 0)
                 + "," + (checkboxOrientation.isSelected() ? 1 : 0)
-                + "," + (checkboxProfileGlyph.isSelected() ? 1 : 0);
+                + "," + (checkboxProfileGlyph.isSelected() ? 1 : 0)
+                + "," + painelEsquerda.getFamilia2Desenho().toString();
 
         for (JCheckBox c : checkboxes.values()) {
             c.setSelected(false);

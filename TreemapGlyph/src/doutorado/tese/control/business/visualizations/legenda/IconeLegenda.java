@@ -14,7 +14,6 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.categorica
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture_old;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.Bar;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
@@ -126,7 +125,7 @@ public class IconeLegenda implements Icon {
 //        textura.paint(g2d);
         Texture textura = new Texture();
         textura.setDrawBehavior(TexturesFactory.create(valor));
-        textura.setPectSobreposicao(0.84f);
+        textura.setPectSobreposicao(0.99f);
         textura.setOverlappingActivated(true);
         textura.setBounds(bounds);
         textura.paint(g2d);
