@@ -157,7 +157,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         painelEsquerda = new PainelDeTeste();
         separador = new javax.swing.JSeparator();
         glyphsLabel = new javax.swing.JLabel();
-        shouldBeLabel = new javax.swing.JLabel();
+        hideFeedbackCheckBox = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
@@ -188,8 +188,14 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         glyphsLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         glyphsLabel.setText("The Glyph:");
 
-        shouldBeLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        shouldBeLabel.setText("How it should be:");
+        hideFeedbackCheckBox.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        hideFeedbackCheckBox.setSelected(true);
+        hideFeedbackCheckBox.setText("How it should be:");
+        hideFeedbackCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hideFeedbackCheckBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelEsquerdaLayout = new javax.swing.GroupLayout(painelEsquerda);
         painelEsquerda.setLayout(painelEsquerdaLayout);
@@ -200,9 +206,9 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 .addComponent(glyphsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
                 .addComponent(separador, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(shouldBeLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(hideFeedbackCheckBox)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         painelEsquerdaLayout.setVerticalGroup(
             painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,8 +216,8 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelEsquerdaLayout.createSequentialGroup()
-                        .addComponent(shouldBeLabel)
-                        .addContainerGap(227, Short.MAX_VALUE))
+                        .addComponent(hideFeedbackCheckBox)
+                        .addGap(48, 219, Short.MAX_VALUE))
                     .addGroup(painelEsquerdaLayout.createSequentialGroup()
                         .addComponent(glyphsLabel)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -359,7 +365,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
+            .addComponent(jSplitPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -485,6 +491,10 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         updateOutput();
     }//GEN-LAST:event_checkboxOrientationActionPerformed
 
+    private void hideFeedbackCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hideFeedbackCheckBoxActionPerformed
+        Constantes.SHOW_FEEDBACK_SCALABILITY_TEST = hideFeedbackCheckBox.isSelected();
+    }//GEN-LAST:event_hideFeedbackCheckBoxActionPerformed
+
     private void updateOutput() {
         output.put("texture", checkboxTexture.isSelected());
         output.put("colorhue", checkboxColorHue.isSelected());
@@ -546,13 +556,13 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkboxTexture;
     private javax.swing.JLabel contadorLabel;
     private javax.swing.JLabel glyphsLabel;
+    private javax.swing.JCheckBox hideFeedbackCheckBox;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JPanel painelEsquerda;
     private javax.swing.JSeparator separador;
-    private javax.swing.JLabel shouldBeLabel;
     // End of variables declaration//GEN-END:variables
     */
 
@@ -575,6 +585,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
     private javax.swing.JLabel glyphsLabel;
     private javax.swing.JLabel shouldBeLabel;
     private JSeparator separador;
+    private javax.swing.JCheckBox hideFeedbackCheckBox;
 
     
 }

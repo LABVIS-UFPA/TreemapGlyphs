@@ -59,19 +59,20 @@ public class PainelDeTeste extends javax.swing.JPanel {
         g2d.setClip(0, 0, getBounds().width, getBounds().height);
 
         this.areaCallback.areaUpdated(scalabilityTestMB.getAreas());
-        
-        //desenho direita
-        g2d.setColor(coritem);
-        g2d.fillRect(scalabilityTestMB.getItemOutput().getBounds().x, scalabilityTestMB.getItemOutput().getBounds().y,
-                scalabilityTestMB.getInputConfigs().get("width"), scalabilityTestMB.getInputConfigs().get("height"));
-        g2d.setColor(Color.BLACK);
-        g2d.drawRect(scalabilityTestMB.getItemOutput().getBounds().x, scalabilityTestMB.getItemOutput().getBounds().y,
-                scalabilityTestMB.getInputConfigs().get("width"), scalabilityTestMB.getInputConfigs().get("height"));
+        if (Constantes.SHOW_FEEDBACK_SCALABILITY_TEST) {
+            //desenho direita
+            g2d.setColor(coritem);
+            g2d.fillRect(scalabilityTestMB.getItemOutput().getBounds().x, scalabilityTestMB.getItemOutput().getBounds().y,
+                    scalabilityTestMB.getInputConfigs().get("width"), scalabilityTestMB.getInputConfigs().get("height"));
+            g2d.setColor(Color.BLACK);
+            g2d.drawRect(scalabilityTestMB.getItemOutput().getBounds().x, scalabilityTestMB.getItemOutput().getBounds().y,
+                    scalabilityTestMB.getInputConfigs().get("width"), scalabilityTestMB.getInputConfigs().get("height"));
 
-        ArrayList<Glyph> listItemOutput = new ArrayList<>();
-        scalabilityTestMB.getItemOutput().getGlyph().paint(g2d);
-        scalabilityTestMB.getItemOutput().getGlyph().getChildren(listItemOutput);
-        g2d.setClip(0, 0, getBounds().width, getBounds().height);
+            ArrayList<Glyph> listItemOutput = new ArrayList<>();
+            scalabilityTestMB.getItemOutput().getGlyph().paint(g2d);
+            scalabilityTestMB.getItemOutput().getGlyph().getChildren(listItemOutput);
+            g2d.setClip(0, 0, getBounds().width, getBounds().height);
+        }
     }
 
     public void setAreaCallback(AreaCallback areaCallback) {
