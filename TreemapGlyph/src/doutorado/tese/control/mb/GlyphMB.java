@@ -272,7 +272,7 @@ public final class GlyphMB {
     private Glyph configureSliceGlyph(TreeMapItem item) {
         PieChartGlyph slice = new PieChartGlyph(getAtributosEscolhidosGlyphContinuo());
         slice.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
-        slice.setPectSobreposicao(0.85f);
+//        slice.setPectSobreposicao(0.85f);
         slice.setOverlappingActivated(true);
         for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
             String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
@@ -287,7 +287,7 @@ public final class GlyphMB {
     private Glyph configureArcGlyph(TreeMapItem item) {
         AngChart raio = new AngChart(getAtributosEscolhidosGlyphContinuo());
         raio.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
-        raio.setPectSobreposicao(0.85f);
+//        raio.setPectSobreposicao(0.85f);
         raio.setOverlappingActivated(true);
         for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
             String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
@@ -302,7 +302,7 @@ public final class GlyphMB {
     public Glyph configureProfileGlyph(TreeMapItem item) {
         ProfileGlyph profileGlyph = new ProfileGlyph(getAtributosEscolhidosGlyphContinuo());
         profileGlyph.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
-        profileGlyph.setPectSobreposicao(0.75f);
+//        profileGlyph.setPectSobreposicao(0.75f);
         profileGlyph.setOverlappingActivated(true);
         for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
             String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
@@ -318,7 +318,7 @@ public final class GlyphMB {
     private Glyph configureStarGlyph(TreeMapItem item) {
         StarGlyph starGlyph = new StarGlyph(getAtributosEscolhidosGlyphContinuo());
         starGlyph.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
-        starGlyph.setPectSobreposicao(0.85f);
+//        starGlyph.setPectSobreposicao(0.85f);
         starGlyph.setOverlappingActivated(true);
         for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
             String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
@@ -441,7 +441,7 @@ public final class GlyphMB {
 //        textura.setOverlappingActivated(overlappingActivated);
         Texture glyph = new Texture();        
         glyph.setDrawBehavior(TexturesFactory.create(textura));
-        glyph.setPectSobreposicao(0.65f);
+//        glyph.setPectSobreposicao(0.65f);
         glyph.setOverlappingActivated(overlappingActivated);
         return glyph;
     }
@@ -450,7 +450,7 @@ public final class GlyphMB {
         Glyph glyph = new ColorHue();
         ColorHue cor = (ColorHue) glyph;
         cor.setCor(color);
-        cor.setPectSobreposicao(0.65f);
+//        cor.setPectSobreposicao(0.65f);
         cor.setOverlappingActivated(overlappingActivated);
         return glyph;
     }
@@ -458,7 +458,7 @@ public final class GlyphMB {
     public Glyph defineShape(FORMAS.GLYPH_FORMAS forma) {
         GeometricShape shape = new GeometricShape();
         shape.setDrawBehavior(GeometryFactory.create(forma));
-        shape.setPectSobreposicao(0.65f);
+//        shape.setPectSobreposicao(0.65f);
         shape.setOverlappingActivated(overlappingActivated);
         return shape;
     }
@@ -466,7 +466,7 @@ public final class GlyphMB {
     public Glyph defineText(String letter) {
         Text text = new Text();
         text.setLetra(letter);
-        text.setPectSobreposicao(0.65f);
+//        text.setPectSobreposicao(0.65f);
         text.setOverlappingActivated(overlappingActivated);
         return text;
     }
@@ -474,7 +474,7 @@ public final class GlyphMB {
     public Glyph definePosition(Constantes.POSICOES posicao) {
         Position p = new Position();
         p.setPosicao(posicao);
-        p.setPectSobreposicao(0.65f);
+//        p.setPectSobreposicao(0.65f);
         p.setOverlappingActivated(overlappingActivated);
         return p;
     }
@@ -482,7 +482,7 @@ public final class GlyphMB {
     public Glyph defineOrientation(ARROW.GLYPH_ORIENTACAO orientatcao) {
         Orientation o = new Orientation();
         o.setDrawBehavior(OrientationFactory.create(orientatcao));
-        o.setPectSobreposicao(0.65f);
+//        o.setPectSobreposicao(0.65f);
         o.setOverlappingActivated(overlappingActivated);
         return o;
     }

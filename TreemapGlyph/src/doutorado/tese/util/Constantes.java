@@ -94,7 +94,7 @@ public class Constantes {
     };
 
     public final static String[] LETRAS_ALFABETO = {
-        "A", "C", "E", "J", "K"
+        "A", "C", "J", "K", "M"
 //        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
 //        "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
     };

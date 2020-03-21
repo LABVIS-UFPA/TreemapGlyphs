@@ -41,6 +41,7 @@ public abstract class Glyph implements Cloneable {
 
     public Glyph() {
         visible = true;
+        this.pectSobreposicao = 0.7f;
     }
 
     public void paint(Graphics2D g2d) {
