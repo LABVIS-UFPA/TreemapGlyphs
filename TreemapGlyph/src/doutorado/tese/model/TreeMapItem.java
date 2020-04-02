@@ -32,7 +32,7 @@ public class TreeMapItem extends TreeMapNode {
         bounds = new Rect();
         this.mapaDetalhesItem = new HashMap<>();
         children = new ArrayList<>();
-        what2Draw = new int[]{1, 1, 1, 1, 1};
+        what2Draw = new int[]{1, 1, 1, 1, 1, 1, 1};
     }
 
     public TreeMapItem(double size, TreeMapLevel paiLevel) {

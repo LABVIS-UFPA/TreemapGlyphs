@@ -12,6 +12,7 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.categorica
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture_old;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
@@ -91,7 +92,7 @@ public class SetUpScalabilityTestMB {
         areaTextura = areaColorHue = areaForma = areaText = areaPosition = areaOrientation = areaProfileGlyph = 0;
 
         for (Glyph child : item.getGlyphFamily(item.getGlyph(), new ArrayList<>())) {
-            if (child instanceof Texture_old) {
+            if (child instanceof Texture) {
                 areaTextura = child.getArea();
             } else if (child instanceof ColorHue) {
                 areaColorHue = child.getArea();

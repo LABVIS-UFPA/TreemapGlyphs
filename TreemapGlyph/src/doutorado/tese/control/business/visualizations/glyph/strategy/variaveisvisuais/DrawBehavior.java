@@ -15,7 +15,7 @@ import java.awt.Shape;
  */
 public interface DrawBehavior extends Cloneable{
 
-    public float PERCENT_SOBREPOSICAO = 0.65f;
+    public float PERCENT_SOBREPOSICAO = 0.7f;
     
     public void paint(Graphics2D g2d);
 

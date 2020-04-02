@@ -100,7 +100,7 @@ public class DecisionTreeClassifier {
                     }else{ 
                         if(features[Constantes.AREA_SHAPE] <= 20){ //SA
                             if(features[Constantes.PRESENCA_COR] > 0.5){//Editado manualmente em 16 de fev 2020
-                                if(features[Constantes.AREA_LETRA] <= 100.5){
+                                if(features[Constantes.AREA_TEXTO] <= 100.5){
                                     classes[0][0] = 108;classes[0][1] = 4;
                                     classes[1][0] = 3;classes[1][1] = 109;
                                     classes[2][0] = 109;classes[2][1] = 3;
@@ -136,7 +136,7 @@ public class DecisionTreeClassifier {
                     classes[4][0] = 52;classes[4][1] = 11;
                 }
             }else{ 
-                if(features[Constantes.AREA_LETRA] <= 100.5){ //NA
+                if(features[Constantes.AREA_TEXTO] <= 100.5){ //NA
                     if(features[Constantes.AREA_TEXTURA] <= 290){ //TA
                         classes[0][0] = 69;classes[0][1] = 1;
                         classes[1][0] = 3; classes[1][1] = 67;
@@ -163,20 +163,20 @@ public class DecisionTreeClassifier {
         return findMax(classes);
     }
 
-    public static void main(String[] args) {
-        if (args.length == 15) {
-
-            // Features:
-            double[] features = new double[args.length];
-            for (int i = 0, l = args.length; i < l; i++) {
-                features[i] = Double.parseDouble(args[i]);
-            }
-
-            // Prediction:
-            int[] prediction = DecisionTreeClassifier.predict(features);
-            System.out.println(Arrays.toString(prediction));
-
-        }
-    }
+//    public static void main(String[] args) {
+//        if (args.length == 15) {
+//
+//            // Features:
+//            double[] features = new double[args.length];
+//            for (int i = 0, l = args.length; i < l; i++) {
+//                features[i] = Double.parseDouble(args[i]);
+//            }
+//
+//            // Prediction:
+//            int[] prediction = DecisionTreeClassifier.predict(features);
+//            System.out.println(Arrays.toString(prediction));
+//
+//        }
+//    }
 }
 

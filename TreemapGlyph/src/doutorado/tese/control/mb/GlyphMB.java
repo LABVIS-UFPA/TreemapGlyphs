@@ -5,6 +5,13 @@
  */
 package doutorado.tese.control.mb;
 
+import doutorado.tese.control.business.machinelearning.tree.DTViuCor;
+import doutorado.tese.control.business.machinelearning.tree.DTViuForma;
+import doutorado.tese.control.business.machinelearning.tree.DTViuOrientacao;
+import doutorado.tese.control.business.machinelearning.tree.DTViuPosicao;
+import doutorado.tese.control.business.machinelearning.tree.DTViuProfile;
+import doutorado.tese.control.business.machinelearning.tree.DTViuTexto;
+import doutorado.tese.control.business.machinelearning.tree.DTViuTextura;
 import doutorado.tese.control.business.machinelearning.tree.DecisionTreeClassifier;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
@@ -150,7 +157,7 @@ public final class GlyphMB {
 
         List<Glyph> glyphFamily = item.getGlyphFamily(item.getGlyph(), new ArrayList<>());
         glyphFamily.forEach((glyph) -> {
-            if (glyph instanceof Texture_old) {
+            if (glyph instanceof Texture) {
                 features[Constantes.AREA_TEXTURA] = glyph.getArea();//aqui a area sera calculada no getArea()
                 features[Constantes.PRESENCA_TEXTURA] = Constantes.PRESENTE;
             } else if (glyph instanceof ColorHue) {
@@ -160,21 +167,27 @@ public final class GlyphMB {
                 features[Constantes.AREA_SHAPE] = glyph.getArea();
                 features[Constantes.PRESENCA_FORMA] = Constantes.PRESENTE;
             } else if (glyph instanceof Text) {
-                features[Constantes.AREA_LETRA] = glyph.getArea();
-                features[Constantes.PRESENCA_LETRA] = Constantes.PRESENTE;
+                features[Constantes.AREA_TEXTO] = glyph.getArea();
+                features[Constantes.PRESENCA_TEXTO] = Constantes.PRESENTE;
+            }else if (glyph instanceof Position) {
+                features[Constantes.AREA_POSICAO] = glyph.getArea();
+                features[Constantes.PRESENCA_POSICAO] = Constantes.PRESENTE;
+            }else if (glyph instanceof Orientation) {
+                features[Constantes.AREA_ORIENTACAO] = glyph.getArea();
+                features[Constantes.PRESENCA_ORIENTACAO] = Constantes.PRESENTE;
+            }else if (glyph instanceof ProfileGlyph) {
+                features[Constantes.AREA_PROFILE_GLYPH] = glyph.getArea();
+                features[Constantes.PRESENCA_PROFILE_GLYPH] = Constantes.PRESENTE;
             }
-//            else if (glyph instanceof Numeral) {
-//                features[Constantes.AREA_NUMERO] = ((Numeral) glyph).getArea();
-//                features[Constantes.PRESENCA_NUMERO] = Constantes.PRESENTE;
-//            }
         });
-        int[] predictions = DecisionTreeClassifier.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = predictions[0];
-        item.getWhat2Draw()[Constantes.PRESENCA_COR] = predictions[1];
-        item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = predictions[2];
-        item.getWhat2Draw()[Constantes.PRESENCA_LETRA] = predictions[3];
-//        item.getWhat2Draw()[Constantes.PRESENCA_NUMERO] = predictions[4];
-//        item.getWhat2Draw()[Constantes.PRESENCA_STAR] = DecisionTreeClassifier.predict(features)[5];
+//        int[] predictions = DecisionTreeClassifier.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = DTViuTextura.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_COR] = DTViuCor.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = DTViuForma.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_TEXTO] = DTViuTexto.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_POSICAO] = DTViuPosicao.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_ORIENTACAO] = DTViuOrientacao.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_PROFILE_GLYPH] = DTViuProfile.predict(features);
         return features;
     }
 
@@ -211,7 +224,7 @@ public final class GlyphMB {
             father.setBounds(father.getBounds());
         }
         if (Constantes.DECISION_TREE_ACTIVATED) {
-            double[] features = new double[15];
+            double[] features = new double[24];
             getFeatures(item, features);
         }
         if (item.hasGlyphResposta(father)) {

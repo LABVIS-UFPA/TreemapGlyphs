@@ -2547,7 +2547,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                                     ((TreeMapItem) nodeUnderTheMouse).getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = 1;
                                     ((TreeMapItem) nodeUnderTheMouse).getWhat2Draw()[Constantes.PRESENCA_COR] = 1;
                                     ((TreeMapItem) nodeUnderTheMouse).getWhat2Draw()[Constantes.PRESENCA_FORMA] = 1;
-                                    ((TreeMapItem) nodeUnderTheMouse).getWhat2Draw()[Constantes.PRESENCA_LETRA] = 1;
+                                    ((TreeMapItem) nodeUnderTheMouse).getWhat2Draw()[Constantes.PRESENCA_TEXTO] = 1;
                                 }
                                 details.getDetailsMB().setGlyphOnToolTip(nodeUnderTheMouse.getGlyph());
                                 details.updateGlyphIcon(true);

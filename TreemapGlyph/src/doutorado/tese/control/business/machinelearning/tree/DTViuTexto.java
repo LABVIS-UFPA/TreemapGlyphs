@@ -1,18 +1,19 @@
 package doutorado.tese.control.business.machinelearning.tree;
 
-import static doutorado.tese.util.Constantes.AREA_COR;
+import static doutorado.tese.util.Constantes.AREA_TEXTO;
+import static doutorado.tese.util.Constantes.AREA_VISIVEL_TEXT;
 
 /**
- * criterion: gini; test_size: 0.2; max_depth: 2; min_samples_split: 61; 
- * Accuracy: 0.85 F1-score: 0.8533854166666667;
- * 
+ * criterion: gini; test_size: 0.4; max_depth: 3; min_samples_split: 61;
+ * Accuracy: 0.9083333333333333; F1-score: 0.8821814306583328.
+ *
  * @author Anderson Soares
  */
-public class DTViuCor {
-    
+public class DTViuTexto {
+
     private static final int NAO = 0;
     private static final int SIM = 1;
-    
+
     private static int findMax(int[] nums) {
         int index = 0;
         for (int i = 0; i < nums.length; i++) {
@@ -38,22 +39,37 @@ public class DTViuCor {
      */
     public static int predict(double[] features) {
         int[] classes = new int[2];
-        
-        if (features[AREA_COR] <= 2.5) {
-            if (features[AREA_COR] <= 0.5) {
-                classes[NAO] = 358;
+
+        if (features[AREA_TEXTO] <= 3.5) {
+            if (features[AREA_TEXTO] <= 1.5) {
+                classes[NAO] = 485;
                 classes[SIM] = 0;
             } else {
-                classes[NAO] = 78;
-                classes[SIM] = 30;
+                if (features[AREA_VISIVEL_TEXT] <= 0.44999998807907104) {
+                    classes[NAO] = 22;
+                    classes[SIM] = 2;
+                } else {
+                    classes[NAO] = 23;
+                    classes[SIM] = 2;
+                }
             }
         } else {
-            if (features[AREA_COR] <= 56.5) {
-                classes[NAO] = 93;
-                classes[SIM] = 189;
+            if (features[AREA_TEXTO] <= 112.5) {
+                if (features[AREA_VISIVEL_TEXT] <= 6.75) {
+                    classes[NAO] = 37;
+                    classes[SIM] = 26;
+                } else {
+                    classes[NAO] = 33;
+                    classes[SIM] = 11;
+                }
             } else {
-                classes[NAO] = 24;
-                classes[SIM] = 188;
+                if (features[AREA_VISIVEL_TEXT] <= 49.94999885559082) {
+                    classes[NAO] = 6;
+                    classes[SIM] = 26;
+                } else {
+                    classes[NAO] = 25;
+                    classes[SIM] = 22;
+                }
             }
         }
 
@@ -70,7 +86,7 @@ public class DTViuCor {
 //            }
 //
 //            // Prediction:
-//            int prediction = DTViuCor.predict(features);
+//            int prediction = DTViuTexto.predict(features);
 //            System.out.println(prediction);
 //
 //        }
