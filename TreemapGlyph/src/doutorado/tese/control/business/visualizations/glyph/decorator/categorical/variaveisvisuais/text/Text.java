@@ -174,7 +174,8 @@ public class Text extends Glyph {
 
     @Override
     public int getArea() {
-        return heightLetra * widthLetra;
+//        return heightLetra * widthLetra;
+        return xPoints[1] * yPoints[1];
     }
 
     @Override

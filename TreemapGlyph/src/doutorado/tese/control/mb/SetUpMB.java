@@ -107,10 +107,6 @@ public class SetUpMB {
                 analisarQuantAtributosCategoricos(list, Constantes.POSICOES.values());
                 break;
             case ORIENTATION:
-//                OrientationFactory.ARROW.GLYPH_ORIENTACAO[] orientations = new OrientationFactory.ARROW.GLYPH_ORIENTACAO[OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length];
-//                for (int i = 0; i < orientations.length; i++) {
-//                    orientations[i] = OrientationFactory.ARROW.GLYPH_ORIENTACAO.values()[i];
-//                }
                 analisarQuantAtributosCategoricos(list, OrientationFactory.ARROW.GLYPH_ORIENTACAO.values());
                 break;
             default:
@@ -148,7 +144,7 @@ public class SetUpMB {
             atributosCategoricosCor.add((String) listaAtributosCategorico);
         }
         itens.addAll(atributosCategoricosCor);
-        itens.addAll(getAtributosCategoricos());
+        itens.addAll(getAtributosContinuos());
         return itens.toArray();
     }
 

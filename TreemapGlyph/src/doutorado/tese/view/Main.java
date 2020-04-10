@@ -19,9 +19,9 @@ import doutorado.tese.model.TreeMapNode;
 import doutorado.tese.util.Util;
 import doutorado.tese.view.filtro.CategoricalFilterSetUp;
 import doutorado.tese.view.filtro.ContinuousFilterSetUp;
-import doutorado.tese.view.teste.scalability.ScalabilityTesteView;
 import doutorado.tese.view.teste.usertest.ConsoleTest;
 import doutorado.tese.view.teste.usertest.MainScreenLog;
+import doutorado.tese.view.teste.visibility.VisibilityTesteView;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -1167,7 +1167,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         testMenu.setText("Test");
 
         scalabilityMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/scalaTest16.png"))); // NOI18N
-        scalabilityMenuItem.setText("Scalability Test");
+        scalabilityMenuItem.setText("Visibility Test");
         scalabilityMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 scalabilityMenuItemActionPerformed(evt);
@@ -1290,12 +1290,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void decisionTreeActivateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decisionTreeActivateActionPerformed
         Constantes.DECISION_TREE_ACTIVATED = decisionTreeActivate.isSelected();
-        if (Constantes.DECISION_TREE_ACTIVATED && Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
-            JOptionPane.showMessageDialog(null, "Continuous glyphs will be available with the adaptive glyph as soon as possible.",
-                    "Sorry!", JOptionPane.INFORMATION_MESSAGE);
-            decisionTreeActivate.setSelected(false);
-            checkContinuousGlyph.setSelected(false);
-        }
         botaoGerarCategoricalGlyphsActionPerformed(evt);
         logger.info("Arvore de decisao esta ativada? " + Constantes.DECISION_TREE_ACTIVATED);
     }//GEN-LAST:event_decisionTreeActivateActionPerformed
@@ -1691,7 +1685,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private void checkContinuousGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkContinuousGlyphActionPerformed
         Constantes.CONTINUOUS_GLYPH_ACTIVATED = checkContinuousGlyph.isSelected();
         if (checkCategoricalGlyph.isSelected() || checkContinuousGlyph.isSelected()) {
-            showGlyphOnDetailsCheckBox.setEnabled(true);            
+            showGlyphOnDetailsCheckBox.setEnabled(true);
         }
         if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
             if (glassPanel == null) {
@@ -2054,8 +2048,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_positionGlyphComboBoxItemStateChanged
 
     private void scalabilityMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scalabilityMenuItemActionPerformed
-        ScalabilityTesteView teste = new ScalabilityTesteView();
-        teste.setVisible(true);
+        VisibilityTesteView testeVisibilidade = new VisibilityTesteView();
+        testeVisibilidade.setVisible(true);
     }//GEN-LAST:event_scalabilityMenuItemActionPerformed
 
     private void orientationGlyphComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_orientationGlyphComboBoxItemStateChanged
@@ -2541,13 +2535,17 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 TreeMapNode nodeUnderTheMouse = (TreeMapNode) view.getNodeUnderTheMouse(evt);
                 if (Constantes.SHOW_GLYPH_ON_DETAILS) {
                     if (nodeUnderTheMouse instanceof TreeMapItem) {
-                        if (nodeUnderTheMouse.getGlyph() != null) {
-                            if (!nodeUnderTheMouse.getGlyph().getChildren().isEmpty()) {
+                        TreeMapItem item = (TreeMapItem) nodeUnderTheMouse;
+                        if (item.getGlyph() != null) {
+                            if (!item.getGlyph().getChildren().isEmpty()) {
                                 if (Constantes.DECISION_TREE_ACTIVATED) {
-                                    ((TreeMapItem) nodeUnderTheMouse).getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = 1;
-                                    ((TreeMapItem) nodeUnderTheMouse).getWhat2Draw()[Constantes.PRESENCA_COR] = 1;
-                                    ((TreeMapItem) nodeUnderTheMouse).getWhat2Draw()[Constantes.PRESENCA_FORMA] = 1;
-                                    ((TreeMapItem) nodeUnderTheMouse).getWhat2Draw()[Constantes.PRESENCA_TEXTO] = 1;
+                                    item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = 1;
+                                    item.getWhat2Draw()[Constantes.PRESENCA_COR] = 1;
+                                    item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = 1;
+                                    item.getWhat2Draw()[Constantes.PRESENCA_TEXTO] = 1;
+                                    item.getWhat2Draw()[Constantes.PRESENCA_POSICAO] = 1;
+                                    item.getWhat2Draw()[Constantes.PRESENCA_ORIENTACAO] = 1;
+                                    item.getWhat2Draw()[Constantes.PRESENCA_PROFILE_GLYPH] = 1;
                                 }
                                 details.getDetailsMB().setGlyphOnToolTip(nodeUnderTheMouse.getGlyph());
                                 details.updateGlyphIcon(true);

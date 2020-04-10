@@ -124,8 +124,9 @@ public class SetUpScalabilityTestMB {
         Glyph father = getItemInput().getGlyph();
         father.killAllChild();//eh feito um kill para garantir que nao ha filhos
 
-        layersMisturadas = shuffleArray(Constantes.VAR_VISUAIS_CATEGORICAS.values());
-        for (Constantes.VAR_VISUAIS_CATEGORICAS var : layersMisturadas) {
+//        layersMisturadas = shuffleArray(Constantes.VAR_VISUAIS_CATEGORICAS.values());
+//        for (Constantes.VAR_VISUAIS_CATEGORICAS var : layersMisturadas) {
+        for (Constantes.VAR_VISUAIS_CATEGORICAS var : Constantes.VAR_VISUAIS_CATEGORICAS.values()) {
             Glyph child = null;
             switch (var) {
                 case TEXTURE:
@@ -199,7 +200,8 @@ public class SetUpScalabilityTestMB {
         Glyph father = getItemOutput().getGlyph();
         father.killAllChild();
 
-        for (Constantes.VAR_VISUAIS_CATEGORICAS var : layersMisturadas) {
+//        for (Constantes.VAR_VISUAIS_CATEGORICAS var : layersMisturadas) {
+        for (Constantes.VAR_VISUAIS_CATEGORICAS var : Constantes.VAR_VISUAIS_CATEGORICAS.values()) {
             Glyph child = null;
             switch (var) {
                 case TEXTURE:

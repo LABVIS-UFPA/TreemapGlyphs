@@ -41,34 +41,38 @@ public class DTViuTexto {
         int[] classes = new int[2];
 
         if (features[AREA_TEXTO] <= 3.5) {
-            if (features[AREA_TEXTO] <= 1.5) {
-                classes[NAO] = 485;
-                classes[SIM] = 0;
-            } else {
-                if (features[AREA_VISIVEL_TEXT] <= 0.44999998807907104) {
-                    classes[NAO] = 22;
-                    classes[SIM] = 2;
-                } else {
-                    classes[NAO] = 23;
-                    classes[SIM] = 2;
-                }
-            }
+            classes[NAO] = 530;
+            classes[SIM] = 4;
+//            if (features[AREA_TEXTO] <= 1.5) {
+//                classes[NAO] = 485;
+//                classes[SIM] = 0;
+//            } else {
+//                if (features[AREA_VISIVEL_TEXT] <= 0.44999998807907104) {
+//                    classes[NAO] = 22;
+//                    classes[SIM] = 2;
+//                } else {
+//                    classes[NAO] = 0;
+//                    classes[SIM] = 1;
+//                }
+//            }
         } else {
             if (features[AREA_TEXTO] <= 112.5) {
-                if (features[AREA_VISIVEL_TEXT] <= 6.75) {
-                    classes[NAO] = 37;
-                    classes[SIM] = 26;
-                } else {
-                    classes[NAO] = 33;
-                    classes[SIM] = 11;
-                }
+                classes[NAO] = 70;
+                classes[SIM] = 37;
+//                if (features[AREA_VISIVEL_TEXT] <= 6.75) {
+//                    classes[NAO] = 37;
+//                    classes[SIM] = 26;
+//                } else {
+//                    classes[NAO] = 0;
+//                    classes[SIM] = 1;
+//                }
             } else {
                 if (features[AREA_VISIVEL_TEXT] <= 49.94999885559082) {
-                    classes[NAO] = 6;
-                    classes[SIM] = 26;
+                    classes[NAO] = 1;
+                    classes[SIM] = 0;
                 } else {
-                    classes[NAO] = 25;
-                    classes[SIM] = 22;
+                    classes[NAO] = 0;
+                    classes[SIM] = 1;
                 }
             }
         }

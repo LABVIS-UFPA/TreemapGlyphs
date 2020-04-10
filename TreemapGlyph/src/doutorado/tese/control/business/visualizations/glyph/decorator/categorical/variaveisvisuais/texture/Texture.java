@@ -69,13 +69,17 @@ public class Texture extends Glyph {
 
     @Override
     public void paint(Graphics2D g2d) {
-        drawBehavior.paint(g2d);
-        if (isOverlappingActivated()) {
-            drawBehavior.drawForeground(g2d);
+        if (isVisible()) {
+            drawBehavior.paint(g2d);
+            if (isOverlappingActivated()) {
+                drawBehavior.drawForeground(g2d);
+            }
         }
         super.paint(g2d);
-        if (!isOverlappingActivated()) {
-            drawBehavior.drawForeground(g2d);
+        if (isVisible()) {
+            if (!isOverlappingActivated()) {
+                drawBehavior.drawForeground(g2d);
+            }
         }
     }
 

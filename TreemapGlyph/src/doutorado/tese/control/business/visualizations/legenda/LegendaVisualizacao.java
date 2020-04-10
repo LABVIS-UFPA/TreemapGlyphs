@@ -12,6 +12,7 @@ import doutorado.tese.util.Metadados;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory.ARROW;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
+import static doutorado.tese.util.Constantes.VAR_VISUAIS_CATEGORICAS.COLOR_HUE;
 import doutorado.tese.util.Util;
 import java.awt.Color;
 import java.awt.Font;
@@ -86,44 +87,44 @@ public class LegendaVisualizacao {
     }
 
     public void analisarDadosDistintos(JPanel painel, Coluna c, List<String> dadosDistintos, Constantes.VAR_VISUAIS_CATEGORICAS layer) {
-        for (int i = 0; i < dadosDistintos.size(); i++) {
-            IconeLegenda icon = new IconeLegenda();
-            switch (layer) {
-                case TEXTURE:
-                    icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.TEXTURE);
-                    icon.setValorIcon(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values()[i]);
-                    break;
-                case COLOR_HUE:
-                    if (c.getDescription() == Metadados.Descricao.CATEGORICAL) {
+        if (c.getDescription() == Metadados.Descricao.CATEGORICAL) {
+            for (int i = 0; i < dadosDistintos.size(); i++) {
+                IconeLegenda icon = new IconeLegenda();
+                switch (layer) {
+                    case TEXTURE:
+                        icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.TEXTURE);
+                        icon.setValorIcon(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values()[i]);
+                        break;
+                    case COLOR_HUE:
                         icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.COLOR_HUE);
                         icon.setValorIcon(Constantes.getColorHueGlyphs()[i]);
-                    } else {
-                        criarlegendaContinua(Constantes.VAR_VISUAIS_CATEGORICAS.COLOR_HUE, c, painel);
-                    }
-                    break;
-                case SHAPE:
-                    icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.SHAPE);
-                    icon.setValorIcon(FORMAS.GLYPH_FORMAS.values()[i]);
-                    break;
-                case TEXT:
-                    icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.TEXT);
-                    icon.setValorIcon(Constantes.LETRAS_ALFABETO[i]);
-                    break;
-                case POSITION:
-                    icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.POSITION);
-                    icon.setValorIcon(Constantes.POSICOES.values()[i]);
-                    break;
-                case ORIENTATION:
-                    icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.ORIENTATION);
-                    icon.setValorIcon(ARROW.GLYPH_ORIENTACAO.values()[i]);
-                    break;
-            }
-            if (c.getDescription() == Metadados.Descricao.CATEGORICAL) {
+                        break;
+                    case SHAPE:
+                        icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.SHAPE);
+                        icon.setValorIcon(FORMAS.GLYPH_FORMAS.values()[i]);
+                        break;
+                    case TEXT:
+                        icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.TEXT);
+                        icon.setValorIcon(Constantes.LETRAS_ALFABETO[i]);
+                        break;
+                    case POSITION:
+                        icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.POSITION);
+                        icon.setValorIcon(Constantes.POSICOES.values()[i]);
+                        break;
+                    case ORIENTATION:
+                        icon.setDimensaoCategorical(Constantes.VAR_VISUAIS_CATEGORICAS.ORIENTATION);
+                        icon.setValorIcon(ARROW.GLYPH_ORIENTACAO.values()[i]);
+                        break;
+                }
                 JLabel label = criarLabel(dadosDistintos.get(i), icon);
                 painel.add(label);
 
                 label.setHorizontalAlignment(SwingConstants.LEFT);
                 painel.setAlignmentX(label.LEFT_ALIGNMENT);
+            }
+        } else {
+            if (layer.equals(COLOR_HUE)) {
+                criarlegendaContinua(COLOR_HUE, c, painel);
             }
         }
     }

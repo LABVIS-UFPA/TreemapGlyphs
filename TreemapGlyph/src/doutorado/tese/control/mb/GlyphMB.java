@@ -22,7 +22,6 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.continuous
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.color.ColorHue;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture_old;
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.util.ColorInterpolator;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
@@ -46,6 +45,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import net.bouthier.treemapAWT.TMNodeEncapsulator;
@@ -158,36 +158,78 @@ public final class GlyphMB {
         List<Glyph> glyphFamily = item.getGlyphFamily(item.getGlyph(), new ArrayList<>());
         glyphFamily.forEach((glyph) -> {
             if (glyph instanceof Texture) {
-                features[Constantes.AREA_TEXTURA] = glyph.getArea();//aqui a area sera calculada no getArea()
+//                System.out.println("item: "+item.getLabel() + " - AREA_GLYPH: "+glyph.getArea());
+                features[Constantes.AREA_TEXTURA] = glyph.getArea();
                 features[Constantes.PRESENCA_TEXTURA] = Constantes.PRESENTE;
+                if (glyphFamily.indexOf(glyph) != glyphFamily.size() - 1) {
+                    features[Constantes.AREA_VISIVEL_TEXTURE] = glyph.getArea() - (glyph.getArea() * glyph.getPectSobreposicao());
+                } else {
+                    features[Constantes.AREA_VISIVEL_TEXTURE] = glyph.getArea();
+                }
             } else if (glyph instanceof ColorHue) {
                 features[Constantes.AREA_COR] = glyph.getArea();
                 features[Constantes.PRESENCA_COR] = Constantes.PRESENTE;
             } else if (glyph instanceof GeometricShape) {
                 features[Constantes.AREA_SHAPE] = glyph.getArea();
                 features[Constantes.PRESENCA_FORMA] = Constantes.PRESENTE;
+                if (glyphFamily.indexOf(glyph) != glyphFamily.size() - 1) {
+                    features[Constantes.AREA_VISIVEL_SHAPE] = glyph.getArea() - (glyph.getArea() * glyph.getPectSobreposicao());
+                } else {
+                    features[Constantes.AREA_VISIVEL_SHAPE] = glyph.getArea();
+                }
             } else if (glyph instanceof Text) {
                 features[Constantes.AREA_TEXTO] = glyph.getArea();
                 features[Constantes.PRESENCA_TEXTO] = Constantes.PRESENTE;
-            }else if (glyph instanceof Position) {
+                if (glyphFamily.indexOf(glyph) != glyphFamily.size() - 1) {
+                    features[Constantes.AREA_VISIVEL_TEXT] = glyph.getArea() - (glyph.getArea() * glyph.getPectSobreposicao());
+                } else {
+                    features[Constantes.AREA_VISIVEL_TEXT] = glyph.getArea();
+                }
+            } else if (glyph instanceof Position) {
                 features[Constantes.AREA_POSICAO] = glyph.getArea();
                 features[Constantes.PRESENCA_POSICAO] = Constantes.PRESENTE;
-            }else if (glyph instanceof Orientation) {
+                if (glyphFamily.indexOf(glyph) != glyphFamily.size() - 1) {
+                    features[Constantes.AREA_VISIVEL_POSICAO] = glyph.getArea() - (glyph.getArea() * glyph.getPectSobreposicao());
+                } else {
+                    features[Constantes.AREA_VISIVEL_POSICAO] = glyph.getArea();
+                }
+            } else if (glyph instanceof Orientation) {
                 features[Constantes.AREA_ORIENTACAO] = glyph.getArea();
                 features[Constantes.PRESENCA_ORIENTACAO] = Constantes.PRESENTE;
-            }else if (glyph instanceof ProfileGlyph) {
+                if (glyphFamily.indexOf(glyph) != glyphFamily.size() - 1) {
+                    features[Constantes.AREA_VISIVEL_ORIENTACAO] = glyph.getArea() - (glyph.getArea() * glyph.getPectSobreposicao());
+                }else{
+                    features[Constantes.AREA_VISIVEL_ORIENTACAO] = glyph.getArea();
+                }
+            } else if (glyph instanceof ProfileGlyph) {
                 features[Constantes.AREA_PROFILE_GLYPH] = glyph.getArea();
                 features[Constantes.PRESENCA_PROFILE_GLYPH] = Constantes.PRESENTE;
             }
         });
 //        int[] predictions = DecisionTreeClassifier.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA] = DTViuTextura.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_COR] = DTViuCor.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_FORMA] = DTViuForma.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_TEXTO] = DTViuTexto.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_POSICAO] = DTViuPosicao.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_ORIENTACAO] = DTViuOrientacao.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_PROFILE_GLYPH] = DTViuProfile.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA]        = DTViuTextura.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_COR]            = DTViuCor.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_FORMA]          = DTViuForma.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_TEXTO]          = DTViuTexto.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_POSICAO]        = DTViuPosicao.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_ORIENTACAO]     = DTViuOrientacao.predict(features);
+        item.getWhat2Draw()[Constantes.PRESENCA_PROFILE_GLYPH]  = DTViuProfile.predict(features);
+//        item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA]        = predictions[Constantes.PRESENCA_TEXTURA];
+//        item.getWhat2Draw()[Constantes.PRESENCA_COR]            = predictions[Constantes.PRESENCA_COR];
+//        item.getWhat2Draw()[Constantes.PRESENCA_FORMA]          = predictions[Constantes.PRESENCA_FORMA];
+//        item.getWhat2Draw()[Constantes.PRESENCA_TEXTO]          = predictions[Constantes.PRESENCA_TEXTO];
+//        item.getWhat2Draw()[Constantes.PRESENCA_POSICAO]        = predictions[Constantes.PRESENCA_POSICAO];
+//        item.getWhat2Draw()[Constantes.PRESENCA_ORIENTACAO]     = predictions[Constantes.PRESENCA_ORIENTACAO];
+//        item.getWhat2Draw()[Constantes.PRESENCA_PROFILE_GLYPH]  = predictions[Constantes.PRESENCA_PROFILE_GLYPH];
+        
+        System.out.print(item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA]      +"-");
+        System.out.print(item.getWhat2Draw()[Constantes.PRESENCA_COR]          +"-");
+        System.out.print(item.getWhat2Draw()[Constantes.PRESENCA_FORMA]        +"-");
+        System.out.print(item.getWhat2Draw()[Constantes.PRESENCA_TEXTO]        +"-");
+        System.out.print(item.getWhat2Draw()[Constantes.PRESENCA_POSICAO]      +"-");
+        System.out.print(item.getWhat2Draw()[Constantes.PRESENCA_ORIENTACAO]   +"-");
+        System.out.println(item.getWhat2Draw()[Constantes.PRESENCA_PROFILE_GLYPH]);
+        
         return features;
     }
 
@@ -452,7 +494,7 @@ public final class GlyphMB {
 //        textura.setNomeTextura(nomeTextura);
 //        textura.setPectSobreposicao(0.65f);
 //        textura.setOverlappingActivated(overlappingActivated);
-        Texture glyph = new Texture();        
+        Texture glyph = new Texture();
         glyph.setDrawBehavior(TexturesFactory.create(textura));
 //        glyph.setPectSobreposicao(0.65f);
         glyph.setOverlappingActivated(overlappingActivated);

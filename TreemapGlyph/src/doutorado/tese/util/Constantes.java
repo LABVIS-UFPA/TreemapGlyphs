@@ -37,9 +37,9 @@ public class Constantes {
     public static final int AREA_COR = 13;//CCA - Colored circle area
     public static final int AREA_SHAPE = 14;//SA - SHAPE AREA
     public static final int AREA_TEXTO = 15;
-    public static final int AREA_PROFILE_GLYPH = 16;//NA - NUMBER AREA
-    public static final int AREA_POSICAO = 17;//NA - NUMBER AREA
-    public static final int AREA_ORIENTACAO = 18;//NA - NUMBER AREA
+    public static final int AREA_POSICAO = 16;//NA - NUMBER AREA
+    public static final int AREA_ORIENTACAO = 17;//NA - NUMBER AREA
+    public static final int AREA_PROFILE_GLYPH = 18;//NA - NUMBER AREA
     public static final int AREA_VISIVEL_SHAPE = 19;
     public static final int AREA_VISIVEL_TEXTURE = 20;
     public static final int AREA_VISIVEL_TEXT = 21;
@@ -124,11 +124,11 @@ public class Constantes {
     
     public enum VAR_VISUAIS_CATEGORICAS {
         POSITION("Position"),        
+        ORIENTATION("Orientation"),
         TEXTURE("Texture"),
         COLOR_HUE("Color_Hue"),
         SHAPE("Shape"),
-        TEXT("Text"),
-        ORIENTATION("Orientation");
+        TEXT("Text");
 
         private final String varVisual;
 

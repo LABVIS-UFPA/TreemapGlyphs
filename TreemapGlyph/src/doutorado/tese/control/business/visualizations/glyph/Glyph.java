@@ -6,9 +6,12 @@
 package doutorado.tese.control.business.visualizations.glyph;
 
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.color.ColorHue;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.orientation.Orientation;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
-import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture_old;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
+import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.model.TreeMapNode;
 import doutorado.tese.util.Constantes;
@@ -55,19 +58,21 @@ public abstract class Glyph implements Cloneable {
             if (Constantes.DECISION_TREE_ACTIVATED) {
                 getChild().setVisible(false);
                 TreeMapItem item = (TreeMapItem) nodeTreemap;
-                if (item.getWhat2Draw()[0] == 1 && getChild().whoAmI() == Texture_old.class) {
+                if (item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA] == 1 && getChild().whoAmI() == Texture.class) {
                     getChild().setVisible(true);
-                } else if (item.getWhat2Draw()[1] == 1 && getChild().whoAmI() == ColorHue.class) {
+                } else if (item.getWhat2Draw()[Constantes.PRESENCA_COR] == 1 && getChild().whoAmI() == ColorHue.class) {
                     getChild().setVisible(true);
-                } else if (item.getWhat2Draw()[2] == 1 && getChild().whoAmI() == GeometricShape.class) {
+                } else if (item.getWhat2Draw()[Constantes.PRESENCA_FORMA] == 1 && getChild().whoAmI() == GeometricShape.class) {
                     getChild().setVisible(true);
-                } else if (item.getWhat2Draw()[3] == 1 && getChild().whoAmI() == Text.class) {
+                } else if (item.getWhat2Draw()[Constantes.PRESENCA_TEXTO] == 1 && getChild().whoAmI() == Text.class) {
+                    getChild().setVisible(true);
+                } else if (item.getWhat2Draw()[Constantes.PRESENCA_POSICAO] == 1 && getChild().whoAmI() == Position.class) {
+                    getChild().setVisible(true);
+                } else if (item.getWhat2Draw()[Constantes.PRESENCA_ORIENTACAO] == 1 && getChild().whoAmI() == Orientation.class) {
+                    getChild().setVisible(true);
+                } else if (item.getWhat2Draw()[Constantes.PRESENCA_PROFILE_GLYPH] == 1 && getChild().whoAmI() == ProfileGlyph.class) {
                     getChild().setVisible(true);
                 }
-//                else if(getChild().whoAmI() == ProfileGlyph.class){
-//                    JOptionPane.showMessageDialog(null, "This continuous glyph will be available with the adaptive glyph as soon as possible.",
-//                            "Sorry!", JOptionPane.INFORMATION_MESSAGE);
-//                }
             }
 
             getChild().paint(g2d);
@@ -88,7 +93,7 @@ public abstract class Glyph implements Cloneable {
             filho = glyphChild;
             this.child = filho;
             this.children.add(filho);
-            this.child.father = this;
+//            this.child.father = this;
         }
     }
 

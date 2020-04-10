@@ -54,57 +54,60 @@ public class ProfileGlyph extends Glyph {
 
     @Override
     public void paint(Graphics2D g2d) {
-        if (getQuantVar() != 0) {
-            for (int i = 0; i < getQuantVar(); i++) {
-                g2d.setColor(Color.decode(Constantes.getColorContinuousGlyphs()[i]));
-                
-                int x = getBarras()[i].getBarraX();
-                int y = getBarras()[i].getBarraY();
-                int w = getBarras()[i].getBarraW();
-                int h = getBarras()[i].getBarraH();
+        if (isVisible()) {
+            if (getQuantVar() != 0) {
+                for (int i = 0; i < getQuantVar(); i++) {
+                    g2d.setColor(Color.decode(Constantes.getColorContinuousGlyphs()[i]));
 
-                //codigo cada barra
-                g2d.fillRect(x, y, w, h);
-                g2d.setColor(Color.black);
-                g2d.drawRect(x, y, w, h);
+                    int x = getBarras()[i].getBarraX();
+                    int y = getBarras()[i].getBarraY();
+                    int w = getBarras()[i].getBarraW();
+                    int h = getBarras()[i].getBarraH();
+
+                    //codigo cada barra
+                    g2d.fillRect(x, y, w, h);
+                    g2d.setColor(Color.black);
+                    g2d.drawRect(x, y, w, h);
+                }
             }
+            g2d.drawLine(this.rect.x,
+                    this.rect.y,
+                    this.rect.x + this.rect.width,
+                    this.rect.y);
+
+            g2d.drawLine(pontosLinhaCentro[0], pontosLinhaCentro[1], pontosLinhaCentro[2], pontosLinhaCentro[3]);
+
+            g2d.drawLine(this.rect.x,
+                    this.rect.y + this.rect.height,
+                    this.rect.x + this.rect.width,
+                    this.rect.y + this.rect.height);
         }
-        g2d.drawLine(this.rect.x,
-                this.rect.y,
-                this.rect.x + this.rect.width,
-                this.rect.y);
-
-        g2d.drawLine(pontosLinhaCentro[0], pontosLinhaCentro[1], pontosLinhaCentro[2], pontosLinhaCentro[3]);
-
-        g2d.drawLine(this.rect.x,
-                this.rect.y + this.rect.height,
-                this.rect.x + this.rect.width,
-                this.rect.y + this.rect.height);
+//        super.paint(g2d);
     }
 
     public void calcularPosicaoBarras() {
         int widthEachbar = Math.round(this.rect.width / getBarras().length);
         int meiaAltura = Math.round(this.rect.height / 2.f);
-        
+
         int xBarra = rect.x;
         int yBarra = rect.y;
         double porcentagemDado;
         for (Bar barra : getBarras()) {
             if (barra.getDado() > 0) {
-                porcentagemDado= calcularPorcentagemDado(barra.getDado(), barra.getDadoMaxVal());
+                porcentagemDado = calcularPorcentagemDado(barra.getDado(), barra.getDadoMaxVal());
 
                 int alturaBarra = (int) Math.round(calcularPorcentagemAlturaBarra(porcentagemDado, meiaAltura));
                 int novaAltura = meiaAltura - alturaBarra;//aqui a meiaAltura seria a altura max de uma barra
                 barra.setPosicaoBarra(xBarra, yBarra + novaAltura, widthEachbar, alturaBarra);
-                xBarra += widthEachbar; 
+                xBarra += widthEachbar;
             } else {
                 porcentagemDado = calcularPorcentagemDado(Math.abs(barra.getDado()), Math.abs(barra.getDadoMaxVal()));
                 //casos onde o valor negativo (apos ser transformado em valor absoluto) for maior que o positivo 
-                if(porcentagemDado > 100){
+                if (porcentagemDado > 100) {
                     porcentagemDado = 100;
                 }
                 int alturaBarra = (int) Math.round(calcularPorcentagemAlturaBarra(porcentagemDado, meiaAltura));
-                
+
                 barra.setPosicaoBarra(xBarra, pontosLinhaCentro[1], widthEachbar, alturaBarra);
                 xBarra += widthEachbar;
             }
@@ -221,7 +224,7 @@ public class ProfileGlyph extends Glyph {
     }
 
     @Override
-    public Object whoAmI() {        
+    public Object whoAmI() {
         return this.getClass();
     }
 

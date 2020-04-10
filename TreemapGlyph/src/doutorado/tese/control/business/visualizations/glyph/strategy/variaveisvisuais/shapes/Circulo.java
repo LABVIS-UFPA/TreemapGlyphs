@@ -10,7 +10,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 
 /**
- * O objeto Circulo com cor ocupa 65% do item do treemap
+ * O objeto Circulo com cor ocupa 65% do item do treemap (IV2018)
  * 
  * @author Anderson Soares
  */

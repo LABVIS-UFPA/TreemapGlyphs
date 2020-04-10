@@ -40,21 +40,21 @@ public class DTViuCor {
         int[] classes = new int[2];
         
         if (features[AREA_COR] <= 2.5) {
-            if (features[AREA_COR] <= 0.5) {
-                classes[NAO] = 358;
-                classes[SIM] = 0;
-            } else {
-                classes[NAO] = 78;
+//            if (features[AREA_COR] <= 0.5) {
+                classes[NAO] = 436;
                 classes[SIM] = 30;
-            }
+//            } else {
+//                classes[NAO] = 78;
+//                classes[SIM] = 30;
+//            }
         } else {
-            if (features[AREA_COR] <= 56.5) {
-                classes[NAO] = 93;
-                classes[SIM] = 189;
-            } else {
-                classes[NAO] = 24;
-                classes[SIM] = 188;
-            }
+//            if (features[AREA_COR] <= 56.5) {
+                classes[NAO] = 117;
+                classes[SIM] = 377;
+//            } else {
+//                classes[NAO] = 24;
+//                classes[SIM] = 188;
+//            }
         }
 
         return findMax(classes);

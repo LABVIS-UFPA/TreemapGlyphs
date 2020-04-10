@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.view.teste.scalability;
+package doutorado.tese.view.teste.visibility;
 
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.util.Constantes;
