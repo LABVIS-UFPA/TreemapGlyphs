@@ -60,17 +60,17 @@ public class PainelDeTeste extends javax.swing.JPanel {
 
         this.areaCallback.areaUpdated(scalabilityTestMB.getAreas());
         //desenho direita
-        g2d.setColor(coritem);
-        g2d.fillRect(scalabilityTestMB.getItemOutput().getBounds().x, scalabilityTestMB.getItemOutput().getBounds().y,
-                scalabilityTestMB.getInputConfigs().get("width"), scalabilityTestMB.getInputConfigs().get("height"));
-        g2d.setColor(Color.BLACK);
-        g2d.drawRect(scalabilityTestMB.getItemOutput().getBounds().x, scalabilityTestMB.getItemOutput().getBounds().y,
-                scalabilityTestMB.getInputConfigs().get("width"), scalabilityTestMB.getInputConfigs().get("height"));
-
-        ArrayList<Glyph> listItemOutput = new ArrayList<>();
-        scalabilityTestMB.getItemOutput().getGlyph().paint(g2d);
-        scalabilityTestMB.getItemOutput().getGlyph().getChildren(listItemOutput);
-        g2d.setClip(0, 0, getBounds().width, getBounds().height);
+//        g2d.setColor(coritem);
+//        g2d.fillRect(scalabilityTestMB.getItemOutput().getBounds().x, scalabilityTestMB.getItemOutput().getBounds().y,
+//                scalabilityTestMB.getInputConfigs().get("width"), scalabilityTestMB.getInputConfigs().get("height"));
+//        g2d.setColor(Color.BLACK);
+//        g2d.drawRect(scalabilityTestMB.getItemOutput().getBounds().x, scalabilityTestMB.getItemOutput().getBounds().y,
+//                scalabilityTestMB.getInputConfigs().get("width"), scalabilityTestMB.getInputConfigs().get("height"));
+//
+//        ArrayList<Glyph> listItemOutput = new ArrayList<>();
+//        scalabilityTestMB.getItemOutput().getGlyph().paint(g2d);
+//        scalabilityTestMB.getItemOutput().getGlyph().getChildren(listItemOutput);
+//        g2d.setClip(0, 0, getBounds().width, getBounds().height);
     }
 
     public void setAreaCallback(AreaCallback areaCallback) {
@@ -90,8 +90,8 @@ public class PainelDeTeste extends javax.swing.JPanel {
 
     public void updateOutput(HashMap<String, Boolean> output) {
         scalabilityTestMB.setOutputConfigs(output);
-        scalabilityTestMB.configLayersOutput();
-        repaint();
+//        scalabilityTestMB.configLayersOutput();
+//        repaint();
     }
 
     /**

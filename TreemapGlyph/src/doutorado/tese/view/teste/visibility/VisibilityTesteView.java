@@ -5,9 +5,33 @@
  */
 package doutorado.tese.view.teste.visibility;
 
+import doutorado.tese.control.business.visualizations.glyph.Glyph;
+import doutorado.tese.control.business.visualizations.glyph.GlyphConcrete;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.color.ColorHue;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.orientation.Orientation;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
+import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow0;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow135;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow180;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow45;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow90;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Circulo;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Cruz;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Estrela;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Quadrado;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Serrilhado;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_10x10;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_2x2;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_4x4;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_6x6;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_8x8;
 import doutorado.tese.control.mb.testeMB.scalabilityMB.SetUpScalabilityTestMB;
 import doutorado.tese.util.Constantes;
 import java.io.BufferedWriter;
@@ -15,13 +39,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
-import javax.swing.JSeparator;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -35,12 +63,13 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     private HashMap<String, Integer> configs;
     private HashMap<String, Boolean> output;
     private Random rand;
-    private String data;
+//    private String data;
+    private StringBuilder data;
     private boolean selectAll = true;
     private HashMap<String, Integer> areas;
     private int[] glyphlayers2draw = {0, 1, 2, 3, 4, 5, 6};
     private String[] layers = new String[]{"texture", "colorhue", "geometricshape", "text", "position", "orientation", "coritem"};
-    private HashMap<String, JCheckBox> checkboxes;
+//    private HashMap<String, JCheckBox> checkboxes;
 
     private int cont = 0;
     private int numLayers2remove = 0;
@@ -52,12 +81,17 @@ public class VisibilityTesteView extends javax.swing.JFrame {
      * Creates new form Main
      */
     public VisibilityTesteView() {
-
-        data = "Textura,Cor,Forma,Texto,Posicao,Orientacao,ProfileGlyph,"
+        data = new StringBuilder();
+        data.append(
+                "Textura,Cor,Forma,Texto,Posicao,Orientacao,ProfileGlyph,"
                 + "Altura,Largura,"
                 + "AreaItem,AspectoItem,CorItem,"
                 + "AreaTextura,AreaCor,AreaForma,AreaTexto,AreaPosicao,AreaOrientacao,AreaProfileGlyph,"
-                + "ViuTextura,ViuCor,ViuForma,ViuTexto,ViuPosicao,ViuOrientacao,ViuProfileGlyph,FamiliaGlyph";
+                //+ "ViuTextura,ViuCor,ViuForma,ViuTexto,ViuPosicao,ViuOrientacao,ViuProfileGlyph,"
+                + "FamiliaGlyph,"
+                + "TexturaValor,CorValor,FormaValor,TextoValor,PosicaoValor,OrientacaoValor"
+                + "areaVisivel_Textura,areaVisivel_Cor,areaVisivel_Forma,areaVisivel_Texto,areaVisivel_Posicao,areaVisivel_Orientacao"
+        );
         rand = new Random(System.currentTimeMillis());
         configs = new HashMap<>();
         output = new HashMap<>();
@@ -68,19 +102,20 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             Logger.getLogger(VisibilityTesteView.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
+        configButtonGroups();
 
 //        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-        checkboxes = new HashMap<>();
-        checkboxes.put("texture", checkboxTexture);
-        checkboxes.put("colorhue", checkboxColorHue);
-        checkboxes.put("geometricshape", checkboxGeometry);
-        checkboxes.put("text", checkboxLetter);
-        checkboxes.put("position", checkboxPosition);
-        checkboxes.put("orientation", checkboxOrientation);
-        checkboxes.put("profileglyph", checkboxProfileGlyph);
-
-        configCheckBox();
+//        checkboxes = new HashMap<>();
+//        checkboxes.put("texture", checkboxTexture);
+//        checkboxes.put("colorhue", checkboxColorHue);
+//        checkboxes.put("geometricshape", checkboxShape);
+//        checkboxes.put("text", checkboxText);
+//        checkboxes.put("position", checkboxPosition);
+//        checkboxes.put("orientation", checkboxOrientation);
+//        checkboxes.put("profileglyph", checkboxProfileGlyph);
+//        configCheckBox();
         changeConfigs();
+        configRadioButtonsActionCommand();
 
         this.painelEsquerda.setAreaCallback(new PainelDeTeste.AreaCallback() {
             @Override
@@ -89,16 +124,99 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        updateOutput();
+//        updateOutput();
     }
 
-    private void configCheckBox() {
-        for (JCheckBox c : checkboxes.values()) {
-            c.setSelected(false);
-//            c.setEnabled(true);//antes
-            c.setEnabled(false);
-        }
+    private void configButtonGroups() {
+        texturaButtonGroup.add(textura1RadioButton);
+        texturaButtonGroup.add(textura2RadioButton);
+        texturaButtonGroup.add(textura3RadioButton);
+        texturaButtonGroup.add(textura4RadioButton);
+        texturaButtonGroup.add(textura5RadioButton);
 
+        corButtonGroup.add(cor1RadioButton);
+        corButtonGroup.add(cor2RadioButton);
+        corButtonGroup.add(cor3RadioButton);
+        corButtonGroup.add(cor4RadioButton);
+        corButtonGroup.add(cor5RadioButton);
+
+        formaButtonGroup.add(forma1RadioButton);
+        formaButtonGroup.add(forma2RadioButton);
+        formaButtonGroup.add(forma3RadioButton);
+        formaButtonGroup.add(forma4RadioButton);
+        formaButtonGroup.add(forma5RadioButton);
+
+        textoButtonGroup.add(text1RadioButton);
+        textoButtonGroup.add(text2RadioButton);
+        textoButtonGroup.add(text3RadioButton);
+        textoButtonGroup.add(text4RadioButton);
+        textoButtonGroup.add(text5RadioButton);
+
+        posicaoButtonGroup.add(position1RadioButton);
+        posicaoButtonGroup.add(position2RadioButton);
+        posicaoButtonGroup.add(position3RadioButton);
+        posicaoButtonGroup.add(position4RadioButton);
+        posicaoButtonGroup.add(position5RadioButton);
+
+        orientacaoButtonGroup.add(orientation1RadioButton);
+        orientacaoButtonGroup.add(orientation2RadioButton);
+        orientacaoButtonGroup.add(orientation3RadioButton);
+        orientacaoButtonGroup.add(orientation4RadioButton);
+        orientacaoButtonGroup.add(orientation5RadioButton);
+    }
+
+//    private void configCheckBox() {
+//        for (JCheckBox c : checkboxes.values()) {
+//            c.setSelected(false);
+////            c.setEnabled(true);//antes
+//            c.setEnabled(false);
+//        }
+//    }
+    public void configRadioButtonsActionCommand() {
+        textura1RadioButton.setActionCommand(CirculoTextura_2x2.class.getSimpleName());
+        textura2RadioButton.setActionCommand(CirculoTextura_4x4.class.getSimpleName());
+        textura3RadioButton.setActionCommand(CirculoTextura_6x6.class.getSimpleName());
+        textura4RadioButton.setActionCommand(CirculoTextura_8x8.class.getSimpleName());
+        textura5RadioButton.setActionCommand(CirculoTextura_10x10.class.getSimpleName());
+
+        cor1RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[0]);
+        cor2RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[1]);
+        cor3RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[2]);
+        cor4RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[3]);
+        cor5RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[4]);
+
+        forma1RadioButton.setActionCommand(Circulo.class.getSimpleName());
+        forma2RadioButton.setActionCommand(Serrilhado.class.getSimpleName());
+        forma3RadioButton.setActionCommand(Cruz.class.getSimpleName());
+        forma4RadioButton.setActionCommand(Estrela.class.getSimpleName());
+        forma5RadioButton.setActionCommand(Quadrado.class.getSimpleName());
+
+        text1RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[0]);
+        text2RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[1]);
+        text3RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[2]);
+        text4RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[3]);
+        text5RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[4]);
+
+        position1RadioButton.setActionCommand(Constantes.POSICOES.ESQ_INF.name());
+        position2RadioButton.setActionCommand(Constantes.POSICOES.DIR_SUP.name());
+        position3RadioButton.setActionCommand(Constantes.POSICOES.DIR_INF.name());
+        position4RadioButton.setActionCommand(Constantes.POSICOES.ESQ_SUP.name());
+        position5RadioButton.setActionCommand(Constantes.POSICOES.CENTRO.name());
+
+        orientation1RadioButton.setActionCommand(Arrow90.class.getSimpleName());
+        orientation2RadioButton.setActionCommand(Arrow180.class.getSimpleName());
+        orientation3RadioButton.setActionCommand(Arrow45.class.getSimpleName());
+        orientation4RadioButton.setActionCommand(Arrow0.class.getSimpleName());
+        orientation5RadioButton.setActionCommand(Arrow135.class.getSimpleName());
+    }
+
+    public void resetPainelsRadioButtos() {
+        texturaButtonGroup.clearSelection();
+        corButtonGroup.clearSelection();
+        formaButtonGroup.clearSelection();
+        textoButtonGroup.clearSelection();
+        posicaoButtonGroup.clearSelection();
+        orientacaoButtonGroup.clearSelection();
     }
 
     public void changeConfigs() {
@@ -110,6 +228,8 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             numLayers2remove++;
         }
 
+        resetPainelsRadioButtos();
+        
         configs.put("texture", rand.nextInt(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values().length));
         configs.put("colorhue", rand.nextInt(Constantes.getColorHueGlyphs().length));
         configs.put("geometricshape", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
@@ -120,8 +240,8 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         configs.put("x", 50);
         configs.put("y", 50);
         int length = rand.nextInt(50) + 5;
-        configs.put("width", Math.abs(length - rand.nextInt(100)));
-        configs.put("height", Math.abs(length - rand.nextInt(100)));
+        configs.put("width", Math.abs(length - (rand.nextInt(100) + 5)));
+        configs.put("height", Math.abs(length - (rand.nextInt(100) + 5)));
         configs.put("coritem", rand.nextInt(Constantes.getCorTreemap().length));
 
         SetUpScalabilityTestMB.shuffleArray(glyphlayers2draw);
@@ -140,8 +260,22 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             if (index > 0) {
                 nomeClasse = painelEsquerda.getFamilia2Desenho().get(i).whoAmI().toString().substring(index + 1).toLowerCase();
             }
-            checkboxes.get(nomeClasse).setEnabled(true);
+//            checkboxes.get(nomeClasse).setEnabled(true);
         }
+    }
+
+    public boolean isSelectedRadioButton(ButtonGroup buttonGroup) {
+        boolean selected = false;
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                selected = true;
+                break;
+            }
+        }
+
+        return selected;
     }
 
     /**
@@ -153,148 +287,839 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane1 = new javax.swing.JSplitPane();
-        painelEsquerda = new PainelDeTeste();
-        separador = new javax.swing.JSeparator();
-        glyphsLabel = new javax.swing.JLabel();
-        shouldBeLabel = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
-        btnConfirm = new javax.swing.JButton();
-        btnSelectAll = new javax.swing.JButton();
-        contadorLabel = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        checkboxTexture = new javax.swing.JCheckBox();
-        cor1RadioButton2 = new javax.swing.JRadioButton();
-        cor3Label2 = new javax.swing.JLabel();
-        cor4Label2 = new javax.swing.JLabel();
-        cor5RadioButton2 = new javax.swing.JRadioButton();
-        cor1Label2 = new javax.swing.JLabel();
-        cor2Label2 = new javax.swing.JLabel();
-        cor3RadioButton2 = new javax.swing.JRadioButton();
-        cor5Label2 = new javax.swing.JLabel();
-        cor2RadioButton2 = new javax.swing.JRadioButton();
-        cor4RadioButton2 = new javax.swing.JRadioButton();
-        jPanel2 = new javax.swing.JPanel();
-        checkboxColorHue = new javax.swing.JCheckBox();
-        cor4RadioButton = new javax.swing.JRadioButton();
-        cor5RadioButton = new javax.swing.JRadioButton();
+        texturaButtonGroup = new javax.swing.ButtonGroup();
+        corButtonGroup = new javax.swing.ButtonGroup();
+        formaButtonGroup = new javax.swing.ButtonGroup();
+        textoButtonGroup = new javax.swing.ButtonGroup();
+        posicaoButtonGroup = new javax.swing.ButtonGroup();
+        orientacaoButtonGroup = new javax.swing.ButtonGroup();
+        fundoPainel = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        pergunta2_TextPane = new javax.swing.JTextPane();
+        panelOpcoesRadios = new javax.swing.JPanel();
+        texturasPanel = new javax.swing.JPanel();
+        textura3RadioButton = new javax.swing.JRadioButton();
+        textura5Label = new javax.swing.JLabel();
+        textura1Label = new javax.swing.JLabel();
+        textura2RadioButton = new javax.swing.JRadioButton();
+        textura3Label = new javax.swing.JLabel();
+        textura4Label = new javax.swing.JLabel();
+        textura5RadioButton = new javax.swing.JRadioButton();
+        textura2Label = new javax.swing.JLabel();
+        textura4RadioButton = new javax.swing.JRadioButton();
+        textura1RadioButton = new javax.swing.JRadioButton();
+        textura0RadioButton = new javax.swing.JRadioButton();
+        coresPanel = new javax.swing.JPanel();
         cor1RadioButton = new javax.swing.JRadioButton();
         cor2RadioButton = new javax.swing.JRadioButton();
         cor3RadioButton = new javax.swing.JRadioButton();
-        cor1Label = new javax.swing.JLabel();
-        cor2Label = new javax.swing.JLabel();
+        cor4RadioButton = new javax.swing.JRadioButton();
+        cor5RadioButton = new javax.swing.JRadioButton();
         cor3Label = new javax.swing.JLabel();
         cor4Label = new javax.swing.JLabel();
         cor5Label = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        checkboxGeometry = new javax.swing.JCheckBox();
-        cor3Label1 = new javax.swing.JLabel();
-        cor4Label1 = new javax.swing.JLabel();
-        cor5RadioButton1 = new javax.swing.JRadioButton();
-        cor1Label1 = new javax.swing.JLabel();
-        cor2Label1 = new javax.swing.JLabel();
-        cor2RadioButton1 = new javax.swing.JRadioButton();
-        cor5Label1 = new javax.swing.JLabel();
-        cor1RadioButton1 = new javax.swing.JRadioButton();
-        cor4RadioButton1 = new javax.swing.JRadioButton();
-        cor3RadioButton1 = new javax.swing.JRadioButton();
-        jPanel5 = new javax.swing.JPanel();
-        checkboxLetter = new javax.swing.JCheckBox();
-        cor4RadioButton3 = new javax.swing.JRadioButton();
-        cor4Label3 = new javax.swing.JLabel();
-        cor1Label3 = new javax.swing.JLabel();
-        cor5RadioButton3 = new javax.swing.JRadioButton();
-        cor3Label3 = new javax.swing.JLabel();
-        cor1RadioButton3 = new javax.swing.JRadioButton();
-        cor3RadioButton3 = new javax.swing.JRadioButton();
-        cor2RadioButton3 = new javax.swing.JRadioButton();
-        cor2Label3 = new javax.swing.JLabel();
-        cor5Label3 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        checkboxOrientation = new javax.swing.JCheckBox();
-        cor4RadioButton5 = new javax.swing.JRadioButton();
-        cor5RadioButton5 = new javax.swing.JRadioButton();
-        cor3RadioButton5 = new javax.swing.JRadioButton();
-        cor2RadioButton5 = new javax.swing.JRadioButton();
-        cor4Label5 = new javax.swing.JLabel();
-        cor3Label5 = new javax.swing.JLabel();
-        cor5Label5 = new javax.swing.JLabel();
-        cor1RadioButton5 = new javax.swing.JRadioButton();
-        cor2Label5 = new javax.swing.JLabel();
-        cor1Label5 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        checkboxPosition = new javax.swing.JCheckBox();
-        cor2RadioButton4 = new javax.swing.JRadioButton();
-        cor1RadioButton4 = new javax.swing.JRadioButton();
-        cor5RadioButton4 = new javax.swing.JRadioButton();
-        cor4Label4 = new javax.swing.JLabel();
-        cor3Label4 = new javax.swing.JLabel();
-        cor2Label4 = new javax.swing.JLabel();
-        cor1Label4 = new javax.swing.JLabel();
-        cor5Label4 = new javax.swing.JLabel();
-        cor3RadioButton4 = new javax.swing.JRadioButton();
-        cor4RadioButton4 = new javax.swing.JRadioButton();
-        jPanel9 = new javax.swing.JPanel();
-        checkboxProfileGlyph = new javax.swing.JCheckBox();
+        cor1Label = new javax.swing.JLabel();
+        cor2Label = new javax.swing.JLabel();
+        cor0RadioButton = new javax.swing.JRadioButton();
+        orientationPanel = new javax.swing.JPanel();
+        orientation1RadioButton = new javax.swing.JRadioButton();
+        orientation2RadioButton = new javax.swing.JRadioButton();
+        orientation5RadioButton = new javax.swing.JRadioButton();
+        orientation4RadioButton = new javax.swing.JRadioButton();
+        orientation1Label = new javax.swing.JLabel();
+        orientation5Label = new javax.swing.JLabel();
+        orientation2Label = new javax.swing.JLabel();
+        orientation3RadioButton = new javax.swing.JRadioButton();
+        orientation4Label = new javax.swing.JLabel();
+        orientation3Label = new javax.swing.JLabel();
+        orientation0RadioButton = new javax.swing.JRadioButton();
+        textPanel = new javax.swing.JPanel();
+        texto3Label = new javax.swing.JLabel();
+        text2RadioButton = new javax.swing.JRadioButton();
+        texto5Label = new javax.swing.JLabel();
+        text3RadioButton = new javax.swing.JRadioButton();
+        text5RadioButton = new javax.swing.JRadioButton();
+        text4RadioButton = new javax.swing.JRadioButton();
+        texto4Label = new javax.swing.JLabel();
+        texto2Label = new javax.swing.JLabel();
+        text1RadioButton = new javax.swing.JRadioButton();
+        texto1Label = new javax.swing.JLabel();
+        text0RadioButton = new javax.swing.JRadioButton();
+        shapePanel = new javax.swing.JPanel();
+        forma5Label = new javax.swing.JLabel();
+        forma1Label = new javax.swing.JLabel();
+        forma2RadioButton = new javax.swing.JRadioButton();
+        forma3Label = new javax.swing.JLabel();
+        forma4Label = new javax.swing.JLabel();
+        forma4RadioButton = new javax.swing.JRadioButton();
+        forma2Label = new javax.swing.JLabel();
+        forma3RadioButton = new javax.swing.JRadioButton();
+        forma1RadioButton = new javax.swing.JRadioButton();
+        forma5RadioButton = new javax.swing.JRadioButton();
+        forma0RadioButton = new javax.swing.JRadioButton();
+        positionPanel = new javax.swing.JPanel();
+        position4RadioButton = new javax.swing.JRadioButton();
+        position3RadioButton = new javax.swing.JRadioButton();
+        position2RadioButton = new javax.swing.JRadioButton();
+        posicao1Label = new javax.swing.JLabel();
+        posicao5Label = new javax.swing.JLabel();
+        posicao4Label = new javax.swing.JLabel();
+        posicao3Label = new javax.swing.JLabel();
+        posicao2Label = new javax.swing.JLabel();
+        position5RadioButton = new javax.swing.JRadioButton();
+        position1RadioButton = new javax.swing.JRadioButton();
+        position0RadioButton = new javax.swing.JRadioButton();
+        profileGlyphPanel = new javax.swing.JPanel();
+        profileGlyphLabel0 = new javax.swing.JLabel();
+        profileGlyphLabel1 = new javax.swing.JLabel();
+        profileGlyphLabel2 = new javax.swing.JLabel();
+        profileGlyphLabel3 = new javax.swing.JLabel();
+        profileGlyphLabel4 = new javax.swing.JLabel();
+        profile1RadioButton = new javax.swing.JRadioButton();
+        profile2RadioButton = new javax.swing.JRadioButton();
+        profile3RadioButton = new javax.swing.JRadioButton();
+        profile4RadioButton = new javax.swing.JRadioButton();
+        profile5RadioButton = new javax.swing.JRadioButton();
+        profile0RadioButton = new javax.swing.JRadioButton();
+        btnConfirm = new javax.swing.JButton();
+        contadorLabel = new javax.swing.JLabel();
+        painelEsquerda = new PainelDeTeste();
+        glyphsLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Treemap Glyphs");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
-        jSplitPane1.setDividerLocation(400);
-        jSplitPane1.setOpaque(false);
+        fundoPainel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        painelEsquerda.setBackground(new java.awt.Color(153, 255, 153));
-        painelEsquerda.setOpaque(false);
+        pergunta2_TextPane.setEditable(false);
+        pergunta2_TextPane.setBorder(null);
+        pergunta2_TextPane.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        pergunta2_TextPane.setText("Which of the values of the visual variables can you identify?");
+        pergunta2_TextPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pergunta2_TextPane.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        pergunta2_TextPane.setEnabled(false);
+        jScrollPane3.setViewportView(pergunta2_TextPane);
 
-        separador.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        texturasPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        texturasPanel.setPreferredSize(new java.awt.Dimension(75, 55));
 
-        glyphsLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        glyphsLabel.setText("The Glyph:");
+        textura5Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura5.PNG"))); // NOI18N
+        textura5Label.setText("jLabel1");
+        textura5Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textura5LabelMouseClicked(evt);
+            }
+        });
 
-        shouldBeLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        shouldBeLabel.setText("How it should be:");
+        textura1Label.setBackground(new java.awt.Color(255, 255, 255));
+        textura1Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
+        textura1Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textura1LabelMouseClicked(evt);
+            }
+        });
 
-        javax.swing.GroupLayout painelEsquerdaLayout = new javax.swing.GroupLayout(painelEsquerda);
-        painelEsquerda.setLayout(painelEsquerdaLayout);
-        painelEsquerdaLayout.setHorizontalGroup(
-            painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelEsquerdaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(glyphsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(separador, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(shouldBeLabel)
+        textura3Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura3.PNG"))); // NOI18N
+        textura3Label.setText("jLabel1");
+        textura3Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textura3LabelMouseClicked(evt);
+            }
+        });
+
+        textura4Label.setBackground(new java.awt.Color(255, 255, 255));
+        textura4Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura4.PNG"))); // NOI18N
+        textura4Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textura4LabelMouseClicked(evt);
+            }
+        });
+
+        textura2Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura2.PNG"))); // NOI18N
+        textura2Label.setText("jLabel1");
+        textura2Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textura2LabelMouseClicked(evt);
+            }
+        });
+
+        textura0RadioButton.setText("jRadioButton1");
+
+        javax.swing.GroupLayout texturasPanelLayout = new javax.swing.GroupLayout(texturasPanel);
+        texturasPanel.setLayout(texturasPanelLayout);
+        texturasPanelLayout.setHorizontalGroup(
+            texturasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(texturasPanelLayout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(textura0RadioButton)
+                .addGap(18, 18, 18)
+                .addComponent(textura1RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textura1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67)
+                .addComponent(textura2RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textura2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(textura3RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textura3Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(textura4RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textura4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addComponent(textura5RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textura5Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2))
+        );
+        texturasPanelLayout.setVerticalGroup(
+            texturasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(texturasPanelLayout.createSequentialGroup()
+                .addGroup(texturasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(texturasPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(textura2RadioButton))
+                    .addGroup(texturasPanelLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(textura5RadioButton))
+                    .addGroup(texturasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(textura5Label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textura3Label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textura2Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textura1Label, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, texturasPanelLayout.createSequentialGroup()
+                            .addGap(16, 16, 16)
+                            .addComponent(textura4RadioButton))
+                        .addComponent(textura4Label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, texturasPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(textura3RadioButton)
+                        .addGap(15, 15, 15))
+                    .addGroup(texturasPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(texturasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textura0RadioButton)
+                            .addComponent(textura1RadioButton))))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        coresPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        cor3Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/cor/cor3.PNG"))); // NOI18N
+        cor3Label.setText("jLabel1");
+        cor3Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cor3LabelMouseClicked(evt);
+            }
+        });
+
+        cor4Label.setBackground(new java.awt.Color(255, 255, 255));
+        cor4Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/cor/cor4.PNG"))); // NOI18N
+        cor4Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cor4LabelMouseClicked(evt);
+            }
+        });
+
+        cor5Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/cor/cor5.PNG"))); // NOI18N
+        cor5Label.setText("jLabel1");
+        cor5Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cor5LabelMouseClicked(evt);
+            }
+        });
+
+        cor1Label.setBackground(new java.awt.Color(255, 255, 255));
+        cor1Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/cor/cor1.PNG"))); // NOI18N
+        cor1Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cor1LabelMouseClicked(evt);
+            }
+        });
+
+        cor2Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/cor/cor2.PNG"))); // NOI18N
+        cor2Label.setText("jLabel1");
+        cor2Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cor2LabelMouseClicked(evt);
+            }
+        });
+
+        cor0RadioButton.setText("jRadioButton2");
+
+        javax.swing.GroupLayout coresPanelLayout = new javax.swing.GroupLayout(coresPanel);
+        coresPanel.setLayout(coresPanelLayout);
+        coresPanelLayout.setHorizontalGroup(
+            coresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(coresPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cor0RadioButton)
+                .addGap(18, 18, 18)
+                .addComponent(cor1RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cor1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(cor2RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cor2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(cor3RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cor3Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(cor4RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cor4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addComponent(cor5RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cor5Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        coresPanelLayout.setVerticalGroup(
+            coresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(coresPanelLayout.createSequentialGroup()
+                .addComponent(cor5Label)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(cor3Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cor4Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cor1Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cor2Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(coresPanelLayout.createSequentialGroup()
+                .addGroup(coresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(coresPanelLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(cor5RadioButton))
+                    .addGroup(coresPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(cor3RadioButton))
+                    .addGroup(coresPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(cor4RadioButton))
+                    .addGroup(coresPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(cor2RadioButton))
+                    .addGroup(coresPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(coresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cor0RadioButton)
+                            .addComponent(cor1RadioButton))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        painelEsquerdaLayout.setVerticalGroup(
-            painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelEsquerdaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelEsquerdaLayout.createSequentialGroup()
-                        .addComponent(shouldBeLabel)
-                        .addContainerGap(469, Short.MAX_VALUE))
-                    .addGroup(painelEsquerdaLayout.createSequentialGroup()
-                        .addComponent(glyphsLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addComponent(separador)
+
+        orientationPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        orientation1Label.setBackground(new java.awt.Color(255, 255, 255));
+        orientation1Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/orientacao/orientacao1.PNG"))); // NOI18N
+        orientation1Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                orientation1LabelMouseClicked(evt);
+            }
+        });
+
+        orientation5Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/orientacao/orientacao5.PNG"))); // NOI18N
+        orientation5Label.setText("jLabel1");
+        orientation5Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                orientation5LabelMouseClicked(evt);
+            }
+        });
+
+        orientation2Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/orientacao/orientacao2.PNG"))); // NOI18N
+        orientation2Label.setText("jLabel1");
+        orientation2Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                orientation2LabelMouseClicked(evt);
+            }
+        });
+
+        orientation4Label.setBackground(new java.awt.Color(255, 255, 255));
+        orientation4Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/orientacao/orientacao4.PNG"))); // NOI18N
+        orientation4Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                orientation4LabelMouseClicked(evt);
+            }
+        });
+
+        orientation3Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/orientacao/orientacao3.PNG"))); // NOI18N
+        orientation3Label.setText("jLabel1");
+        orientation3Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                orientation3LabelMouseClicked(evt);
+            }
+        });
+
+        orientation0RadioButton.setText("jRadioButton3");
+
+        javax.swing.GroupLayout orientationPanelLayout = new javax.swing.GroupLayout(orientationPanel);
+        orientationPanel.setLayout(orientationPanelLayout);
+        orientationPanelLayout.setHorizontalGroup(
+            orientationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(orientationPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(orientation0RadioButton)
+                .addGap(18, 18, 18)
+                .addComponent(orientation1RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(orientation1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(orientation2RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(orientation2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(orientation3RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(orientation3Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(orientation4RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(orientation4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(orientation5RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(orientation5Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        orientationPanelLayout.setVerticalGroup(
+            orientationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(orientation5Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(orientation3Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(orientation4Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(orientation1Label, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(orientation2Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(orientationPanelLayout.createSequentialGroup()
+                .addGroup(orientationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(orientationPanelLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(orientation5RadioButton))
+                    .addGroup(orientationPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(orientation3RadioButton))
+                    .addGroup(orientationPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(orientation4RadioButton))
+                    .addGroup(orientationPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(orientation2RadioButton))
+                    .addGroup(orientationPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(orientationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(orientation0RadioButton)
+                            .addComponent(orientation1RadioButton))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jSplitPane1.setLeftComponent(painelEsquerda);
+        textPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTextPane1.setEditable(false);
-        jTextPane1.setBorder(null);
-        jTextPane1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTextPane1.setText("Which of the glyph's layers do you identify clearly?");
-        jTextPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTextPane1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jTextPane1.setEnabled(false);
-        jScrollPane2.setViewportView(jTextPane1);
+        texto3Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/texto/J.PNG"))); // NOI18N
+        texto3Label.setText("jLabel1");
+        texto3Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                texto3LabelMouseClicked(evt);
+            }
+        });
+
+        texto5Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/texto/M.PNG"))); // NOI18N
+        texto5Label.setText("jLabel1");
+        texto5Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                texto5LabelMouseClicked(evt);
+            }
+        });
+
+        texto4Label.setBackground(new java.awt.Color(255, 255, 255));
+        texto4Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/texto/K.PNG"))); // NOI18N
+        texto4Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                texto4LabelMouseClicked(evt);
+            }
+        });
+
+        texto2Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/texto/C.PNG"))); // NOI18N
+        texto2Label.setText("jLabel1");
+        texto2Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                texto2LabelMouseClicked(evt);
+            }
+        });
+
+        texto1Label.setBackground(new java.awt.Color(255, 255, 255));
+        texto1Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/texto/A.PNG"))); // NOI18N
+        texto1Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                texto1LabelMouseClicked(evt);
+            }
+        });
+
+        text0RadioButton.setText("jRadioButton4");
+
+        javax.swing.GroupLayout textPanelLayout = new javax.swing.GroupLayout(textPanel);
+        textPanel.setLayout(textPanelLayout);
+        textPanelLayout.setHorizontalGroup(
+            textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(textPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(text0RadioButton)
+                .addGap(18, 18, 18)
+                .addComponent(text1RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(texto1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(text2RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(texto2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(text3RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(texto3Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(text4RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(texto4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(text5RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(texto5Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        textPanelLayout.setVerticalGroup(
+            textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(texto5Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(texto2Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(texto3Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(texto4Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(textPanelLayout.createSequentialGroup()
+                .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(textPanelLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(text5RadioButton))
+                    .addComponent(texto1Label)
+                    .addGroup(textPanelLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(text2RadioButton))
+                    .addGroup(textPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(text3RadioButton))
+                    .addGroup(textPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(text4RadioButton))
+                    .addGroup(textPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(text0RadioButton)
+                            .addComponent(text1RadioButton))))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        shapePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        forma5Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/forma/forma5.PNG"))); // NOI18N
+        forma5Label.setText("jLabel1");
+        forma5Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                forma5LabelMouseClicked(evt);
+            }
+        });
+
+        forma1Label.setBackground(new java.awt.Color(255, 255, 255));
+        forma1Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/forma/forma1.PNG"))); // NOI18N
+        forma1Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                forma1LabelMouseClicked(evt);
+            }
+        });
+
+        forma3Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/forma/forma3.PNG"))); // NOI18N
+        forma3Label.setText("jLabel1");
+        forma3Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                forma3LabelMouseClicked(evt);
+            }
+        });
+
+        forma4Label.setBackground(new java.awt.Color(255, 255, 255));
+        forma4Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/forma/forma4.PNG"))); // NOI18N
+        forma4Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                forma4LabelMouseClicked(evt);
+            }
+        });
+
+        forma2Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/forma/forma2.PNG"))); // NOI18N
+        forma2Label.setText("jLabel1");
+        forma2Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                forma2LabelMouseClicked(evt);
+            }
+        });
+
+        forma0RadioButton.setText("jRadioButton5");
+
+        javax.swing.GroupLayout shapePanelLayout = new javax.swing.GroupLayout(shapePanel);
+        shapePanel.setLayout(shapePanelLayout);
+        shapePanelLayout.setHorizontalGroup(
+            shapePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(shapePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(forma0RadioButton)
+                .addGap(18, 18, 18)
+                .addComponent(forma1RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(forma1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addComponent(forma2RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(forma2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(forma3RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(forma3Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58)
+                .addComponent(forma4RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(forma4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addComponent(forma5RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(forma5Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        shapePanelLayout.setVerticalGroup(
+            shapePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(forma3Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(forma2Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(forma4Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(forma5Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(shapePanelLayout.createSequentialGroup()
+                .addGroup(shapePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(forma1Label)
+                    .addGroup(shapePanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(forma3RadioButton))
+                    .addGroup(shapePanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(forma2RadioButton))
+                    .addGroup(shapePanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(forma4RadioButton))
+                    .addGroup(shapePanelLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(forma5RadioButton))
+                    .addGroup(shapePanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(shapePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(forma0RadioButton)
+                            .addComponent(forma1RadioButton))))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        positionPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        posicao1Label.setBackground(new java.awt.Color(255, 255, 255));
+        posicao1Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/posicao/posicao1.PNG"))); // NOI18N
+        posicao1Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                posicao1LabelMouseClicked(evt);
+            }
+        });
+
+        posicao5Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/posicao/posicao5.PNG"))); // NOI18N
+        posicao5Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                posicao5LabelMouseClicked(evt);
+            }
+        });
+
+        posicao4Label.setBackground(new java.awt.Color(255, 255, 255));
+        posicao4Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/posicao/posicao4.PNG"))); // NOI18N
+        posicao4Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                posicao4LabelMouseClicked(evt);
+            }
+        });
+
+        posicao3Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/posicao/posicao3.PNG"))); // NOI18N
+        posicao3Label.setText("jLabel1");
+        posicao3Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                posicao3LabelMouseClicked(evt);
+            }
+        });
+
+        posicao2Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/posicao/posicao2.PNG"))); // NOI18N
+        posicao2Label.setText("jLabel1");
+        posicao2Label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                posicao2LabelMouseClicked(evt);
+            }
+        });
+
+        position0RadioButton.setText("jRadioButton6");
+
+        javax.swing.GroupLayout positionPanelLayout = new javax.swing.GroupLayout(positionPanel);
+        positionPanel.setLayout(positionPanelLayout);
+        positionPanelLayout.setHorizontalGroup(
+            positionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(positionPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(position0RadioButton)
+                .addGap(18, 18, 18)
+                .addComponent(position1RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(posicao1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(position2RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(posicao2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(position3RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(posicao3Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(position4RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(posicao4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(position5RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(posicao5Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2))
+        );
+        positionPanelLayout.setVerticalGroup(
+            positionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, positionPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(posicao1Label))
+            .addComponent(posicao3Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(posicao2Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(posicao4Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(posicao5Label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(positionPanelLayout.createSequentialGroup()
+                .addGroup(positionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(positionPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(position3RadioButton))
+                    .addGroup(positionPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(position2RadioButton))
+                    .addGroup(positionPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(position4RadioButton))
+                    .addGroup(positionPanelLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(position5RadioButton))
+                    .addGroup(positionPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(positionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(position0RadioButton)
+                            .addComponent(position1RadioButton))))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        profileGlyphPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        profileGlyphLabel0.setBackground(new java.awt.Color(255, 204, 204));
+        profileGlyphLabel0.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        profileGlyphLabel1.setBackground(new java.awt.Color(255, 204, 204));
+        profileGlyphLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        profileGlyphLabel2.setBackground(new java.awt.Color(255, 204, 204));
+        profileGlyphLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        profileGlyphLabel3.setBackground(new java.awt.Color(255, 204, 204));
+        profileGlyphLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        profileGlyphLabel4.setBackground(new java.awt.Color(255, 204, 204));
+        profileGlyphLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        profile0RadioButton.setText("jRadioButton7");
+
+        javax.swing.GroupLayout profileGlyphPanelLayout = new javax.swing.GroupLayout(profileGlyphPanel);
+        profileGlyphPanel.setLayout(profileGlyphPanelLayout);
+        profileGlyphPanelLayout.setHorizontalGroup(
+            profileGlyphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(profileGlyphPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(profile0RadioButton)
+                .addGap(18, 18, 18)
+                .addComponent(profile1RadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(profileGlyphLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addComponent(profile2RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(profileGlyphLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(profile3RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(profileGlyphLabel0, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62)
+                .addComponent(profile4RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(profileGlyphLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(profile5RadioButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(profileGlyphLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        profileGlyphPanelLayout.setVerticalGroup(
+            profileGlyphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(profileGlyphLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(profileGlyphLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(profileGlyphPanelLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(profile4RadioButton))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profileGlyphPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(profile5RadioButton)
+                .addGap(16, 16, 16))
+            .addGroup(profileGlyphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(profileGlyphLabel0, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(profileGlyphLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(profileGlyphLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profileGlyphPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(profileGlyphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(profile0RadioButton)
+                        .addComponent(profile1RadioButton))
+                    .addGap(16, 16, 16))
+                .addGroup(profileGlyphPanelLayout.createSequentialGroup()
+                    .addGap(17, 17, 17)
+                    .addGroup(profileGlyphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(profile2RadioButton)
+                        .addComponent(profile3RadioButton))))
+        );
+
+        javax.swing.GroupLayout panelOpcoesRadiosLayout = new javax.swing.GroupLayout(panelOpcoesRadios);
+        panelOpcoesRadios.setLayout(panelOpcoesRadiosLayout);
+        panelOpcoesRadiosLayout.setHorizontalGroup(
+            panelOpcoesRadiosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(texturasPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
+            .addComponent(coresPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(orientationPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(textPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(shapePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(positionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(profileGlyphPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelOpcoesRadiosLayout.setVerticalGroup(
+            panelOpcoesRadiosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpcoesRadiosLayout.createSequentialGroup()
+                .addComponent(texturasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(coresPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(orientationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(shapePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(positionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(profileGlyphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
@@ -303,677 +1128,76 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        btnSelectAll.setText("SelectAll");
-        btnSelectAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelectAllActionPerformed(evt);
-            }
-        });
-
         contadorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         contadorLabel.setText("0 / 100");
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(75, 55));
+        painelEsquerda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        checkboxTexture.setText("Texture");
-        checkboxTexture.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkboxTextureActionPerformed(evt);
-            }
-        });
+        glyphsLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        glyphsLabel.setText("The Glyph:");
 
-        cor1RadioButton2.setEnabled(false);
-
-        cor3Label2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura5.PNG"))); // NOI18N
-        cor3Label2.setText("jLabel1");
-        cor3Label2.setEnabled(false);
-
-        cor4Label2.setBackground(new java.awt.Color(255, 255, 255));
-        cor4Label2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor4Label2.setEnabled(false);
-
-        cor5RadioButton2.setEnabled(false);
-
-        cor1Label2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura3.PNG"))); // NOI18N
-        cor1Label2.setText("jLabel1");
-        cor1Label2.setEnabled(false);
-
-        cor2Label2.setBackground(new java.awt.Color(255, 255, 255));
-        cor2Label2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura4.PNG"))); // NOI18N
-        cor2Label2.setEnabled(false);
-
-        cor3RadioButton2.setEnabled(false);
-
-        cor5Label2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura2.PNG"))); // NOI18N
-        cor5Label2.setText("jLabel1");
-        cor5Label2.setEnabled(false);
-
-        cor2RadioButton2.setEnabled(false);
-
-        cor4RadioButton2.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout painelEsquerdaLayout = new javax.swing.GroupLayout(painelEsquerda);
+        painelEsquerda.setLayout(painelEsquerdaLayout);
+        painelEsquerdaLayout.setHorizontalGroup(
+            painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelEsquerdaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(checkboxTexture)
-                .addGap(18, 18, 18)
-                .addComponent(cor4RadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor4Label2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cor5RadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor5Label2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(cor1RadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor1Label2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(cor2RadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor2Label2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(cor3RadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor3Label2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2))
+                .addComponent(glyphsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(cor5RadioButton2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(cor2RadioButton2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(cor3RadioButton2))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cor3Label2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cor2Label2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cor1Label2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cor5Label2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cor4Label2, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(checkboxTexture)
-                            .addComponent(cor4RadioButton2)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(cor1RadioButton2)))
+        painelEsquerdaLayout.setVerticalGroup(
+            painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelEsquerdaLayout.createSequentialGroup()
+                .addComponent(glyphsLabel)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
-        checkboxColorHue.setText("Color Hue");
-        checkboxColorHue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkboxColorHueActionPerformed(evt);
-            }
-        });
-
-        cor4RadioButton.setEnabled(false);
-
-        cor5RadioButton.setEnabled(false);
-
-        cor1RadioButton.setEnabled(false);
-
-        cor2RadioButton.setEnabled(false);
-
-        cor3RadioButton.setEnabled(false);
-
-        cor1Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/cor/cor3.PNG"))); // NOI18N
-        cor1Label.setText("jLabel1");
-        cor1Label.setEnabled(false);
-
-        cor2Label.setBackground(new java.awt.Color(255, 255, 255));
-        cor2Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/cor/cor4.PNG"))); // NOI18N
-        cor2Label.setEnabled(false);
-
-        cor3Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/cor/cor5.PNG"))); // NOI18N
-        cor3Label.setText("jLabel1");
-        cor3Label.setEnabled(false);
-
-        cor4Label.setBackground(new java.awt.Color(255, 255, 255));
-        cor4Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/cor/cor1.PNG"))); // NOI18N
-        cor4Label.setEnabled(false);
-
-        cor5Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/cor/cor2.PNG"))); // NOI18N
-        cor5Label.setText("jLabel1");
-        cor5Label.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkboxColorHue)
-                .addGap(10, 10, 10)
-                .addComponent(cor4RadioButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor4Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cor5RadioButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor5Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(cor1RadioButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(cor2RadioButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor2Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(cor3RadioButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor3Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(checkboxColorHue)
-                            .addComponent(cor4RadioButton)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(cor1RadioButton))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(cor5RadioButton))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(cor2RadioButton))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(cor3RadioButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(cor3Label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cor2Label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cor1Label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cor5Label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cor4Label, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-
-        checkboxGeometry.setText("Shape");
-        checkboxGeometry.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkboxGeometryActionPerformed(evt);
-            }
-        });
-
-        cor3Label1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/forma/forma5.PNG"))); // NOI18N
-        cor3Label1.setText("jLabel1");
-
-        cor4Label1.setBackground(new java.awt.Color(255, 255, 255));
-        cor4Label1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/forma/forma1.PNG"))); // NOI18N
-
-        cor5RadioButton1.setEnabled(false);
-
-        cor1Label1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/forma/forma3.PNG"))); // NOI18N
-        cor1Label1.setText("jLabel1");
-
-        cor2Label1.setBackground(new java.awt.Color(255, 255, 255));
-        cor2Label1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/forma/forma4.PNG"))); // NOI18N
-
-        cor2RadioButton1.setEnabled(false);
-
-        cor5Label1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/forma/forma2.PNG"))); // NOI18N
-        cor5Label1.setText("jLabel1");
-
-        cor1RadioButton1.setEnabled(false);
-
-        cor4RadioButton1.setEnabled(false);
-
-        cor3RadioButton1.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkboxGeometry)
-                .addGap(28, 28, 28)
-                .addComponent(cor4RadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor4Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cor5RadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor5Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(cor1RadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor1Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(cor2RadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor2Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(cor3RadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor3Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(checkboxGeometry)
-                .addGap(15, 15, 15))
-            .addComponent(cor4Label1)
-            .addComponent(cor1Label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cor5Label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cor2Label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cor3Label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(cor4RadioButton1))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(cor1RadioButton1))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(cor5RadioButton1))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(cor2RadioButton1))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(cor3RadioButton1))
-        );
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-
-        checkboxLetter.setText("Text");
-        checkboxLetter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkboxLetterActionPerformed(evt);
-            }
-        });
-
-        cor4RadioButton3.setEnabled(false);
-
-        cor4Label3.setBackground(new java.awt.Color(255, 255, 255));
-        cor4Label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor4Label3.setEnabled(false);
-
-        cor1Label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor1Label3.setText("jLabel1");
-        cor1Label3.setEnabled(false);
-
-        cor5RadioButton3.setEnabled(false);
-
-        cor3Label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor3Label3.setText("jLabel1");
-        cor3Label3.setEnabled(false);
-
-        cor1RadioButton3.setEnabled(false);
-
-        cor3RadioButton3.setEnabled(false);
-
-        cor2RadioButton3.setEnabled(false);
-
-        cor2Label3.setBackground(new java.awt.Color(255, 255, 255));
-        cor2Label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor2Label3.setEnabled(false);
-
-        cor5Label3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor5Label3.setText("jLabel1");
-        cor5Label3.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkboxLetter)
-                .addGap(36, 36, 36)
-                .addComponent(cor4RadioButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor4Label3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cor5RadioButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor5Label3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(cor1RadioButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor1Label3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(cor2RadioButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor2Label3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(cor3RadioButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor3Label3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(checkboxLetter))
-            .addComponent(cor4Label3)
-            .addComponent(cor1Label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cor5Label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cor2Label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cor3Label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(cor4RadioButton3))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(cor1RadioButton3))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(cor5RadioButton3))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(cor2RadioButton3))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(cor3RadioButton3))
-        );
-
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-
-        checkboxOrientation.setText("Orientation");
-        checkboxOrientation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkboxOrientationActionPerformed(evt);
-            }
-        });
-
-        cor4RadioButton5.setEnabled(false);
-
-        cor5RadioButton5.setEnabled(false);
-
-        cor3RadioButton5.setEnabled(false);
-
-        cor2RadioButton5.setEnabled(false);
-
-        cor4Label5.setBackground(new java.awt.Color(255, 255, 255));
-        cor4Label5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor4Label5.setEnabled(false);
-
-        cor3Label5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor3Label5.setText("jLabel1");
-
-        cor5Label5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor5Label5.setText("jLabel1");
-        cor5Label5.setEnabled(false);
-
-        cor1RadioButton5.setEnabled(false);
-
-        cor2Label5.setBackground(new java.awt.Color(255, 255, 255));
-        cor2Label5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor2Label5.setEnabled(false);
-
-        cor1Label5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor1Label5.setText("jLabel1");
-        cor1Label5.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkboxOrientation)
+        javax.swing.GroupLayout fundoPainelLayout = new javax.swing.GroupLayout(fundoPainel);
+        fundoPainel.setLayout(fundoPainelLayout);
+        fundoPainelLayout.setHorizontalGroup(
+            fundoPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fundoPainelLayout.createSequentialGroup()
+                .addComponent(painelEsquerda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cor4RadioButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor4Label5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(cor5RadioButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor5Label5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(cor1RadioButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor1Label5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(cor2RadioButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor2Label5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(cor3RadioButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor3Label5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(fundoPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3)
+                    .addComponent(panelOpcoesRadios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fundoPainelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(contadorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cor4Label5, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(cor5Label5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cor2Label5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cor3Label5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cor1Label5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(checkboxOrientation))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(cor4RadioButton5))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(cor5RadioButton5))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(cor2RadioButton5))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(cor3RadioButton5))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(cor1RadioButton5)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-
-        checkboxPosition.setText("Position");
-        checkboxPosition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkboxPositionActionPerformed(evt);
-            }
-        });
-
-        cor2RadioButton4.setEnabled(false);
-
-        cor1RadioButton4.setEnabled(false);
-
-        cor5RadioButton4.setEnabled(false);
-
-        cor4Label4.setBackground(new java.awt.Color(255, 255, 255));
-        cor4Label4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor4Label4.setEnabled(false);
-
-        cor3Label4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor3Label4.setEnabled(false);
-
-        cor2Label4.setBackground(new java.awt.Color(255, 255, 255));
-        cor2Label4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor2Label4.setEnabled(false);
-
-        cor1Label4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor1Label4.setText("jLabel1");
-        cor1Label4.setEnabled(false);
-
-        cor5Label4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/textura/textura1.PNG"))); // NOI18N
-        cor5Label4.setText("jLabel1");
-        cor5Label4.setEnabled(false);
-
-        cor3RadioButton4.setEnabled(false);
-
-        cor4RadioButton4.setEnabled(false);
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        fundoPainelLayout.setVerticalGroup(
+            fundoPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fundoPainelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(checkboxPosition)
-                .addGap(18, 18, 18)
-                .addComponent(cor4RadioButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor4Label4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cor5RadioButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor5Label4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(cor1RadioButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor1Label4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(cor2RadioButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor2Label4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(cor3RadioButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cor3Label4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2))
+                .addGroup(fundoPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(fundoPainelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelOpcoesRadios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(painelEsquerda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(fundoPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(contadorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(checkboxPosition)
-                .addGap(15, 15, 15))
-            .addComponent(cor4Label4, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(cor1Label4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cor5Label4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cor2Label4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cor3Label4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(cor4RadioButton4))
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(cor1RadioButton4))
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(cor5RadioButton4))
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(cor2RadioButton4))
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(cor3RadioButton4))
-        );
-
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-
-        checkboxProfileGlyph.setText("Profile Glyph");
-        checkboxProfileGlyph.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkboxProfileGlyphActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkboxProfileGlyph)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(checkboxProfileGlyph)
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(btnSelectAll, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(231, 231, 231)
-                            .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(contadorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(contadorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSelectAll, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jSplitPane1.setRightComponent(jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1005, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(fundoPainel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(fundoPainel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -987,123 +1211,287 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         return convertida;
     }
 
-    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        float aspect = configs.get("height") > configs.get("width")
-                ? (configs.get("width") * 1.f) / configs.get("height")
-                : (configs.get("height") * 1.f) / configs.get("width");
-
-        data += "\n" + (configs.get("texture") >= 0 ? 1 : 0)
-                + "," + (configs.get("colorhue") >= 0 ? 1 : 0)
-                + "," + (configs.get("geometricshape") >= 0 ? 1 : 0)
-                + "," + (configs.get("text") >= 0 ? 1 : 0)
-                + "," + (configs.get("position") >= 0 ? 1 : 0)
-                + "," + (configs.get("orientation") >= 0 ? 1 : 0)
-                + "," + (configs.get("profileglyph") > 0 ? 1 : 0)
-                + "," + configs.get("height")
-                + "," + configs.get("width")
-                + "," + (configs.get("width") * configs.get("height"))
-                + "," + aspect
-                + "," + (configs.get("coritem") >= 0 ? 1 : 0)
-                + "," + areas.get("texture")
-                + "," + areas.get("colorhue")
-                + "," + areas.get("geometricshape")
-                + "," + areas.get("text")
-                + "," + areas.get("position")
-                + "," + areas.get("orientation")
-                + "," + areas.get("profileglyph")
-                + "," + (checkboxTexture.isSelected() ? 1 : 0)
-                + "," + (checkboxColorHue.isSelected() ? 1 : 0)
-                + "," + (checkboxGeometry.isSelected() ? 1 : 0)
-                + "," + (checkboxLetter.isSelected() ? 1 : 0)
-                + "," + (checkboxPosition.isSelected() ? 1 : 0)
-                + "," + (checkboxOrientation.isSelected() ? 1 : 0)
-                + "," + (checkboxProfileGlyph.isSelected() ? 1 : 0)
-                + "," + painelEsquerda.getFamilia2Desenho().toString();
-
-        for (JCheckBox c : checkboxes.values()) {
-            c.setSelected(false);
-//            c.setEnabled(true);//antes
-            c.setEnabled(false);
+    private boolean validateRadioButtons() {
+        boolean valid = true;
+        if (!isSelectedRadioButton(texturaButtonGroup)) {
+            JOptionPane.showMessageDialog(null, "Please, choose one of the Texture values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
+            valid = false;
+        } else if (!isSelectedRadioButton(corButtonGroup)) {
+            JOptionPane.showMessageDialog(null, "Please, choose one of the Color-hue values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
+            valid = false;
+        } else if (!isSelectedRadioButton(formaButtonGroup)) {
+            JOptionPane.showMessageDialog(null, "Please, choose one of the Shape values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
+            valid = false;
+        } else if (!isSelectedRadioButton(textoButtonGroup)) {
+            JOptionPane.showMessageDialog(null, "Please, choose one of the Text values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
+            valid = false;
+        } else if (!isSelectedRadioButton(posicaoButtonGroup)) {
+            JOptionPane.showMessageDialog(null, "Please, choose one of the Position values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
+            valid = false;
+        } else if (!isSelectedRadioButton(orientacaoButtonGroup)) {
+            JOptionPane.showMessageDialog(null, "Please, choose one of the Orientation values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
+            valid = false;
         }
-//        configCheckBox();
+        return valid;
+    }
 
-        output.put("texture", false);
-        output.put("colorhue", false);
-        output.put("geometricshape", false);
-        output.put("text", false);
-        output.put("position", false);
-        output.put("orientation", false);
-        output.put("profileglyph", false);
+    public void setData(float aspect) {
+        String[] areaVisivelVarVisuais = calcularAreaVisivel(painelEsquerda.getFamilia2Desenho()).replace("[", "").replace("]", "").split(",");
 
-        if (cont >= numAmostras) {
-            PrintWriter writer = null;
-            try {
-                File file = new File(nomeArquivo);
-                writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-                writer.print(data);
-                writer.flush();
-                writer.close();
-                JOptionPane.showMessageDialog(null, "Thank you for participating.", "Thanks!", JOptionPane.INFORMATION_MESSAGE);
+        data.append("\n").
+                append(configs.get("texture") >= 0 ? 1 : 0).append(",").
+                append(configs.get("colorhue") >= 0 ? 1 : 0).append(",").
+                append(configs.get("geometricshape") >= 0 ? 1 : 0).append(",").
+                append(configs.get("text") >= 0 ? 1 : 0).append(",").
+                append(configs.get("position") >= 0 ? 1 : 0).append(",").
+                append(configs.get("orientation") >= 0 ? 1 : 0).append(",").
+                append(configs.get("profileglyph") > 0 ? 1 : 0).append(",").
+                append(configs.get("height")).append(",").
+                append(configs.get("width")).append(",").
+                append(configs.get("width") * configs.get("height")).append(",").
+                append(aspect).append(",").
+                append(configs.get("coritem") >= 0 ? 1 : 0).append(",").
+                append(areas.get("texture")).append(",").
+                append(areas.get("colorhue")).append(",").
+                append(areas.get("geometricshape")).append(",").
+                append(areas.get("text")).append(",").
+                append(areas.get("position")).append(",").
+                append(areas.get("orientation")).append(",").
+                append(areas.get("profileglyph")).append(",").
+                //                append(checkboxTexture.isSelected() ? 1 : 0).append(",").
+                //                append(checkboxColorHue.isSelected() ? 1 : 0).append(",").
+                //                append(checkboxShape.isSelected() ? 1 : 0).append(",").
+                //                append(checkboxText.isSelected() ? 1 : 0).append(",").
+                //                append(checkboxPosition.isSelected() ? 1 : 0).append(",").
+                //                append(checkboxOrientation.isSelected() ? 1 : 0).append(",").
+                //                append(checkboxProfileGlyph.isSelected() ? 1 : 0).append(",").
+                append(painelEsquerda.getFamilia2Desenho().toString().replace(",", ">").replace("[", "").replace("]", "")).append(",").
+                append(texturaButtonGroup.getSelection().getActionCommand()).append(","). //"TexturaValor"
+                append(corButtonGroup.getSelection().getActionCommand()).append(","). //"CorValor"
+                append(formaButtonGroup.getSelection().getActionCommand()).append(","). //"FormaValor"
+                append(textoButtonGroup.getSelection().getActionCommand()).append(","). //"TextoValor"
+                append(posicaoButtonGroup.getSelection().getActionCommand()).append(","). //"PosicaoValor"
+                append(orientacaoButtonGroup.getSelection().getActionCommand()).append(",").//"OrientacaoValor"
+                append(areaVisivelVarVisuais[0]). //area visivel Textura
+                append(",").append(areaVisivelVarVisuais[1]). //area visivel cor
+                append(",").append(areaVisivelVarVisuais[2]). //area visivel forma
+                append(",").append(areaVisivelVarVisuais[3]). //area visivel Texto
+                append(",").append(areaVisivelVarVisuais[4]). //area visivel Posicao
+                append(",").append(areaVisivelVarVisuais[5]) //area visivel Orientacao
+                ;
+    }
+
+    public void saveDataInFile() {
+        PrintWriter writer = null;
+        try {
+            File file = new File(nomeArquivo);
+            writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+            writer.print(data);
+            writer.flush();
+            writer.close();
+            JOptionPane.showMessageDialog(null, "Thank you for participating.", "Thanks!", JOptionPane.INFORMATION_MESSAGE);
 //                System.exit(0);
-                this.dispose();
-            } catch (IOException ex) {
-                Logger.getLogger(VisibilityTesteView.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                writer.close();
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(VisibilityTesteView.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            writer.close();
+        }
+    }
+
+    /**
+     * @param familiaGlyph
+     * @return vetor com a seguinte ordem: [0] textureAreaVisivel; [1]
+     * hueAreaVisivel; [2] shapeAreaVisivel; [3] textAreaVisivel; [4]
+     * orientationAreaVisivel; [5] positionAreaVisivel;
+     */
+    public String calcularAreaVisivel(List<Glyph> familiaGlyph) {
+        double textureAreaVisivel = 0;
+        double hueAreaVisivel = 0;
+        double shapeAreaVisivel = 0;
+        double textAreaVisivel = 0;
+        double orientationAreaVisivel = 0;
+        double positionAreaVisivel = 0;
+
+        DecimalFormat df = new DecimalFormat("#.###");
+
+        for (Glyph varVisual : familiaGlyph) {
+            if (!(varVisual instanceof GlyphConcrete || varVisual instanceof ProfileGlyph)) {
+                if (varVisual instanceof Texture) {
+                    textureAreaVisivel = Double.valueOf(df.format(areas.get("texture") - (areas.get("texture") * 0.7)).replace(",", "."));
+                } else if (varVisual instanceof ColorHue) {
+                    hueAreaVisivel = Double.valueOf(df.format(areas.get("colorhue") - (areas.get("colorhue") * 0.7)).replace(",", "."));
+                } else if (varVisual instanceof GeometricShape) {
+                    shapeAreaVisivel = Double.valueOf(df.format(areas.get("geometricshape") - (areas.get("geometricshape") * 0.7)).replace(",", "."));
+                } else if (varVisual instanceof Text) {
+                    textAreaVisivel = Double.valueOf(df.format(areas.get("text") - (areas.get("text") * 0.7)).replace(",", "."));
+                } else if (varVisual instanceof Orientation) {
+                    orientationAreaVisivel = Double.valueOf(df.format(areas.get("orientation") - (areas.get("orientation") * 0.7)).replace(",", "."));
+                } else if (varVisual instanceof Position) {
+                    positionAreaVisivel = Double.valueOf(df.format(areas.get("position") - (areas.get("position") * 0.7)).replace(",", "."));
+                }
             }
         }
-        changeConfigs();
-        updateOutput();
+        return textureAreaVisivel + "," + hueAreaVisivel + "," + shapeAreaVisivel + ","
+                + textAreaVisivel + "," + orientationAreaVisivel + "," + positionAreaVisivel;
+    }
+
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        if (validateRadioButtons()) {
+            float aspect = configs.get("height") > configs.get("width")
+                    ? (configs.get("width") * 1.f) / configs.get("height")
+                    : (configs.get("height") * 1.f) / configs.get("width");
+
+            setData(aspect);
+
+//            configCheckBox();
+            output.put("texture", false);
+            output.put("colorhue", false);
+            output.put("geometricshape", false);
+            output.put("text", false);
+            output.put("position", false);
+            output.put("orientation", false);
+            output.put("profileglyph", false);
+
+            if (cont >= numAmostras) {
+                saveDataInFile();
+            }
+            changeConfigs();
+//            updateOutput();
+        }
     }//GEN-LAST:event_btnConfirmActionPerformed
 
-    private void checkboxTextureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxTextureActionPerformed
-        updateOutput();
-    }//GEN-LAST:event_checkboxTextureActionPerformed
 
-    private void checkboxColorHueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxColorHueActionPerformed
-        updateOutput();
-    }//GEN-LAST:event_checkboxColorHueActionPerformed
+    private void textura1LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textura1LabelMouseClicked
+        textura1RadioButton.setSelected(true);
+    }//GEN-LAST:event_textura1LabelMouseClicked
 
-    private void btnSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectAllActionPerformed
-        for (JCheckBox c : checkboxes.values()) {
-            if (c.isEnabled()) {
-                c.setSelected(selectAll);
-            }
-        }
-        selectAll = !selectAll;
-        updateOutput();
-    }//GEN-LAST:event_btnSelectAllActionPerformed
+    private void textura2LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textura2LabelMouseClicked
+        textura2RadioButton.setSelected(true);
+    }//GEN-LAST:event_textura2LabelMouseClicked
 
+    private void textura3LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textura3LabelMouseClicked
+        textura3RadioButton.setSelected(true);
+    }//GEN-LAST:event_textura3LabelMouseClicked
 
-    private void checkboxGeometryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxGeometryActionPerformed
-        updateOutput();
-    }//GEN-LAST:event_checkboxGeometryActionPerformed
+    private void textura4LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textura4LabelMouseClicked
+        textura4RadioButton.setSelected(true);
+    }//GEN-LAST:event_textura4LabelMouseClicked
 
-    private void checkboxLetterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxLetterActionPerformed
-        updateOutput();
-    }//GEN-LAST:event_checkboxLetterActionPerformed
+    private void textura5LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textura5LabelMouseClicked
+        textura5RadioButton.setSelected(true);
+    }//GEN-LAST:event_textura5LabelMouseClicked
 
-    private void checkboxPositionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxPositionActionPerformed
-        updateOutput();
-    }//GEN-LAST:event_checkboxPositionActionPerformed
+    private void cor1LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cor1LabelMouseClicked
+        cor1RadioButton.setSelected(true);
+    }//GEN-LAST:event_cor1LabelMouseClicked
 
-    private void checkboxProfileGlyphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxProfileGlyphActionPerformed
-        updateOutput();
-    }//GEN-LAST:event_checkboxProfileGlyphActionPerformed
+    private void cor2LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cor2LabelMouseClicked
+        cor2RadioButton.setSelected(true);
+    }//GEN-LAST:event_cor2LabelMouseClicked
 
-    private void checkboxOrientationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxOrientationActionPerformed
-        updateOutput();
-    }//GEN-LAST:event_checkboxOrientationActionPerformed
+    private void cor3LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cor3LabelMouseClicked
+        cor3RadioButton.setSelected(true);
+    }//GEN-LAST:event_cor3LabelMouseClicked
+
+    private void cor4LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cor4LabelMouseClicked
+        cor4RadioButton.setSelected(true);
+    }//GEN-LAST:event_cor4LabelMouseClicked
+
+    private void cor5LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cor5LabelMouseClicked
+        cor5RadioButton.setSelected(true);
+    }//GEN-LAST:event_cor5LabelMouseClicked
+
+    private void forma1LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forma1LabelMouseClicked
+        forma1RadioButton.setSelected(true);
+    }//GEN-LAST:event_forma1LabelMouseClicked
+
+    private void forma2LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forma2LabelMouseClicked
+        forma2RadioButton.setSelected(true);
+    }//GEN-LAST:event_forma2LabelMouseClicked
+
+    private void forma3LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forma3LabelMouseClicked
+        forma3RadioButton.setSelected(true);
+    }//GEN-LAST:event_forma3LabelMouseClicked
+
+    private void forma4LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forma4LabelMouseClicked
+        forma4RadioButton.setSelected(true);
+    }//GEN-LAST:event_forma4LabelMouseClicked
+
+    private void forma5LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forma5LabelMouseClicked
+        forma5RadioButton.setSelected(true);
+    }//GEN-LAST:event_forma5LabelMouseClicked
+
+    private void texto1LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_texto1LabelMouseClicked
+        text1RadioButton.setSelected(true);
+    }//GEN-LAST:event_texto1LabelMouseClicked
+
+    private void texto2LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_texto2LabelMouseClicked
+        text2RadioButton.setSelected(true);
+    }//GEN-LAST:event_texto2LabelMouseClicked
+
+    private void texto3LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_texto3LabelMouseClicked
+        text3RadioButton.setSelected(true);
+    }//GEN-LAST:event_texto3LabelMouseClicked
+
+    private void texto4LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_texto4LabelMouseClicked
+        text4RadioButton.setSelected(true);
+    }//GEN-LAST:event_texto4LabelMouseClicked
+
+    private void texto5LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_texto5LabelMouseClicked
+        text5RadioButton.setSelected(true);
+    }//GEN-LAST:event_texto5LabelMouseClicked
+
+    private void posicao1LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_posicao1LabelMouseClicked
+        position1RadioButton.setSelected(true);
+    }//GEN-LAST:event_posicao1LabelMouseClicked
+
+    private void posicao2LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_posicao2LabelMouseClicked
+        position2RadioButton.setSelected(true);
+    }//GEN-LAST:event_posicao2LabelMouseClicked
+
+    private void posicao3LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_posicao3LabelMouseClicked
+        position3RadioButton.setSelected(true);
+    }//GEN-LAST:event_posicao3LabelMouseClicked
+
+    private void posicao4LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_posicao4LabelMouseClicked
+        position4RadioButton.setSelected(true);
+    }//GEN-LAST:event_posicao4LabelMouseClicked
+
+    private void posicao5LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_posicao5LabelMouseClicked
+        position5RadioButton.setSelected(true);
+    }//GEN-LAST:event_posicao5LabelMouseClicked
+
+    private void orientation1LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orientation1LabelMouseClicked
+        orientation1RadioButton.setSelected(true);
+    }//GEN-LAST:event_orientation1LabelMouseClicked
+
+    private void orientation2LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orientation2LabelMouseClicked
+        orientation2RadioButton.setSelected(true);
+    }//GEN-LAST:event_orientation2LabelMouseClicked
+
+    private void orientation3LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orientation3LabelMouseClicked
+        orientation3RadioButton.setSelected(true);
+    }//GEN-LAST:event_orientation3LabelMouseClicked
+
+    private void orientation4LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orientation4LabelMouseClicked
+        orientation4RadioButton.setSelected(true);
+    }//GEN-LAST:event_orientation4LabelMouseClicked
+
+    private void orientation5LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orientation5LabelMouseClicked
+        orientation5RadioButton.setSelected(true);
+    }//GEN-LAST:event_orientation5LabelMouseClicked
 
     private void updateOutput() {
-        output.put("texture", checkboxTexture.isSelected());
-        output.put("colorhue", checkboxColorHue.isSelected());
-        output.put("geometricshape", checkboxGeometry.isSelected());
-        output.put("text", checkboxLetter.isSelected());
-        output.put("position", checkboxPosition.isSelected());
-        output.put("orientation", checkboxOrientation.isSelected());
-        output.put("profileglyph", checkboxProfileGlyph.isSelected());
-        painelEsquerda.updateOutput(output);
+//        output.put("texture", checkboxTexture.isSelected());
+//        output.put("colorhue", checkboxColorHue.isSelected());
+//        output.put("geometricshape", checkboxShape.isSelected());
+//        output.put("text", checkboxText.isSelected());
+//        output.put("position", checkboxPosition.isSelected());
+//        output.put("orientation", checkboxOrientation.isSelected());
+//        output.put("profileglyph", checkboxProfileGlyph.isSelected());
+
+//        painelEsquerda.updateOutput(output);
     }
 
     /**
@@ -1154,177 +1542,210 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     /*
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirm;
-    private javax.swing.JButton btnSelectAll;
-    private javax.swing.JCheckBox checkboxColorHue;
-    private javax.swing.JCheckBox checkboxGeometry;
-    private javax.swing.JCheckBox checkboxLetter;
-    private javax.swing.JCheckBox checkboxOrientation;
-    private javax.swing.JCheckBox checkboxPosition;
-    private javax.swing.JCheckBox checkboxProfileGlyph;
-    private javax.swing.JCheckBox checkboxTexture;
     private javax.swing.JLabel contadorLabel;
+    private javax.swing.JRadioButton cor0RadioButton;
     private javax.swing.JLabel cor1Label;
-    private javax.swing.JLabel cor1Label1;
-    private javax.swing.JLabel cor1Label2;
-    private javax.swing.JLabel cor1Label3;
-    private javax.swing.JLabel cor1Label4;
-    private javax.swing.JLabel cor1Label5;
     private javax.swing.JRadioButton cor1RadioButton;
-    private javax.swing.JRadioButton cor1RadioButton1;
-    private javax.swing.JRadioButton cor1RadioButton2;
-    private javax.swing.JRadioButton cor1RadioButton3;
-    private javax.swing.JRadioButton cor1RadioButton4;
-    private javax.swing.JRadioButton cor1RadioButton5;
     private javax.swing.JLabel cor2Label;
-    private javax.swing.JLabel cor2Label1;
-    private javax.swing.JLabel cor2Label2;
-    private javax.swing.JLabel cor2Label3;
-    private javax.swing.JLabel cor2Label4;
-    private javax.swing.JLabel cor2Label5;
     private javax.swing.JRadioButton cor2RadioButton;
-    private javax.swing.JRadioButton cor2RadioButton1;
-    private javax.swing.JRadioButton cor2RadioButton2;
-    private javax.swing.JRadioButton cor2RadioButton3;
-    private javax.swing.JRadioButton cor2RadioButton4;
-    private javax.swing.JRadioButton cor2RadioButton5;
     private javax.swing.JLabel cor3Label;
-    private javax.swing.JLabel cor3Label1;
-    private javax.swing.JLabel cor3Label2;
-    private javax.swing.JLabel cor3Label3;
-    private javax.swing.JLabel cor3Label4;
-    private javax.swing.JLabel cor3Label5;
     private javax.swing.JRadioButton cor3RadioButton;
-    private javax.swing.JRadioButton cor3RadioButton1;
-    private javax.swing.JRadioButton cor3RadioButton2;
-    private javax.swing.JRadioButton cor3RadioButton3;
-    private javax.swing.JRadioButton cor3RadioButton4;
-    private javax.swing.JRadioButton cor3RadioButton5;
     private javax.swing.JLabel cor4Label;
-    private javax.swing.JLabel cor4Label1;
-    private javax.swing.JLabel cor4Label2;
-    private javax.swing.JLabel cor4Label3;
-    private javax.swing.JLabel cor4Label4;
-    private javax.swing.JLabel cor4Label5;
     private javax.swing.JRadioButton cor4RadioButton;
-    private javax.swing.JRadioButton cor4RadioButton1;
-    private javax.swing.JRadioButton cor4RadioButton2;
-    private javax.swing.JRadioButton cor4RadioButton3;
-    private javax.swing.JRadioButton cor4RadioButton4;
-    private javax.swing.JRadioButton cor4RadioButton5;
     private javax.swing.JLabel cor5Label;
-    private javax.swing.JLabel cor5Label1;
-    private javax.swing.JLabel cor5Label2;
-    private javax.swing.JLabel cor5Label3;
-    private javax.swing.JLabel cor5Label4;
-    private javax.swing.JLabel cor5Label5;
     private javax.swing.JRadioButton cor5RadioButton;
-    private javax.swing.JRadioButton cor5RadioButton1;
-    private javax.swing.JRadioButton cor5RadioButton2;
-    private javax.swing.JRadioButton cor5RadioButton3;
-    private javax.swing.JRadioButton cor5RadioButton4;
-    private javax.swing.JRadioButton cor5RadioButton5;
+    private javax.swing.ButtonGroup corButtonGroup;
+    private javax.swing.JPanel coresPanel;
+    private javax.swing.JRadioButton forma0RadioButton;
+    private javax.swing.JLabel forma1Label;
+    private javax.swing.JRadioButton forma1RadioButton;
+    private javax.swing.JLabel forma2Label;
+    private javax.swing.JRadioButton forma2RadioButton;
+    private javax.swing.JLabel forma3Label;
+    private javax.swing.JRadioButton forma3RadioButton;
+    private javax.swing.JLabel forma4Label;
+    private javax.swing.JRadioButton forma4RadioButton;
+    private javax.swing.JLabel forma5Label;
+    private javax.swing.JRadioButton forma5RadioButton;
+    private javax.swing.ButtonGroup formaButtonGroup;
+    private javax.swing.JPanel fundoPainel;
     private javax.swing.JLabel glyphsLabel;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.ButtonGroup orientacaoButtonGroup;
+    private javax.swing.JRadioButton orientation0RadioButton;
+    private javax.swing.JLabel orientation1Label;
+    private javax.swing.JRadioButton orientation1RadioButton;
+    private javax.swing.JLabel orientation2Label;
+    private javax.swing.JRadioButton orientation2RadioButton;
+    private javax.swing.JLabel orientation3Label;
+    private javax.swing.JRadioButton orientation3RadioButton;
+    private javax.swing.JLabel orientation4Label;
+    private javax.swing.JRadioButton orientation4RadioButton;
+    private javax.swing.JLabel orientation5Label;
+    private javax.swing.JRadioButton orientation5RadioButton;
+    private javax.swing.JPanel orientationPanel;
     private javax.swing.JPanel painelEsquerda;
-    private javax.swing.JSeparator separador;
-    private javax.swing.JLabel shouldBeLabel;
+    private javax.swing.JPanel panelOpcoesRadios;
+    private javax.swing.JTextPane pergunta2_TextPane;
+    private javax.swing.JLabel posicao1Label;
+    private javax.swing.JLabel posicao2Label;
+    private javax.swing.JLabel posicao3Label;
+    private javax.swing.JLabel posicao4Label;
+    private javax.swing.JLabel posicao5Label;
+    private javax.swing.ButtonGroup posicaoButtonGroup;
+    private javax.swing.JRadioButton position0RadioButton;
+    private javax.swing.JRadioButton position1RadioButton;
+    private javax.swing.JRadioButton position2RadioButton;
+    private javax.swing.JRadioButton position3RadioButton;
+    private javax.swing.JRadioButton position4RadioButton;
+    private javax.swing.JRadioButton position5RadioButton;
+    private javax.swing.JPanel positionPanel;
+    private javax.swing.JRadioButton profile0RadioButton;
+    private javax.swing.JRadioButton profile1RadioButton;
+    private javax.swing.JRadioButton profile2RadioButton;
+    private javax.swing.JRadioButton profile3RadioButton;
+    private javax.swing.JRadioButton profile4RadioButton;
+    private javax.swing.JRadioButton profile5RadioButton;
+    private javax.swing.JLabel profileGlyphLabel0;
+    private javax.swing.JLabel profileGlyphLabel1;
+    private javax.swing.JLabel profileGlyphLabel2;
+    private javax.swing.JLabel profileGlyphLabel3;
+    private javax.swing.JLabel profileGlyphLabel4;
+    private javax.swing.JPanel profileGlyphPanel;
+    private javax.swing.JPanel shapePanel;
+    private javax.swing.JRadioButton text0RadioButton;
+    private javax.swing.JRadioButton text1RadioButton;
+    private javax.swing.JRadioButton text2RadioButton;
+    private javax.swing.JRadioButton text3RadioButton;
+    private javax.swing.JRadioButton text4RadioButton;
+    private javax.swing.JRadioButton text5RadioButton;
+    private javax.swing.JPanel textPanel;
+    private javax.swing.JLabel texto1Label;
+    private javax.swing.JLabel texto2Label;
+    private javax.swing.JLabel texto3Label;
+    private javax.swing.JLabel texto4Label;
+    private javax.swing.JLabel texto5Label;
+    private javax.swing.ButtonGroup textoButtonGroup;
+    private javax.swing.JRadioButton textura0RadioButton;
+    private javax.swing.JLabel textura1Label;
+    private javax.swing.JRadioButton textura1RadioButton;
+    private javax.swing.JLabel textura2Label;
+    private javax.swing.JRadioButton textura2RadioButton;
+    private javax.swing.JLabel textura3Label;
+    private javax.swing.JRadioButton textura3RadioButton;
+    private javax.swing.JLabel textura4Label;
+    private javax.swing.JRadioButton textura4RadioButton;
+    private javax.swing.JLabel textura5Label;
+    private javax.swing.JRadioButton textura5RadioButton;
+    private javax.swing.ButtonGroup texturaButtonGroup;
+    private javax.swing.JPanel texturasPanel;
     // End of variables declaration//GEN-END:variables
     */
 
     private javax.swing.JButton btnConfirm;
-    private javax.swing.JCheckBox checkboxColorHue;
-    private javax.swing.JCheckBox checkboxGeometry;
-    private javax.swing.JCheckBox checkboxLetter;
-    private javax.swing.JCheckBox checkboxPosition;
-    private javax.swing.JCheckBox checkboxOrientation;
-    private javax.swing.JCheckBox checkboxTexture;
-    private javax.swing.JCheckBox checkboxProfileGlyph;
-    private javax.swing.JButton btnSelectAll;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTextPane jTextPane1;
+//    private javax.swing.JCheckBox checkboxColorHue;
+//    private javax.swing.JCheckBox checkboxShape;
+//    private javax.swing.JCheckBox checkboxText;
+//    private javax.swing.JCheckBox checkboxPosition;
+//    private javax.swing.JCheckBox checkboxOrientation;
+//    private javax.swing.JCheckBox checkboxTexture;
+//    private javax.swing.JCheckBox checkboxProfileGlyph;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextPane pergunta2_TextPane;
     private PainelDeTeste painelEsquerda;
     static VisibilityTesteView frame;
     private javax.swing.JLabel contadorLabel;
     private javax.swing.JLabel glyphsLabel;
-    private javax.swing.JLabel shouldBeLabel;
-    private JSeparator separador;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton cor4RadioButton;
-    private javax.swing.JRadioButton cor5RadioButton;
+    private javax.swing.JPanel texturasPanel;
+    private javax.swing.JPanel coresPanel;
+    private javax.swing.JPanel shapePanel;
+    private javax.swing.JPanel textPanel;
+    private javax.swing.JPanel orientationPanel;
+    private javax.swing.JPanel positionPanel;
+    private javax.swing.JPanel fundoPainel;
+    private javax.swing.JPanel panelOpcoesRadios;
+    private javax.swing.JPanel profileGlyphPanel;
+    private javax.swing.JRadioButton cor0RadioButton;
     private javax.swing.JRadioButton cor1RadioButton;
     private javax.swing.JRadioButton cor2RadioButton;
     private javax.swing.JRadioButton cor3RadioButton;
-    private javax.swing.JLabel cor1Label;
-    private javax.swing.JLabel cor2Label;
+    private javax.swing.JRadioButton cor4RadioButton;
+    private javax.swing.JRadioButton cor5RadioButton;
     private javax.swing.JLabel cor3Label;
     private javax.swing.JLabel cor4Label;
     private javax.swing.JLabel cor5Label;
-    private javax.swing.JLabel cor1Label1;
-    private javax.swing.JLabel cor1Label2;
-    private javax.swing.JLabel cor1Label3;
-    private javax.swing.JLabel cor1Label4;
-    private javax.swing.JLabel cor1Label5;
-    private javax.swing.JRadioButton cor1RadioButton1;
-    private javax.swing.JRadioButton cor1RadioButton2;
-    private javax.swing.JRadioButton cor1RadioButton3;
-    private javax.swing.JRadioButton cor1RadioButton4;
-    private javax.swing.JRadioButton cor1RadioButton5;
-    private javax.swing.JLabel cor2Label1;
-    private javax.swing.JLabel cor2Label2;
-    private javax.swing.JLabel cor2Label3;
-    private javax.swing.JLabel cor2Label4;
-    private javax.swing.JLabel cor2Label5;
-    private javax.swing.JRadioButton cor2RadioButton1;
-    private javax.swing.JRadioButton cor2RadioButton2;
-    private javax.swing.JRadioButton cor2RadioButton3;
-    private javax.swing.JRadioButton cor2RadioButton4;
-    private javax.swing.JRadioButton cor2RadioButton5;
-    private javax.swing.JLabel cor3Label1;
-    private javax.swing.JLabel cor3Label2;
-    private javax.swing.JLabel cor3Label3;
-    private javax.swing.JLabel cor3Label4;
-    private javax.swing.JLabel cor3Label5;
-    private javax.swing.JRadioButton cor3RadioButton1;
-    private javax.swing.JRadioButton cor3RadioButton2;
-    private javax.swing.JRadioButton cor3RadioButton3;
-    private javax.swing.JRadioButton cor3RadioButton4;
-    private javax.swing.JRadioButton cor3RadioButton5;
-    private javax.swing.JLabel cor4Label1;
-    private javax.swing.JLabel cor4Label2;
-    private javax.swing.JLabel cor4Label3;
-    private javax.swing.JLabel cor4Label4;
-    private javax.swing.JLabel cor4Label5;
-    private javax.swing.JRadioButton cor4RadioButton1;
-    private javax.swing.JRadioButton cor4RadioButton2;
-    private javax.swing.JRadioButton cor4RadioButton3;
-    private javax.swing.JRadioButton cor4RadioButton4;
-    private javax.swing.JRadioButton cor4RadioButton5;
-    private javax.swing.JLabel cor5Label1;
-    private javax.swing.JLabel cor5Label2;
-    private javax.swing.JLabel cor5Label3;
-    private javax.swing.JLabel cor5Label4;
-    private javax.swing.JLabel cor5Label5;
-    private javax.swing.JRadioButton cor5RadioButton1;
-    private javax.swing.JRadioButton cor5RadioButton2;
-    private javax.swing.JRadioButton cor5RadioButton3;
-    private javax.swing.JRadioButton cor5RadioButton4;
-    private javax.swing.JRadioButton cor5RadioButton5;
+    private javax.swing.JLabel cor1Label;
+    private javax.swing.JLabel cor2Label;
+    private javax.swing.JLabel forma3Label;
+    private javax.swing.JLabel textura3Label;
+    private javax.swing.JLabel texto3Label;
+    private javax.swing.JLabel posicao3Label;
+    private javax.swing.JLabel orientation3Label;
+    private javax.swing.JRadioButton forma3RadioButton;
+    private javax.swing.JRadioButton textura3RadioButton;
+    private javax.swing.JRadioButton text3RadioButton;
+    private javax.swing.JRadioButton position3RadioButton;
+    private javax.swing.JRadioButton orientation3RadioButton;
+    private javax.swing.JLabel forma4Label;
+    private javax.swing.JLabel textura4Label;
+    private javax.swing.JLabel texto4Label;
+    private javax.swing.JLabel posicao4Label;
+    private javax.swing.JLabel orientation4Label;
+    private javax.swing.JRadioButton forma4RadioButton;
+    private javax.swing.JRadioButton textura4RadioButton;
+    private javax.swing.JRadioButton text4RadioButton;
+    private javax.swing.JRadioButton position4RadioButton;
+    private javax.swing.JRadioButton orientation4RadioButton;
+    private javax.swing.JRadioButton textura0RadioButton;
+    private javax.swing.JLabel forma5Label;
+    private javax.swing.JLabel textura5Label;
+    private javax.swing.JLabel texto5Label;
+    private javax.swing.JLabel posicao5Label;
+    private javax.swing.JLabel orientation5Label;
+    private javax.swing.JRadioButton forma5RadioButton;
+    private javax.swing.JRadioButton textura5RadioButton;
+    private javax.swing.JRadioButton text5RadioButton;
+    private javax.swing.JRadioButton position5RadioButton;
+    private javax.swing.JRadioButton orientation5RadioButton;
+    private javax.swing.JLabel forma1Label;
+    private javax.swing.JLabel textura1Label;
+    private javax.swing.JLabel texto1Label;
+    private javax.swing.JLabel posicao1Label;
+    private javax.swing.JLabel orientation1Label;
+    private javax.swing.JRadioButton forma1RadioButton;
+    private javax.swing.JRadioButton textura1RadioButton;
+    private javax.swing.JRadioButton text1RadioButton;
+    private javax.swing.JRadioButton position1RadioButton;
+    private javax.swing.JRadioButton position0RadioButton;
+    private javax.swing.JRadioButton orientation1RadioButton;
+    private javax.swing.JRadioButton orientation0RadioButton;
+    private javax.swing.JLabel forma2Label;
+    private javax.swing.JLabel textura2Label;
+    private javax.swing.JLabel texto2Label;
+    private javax.swing.JLabel posicao2Label;
+    private javax.swing.JLabel orientation2Label;
+    private javax.swing.JRadioButton forma2RadioButton;
+    private javax.swing.JRadioButton textura2RadioButton;
+    private javax.swing.JRadioButton text2RadioButton;
+    private javax.swing.JRadioButton position2RadioButton;
+    private javax.swing.JRadioButton orientation2RadioButton;
+    private javax.swing.JRadioButton forma0RadioButton;
+    private javax.swing.JRadioButton text0RadioButton;
+    private javax.swing.ButtonGroup texturaButtonGroup;
+    private javax.swing.ButtonGroup corButtonGroup;
+    private javax.swing.ButtonGroup formaButtonGroup;
+    private javax.swing.ButtonGroup textoButtonGroup;
+    private javax.swing.ButtonGroup posicaoButtonGroup;
+    private javax.swing.ButtonGroup orientacaoButtonGroup;
+    private javax.swing.JLabel profileGlyphLabel0;
+    private javax.swing.JLabel profileGlyphLabel1;
+    private javax.swing.JLabel profileGlyphLabel2;
+    private javax.swing.JLabel profileGlyphLabel3;
+    private javax.swing.JLabel profileGlyphLabel4;
+    private javax.swing.JRadioButton profile0RadioButton;
+    private javax.swing.JRadioButton profile1RadioButton;
+    private javax.swing.JRadioButton profile2RadioButton;
+    private javax.swing.JRadioButton profile3RadioButton;
+    private javax.swing.JRadioButton profile4RadioButton;
+    private javax.swing.JRadioButton profile5RadioButton;
 }

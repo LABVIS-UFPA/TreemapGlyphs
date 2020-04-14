@@ -47,8 +47,8 @@ public class TestesGui extends javax.swing.JPanel {
         item = criarTreemapItem(new TreeMapItem(1, 0));
 
         Glyph father = item.getGlyph();
-//        Glyph child = criarOrientacao(OrientationFactory.ARROW.GLYPH_ORIENTACAO.ARROW135);
-        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_6X6);
+        Glyph child = criarOrientacao(OrientationFactory.ARROW.GLYPH_ORIENTACAO.ARROW90);
+//        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_6X6);
 
         child.setNodeTreemap(item);
 

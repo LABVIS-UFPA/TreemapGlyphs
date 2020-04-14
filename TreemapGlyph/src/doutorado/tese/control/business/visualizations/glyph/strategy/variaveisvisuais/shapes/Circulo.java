@@ -130,5 +130,5 @@ public class Circulo implements DrawBehavior{
      */
     public void setCor(Color cor) {
         this.cor = cor;
-    }
+    }    
 }

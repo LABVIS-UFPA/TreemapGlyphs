@@ -66,16 +66,21 @@ public class Constantes {
         //cores MDPI information
         //"#7dc3d1", "#ff9b30", "#248022", "#ff7f78", "#9467bd", "#8c564b", "#e377c2","#7f7f7f"
         
-        //D3
-        "#8dd3c7", "#ffffb3", "#bebada", 
-        "#ffbab3",//essa era a cor da paleta do D3: "#fb8072", mas achei melhor deixa-la mais suave
-        "#80b1d3", "#fdb462", "#fccde5", "#ccebc5"
+        //D3 -> d3.schemeSet3:
+//        "#8dd3c7", "#ffffb3", "#bebada", 
+//        "#ffbab3",//essa era a cor da paleta do D3: "#fb8072", mas achei melhor deixa-la mais suave
+//        "#80b1d3", "#fdb462", "#fccde5", "#ccebc5"
+            
+        //D3 -> d3.schemePastel2
+        "#B3E2CD", "#FDCDAC", "#CBD5E8", "#F4CAE4", "#E6F5C9", "#FFF2AE", "#F1E2CC", "#CCCCCC"
     };
 
     private static String[] colorHueGlyphs = {
         //cores IV 2019
-        "#FF0101", "#2C2CFF", "#EBC089", "#FFFF01", "#41BA2F"
-    
+        //"#FF0101", "#2C2CFF", "#EBC089", "#FFFF01", "#41BA2F"
+        
+        //D3 --> d3.schemePaired
+        "#1F78B4", "#33A02C", "#E31A1C", "#FDBF6F", "#FFFF99"
         //cores MDPI information
         //"#B51212", "#fae768", "#174580", "#00a1d7", "#15d400", "#ff3797", "#8c8589", "#000000"
     };
