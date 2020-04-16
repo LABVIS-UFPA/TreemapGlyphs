@@ -14,6 +14,8 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="orientacaoButtonGroup">
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="profileButtonGroup">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -50,7 +52,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="fundoPainel" alignment="0" max="32767" attributes="0"/>
+          <Component id="fundoPainel" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -87,22 +89,20 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="panelOpcoesRadios" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="painelEsquerda" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnConfirm" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="contadorLabel" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnConfirm" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -124,7 +124,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Which of the values of the visual variables can you identify?"/>
+                <Property name="text" type="java.lang.String" value="Quais dos valores das vari&#xe1;veis visuais voc&#xea; pode identificar claramente?"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Cursor Padr&#xe3;o"/>
                 </Property>
@@ -141,7 +141,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="texturasPanel" alignment="0" pref="745" max="32767" attributes="0"/>
+                  <Component id="texturasPanel" alignment="0" pref="779" max="32767" attributes="0"/>
                   <Component id="coresPanel" alignment="1" max="32767" attributes="0"/>
                   <Component id="orientationPanel" alignment="1" max="32767" attributes="0"/>
                   <Component id="textPanel" alignment="1" max="32767" attributes="0"/>
@@ -187,9 +187,9 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace pref="21" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="textura0RadioButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="textura1RadioButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="textura1Label" min="-2" pref="55" max="-2" attributes="0"/>
@@ -326,7 +326,7 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="textura0RadioButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="jRadioButton1"/>
+                    <Property name="text" type="java.lang.String" value="N&#xe3;o identifiquei/apresenta"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -344,9 +344,9 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="cor0RadioButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="cor1RadioButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="cor1Label" min="-2" pref="55" max="-2" attributes="0"/>
@@ -482,7 +482,7 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="cor0RadioButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="jRadioButton2"/>
+                    <Property name="text" type="java.lang.String" value="N&#xe3;o identifiquei/apresenta"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -500,9 +500,9 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="orientation0RadioButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="orientation1RadioButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="orientation1Label" min="-2" pref="55" max="-2" attributes="0"/>
@@ -635,7 +635,7 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="orientation0RadioButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="jRadioButton3"/>
+                    <Property name="text" type="java.lang.String" value="N&#xe3;o identifiquei/apresenta"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -653,9 +653,9 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="text0RadioButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="text1RadioButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="texto1Label" min="-2" pref="55" max="-2" attributes="0"/>
@@ -788,7 +788,7 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="text0RadioButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="jRadioButton4"/>
+                    <Property name="text" type="java.lang.String" value="N&#xe3;o identifiquei/apresenta"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -806,9 +806,9 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="forma0RadioButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="forma1RadioButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="forma1Label" min="-2" pref="55" max="-2" attributes="0"/>
@@ -941,7 +941,7 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="forma0RadioButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="jRadioButton5"/>
+                    <Property name="text" type="java.lang.String" value="N&#xe3;o identifiquei/apresenta"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -959,9 +959,9 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="position0RadioButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="position1RadioButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="posicao1Label" min="-2" pref="55" max="-2" attributes="0"/>
@@ -1097,7 +1097,7 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="position0RadioButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="jRadioButton6"/>
+                    <Property name="text" type="java.lang.String" value="N&#xe3;o identifiquei/apresenta"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1115,9 +1115,9 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="profile0RadioButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="profile1RadioButton" min="-2" pref="21" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="profileGlyphLabel1" min="-2" pref="55" max="-2" attributes="0"/>
@@ -1249,7 +1249,7 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="profile0RadioButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="jRadioButton7"/>
+                    <Property name="text" type="java.lang.String" value="N&#xe3;o identifiquei/apresenta"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1286,10 +1286,9 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="glyphsLabel" min="-2" pref="126" max="-2" attributes="0"/>
-                      <EmptySpace pref="23" max="32767" attributes="0"/>
+                      <Component id="glyphsLabel" pref="149" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1308,7 +1307,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="24" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="The Glyph:"/>
+                <Property name="text" type="java.lang.String" value="Dado o Glifo:"/>
               </Properties>
             </Component>
           </SubComponents>

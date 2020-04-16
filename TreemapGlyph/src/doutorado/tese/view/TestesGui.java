@@ -8,6 +8,7 @@ package doutorado.tese.view;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.control.business.visualizations.glyph.GlyphConcrete;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.orientation.Orientation;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
 import doutorado.tese.model.TreeMapItem;
@@ -47,8 +48,9 @@ public class TestesGui extends javax.swing.JPanel {
         item = criarTreemapItem(new TreeMapItem(1, 0));
 
         Glyph father = item.getGlyph();
-        Glyph child = criarOrientacao(OrientationFactory.ARROW.GLYPH_ORIENTACAO.ARROW90);
-//        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_6X6);
+//        Glyph child = criarOrientacao(OrientationFactory.ARROW.GLYPH_ORIENTACAO.ARROW90);
+        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_3x3);
+//        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_3x3_BRANCO);
 
         child.setNodeTreemap(item);
 
@@ -62,15 +64,15 @@ public class TestesGui extends javax.swing.JPanel {
     private Orientation criarOrientacao(OrientationFactory.ARROW.GLYPH_ORIENTACAO orientacao) {
         Orientation o = new Orientation();
         o.setDrawBehavior(OrientationFactory.create(orientacao));
-        o.setPectSobreposicao(0.65f);
+//        o.setPectSobreposicao(0.65f);
         o.setOverlappingActivated(true);
         return o;
     }
     
-    private Orientation criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS textura) {
-        Orientation o = new Orientation();
+    private Texture criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS textura) {
+        Texture o = new Texture();
         o.setDrawBehavior(TexturesFactory.create(textura));
-        o.setPectSobreposicao(0.65f);
+//        o.setPectSobreposicao(0.65f);
         o.setOverlappingActivated(true);
         return o;
     }

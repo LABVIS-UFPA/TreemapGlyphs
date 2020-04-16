@@ -48,7 +48,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
@@ -128,41 +127,54 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     }
 
     private void configButtonGroups() {
+        texturaButtonGroup.add(textura0RadioButton);
         texturaButtonGroup.add(textura1RadioButton);
         texturaButtonGroup.add(textura2RadioButton);
         texturaButtonGroup.add(textura3RadioButton);
         texturaButtonGroup.add(textura4RadioButton);
         texturaButtonGroup.add(textura5RadioButton);
 
+        corButtonGroup.add(cor0RadioButton);
         corButtonGroup.add(cor1RadioButton);
         corButtonGroup.add(cor2RadioButton);
         corButtonGroup.add(cor3RadioButton);
         corButtonGroup.add(cor4RadioButton);
         corButtonGroup.add(cor5RadioButton);
 
+        formaButtonGroup.add(forma0RadioButton);
         formaButtonGroup.add(forma1RadioButton);
         formaButtonGroup.add(forma2RadioButton);
         formaButtonGroup.add(forma3RadioButton);
         formaButtonGroup.add(forma4RadioButton);
         formaButtonGroup.add(forma5RadioButton);
 
+        textoButtonGroup.add(text0RadioButton);
         textoButtonGroup.add(text1RadioButton);
         textoButtonGroup.add(text2RadioButton);
         textoButtonGroup.add(text3RadioButton);
         textoButtonGroup.add(text4RadioButton);
         textoButtonGroup.add(text5RadioButton);
 
+        posicaoButtonGroup.add(position0RadioButton);
         posicaoButtonGroup.add(position1RadioButton);
         posicaoButtonGroup.add(position2RadioButton);
         posicaoButtonGroup.add(position3RadioButton);
         posicaoButtonGroup.add(position4RadioButton);
         posicaoButtonGroup.add(position5RadioButton);
 
+        orientacaoButtonGroup.add(orientation0RadioButton);
         orientacaoButtonGroup.add(orientation1RadioButton);
         orientacaoButtonGroup.add(orientation2RadioButton);
         orientacaoButtonGroup.add(orientation3RadioButton);
         orientacaoButtonGroup.add(orientation4RadioButton);
         orientacaoButtonGroup.add(orientation5RadioButton);
+        
+        profileButtonGroup.add(profile0RadioButton);
+        profileButtonGroup.add(profile1RadioButton);
+        profileButtonGroup.add(profile2RadioButton);
+        profileButtonGroup.add(profile3RadioButton);
+        profileButtonGroup.add(profile4RadioButton);
+        profileButtonGroup.add(profile5RadioButton);
     }
 
 //    private void configCheckBox() {
@@ -173,41 +185,54 @@ public class VisibilityTesteView extends javax.swing.JFrame {
 //        }
 //    }
     public void configRadioButtonsActionCommand() {
+        textura0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
         textura1RadioButton.setActionCommand(CirculoTextura_2x2.class.getSimpleName());
         textura2RadioButton.setActionCommand(CirculoTextura_4x4.class.getSimpleName());
         textura3RadioButton.setActionCommand(CirculoTextura_6x6.class.getSimpleName());
         textura4RadioButton.setActionCommand(CirculoTextura_8x8.class.getSimpleName());
         textura5RadioButton.setActionCommand(CirculoTextura_10x10.class.getSimpleName());
 
+        cor0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
         cor1RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[0]);
         cor2RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[1]);
         cor3RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[2]);
         cor4RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[3]);
         cor5RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[4]);
 
+        forma0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
         forma1RadioButton.setActionCommand(Circulo.class.getSimpleName());
         forma2RadioButton.setActionCommand(Serrilhado.class.getSimpleName());
         forma3RadioButton.setActionCommand(Cruz.class.getSimpleName());
         forma4RadioButton.setActionCommand(Estrela.class.getSimpleName());
         forma5RadioButton.setActionCommand(Quadrado.class.getSimpleName());
 
+        text0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
         text1RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[0]);
         text2RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[1]);
         text3RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[2]);
         text4RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[3]);
         text5RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[4]);
 
+        position0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
         position1RadioButton.setActionCommand(Constantes.POSICOES.ESQ_INF.name());
         position2RadioButton.setActionCommand(Constantes.POSICOES.DIR_SUP.name());
         position3RadioButton.setActionCommand(Constantes.POSICOES.DIR_INF.name());
         position4RadioButton.setActionCommand(Constantes.POSICOES.ESQ_SUP.name());
         position5RadioButton.setActionCommand(Constantes.POSICOES.CENTRO.name());
 
+        orientation0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
         orientation1RadioButton.setActionCommand(Arrow90.class.getSimpleName());
         orientation2RadioButton.setActionCommand(Arrow180.class.getSimpleName());
         orientation3RadioButton.setActionCommand(Arrow45.class.getSimpleName());
         orientation4RadioButton.setActionCommand(Arrow0.class.getSimpleName());
         orientation5RadioButton.setActionCommand(Arrow135.class.getSimpleName());
+        
+        profile0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
+        profile1RadioButton.setActionCommand("op1");
+        profile2RadioButton.setActionCommand("op2");
+        profile3RadioButton.setActionCommand("op3");
+        profile4RadioButton.setActionCommand("op4");
+        profile5RadioButton.setActionCommand("op5");
     }
 
     public void resetPainelsRadioButtos() {
@@ -217,6 +242,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         textoButtonGroup.clearSelection();
         posicaoButtonGroup.clearSelection();
         orientacaoButtonGroup.clearSelection();
+        profileButtonGroup.clearSelection();
     }
 
     public void changeConfigs() {
@@ -293,6 +319,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         textoButtonGroup = new javax.swing.ButtonGroup();
         posicaoButtonGroup = new javax.swing.ButtonGroup();
         orientacaoButtonGroup = new javax.swing.ButtonGroup();
+        profileButtonGroup = new javax.swing.ButtonGroup();
         fundoPainel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         pergunta2_TextPane = new javax.swing.JTextPane();
@@ -396,7 +423,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         pergunta2_TextPane.setEditable(false);
         pergunta2_TextPane.setBorder(null);
         pergunta2_TextPane.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        pergunta2_TextPane.setText("Which of the values of the visual variables can you identify?");
+        pergunta2_TextPane.setText("Quais dos valores das variáveis visuais você pode identificar claramente?");
         pergunta2_TextPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pergunta2_TextPane.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         pergunta2_TextPane.setEnabled(false);
@@ -445,16 +472,16 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        textura0RadioButton.setText("jRadioButton1");
+        textura0RadioButton.setText("Não identifiquei/apresenta");
 
         javax.swing.GroupLayout texturasPanelLayout = new javax.swing.GroupLayout(texturasPanel);
         texturasPanel.setLayout(texturasPanelLayout);
         texturasPanelLayout.setHorizontalGroup(
             texturasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(texturasPanelLayout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(textura0RadioButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(textura1RadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textura1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -549,16 +576,16 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        cor0RadioButton.setText("jRadioButton2");
+        cor0RadioButton.setText("Não identifiquei/apresenta");
 
         javax.swing.GroupLayout coresPanelLayout = new javax.swing.GroupLayout(coresPanel);
         coresPanel.setLayout(coresPanelLayout);
         coresPanelLayout.setHorizontalGroup(
             coresPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(coresPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(cor0RadioButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cor1RadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cor1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -652,16 +679,16 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        orientation0RadioButton.setText("jRadioButton3");
+        orientation0RadioButton.setText("Não identifiquei/apresenta");
 
         javax.swing.GroupLayout orientationPanelLayout = new javax.swing.GroupLayout(orientationPanel);
         orientationPanel.setLayout(orientationPanelLayout);
         orientationPanelLayout.setHorizontalGroup(
             orientationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(orientationPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(orientation0RadioButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(orientation1RadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(orientation1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -753,16 +780,16 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        text0RadioButton.setText("jRadioButton4");
+        text0RadioButton.setText("Não identifiquei/apresenta");
 
         javax.swing.GroupLayout textPanelLayout = new javax.swing.GroupLayout(textPanel);
         textPanel.setLayout(textPanelLayout);
         textPanelLayout.setHorizontalGroup(
             textPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(textPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(text0RadioButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(text1RadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(texto1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -854,16 +881,16 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        forma0RadioButton.setText("jRadioButton5");
+        forma0RadioButton.setText("Não identifiquei/apresenta");
 
         javax.swing.GroupLayout shapePanelLayout = new javax.swing.GroupLayout(shapePanel);
         shapePanel.setLayout(shapePanelLayout);
         shapePanelLayout.setHorizontalGroup(
             shapePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(shapePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(forma0RadioButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(forma1RadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(forma1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -954,16 +981,16 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        position0RadioButton.setText("jRadioButton6");
+        position0RadioButton.setText("Não identifiquei/apresenta");
 
         javax.swing.GroupLayout positionPanelLayout = new javax.swing.GroupLayout(positionPanel);
         positionPanel.setLayout(positionPanelLayout);
         positionPanelLayout.setHorizontalGroup(
             positionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(positionPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(position0RadioButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(position1RadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(posicao1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1033,16 +1060,16 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         profileGlyphLabel4.setBackground(new java.awt.Color(255, 204, 204));
         profileGlyphLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        profile0RadioButton.setText("jRadioButton7");
+        profile0RadioButton.setText("Não identifiquei/apresenta");
 
         javax.swing.GroupLayout profileGlyphPanelLayout = new javax.swing.GroupLayout(profileGlyphPanel);
         profileGlyphPanel.setLayout(profileGlyphPanelLayout);
         profileGlyphPanelLayout.setHorizontalGroup(
             profileGlyphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(profileGlyphPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(profile0RadioButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(profile1RadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(profileGlyphLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1095,7 +1122,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         panelOpcoesRadios.setLayout(panelOpcoesRadiosLayout);
         panelOpcoesRadiosLayout.setHorizontalGroup(
             panelOpcoesRadiosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(texturasPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
+            .addComponent(texturasPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
             .addComponent(coresPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(orientationPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(textPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1134,16 +1161,15 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         painelEsquerda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         glyphsLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        glyphsLabel.setText("The Glyph:");
+        glyphsLabel.setText("Dado o Glifo:");
 
         javax.swing.GroupLayout painelEsquerdaLayout = new javax.swing.GroupLayout(painelEsquerda);
         painelEsquerda.setLayout(painelEsquerdaLayout);
         painelEsquerdaLayout.setHorizontalGroup(
             painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelEsquerdaLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelEsquerdaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(glyphsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addComponent(glyphsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
         );
         painelEsquerdaLayout.setVerticalGroup(
             painelEsquerdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1172,19 +1198,17 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         fundoPainelLayout.setVerticalGroup(
             fundoPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(fundoPainelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(fundoPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(fundoPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(fundoPainelLayout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelOpcoesRadios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(panelOpcoesRadios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(painelEsquerda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(fundoPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(contadorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(contadorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1197,7 +1221,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(fundoPainel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(fundoPainel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -1272,6 +1296,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 append(textoButtonGroup.getSelection().getActionCommand()).append(","). //"TextoValor"
                 append(posicaoButtonGroup.getSelection().getActionCommand()).append(","). //"PosicaoValor"
                 append(orientacaoButtonGroup.getSelection().getActionCommand()).append(",").//"OrientacaoValor"
+//                append(profileButtonGroup.getSelection().getActionCommand()).append(",").//"profileGlyphValor"
                 append(areaVisivelVarVisuais[0]). //area visivel Textura
                 append(",").append(areaVisivelVarVisuais[1]). //area visivel cor
                 append(",").append(areaVisivelVarVisuais[2]). //area visivel forma
@@ -1606,6 +1631,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     private javax.swing.JRadioButton profile3RadioButton;
     private javax.swing.JRadioButton profile4RadioButton;
     private javax.swing.JRadioButton profile5RadioButton;
+    private javax.swing.ButtonGroup profileButtonGroup;
     private javax.swing.JLabel profileGlyphLabel0;
     private javax.swing.JLabel profileGlyphLabel1;
     private javax.swing.JLabel profileGlyphLabel2;
@@ -1737,6 +1763,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     private javax.swing.ButtonGroup textoButtonGroup;
     private javax.swing.ButtonGroup posicaoButtonGroup;
     private javax.swing.ButtonGroup orientacaoButtonGroup;
+    private javax.swing.ButtonGroup profileButtonGroup;
     private javax.swing.JLabel profileGlyphLabel0;
     private javax.swing.JLabel profileGlyphLabel1;
     private javax.swing.JLabel profileGlyphLabel2;

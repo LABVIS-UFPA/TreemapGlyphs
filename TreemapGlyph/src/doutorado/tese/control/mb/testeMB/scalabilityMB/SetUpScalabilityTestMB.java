@@ -123,7 +123,7 @@ public class SetUpScalabilityTestMB {
 
         Glyph father = getItemInput().getGlyph();
         father.killAllChild();//eh feito um kill para garantir que nao ha filhos
-
+//TODO sortear familia e se o profile glyph for sorteado, ele deve ficar sempre na ultima camada.
         layersMisturadas = shuffleArray(Constantes.VAR_VISUAIS_CATEGORICAS.values());
         for (Constantes.VAR_VISUAIS_CATEGORICAS var : layersMisturadas) {
 //        for (Constantes.VAR_VISUAIS_CATEGORICAS var : Constantes.VAR_VISUAIS_CATEGORICAS.values()) {

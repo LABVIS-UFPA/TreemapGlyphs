@@ -56,6 +56,7 @@ public class Constantes {
     public static final int LIMITE_TESTES = 100;
     public static int PRESENCA_STAR;
     public static boolean SHOW_GLYPH_ON_DETAILS = false;
+    public static String NAO_IDENTIFICOU = "nao_identificou";
     
 //    private static Color[] cores = {Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
     private static String[] corTreemap = {
