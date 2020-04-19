@@ -14,9 +14,6 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.categorica
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
-import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
-import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
-import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow0;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow135;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow180;
@@ -32,7 +29,6 @@ import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvi
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_4x4;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_6x6;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_8x8;
-import doutorado.tese.control.mb.testeMB.scalabilityMB.SetUpScalabilityTestMB;
 import doutorado.tese.util.Constantes;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -61,18 +57,18 @@ public class VisibilityTesteView extends javax.swing.JFrame {
 
     private HashMap<String, Integer> configs;
     private HashMap<String, Boolean> output;
-    private Random rand;
+//    private Random rand;
 //    private String data;
     private StringBuilder data;
-    private boolean selectAll = true;
+//    private boolean selectAll = true;
     private HashMap<String, Integer> areas;
-    private int[] glyphlayers2draw = {0, 1, 2, 3, 4, 5, 6};
-    private String[] layers = new String[]{"texture", "colorhue", "geometricshape", "text", "position", "orientation", "coritem"};
+//    private int[] glyphlayers2draw = {0, 1, 2, 3, 4, 5, 6};
+//    private String[] layers = new String[]{"texture", "colorhue", "geometricshape", "text", "position", "orientation", "coritem"};
 //    private HashMap<String, JCheckBox> checkboxes;
 
-    private int cont = 0;
-    private int numLayers2remove = 0;
-    private int numAmostras = 100;
+//    private int cont = 0;
+//    private int numLayers2remove = 0;
+    private int numAmostras = 0;//total de amostras calculado no construtor
     private int step = (numAmostras / 6) + 1;
     private String nomeArquivo = "result_" + System.getProperty("user.name") + ".csv";
 
@@ -91,10 +87,9 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 + "TexturaValor,CorValor,FormaValor,TextoValor,PosicaoValor,OrientacaoValor"
                 + "areaVisivel_Textura,areaVisivel_Cor,areaVisivel_Forma,areaVisivel_Texto,areaVisivel_Posicao,areaVisivel_Orientacao"
         );
-        rand = new Random(System.currentTimeMillis());
+//        rand = new Random(System.currentTimeMillis());
         configs = new HashMap<>();
         output = new HashMap<>();
-
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -102,6 +97,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         }
         initComponents();
         configButtonGroups();
+        numAmostras = painelEsquerda.getQuantGlyphs() * (painelEsquerda.getGlyphLayers2draw().length - 1);
 
 //        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 //        checkboxes = new HashMap<>();
@@ -246,48 +242,49 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     }
 
     public void changeConfigs() {
-        selectAll = true;
-        cont++;
-        contadorLabel.setText(cont + " / " + numAmostras);
+//        selectAll = true;
+//        cont++;
+        contadorLabel.setText(painelEsquerda.getContTarefasRealizadas() + " / " + numAmostras);
 
-        if (cont % step == 0) {
-            numLayers2remove++;
-        }
+//        if (cont % step == 0) {
+//            numLayers2remove++;
+//        }
 
         resetPainelsRadioButtos();
         
-        configs.put("texture", rand.nextInt(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values().length));
-        configs.put("colorhue", rand.nextInt(Constantes.getColorHueGlyphs().length));
-        configs.put("geometricshape", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
-        configs.put("text", rand.nextInt(Constantes.LETRAS_ALFABETO.length));
-        configs.put("position", rand.nextInt(Constantes.POSICOES.values().length));
-        configs.put("orientation", rand.nextInt(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length));
-        configs.put("profileglyph", rand.nextInt(3));//nesse caso 0 - nao desenha, 1 - desenha ao inves do text; 2 - desenha na ultima camada
-        configs.put("x", 50);
-        configs.put("y", 50);
-        int length = rand.nextInt(50) + 5;
-        configs.put("width", Math.abs(length - (rand.nextInt(100) + 5)));
-        configs.put("height", Math.abs(length - (rand.nextInt(100) + 5)));
-        configs.put("coritem", rand.nextInt(Constantes.getCorTreemap().length));
-
-        SetUpScalabilityTestMB.shuffleArray(glyphlayers2draw);
-        //dependendo da step as camadas serao removidas (representado por -1) do glyph e seu respectivo checkbox sera desabilitado
-        for (int i = 0; i < numLayers2remove; i++) {
-            configs.put(layers[glyphlayers2draw[i]], -1);
-//            if (checkboxes.get(layers[glyphlayers2draw[i]]) != null) {
-//                checkboxes.get(layers[glyphlayers2draw[i]]).setEnabled(false);
-//            }
-        }
+//        configs.put("texture", rand.nextInt(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values().length));
+//        configs.put("colorhue", rand.nextInt(Constantes.getColorHueGlyphs().length));
+//        configs.put("geometricshape", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
+//        configs.put("text", rand.nextInt(Constantes.LETRAS_ALFABETO.length));
+//        configs.put("position", rand.nextInt(Constantes.POSICOES.values().length));
+//        configs.put("orientation", rand.nextInt(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length));
+//        configs.put("profileglyph", rand.nextInt(3));//nesse caso 0 - nao desenha, 1 - desenha ao inves do text; 2 - desenha na ultima camada
+//        configs.put("x", 50);
+//        configs.put("y", 50);
+//        int length = rand.nextInt(50) + 5;
+//        configs.put("width", Math.abs(length - (rand.nextInt(100) + 5)));
+//        configs.put("height", Math.abs(length - (rand.nextInt(100) + 5)));
+//        configs.put("coritem", rand.nextInt(Constantes.getCorTreemap().length));
+//
+//        SetUpScalabilityTestMB.shuffleArray(glyphlayers2draw);
+//        //dependendo da step as camadas serao removidas (representado por -1) do glyph e seu respectivo checkbox sera desabilitado
+//        for (int i = 0; i < numLayers2remove; i++) {
+//            configs.put(layers[glyphlayers2draw[i]], -1);
+////            if (checkboxes.get(layers[glyphlayers2draw[i]]) != null) {
+////                checkboxes.get(layers[glyphlayers2draw[i]]).setEnabled(false);
+////            }
+//        }
+//        configs.put("numLayers2remove", numLayers2remove);
         painelEsquerda.setInputConfigs(configs);
 
-        for (int i = 1; i <= painelEsquerda.getFamilia2Desenho().size() - 1; i++) {
-            int index = painelEsquerda.getFamilia2Desenho().get(i).whoAmI().toString().lastIndexOf('.');
-            String nomeClasse = "";
-            if (index > 0) {
-                nomeClasse = painelEsquerda.getFamilia2Desenho().get(i).whoAmI().toString().substring(index + 1).toLowerCase();
-            }
+//        for (int i = 1; i <= painelEsquerda.getFamilia2Desenho().size() - 1; i++) {
+//            int index = painelEsquerda.getFamilia2Desenho().get(i).whoAmI().toString().lastIndexOf('.');
+//            String nomeClasse = "";
+//            if (index > 0) {
+//                nomeClasse = painelEsquerda.getFamilia2Desenho().get(i).whoAmI().toString().substring(index + 1).toLowerCase();
+//            }
 //            checkboxes.get(nomeClasse).setEnabled(true);
-        }
+//        }
     }
 
     public boolean isSelectedRadioButton(ButtonGroup buttonGroup) {
@@ -1370,15 +1367,15 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             setData(aspect);
 
 //            configCheckBox();
-            output.put("texture", false);
-            output.put("colorhue", false);
-            output.put("geometricshape", false);
-            output.put("text", false);
-            output.put("position", false);
-            output.put("orientation", false);
-            output.put("profileglyph", false);
+//            output.put("texture", false);
+//            output.put("colorhue", false);
+//            output.put("geometricshape", false);
+//            output.put("text", false);
+//            output.put("position", false);
+//            output.put("orientation", false);
+//            output.put("profileglyph", false);
 
-            if (cont >= numAmostras) {
+            if (painelEsquerda.getContTarefasRealizadas() >= numAmostras) {
                 saveDataInFile();
             }
             changeConfigs();

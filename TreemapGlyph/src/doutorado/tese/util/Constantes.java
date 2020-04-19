@@ -142,7 +142,7 @@ public class Constantes {
             this.varVisual = varVisual;
         }
 
-        public String variavel() {
+        public String nomeVariavelVisual() {
             return varVisual;
         }
     }
