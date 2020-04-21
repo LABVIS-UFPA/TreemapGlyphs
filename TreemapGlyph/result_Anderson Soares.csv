@@ -1,6 +1,0 @@
-Textura,Cor,Forma,Texto,Posicao,Orientacao,ProfileGlyph,Altura,Largura,AreaItem,AspectoItem,CorItem,AreaTextura,AreaCor,AreaForma,AreaTexto,AreaPosicao,AreaOrientacao,AreaProfileGlyph,ViuTextura,ViuCor,ViuForma,ViuTexto,ViuPosicao,ViuOrientacao,ViuProfileGlyph,FamiliaGlyph,TexturaValor,CorValor,FormaValor,TextoValor,PosicaoValor,OrientacaoValorareaVisivel_Textura,areaVisivel_Cor,areaVisivel_Forma,areaVisivel_Texto,areaVisivel_Posicao,areaVisivel_Orientacao
-0,1,1,1,1,1,0,35,44,1540,0.79545456,1,0,169,81,36,625,324,0,0,0,0,0,0,0,0,GlyphConcrete> Position> Orientation> ColorHue> GeometricShape> Text,0,0,0,0,0,0,0.0,50.7,24.3,10.8,97.2,187.5
-0,1,1,0,1,1,1,61,0,0,0.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,GlyphConcrete> Position> Orientation> ColorHue> GeometricShape> ProfileGlyph,0,0,0,0,0,0,0.0,0.0,0.0,0.0,0.0,0.0
-0,0,1,0,1,1,0,79,61,4819,0.7721519,1,0,0,441,0,1849,900,0,0,0,0,0,0,0,0,GlyphConcrete> Position> Orientation> GeometricShape,0,0,0,0,0,0,0.0,0.0,132.3,0.0,270.0,554.7
-0,1,1,0,1,0,0,39,44,1716,0.8863636,0,0,361,169,0,729,0,0,0,0,0,0,0,0,0,GlyphConcrete> Position> ColorHue> GeometricShape,0,0,0,0,0,0,0.0,108.3,50.7,0.0,0.0,218.7
-0,0,1,0,1,0,0,67,75,5025,0.8933333,0,0,0,1089,0,2209,0,0,0,0,0,0,0,0,0,GlyphConcrete> Position> GeometricShape,0,0,0,0,0,0,0.0,0.0,326.7,0.0,0.0,662.7

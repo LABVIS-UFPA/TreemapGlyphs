@@ -43,9 +43,7 @@ public class PainelDeTeste extends javax.swing.JPanel {
         Color coritem = null;
 
         //desenho esquerda
-        System.out.println("visibilityTestMB: "+visibilityTestMB);
-        System.out.println("getInputConfigs(): "+visibilityTestMB.getInputConfigs());
-        System.out.println("visibilityTestMB.getInputConfigs().get(\"coritem\"): "+visibilityTestMB.getInputConfigs().get("coritem"));
+//        System.out.println("getInputConfigs(): "+visibilityTestMB.getInputConfigs()+"\n**************************");
         coritem = visibilityTestMB.getInputConfigs().get("coritem") >= 0
                 ? Color.decode(Constantes.getCorTreemap()[visibilityTestMB.getInputConfigs().get("coritem")])
                 : Color.decode(Constantes.getCorTreemap()[Constantes.getCorTreemap().length - 1]);

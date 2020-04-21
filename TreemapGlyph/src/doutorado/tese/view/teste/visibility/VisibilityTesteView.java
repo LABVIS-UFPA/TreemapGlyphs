@@ -14,11 +14,11 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.categorica
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow0;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow135;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow180;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow45;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow90;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow0Dir;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow135CanEsq;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow180Esq;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow45CanDir;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow90Cima;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Circulo;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Cruz;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Estrela;
@@ -36,10 +36,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Enumeration;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractButton;
@@ -56,7 +59,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class VisibilityTesteView extends javax.swing.JFrame {
 
     private HashMap<String, Integer> configs;
-    private HashMap<String, Boolean> output;
+//    private HashMap<String, Boolean> output;
 //    private Random rand;
 //    private String data;
     private StringBuilder data;
@@ -69,7 +72,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
 //    private int cont = 0;
 //    private int numLayers2remove = 0;
     private int numAmostras = 0;//total de amostras calculado no construtor
-    private int step = (numAmostras / 6) + 1;
+//    private int step = (numAmostras / 6) + 1;
     private String nomeArquivo = "result_" + System.getProperty("user.name") + ".csv";
 
     /**
@@ -87,9 +90,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 + "TexturaValor,CorValor,FormaValor,TextoValor,PosicaoValor,OrientacaoValor"
                 + "areaVisivel_Textura,areaVisivel_Cor,areaVisivel_Forma,areaVisivel_Texto,areaVisivel_Posicao,areaVisivel_Orientacao"
         );
-//        rand = new Random(System.currentTimeMillis());
         configs = new HashMap<>();
-        output = new HashMap<>();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -99,16 +100,6 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         configButtonGroups();
         numAmostras = painelEsquerda.getQuantGlyphs() * (painelEsquerda.getGlyphLayers2draw().length - 1);
 
-//        setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-//        checkboxes = new HashMap<>();
-//        checkboxes.put("texture", checkboxTexture);
-//        checkboxes.put("colorhue", checkboxColorHue);
-//        checkboxes.put("geometricshape", checkboxShape);
-//        checkboxes.put("text", checkboxText);
-//        checkboxes.put("position", checkboxPosition);
-//        checkboxes.put("orientation", checkboxOrientation);
-//        checkboxes.put("profileglyph", checkboxProfileGlyph);
-//        configCheckBox();
         changeConfigs();
         configRadioButtonsActionCommand();
 
@@ -164,7 +155,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         orientacaoButtonGroup.add(orientation3RadioButton);
         orientacaoButtonGroup.add(orientation4RadioButton);
         orientacaoButtonGroup.add(orientation5RadioButton);
-        
+
         profileButtonGroup.add(profile0RadioButton);
         profileButtonGroup.add(profile1RadioButton);
         profileButtonGroup.add(profile2RadioButton);
@@ -173,13 +164,6 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         profileButtonGroup.add(profile5RadioButton);
     }
 
-//    private void configCheckBox() {
-//        for (JCheckBox c : checkboxes.values()) {
-//            c.setSelected(false);
-////            c.setEnabled(true);//antes
-//            c.setEnabled(false);
-//        }
-//    }
     public void configRadioButtonsActionCommand() {
         textura0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
         textura1RadioButton.setActionCommand(CirculoTextura_2x2.class.getSimpleName());
@@ -217,12 +201,12 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         position5RadioButton.setActionCommand(Constantes.POSICOES.CENTRO.name());
 
         orientation0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
-        orientation1RadioButton.setActionCommand(Arrow90.class.getSimpleName());
-        orientation2RadioButton.setActionCommand(Arrow180.class.getSimpleName());
-        orientation3RadioButton.setActionCommand(Arrow45.class.getSimpleName());
-        orientation4RadioButton.setActionCommand(Arrow0.class.getSimpleName());
-        orientation5RadioButton.setActionCommand(Arrow135.class.getSimpleName());
-        
+        orientation1RadioButton.setActionCommand(Arrow90Cima.class.getSimpleName());
+        orientation2RadioButton.setActionCommand(Arrow180Esq.class.getSimpleName());
+        orientation3RadioButton.setActionCommand(Arrow45CanDir.class.getSimpleName());
+        orientation4RadioButton.setActionCommand(Arrow0Dir.class.getSimpleName());
+        orientation5RadioButton.setActionCommand(Arrow135CanEsq.class.getSimpleName());
+
         profile0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
         profile1RadioButton.setActionCommand("op1");
         profile2RadioButton.setActionCommand("op2");
@@ -242,49 +226,11 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     }
 
     public void changeConfigs() {
-//        selectAll = true;
-//        cont++;
-        contadorLabel.setText(painelEsquerda.getContTarefasRealizadas() + " / " + numAmostras);
-
-//        if (cont % step == 0) {
-//            numLayers2remove++;
-//        }
-
         resetPainelsRadioButtos();
-        
-//        configs.put("texture", rand.nextInt(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values().length));
-//        configs.put("colorhue", rand.nextInt(Constantes.getColorHueGlyphs().length));
-//        configs.put("geometricshape", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
-//        configs.put("text", rand.nextInt(Constantes.LETRAS_ALFABETO.length));
-//        configs.put("position", rand.nextInt(Constantes.POSICOES.values().length));
-//        configs.put("orientation", rand.nextInt(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length));
-//        configs.put("profileglyph", rand.nextInt(3));//nesse caso 0 - nao desenha, 1 - desenha ao inves do text; 2 - desenha na ultima camada
-//        configs.put("x", 50);
-//        configs.put("y", 50);
-//        int length = rand.nextInt(50) + 5;
-//        configs.put("width", Math.abs(length - (rand.nextInt(100) + 5)));
-//        configs.put("height", Math.abs(length - (rand.nextInt(100) + 5)));
-//        configs.put("coritem", rand.nextInt(Constantes.getCorTreemap().length));
-//
-//        SetUpScalabilityTestMB.shuffleArray(glyphlayers2draw);
-//        //dependendo da step as camadas serao removidas (representado por -1) do glyph e seu respectivo checkbox sera desabilitado
-//        for (int i = 0; i < numLayers2remove; i++) {
-//            configs.put(layers[glyphlayers2draw[i]], -1);
-////            if (checkboxes.get(layers[glyphlayers2draw[i]]) != null) {
-////                checkboxes.get(layers[glyphlayers2draw[i]]).setEnabled(false);
-////            }
-//        }
-//        configs.put("numLayers2remove", numLayers2remove);
+
         painelEsquerda.setInputConfigs(configs);
 
-//        for (int i = 1; i <= painelEsquerda.getFamilia2Desenho().size() - 1; i++) {
-//            int index = painelEsquerda.getFamilia2Desenho().get(i).whoAmI().toString().lastIndexOf('.');
-//            String nomeClasse = "";
-//            if (index > 0) {
-//                nomeClasse = painelEsquerda.getFamilia2Desenho().get(i).whoAmI().toString().substring(index + 1).toLowerCase();
-//            }
-//            checkboxes.get(nomeClasse).setEnabled(true);
-//        }
+        contadorLabel.setText(painelEsquerda.getContTarefasRealizadas() + " / " + numAmostras);
     }
 
     public boolean isSelectedRadioButton(ButtonGroup buttonGroup) {
@@ -1256,7 +1202,11 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         return valid;
     }
 
-    public void setData(float aspect) {
+    public void setData() {
+        float aspect = configs.get("height") > configs.get("width")
+                    ? (configs.get("width") * 1.f) / configs.get("height")
+                    : (configs.get("height") * 1.f) / configs.get("width");
+        
         String[] areaVisivelVarVisuais = calcularAreaVisivel(painelEsquerda.getFamilia2Desenho()).replace("[", "").replace("]", "").split(",");
 
         data.append("\n").
@@ -1293,8 +1243,8 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 append(textoButtonGroup.getSelection().getActionCommand()).append(","). //"TextoValor"
                 append(posicaoButtonGroup.getSelection().getActionCommand()).append(","). //"PosicaoValor"
                 append(orientacaoButtonGroup.getSelection().getActionCommand()).append(",").//"OrientacaoValor"
-//                append(profileButtonGroup.getSelection().getActionCommand()).append(",").//"profileGlyphValor"
-                append(areaVisivelVarVisuais[0]). //area visivel Textura
+                //                append(profileButtonGroup.getSelection().getActionCommand()).append(",").//"profileGlyphValor"
+                append(",").append(areaVisivelVarVisuais[0]). //area visivel Textura
                 append(",").append(areaVisivelVarVisuais[1]). //area visivel cor
                 append(",").append(areaVisivelVarVisuais[2]). //area visivel forma
                 append(",").append(areaVisivelVarVisuais[3]). //area visivel Texto
@@ -1305,14 +1255,27 @@ public class VisibilityTesteView extends javax.swing.JFrame {
 
     public void saveDataInFile() {
         PrintWriter writer = null;
+        Calendar calendar = new GregorianCalendar(Locale.getDefault());
+        Date trialTime = new Date();
+        calendar.setTime(trialTime);
+        int ano = calendar.get(Calendar.YEAR);
+        int mes = calendar.get(Calendar.MONTH);
+        int dia = calendar.get(Calendar.DATE);
+        int hora = calendar.get(Calendar.HOUR);
+        int min = calendar.get(Calendar.MINUTE);
         try {
-            File file = new File(nomeArquivo);
-            writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-            writer.print(data);
-            writer.flush();
-            writer.close();
-            JOptionPane.showMessageDialog(null, "Thank you for participating.", "Thanks!", JOptionPane.INFORMATION_MESSAGE);
-//                System.exit(0);
+            nomeArquivo = "result_" + System.getProperty("user.name") + "_" + ano + mes + dia + "_" + hora + "_" + min + ".csv";
+            File f = new File("testVisibility" + File.separator);
+            if (!f.exists()) {
+                f.mkdir();
+            } else {
+                File file = new File("testVisibility" + File.separator + nomeArquivo);
+                writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+                writer.print(data);
+                writer.flush();
+                writer.close();
+                JOptionPane.showMessageDialog(null, "Thank you for participating.", "Thanks!", JOptionPane.INFORMATION_MESSAGE);
+            }
             this.dispose();
         } catch (IOException ex) {
             Logger.getLogger(VisibilityTesteView.class.getName()).log(Level.SEVERE, null, ex);
@@ -1360,25 +1323,15 @@ public class VisibilityTesteView extends javax.swing.JFrame {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         if (validateRadioButtons()) {
-            float aspect = configs.get("height") > configs.get("width")
-                    ? (configs.get("width") * 1.f) / configs.get("height")
-                    : (configs.get("height") * 1.f) / configs.get("width");
+            
 
-            setData(aspect);
-
-//            configCheckBox();
-//            output.put("texture", false);
-//            output.put("colorhue", false);
-//            output.put("geometricshape", false);
-//            output.put("text", false);
-//            output.put("position", false);
-//            output.put("orientation", false);
-//            output.put("profileglyph", false);
+            setData();
 
             if (painelEsquerda.getContTarefasRealizadas() >= numAmostras) {
                 saveDataInFile();
+            } else {
+                changeConfigs();
             }
-            changeConfigs();
 //            updateOutput();
         }
     }//GEN-LAST:event_btnConfirmActionPerformed

@@ -107,7 +107,8 @@ public class ColorHue extends Glyph {
 
     @Override
     public String getVarValue() {
-        return "R:" + getCor().getRed() + " G:" + getCor().getGreen() + " B:" + getCor().getBlue();
+//        return "R:" + getCor().getRed() + " G:" + getCor().getGreen() + " B:" + getCor().getBlue();
+        return getCor()+"";
     }
 
 }

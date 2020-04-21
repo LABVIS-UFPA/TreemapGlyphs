@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author Anderson Soares
  */
-public class Arrow135 implements DrawBehavior {
+public class Arrow135CanEsq implements DrawBehavior {
 
     private int[] xPoints;
     private int[] yPoints;
@@ -31,7 +31,7 @@ public class Arrow135 implements DrawBehavior {
     private List<Line2D.Double> retas;
     Point centroQuadrado;
 
-    public Arrow135() {
+    public Arrow135CanEsq() {
         cor = Color.BLACK;
     }
 
@@ -224,10 +224,10 @@ public class Arrow135 implements DrawBehavior {
     }
 
     @Override
-    public Arrow135 clone() throws CloneNotSupportedException {
+    public Arrow135CanEsq clone() throws CloneNotSupportedException {
         try {
             // call clone in Object.
-            return (Arrow135) super.clone();
+            return (Arrow135CanEsq) super.clone();
         } catch (CloneNotSupportedException e) {
             System.err.println("Cloning not allowed.");
             return this;
@@ -237,6 +237,6 @@ public class Arrow135 implements DrawBehavior {
     @Override
     public String toString() {
         super.toString();
-        return Arrow135.class.getSimpleName();
+        return Arrow135CanEsq.class.getSimpleName();
     }
 }

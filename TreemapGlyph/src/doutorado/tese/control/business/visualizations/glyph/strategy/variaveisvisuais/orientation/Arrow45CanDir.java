@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author Anderson Soares
  */
-public class Arrow45 implements DrawBehavior {
+public class Arrow45CanDir implements DrawBehavior {
 
     private int[] xPoints;
     private int[] yPoints;
@@ -31,7 +31,7 @@ public class Arrow45 implements DrawBehavior {
     private List<Polygon> triangulos;
     private List<Line2D.Double> retas;
 
-    public Arrow45() {
+    public Arrow45CanDir() {
         cor = Color.BLACK;
     }
 
@@ -219,10 +219,10 @@ public class Arrow45 implements DrawBehavior {
     }
 
     @Override
-    public Arrow45 clone() throws CloneNotSupportedException {
+    public Arrow45CanDir clone() throws CloneNotSupportedException {
         try {
             // call clone in Object.
-            return (Arrow45) super.clone();
+            return (Arrow45CanDir) super.clone();
         } catch (CloneNotSupportedException e) {
             System.err.println("Cloning not allowed.");
             return this;
@@ -232,6 +232,6 @@ public class Arrow45 implements DrawBehavior {
     @Override
     public String toString() {
         super.toString();
-        return Arrow45.class.getSimpleName();
+        return Arrow45CanDir.class.getSimpleName();
     }
 }

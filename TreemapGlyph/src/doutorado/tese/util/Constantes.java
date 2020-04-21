@@ -121,7 +121,21 @@ public class Constantes {
     };
 
     public enum POSICOES{
-        ESQ_SUP, ESQ_INF, DIR_SUP, DIR_INF, CENTRO;
+        ESQ_SUP("ESQ_SUP"), 
+        ESQ_INF("ESQ_INF"),
+        DIR_SUP("DIR_SUP"),
+        DIR_INF("DIR_INF"),
+        CENTRO("CENTRO");
+        
+        private final String nome;
+        
+        POSICOES(String nome){
+            this.nome = nome;
+        }
+        
+        public String getName(){
+            return nome;
+        }
     }
     
     public enum CENARIOS{

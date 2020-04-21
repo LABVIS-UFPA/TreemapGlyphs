@@ -25,6 +25,7 @@ import doutorado.tese.util.Constantes;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -57,9 +58,9 @@ public class SetUpScalabilityTestMB {
     private Constantes.VAR_VISUAIS_CATEGORICAS[] layersMisturadas;
     private int[] glyphLayers2draw = {0, 1, 2, 3, 4, 5, 6};
     private String[] layers = new String[]{"texture", "colorhue", "geometricshape", "text", "position", "orientation", "coritem"};
-    private List<List<Glyph>> listaFamilias;
-    private final int quantGlyphsBase = 5;
-    private List<TreeMapItem> listaItens;
+//    private List<List<Glyph>> listaFamilias;
+    private final int quantGlyphsBase = 2;//5;
+    private List<TreeMapItem> listaItensBase;
     private int contTarefasRealizadas = 0;
     private int rodadaRemoveCamada = 0;
     private int controleGlyphBase = -1;
@@ -82,51 +83,92 @@ public class SetUpScalabilityTestMB {
         for (Coluna coluna : colunas) {
             atributosEscolhidosGlyphContinuo.add(coluna.getName());
         }
-        listaFamilias = new ArrayList<>();
-        listaItens = new ArrayList<>();
+//        listaFamilias = new ArrayList<>();
+        listaItensBase = new ArrayList<>();
         criarGlyphsBase();
     }
 
-    private TreeMapItem criarNovoItemRecuperandoItemAntigo(TreeMapItem item) {
-        inputConfigs.put("x", item.getBounds().x);
-        inputConfigs.put("y", item.getBounds().y);
+    public void criarGlyphsBase() {
+        for (int i = 0; i < quantGlyphsBase; i++) {
+            criarDadosSimulados();
+            TreeMapItem item = criarNovoTreemapItem();
 
-        inputConfigs.put("width",item.getBounds().width);
-        inputConfigs.put("height",item.getBounds().height);
+            Set<Integer> camadasSorteadas = sortearCamadas();
+            boolean profilePresent = camadasSorteadas.contains(6);//6 eh a camada do profile glyph
+            if (profilePresent) {
+                camadasSorteadas.remove(6);//remove o profile glyph para adiciona-lo na ultima camada
+            }
 
-        //pensar em como colocar a cor no item novo e no recuperado
-        inputConfigs.put("coritem", rand.nextInt(Constantes.getCorTreemap().length));
-        TreeMapItem newItem = new TreeMapItem(1, 0);
-        newItem.setBounds(item.getBounds());
+            montarGlyphBase(item, defineCamadasGlyph(camadasSorteadas, profilePresent));
+            listaItensBase.add(item);
+        }
+    }
+
+    public TreeMapItem criarNovoTreemapItem() {
+        int length = rand.nextInt(51) + 30;
+        int posicaoVetorCorItem = rand.nextInt(Constantes.getCorTreemap().length);
+        int w = 0;
+        int h = 0;
+//        while(w == 0 || h == 0){
+        while (w <= 20 || h <= 20) {
+            w = Math.abs(length - (rand.nextInt(101)));
+            h = Math.abs(length - (rand.nextInt(101)));
+        }
+        Rectangle bounds = new Rectangle(50, 50, w, h);
+
+        TreeMapItem item = new TreeMapItem(1, 0);
+        item.setBounds(bounds);
+        item.setMapaDetalhesItem(dadosTreemapItem);
+        Glyph glyphConcrete = new GlyphConcrete();
+        glyphConcrete.setNodeTreemap(item);
+        item.setGlyph(glyphConcrete);
+        item.getGlyph().setBounds(item.getBounds());
+        item.setColor(Color.decode(Constantes.getCorTreemap()[posicaoVetorCorItem]));
         return item;
     }
 
-    private TreeMapItem criarTreemapItem(TreeMapItem item, boolean newItemBase) {
-        Rectangle bounds;
-        if (newItemBase) {
-            int length = rand.nextInt(50) + 15;
-            bounds = new Rectangle(
-                    50,
-                    50,
-                    Math.abs(length - (rand.nextInt(100) + 15)),
-                    Math.abs(length - (rand.nextInt(100) + 15))
-            );
-            inputConfigs.put("coritem", rand.nextInt(Constantes.getCorTreemap().length));
-        } else {
-            item = criarNovoItemRecuperandoItemAntigo(item);
-            bounds = item.getBounds();
+    private void atualizarInputConfigs(TreeMapItem item) {
+        inputConfigs.put("x", item.getBounds().x);
+        inputConfigs.put("y", item.getBounds().y);
+
+        inputConfigs.put("width", item.getBounds().width);
+        inputConfigs.put("height", item.getBounds().height);
+
+        for (int i = 0; i < Constantes.getCorTreemap().length; i++) {
+            if (Color.decode(Constantes.getCorTreemap()[i]).equals(item.getColor())) {
+                inputConfigs.put("coritem", i);
+                break;
+            }
         }
+    }
+
+    private TreeMapItem recuperarCaracteristicasItemBase(TreeMapItem item) {
+        atualizarInputConfigs(item);
+        TreeMapItem newItem = new TreeMapItem(1, 0);
+        newItem.setBounds(
+                new Rectangle(
+                        getInputConfigs().get("x"),
+                        getInputConfigs().get("y"),
+                        getInputConfigs().get("width"),
+                        getInputConfigs().get("height"))
+        );
+        newItem.setColor(Color.decode(Constantes.getCorTreemap()[getInputConfigs().get("coritem")]));
         try {
-            item.setBounds(bounds);
-            item.setMapaDetalhesItem(dadosTreemapItem);
+            newItem.setMapaDetalhesItem(item.getMapaDetalhesItem());
+//            newItem.setGlyph(item.getGlyph());
+            
             Glyph glyphConcrete = new GlyphConcrete();
-            glyphConcrete.setNodeTreemap(item);
-            item.setGlyph(glyphConcrete);
-            item.getGlyph().setBounds(item.getBounds());
+            glyphConcrete.setNodeTreemap(newItem);
+            
+            item.getGlyph().getChildren().forEach(glyphConcrete::appendChild);
+            
+            newItem.setGlyph(glyphConcrete);
+            newItem.getGlyph().setBounds(item.getBounds());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return item;
+        return newItem;
     }
 
     public void procurarAreaGlyphFilhos(TreeMapItem item) {
@@ -176,7 +218,6 @@ public class SetUpScalabilityTestMB {
         Integer[] camadasMisturadas = shuffleArray(camadasSorteadas);
         for (Integer numCamada : camadasMisturadas) {
             Constantes.VAR_VISUAIS_CATEGORICAS varVisual = Constantes.VAR_VISUAIS_CATEGORICAS.values()[numCamada];
-
             camadasGlyph.add(varVisual.nomeVariavelVisual());
         }
         if (profilePresent) {//adiciona o profile glyph na ultima camada do glyph
@@ -185,49 +226,47 @@ public class SetUpScalabilityTestMB {
         return camadasGlyph;
     }
 
-    public Glyph montarGlyph(Glyph father, List<String> familia, boolean glyphBase) {
+    public Glyph montarGlyphBase(TreeMapItem item, List<String> familia) {
+        Glyph father = item.getGlyph();//father = glyph concreto
+        father.killAllChild();//eh feito um kill para garantir que nao ha filhos
+        int valor = -1;
         for (String var : familia) {
             Glyph child = null;
             switch (var) {
                 case "Texture":
-//                    if (glyphBase) {
-                        inputConfigs.put("texture", rand.nextInt(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values().length));
-//                    } else {
-                        //vasculhar os valores das var visuais do pai
-//                    }
-                    child = getGlyphMB().defineTexture(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values()[getInputConfigs().get("texture")]);
-                    child.setNodeTreemap(getItemInput());
+                    valor = rand.nextInt(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values().length);
+                    child = getGlyphMB().defineTexture(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values()[valor]);
+                    child.setNodeTreemap(item);
                     break;
                 case "Color_Hue":
-                    inputConfigs.put("colorhue", rand.nextInt(Constantes.getColorHueGlyphs().length));
-                    child = getGlyphMB().defineColorHue(Color.decode(Constantes.getColorHueGlyphs()[getInputConfigs().get("colorhue")]));
-                    child.setNodeTreemap(getItemInput());
+                    valor = rand.nextInt(Constantes.getColorHueGlyphs().length);
+                    child = getGlyphMB().defineColorHue(Color.decode(Constantes.getColorHueGlyphs()[valor]));
+                    child.setNodeTreemap(item);
                     break;
                 case "Shape":
-                    inputConfigs.put("geometricshape", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
-                    child = getGlyphMB().defineShape(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[getInputConfigs().get("geometricshape")]);
-                    child.setNodeTreemap(getItemInput());
+                    valor = rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length);
+                    child = getGlyphMB().defineShape(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[valor]);
+                    child.setNodeTreemap(item);
                     break;
                 case "Text":
-                    inputConfigs.put("text", rand.nextInt(Constantes.LETRAS_ALFABETO.length));
-                    child = getGlyphMB().defineText(Constantes.LETRAS_ALFABETO[getInputConfigs().get("text")]);
-                    child.setNodeTreemap(getItemInput());
+                    valor = rand.nextInt(Constantes.LETRAS_ALFABETO.length);
+                    child = getGlyphMB().defineText(Constantes.LETRAS_ALFABETO[valor]);
+                    child.setNodeTreemap(item);
                     break;
                 case "Position":
-                    inputConfigs.put("position", rand.nextInt(Constantes.POSICOES.values().length));
-                    child = getGlyphMB().definePosition(Constantes.POSICOES.values()[getInputConfigs().get("position")]);
-                    child.setNodeTreemap(getItemInput());
+                    valor = rand.nextInt(Constantes.POSICOES.values().length);
+                    child = getGlyphMB().definePosition(Constantes.POSICOES.values()[valor]);
+                    child.setNodeTreemap(item);
                     break;
                 case "Orientation":
-                    inputConfigs.put("orientation", rand.nextInt(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length));
-                    child = getGlyphMB().defineOrientation(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values()[getInputConfigs().get("orientation")]);
-                    child.setNodeTreemap(getItemInput());
+                    valor = rand.nextInt(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length);
+                    child = getGlyphMB().defineOrientation(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values()[valor]);
+                    child.setNodeTreemap(item);
                     break;
                 case "Profile":
-                    criarDadosSimulados();
                     getGlyphMB().setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
-                    child = getGlyphMB().configureProfileGlyph(getItemInput());
-                    child.setNodeTreemap(getItemInput());
+                    child = getGlyphMB().configureProfileGlyph(item);
+                    child.setNodeTreemap(item);
                     break;
             }
 
@@ -238,46 +277,104 @@ public class SetUpScalabilityTestMB {
         if (father.getBounds() != null) {
             father.setBounds(father.getBounds());
         }
-        procurarAreaGlyphFilhos(getItemInput());
         return father;
     }
 
-    public void criarGlyphsBase() {
-        for (int i = 0; i < quantGlyphsBase; i++) {
-            itemInput = criarTreemapItem(new TreeMapItem(1, 0), true);
-
-            Glyph father = itemInput.getGlyph();
-            father.killAllChild();//eh feito um kill para garantir que nao ha filhos
-
-            Set<Integer> camadasSorteadas = sortearCamadas();
-
-            boolean profilePresent = camadasSorteadas.contains(6);//6 eh a camada do profile glyph
-            if (profilePresent) {
-                camadasSorteadas.remove(6);//remove o profile glyph para adiciona-lo na ultima camada
+    public Glyph remontarGlyph(TreeMapItem item, int camadasRemover) {
+        Glyph father = item.getGlyph();
+        List<Glyph> familiaOriginal = item.getGlyphFamily(father, new ArrayList<>());
+        System.out.println("familia recuperada: " + familiaOriginal.toString());
+        father.killAllChild();
+        for (int i = 0; i < familiaOriginal.size() - camadasRemover; i++) {
+            Glyph glyph = familiaOriginal.get(i);
+            String var = glyph.toString();
+            Glyph child = null;
+            switch (var) {
+                case "Texture":
+                    for (int j = 0; j <= TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values().length - 1; j++) {
+                        if (TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values()[j].textureName().equals(glyph.getVarValue())) {
+                            inputConfigs.put("texture", j);
+                            break;
+                        }
+                    }
+                    child = getGlyphMB().defineTexture(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values()[getInputConfigs().get("texture")]);
+                    child.setNodeTreemap(item);
+                    break;
+                case "ColorHue":
+                    for (int j = 0; j <= Constantes.getColorHueGlyphs().length - 1; j++) {
+                        if (Color.decode(Constantes.getColorHueGlyphs()[j]).toString().equals(glyph.getVarValue())) {
+                            inputConfigs.put("colorhue", j);
+                            break;
+                        }
+                    }
+                    child = getGlyphMB().defineColorHue(Color.decode(Constantes.getColorHueGlyphs()[getInputConfigs().get("colorhue")]));
+                    child.setNodeTreemap(item);
+                    break;
+                case "GeometricShape":
+                    for (int j = 0; j <= GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
+                        if (GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j].shapeName().equals(glyph.getVarValue())) {
+                            inputConfigs.put("geometricshape", j);
+                            break;
+                        }
+                    }
+                    child = getGlyphMB().defineShape(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[getInputConfigs().get("geometricshape")]);
+                    child.setNodeTreemap(item);
+                    break;
+                case "Text":
+                    for (int j = 0; j <= Constantes.LETRAS_ALFABETO.length - 1; j++) {
+                        if (Constantes.LETRAS_ALFABETO[j].equals(glyph.getVarValue())) {
+                            inputConfigs.put("text", j);
+                            break;
+                        }
+                    }
+                    child = getGlyphMB().defineText(Constantes.LETRAS_ALFABETO[getInputConfigs().get("text")]);
+                    child.setNodeTreemap(item);
+                    break;
+                case "Position":
+                    for (int j = 0; j <= Constantes.POSICOES.values().length - 1; j++) {
+                        if (Constantes.POSICOES.values()[j].getName().equalsIgnoreCase(glyph.getVarValue())) {
+                            inputConfigs.put("position", j);
+                            break;
+                        }
+                    }
+                    child = getGlyphMB().definePosition(Constantes.POSICOES.values()[getInputConfigs().get("position")]);
+                    child.setNodeTreemap(item);
+                    break;
+                case "Orientation":
+                    for (int j = 0; j <= OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length - 1; j++) {
+                        if (OrientationFactory.ARROW.GLYPH_ORIENTACAO.values()[j].nome().equals(glyph.getVarValue())) {
+                            inputConfigs.put("orientation", j);
+                            break;
+                        }
+                    }
+                    child = getGlyphMB().defineOrientation(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values()[getInputConfigs().get("orientation")]);
+                    child.setNodeTreemap(item);
+                    break;
+                case "ProfileGlyph":
+                    getInputConfigs().put("profileglyph", 1);
+                    getGlyphMB().setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
+                    child = getGlyphMB().configureProfileGlyph(item);
+                    child.setNodeTreemap(item);
+                    break;
             }
-
-            montarGlyph(father, defineCamadasGlyph(camadasSorteadas, profilePresent), true);
-            listaFamilias.add(getItemInput().getGlyphFamily(father, new ArrayList<>()));
-            listaItens.add(getItemInput());
+            if (child != null) {
+                father.appendChild(child);
+            }
         }
+        System.out.println("familia remontada: " + item.getGlyphFamily(father, new ArrayList()));
+        if (father.getBounds() != null) {
+            father.setBounds(father.getBounds());
+        }
+        procurarAreaGlyphFilhos(item);
+        return father;
     }
 
     private List<Glyph> criarItemMaisGlyph(int camadasRemover, int controle) {
-        List<Glyph> familia = listaFamilias.get(controle);
-
-        TreeMapItem item = criarTreemapItem(listaItens.get(controle), false);
-
-        Glyph father = item.getGlyph();
-        father.killAllChild();//eh feito um kill para garantir que nao ha filhos
-
-        List<String> localFamilia = new ArrayList<>();
-        for (int i = 0; i < familia.size() - camadasRemover; i++) {
-            localFamilia.add(familia.get(i).toString());
-        }
-
-        montarGlyph(father, localFamilia, false);
-
-        return item.getGlyphFamily(father, new ArrayList<>());
+        itemInput = null;
+        itemInput = recuperarCaracteristicasItemBase(listaItensBase.get(controle));
+        Glyph father = remontarGlyph(itemInput, camadasRemover);
+        System.out.println("-----------------------");
+        return itemInput.getGlyphFamily(father, new ArrayList<>());
     }
 
     public List<Glyph> getFamily2Draw() {
@@ -287,6 +384,9 @@ public class SetUpScalabilityTestMB {
             rodadaRemoveCamada++;
             controleGlyphBase = 0;
         }
+        System.out.println("contTarefasRealizadas: "+contTarefasRealizadas+" / "+quantGlyphsBase * (getGlyphLayers2draw().length - 1));
+        System.out.println("controleGlyphBase: " + controleGlyphBase);
+        System.out.println("rodadaRemoveCamada: " + rodadaRemoveCamada);
 
         if (rodadaRemoveCamada == glyphLayers2draw.length - 1) {
             rodadaRemoveCamada = 0;
@@ -297,13 +397,12 @@ public class SetUpScalabilityTestMB {
 
     public List<Glyph> configLayersInput() {
         criarDadosSimulados();
-        itemInput = criarTreemapItem(new TreeMapItem(1, 0), true);
+        itemInput = criarNovoTreemapItem();
 
         Glyph father = getItemInput().getGlyph();
         father.killAllChild();//eh feito um kill para garantir que nao ha filhos
-        //TODO sortear familia e se o profile glyph for sorteado, ele deve ficar sempre na ultima camada.
+
         layersMisturadas = shuffleArray(Constantes.VAR_VISUAIS_CATEGORICAS.values());
-//        listaFamilias.add(layersMisturadas);
         for (Constantes.VAR_VISUAIS_CATEGORICAS var : layersMisturadas) {
 //        for (Constantes.VAR_VISUAIS_CATEGORICAS var : Constantes.VAR_VISUAIS_CATEGORICAS.values()) {
             Glyph child = null;
@@ -377,7 +476,7 @@ public class SetUpScalabilityTestMB {
      * @deprecated
      */
     public void configLayersOutput() {
-        itemOutput = criarTreemapItem(new TreeMapItem(1, 0), true);
+        itemOutput = criarNovoTreemapItem();
         itemOutput.getBounds().x = 200;
         Glyph father = getItemOutput().getGlyph();
         father.killAllChild();
@@ -440,22 +539,38 @@ public class SetUpScalabilityTestMB {
     }
 
     private void criarDadosSimulados() {
+//        int valor = 100;
+//        List<String[]> dadosColunas = new ArrayList<>();
+//        for (int i = 0; i < colunas.length; i++) {
+//            dadosSimulados = new String[3];
+//            for (int j = 0; j < dadosSimulados.length; j++) {
+//                dadosSimulados[j]
+//                        = (rand.nextInt(2) == 0)
+//                        ? "" + (rand.nextInt(valor) * (-1))
+//                        : "" + rand.nextInt(valor);
+//            }
+//            dadosColunas.add(dadosSimulados);
+//        }
+//        int linha = rand.nextInt(3);//escolhe entre as linhas 0, 1, e 2 
+//        for (int i = 0; i < dadosColunas.size(); i++) {
+//            try {
+//                dadosTreemapItem.put(colunas[i], dadosColunas.get(i)[linha]);
+//                colunas[i].configurarDescricao(dadosColunas.get(i));
+//            } catch (Exception ex) {
+//                Logger.getLogger(SetUpScalabilityTestMB.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+
         int valor = 100;
         List<String[]> dadosColunas = new ArrayList<>();
         for (int i = 0; i < colunas.length; i++) {
-            dadosSimulados = new String[3];
-            for (int j = 0; j < dadosSimulados.length; j++) {
-                dadosSimulados[j]
-                        = (rand.nextInt(2) == 0)
-                        ? "" + (rand.nextInt(valor) * (-1))
-                        : "" + rand.nextInt(valor);
-            }
+            dadosSimulados = new String[1];
+            dadosSimulados[0] = (rand.nextInt(2) == 0) ? "" + (rand.nextInt(valor) * (-1)) : "" + rand.nextInt(valor);
             dadosColunas.add(dadosSimulados);
         }
-        int linha = rand.nextInt(3);//escolhe entre as linhas 0, 1, e 2 
         for (int i = 0; i < dadosColunas.size(); i++) {
             try {
-                dadosTreemapItem.put(colunas[i], dadosColunas.get(i)[linha]);
+                dadosTreemapItem.put(colunas[i], dadosColunas.get(i)[0]);
                 colunas[i].configurarDescricao(dadosColunas.get(i));
             } catch (Exception ex) {
                 Logger.getLogger(SetUpScalabilityTestMB.class.getName()).log(Level.SEVERE, null, ex);
@@ -555,6 +670,15 @@ public class SetUpScalabilityTestMB {
      */
     public void setInputConfigs(HashMap<String, Integer> inputConfigs) {
         this.inputConfigs = inputConfigs;
+
+        this.inputConfigs.put("coritem", -1);
+        this.inputConfigs.put("texture", -1);
+        this.inputConfigs.put("colorhue", -1);
+        this.inputConfigs.put("geometricshape", -1);
+        this.inputConfigs.put("text", -1);
+        this.inputConfigs.put("position", -1);
+        this.inputConfigs.put("orientation", -1);
+        this.inputConfigs.put("profileglyph", -1);
     }
 
     /**

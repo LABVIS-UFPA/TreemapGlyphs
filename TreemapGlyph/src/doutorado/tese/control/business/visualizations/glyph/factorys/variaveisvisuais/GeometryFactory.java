@@ -21,11 +21,11 @@ public class GeometryFactory {
     public static final class FORMAS {
 
         public enum GLYPH_FORMAS {
-            QUADRADO_SERRILHADO("SERRILHADO"),
-            CIRCULO("CIRCULO"),
-            CRUZ("CRUZ"),
-            ESTRELA("ESTRELA"),
-            QUADRADO("QUADRADO");
+            CIRCULO("Circulo"),
+            CRUZ("Cruz"),
+            ESTRELA("Estrela"),
+            QUADRADO_SERRILHADO("Serrilhado"),
+            QUADRADO("Quadrado");
             //LOSANGO("LOSANGO"),
             //TRAPEZIO("TRAPEZIO"),
             //PENTAGONO("PENTAGONO"),

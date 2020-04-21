@@ -1,7 +1,6 @@
 package doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation;
 
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.DrawBehavior;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -18,7 +17,7 @@ import java.util.List;
  *
  * @author Anderson Soares
  */
-public class Arrow180 implements DrawBehavior {
+public class Arrow0Dir implements DrawBehavior {
 
     private int[] xPoints;
     private int[] yPoints;
@@ -28,7 +27,8 @@ public class Arrow180 implements DrawBehavior {
     private List<Polygon> triangulos;
     private List<Line2D.Float> retas;
 
-    public Arrow180() {
+//    private Polygon p;
+    public Arrow0Dir() {
         cor = Color.BLACK;
     }
 
@@ -44,21 +44,6 @@ public class Arrow180 implements DrawBehavior {
         g2d.draw(path);
     }
 
-    private int[][] montarTriangulo(int scaleheight) {
-        int[][] pontosTriangulo = new int[3][2];
-        //center    
-        pontosTriangulo[0][0] = xPoints[0];
-        pontosTriangulo[0][1] = yPoints[0] + scaleheight;
-        //top
-        pontosTriangulo[1][0] = xPoints[0] + scaleheight;
-        pontosTriangulo[1][1] = (int) Math.round(yPoints[0] + scaleheight * 0.7);
-
-        //botton
-        pontosTriangulo[2][0] = xPoints[0] + scaleheight;
-        pontosTriangulo[2][1] = (int) Math.round(yPoints[0] + scaleheight * 1.4);
-        return pontosTriangulo;
-    }
-
     @Override
     public void tornarGlyphQuadrado(int[] point) {
         if (point[0] > point[1]) {
@@ -68,7 +53,7 @@ public class Arrow180 implements DrawBehavior {
         }
     }
 
-    private void montarSetas180() {
+    private void montarSetas0() {
         int[] points = new int[2];
 
         points[0] = getBounds().width;
@@ -78,31 +63,45 @@ public class Arrow180 implements DrawBehavior {
         montarQuadradoSobreposicao(points);
 
         int slices = 6;
-        int slice = yPoints[1] / slices;
-
-        int scalewidth = (int) (xPoints[1] * 0.17);
+        int slicewidth = xPoints[1] / slices;
+        int scaleheight = (int) (yPoints[1] * 0.16d);
 
         triangulos = new ArrayList<>();
         retas = new ArrayList<>();
 
-        int pontosTriangulo[][] = montarTriangulo(scalewidth);
+        int pontosTriangulo[][] = montarTriangulo(scaleheight);
 
         for (int i = 0; i < slices - 1; i++) {
             Polygon p = new Polygon();
             //center
-            p.addPoint(pontosTriangulo[0][0], (i * slice) + pontosTriangulo[0][1]);
+            p.addPoint(pontosTriangulo[0][0], (i * slicewidth) + pontosTriangulo[0][1]);
             //top
-            p.addPoint(pontosTriangulo[1][0], (i * slice) + pontosTriangulo[1][1]);
+            p.addPoint(pontosTriangulo[1][0], (i * slicewidth) + pontosTriangulo[1][1]);
             //botton
-            p.addPoint(pontosTriangulo[2][0], (i * slice) + pontosTriangulo[2][1]);
+            p.addPoint(pontosTriangulo[2][0], (i * slicewidth) + pontosTriangulo[2][1]);
             triangulos.add(p);
         }
         for (int i = 1; i < slices; i++) {
-            retas.add(new Line2D.Float(xPoints[0], yPoints[0] + (i * slice), xPoints[0] + xPoints[1], yPoints[0] + (i * slice)));
+            retas.add(new Line2D.Float(xPoints[0], yPoints[0] + (i * slicewidth), xPoints[0] + xPoints[1], yPoints[0] + (i * slicewidth)));
         }
+
         drawSetas();
     }
-    
+
+    private int[][] montarTriangulo(int scaleheight) {
+        int[][] pontosTriangulo = new int[3][2];
+        //tob
+        pontosTriangulo[1][0] = xPoints[0] + (xPoints[1] - scaleheight);
+        pontosTriangulo[1][1] = (int) (yPoints[0] + scaleheight * 0.6);
+        //center    
+        pontosTriangulo[0][0] = xPoints[0] + xPoints[1];
+        pontosTriangulo[0][1] = yPoints[0] + scaleheight;
+        //botton
+        pontosTriangulo[2][0] = xPoints[0] + (xPoints[1] - scaleheight);
+        pontosTriangulo[2][1] = (int) (yPoints[0] + scaleheight * 1.4);
+        return pontosTriangulo;
+    }
+
     private void drawSetas() {
         path = new Path2D.Double();
         triangulos.forEach((triangulo) -> {
@@ -134,7 +133,7 @@ public class Arrow180 implements DrawBehavior {
     @Override
     public void setGlyphBounds(Rectangle bounds) {
         this.bounds = bounds;
-        montarSetas180();
+        montarSetas0();
     }
 
     @Override
@@ -155,10 +154,10 @@ public class Arrow180 implements DrawBehavior {
     }
 
     @Override
-    public Arrow180 clone() throws CloneNotSupportedException {
+    public Arrow0Dir clone() throws CloneNotSupportedException {
         try {
             // call clone in Object.
-            return (Arrow180) super.clone();
+            return (Arrow0Dir) super.clone();
         } catch (CloneNotSupportedException e) {
             System.err.println("Cloning not allowed.");
             return this;
@@ -168,6 +167,6 @@ public class Arrow180 implements DrawBehavior {
     @Override
     public String toString() {
         super.toString();
-        return Arrow180.class.getSimpleName();
+        return Arrow0Dir.class.getSimpleName();
     }
 }

@@ -6,22 +6,22 @@
 package doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais;
 
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.DrawBehavior;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow0;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow135;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow180;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow45;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow90;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow0Dir;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow135CanEsq;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow180Esq;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow45CanDir;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.orientation.Arrow90Cima;
 
 public class OrientationFactory {
 
     public static final class ARROW {
 
         public enum GLYPH_ORIENTACAO {
-            ARROW90("ARROW90")  ,//90 - cima
-            ARROW0("ARROW0")    ,//0 - direita
-            ARROW180("ARROW180"), //4 - esquerda
-            ARROW45("ARROW45")  ,//45 - canto direito 
-            ARROW135("ARROW135");//135 - canto esquerdo **
+            ARROW90("Arrow90Cima")  ,//90 - cima
+            ARROW0("Arrow0Dir")    ,//0 - direita
+            ARROW180("Arrow180Esq"), //4 - esquerda
+            ARROW45("Arrow45CanDir")  ,//45 - canto direito 
+            ARROW135("Arrow135CanEsq");//135 - canto esquerdo **
 
             private final String nome;
 
@@ -42,15 +42,15 @@ public class OrientationFactory {
     public static DrawBehavior create(ARROW.GLYPH_ORIENTACAO orientacao) {
         switch (orientacao) {
             case ARROW0:
-                return new Arrow0();
+                return new Arrow0Dir();
             case ARROW45:
-                return new Arrow45();
+                return new Arrow45CanDir();
             case ARROW90:
-                return new Arrow90();
+                return new Arrow90Cima();
             case ARROW135:
-                return new Arrow135();
+                return new Arrow135CanEsq();
             case ARROW180:
-                return new Arrow180();
+                return new Arrow180Esq();
             default:
                 return null;
         }
