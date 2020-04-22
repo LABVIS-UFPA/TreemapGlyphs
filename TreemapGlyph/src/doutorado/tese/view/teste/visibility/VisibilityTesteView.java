@@ -29,6 +29,7 @@ import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvi
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_4x4;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_6x6;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_8x8;
+import doutorado.tese.control.mb.testeMB.scalabilityMB.SetUpVisibilityTestMB;
 import doutorado.tese.util.Constantes;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -59,26 +60,18 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class VisibilityTesteView extends javax.swing.JFrame {
 
     private HashMap<String, Integer> configs;
-//    private HashMap<String, Boolean> output;
-//    private Random rand;
-//    private String data;
+    private HashMap<String, String> respostasUsuario;
     private StringBuilder data;
-//    private boolean selectAll = true;
     private HashMap<String, Integer> areas;
-//    private int[] glyphlayers2draw = {0, 1, 2, 3, 4, 5, 6};
-//    private String[] layers = new String[]{"texture", "colorhue", "geometricshape", "text", "position", "orientation", "coritem"};
-//    private HashMap<String, JCheckBox> checkboxes;
-
-//    private int cont = 0;
-//    private int numLayers2remove = 0;
     private int numAmostras = 0;//total de amostras calculado no construtor
-//    private int step = (numAmostras / 6) + 1;
     private String nomeArquivo = "result_" + System.getProperty("user.name") + ".csv";
+    private final SetUpVisibilityTestMB visibilityTestMB;
 
     /**
      * Creates new form Main
      */
     public VisibilityTesteView() {
+        visibilityTestMB = new SetUpVisibilityTestMB();
         data = new StringBuilder();
         data.append(
                 "Textura,Cor,Forma,Texto,Posicao,Orientacao,ProfileGlyph,"
@@ -87,10 +80,13 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 + "AreaTextura,AreaCor,AreaForma,AreaTexto,AreaPosicao,AreaOrientacao,AreaProfileGlyph,"
                 //+ "ViuTextura,ViuCor,ViuForma,ViuTexto,ViuPosicao,ViuOrientacao,ViuProfileGlyph,"
                 + "FamiliaGlyph,"
-                + "TexturaValor,CorValor,FormaValor,TextoValor,PosicaoValor,OrientacaoValor"
-                + "areaVisivel_Textura,areaVisivel_Cor,areaVisivel_Forma,areaVisivel_Texto,areaVisivel_Posicao,areaVisivel_Orientacao"
+                + "TexturaValorUsuario,CorValorUsuario,FormaValorUsuario,TextoValorUsuario,PosicaoValorUsuario,OrientacaoValorUsuario,"
+                + "areaVisivel_Textura,areaVisivel_Cor,areaVisivel_Forma,areaVisivel_Texto,areaVisivel_Posicao,areaVisivel_Orientacao,"
+                + "TexturaValorGabarito,CorValorGabarito,FormaValorGabarito,TextoValorGabarito,PosicaoValorGabarito,OrientacaoValorGabarito,"
+                + "userScore"
         );
         configs = new HashMap<>();
+        respostasUsuario = new HashMap<>();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -98,11 +94,12 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         }
         initComponents();
         configButtonGroups();
-        numAmostras = painelEsquerda.getQuantGlyphs() * (painelEsquerda.getGlyphLayers2draw().length - 1);
+        numAmostras = visibilityTestMB.getQuantGlyphsBase() * (visibilityTestMB.getGlyphLayers2draw().length - 1);
 
         changeConfigs();
         configRadioButtonsActionCommand();
 
+        this.painelEsquerda.setVisibilityTestMB(visibilityTestMB);
         this.painelEsquerda.setAreaCallback(new PainelDeTeste.AreaCallback() {
             @Override
             public void areaUpdated(HashMap<String, Integer> areas) {
@@ -111,140 +108,6 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         });
 
 //        updateOutput();
-    }
-
-    private void configButtonGroups() {
-        texturaButtonGroup.add(textura0RadioButton);
-        texturaButtonGroup.add(textura1RadioButton);
-        texturaButtonGroup.add(textura2RadioButton);
-        texturaButtonGroup.add(textura3RadioButton);
-        texturaButtonGroup.add(textura4RadioButton);
-        texturaButtonGroup.add(textura5RadioButton);
-
-        corButtonGroup.add(cor0RadioButton);
-        corButtonGroup.add(cor1RadioButton);
-        corButtonGroup.add(cor2RadioButton);
-        corButtonGroup.add(cor3RadioButton);
-        corButtonGroup.add(cor4RadioButton);
-        corButtonGroup.add(cor5RadioButton);
-
-        formaButtonGroup.add(forma0RadioButton);
-        formaButtonGroup.add(forma1RadioButton);
-        formaButtonGroup.add(forma2RadioButton);
-        formaButtonGroup.add(forma3RadioButton);
-        formaButtonGroup.add(forma4RadioButton);
-        formaButtonGroup.add(forma5RadioButton);
-
-        textoButtonGroup.add(text0RadioButton);
-        textoButtonGroup.add(text1RadioButton);
-        textoButtonGroup.add(text2RadioButton);
-        textoButtonGroup.add(text3RadioButton);
-        textoButtonGroup.add(text4RadioButton);
-        textoButtonGroup.add(text5RadioButton);
-
-        posicaoButtonGroup.add(position0RadioButton);
-        posicaoButtonGroup.add(position1RadioButton);
-        posicaoButtonGroup.add(position2RadioButton);
-        posicaoButtonGroup.add(position3RadioButton);
-        posicaoButtonGroup.add(position4RadioButton);
-        posicaoButtonGroup.add(position5RadioButton);
-
-        orientacaoButtonGroup.add(orientation0RadioButton);
-        orientacaoButtonGroup.add(orientation1RadioButton);
-        orientacaoButtonGroup.add(orientation2RadioButton);
-        orientacaoButtonGroup.add(orientation3RadioButton);
-        orientacaoButtonGroup.add(orientation4RadioButton);
-        orientacaoButtonGroup.add(orientation5RadioButton);
-
-        profileButtonGroup.add(profile0RadioButton);
-        profileButtonGroup.add(profile1RadioButton);
-        profileButtonGroup.add(profile2RadioButton);
-        profileButtonGroup.add(profile3RadioButton);
-        profileButtonGroup.add(profile4RadioButton);
-        profileButtonGroup.add(profile5RadioButton);
-    }
-
-    public void configRadioButtonsActionCommand() {
-        textura0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
-        textura1RadioButton.setActionCommand(CirculoTextura_2x2.class.getSimpleName());
-        textura2RadioButton.setActionCommand(CirculoTextura_4x4.class.getSimpleName());
-        textura3RadioButton.setActionCommand(CirculoTextura_6x6.class.getSimpleName());
-        textura4RadioButton.setActionCommand(CirculoTextura_8x8.class.getSimpleName());
-        textura5RadioButton.setActionCommand(CirculoTextura_10x10.class.getSimpleName());
-
-        cor0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
-        cor1RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[0]);
-        cor2RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[1]);
-        cor3RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[2]);
-        cor4RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[3]);
-        cor5RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[4]);
-
-        forma0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
-        forma1RadioButton.setActionCommand(Circulo.class.getSimpleName());
-        forma2RadioButton.setActionCommand(Serrilhado.class.getSimpleName());
-        forma3RadioButton.setActionCommand(Cruz.class.getSimpleName());
-        forma4RadioButton.setActionCommand(Estrela.class.getSimpleName());
-        forma5RadioButton.setActionCommand(Quadrado.class.getSimpleName());
-
-        text0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
-        text1RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[0]);
-        text2RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[1]);
-        text3RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[2]);
-        text4RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[3]);
-        text5RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[4]);
-
-        position0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
-        position1RadioButton.setActionCommand(Constantes.POSICOES.ESQ_INF.name());
-        position2RadioButton.setActionCommand(Constantes.POSICOES.DIR_SUP.name());
-        position3RadioButton.setActionCommand(Constantes.POSICOES.DIR_INF.name());
-        position4RadioButton.setActionCommand(Constantes.POSICOES.ESQ_SUP.name());
-        position5RadioButton.setActionCommand(Constantes.POSICOES.CENTRO.name());
-
-        orientation0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
-        orientation1RadioButton.setActionCommand(Arrow90Cima.class.getSimpleName());
-        orientation2RadioButton.setActionCommand(Arrow180Esq.class.getSimpleName());
-        orientation3RadioButton.setActionCommand(Arrow45CanDir.class.getSimpleName());
-        orientation4RadioButton.setActionCommand(Arrow0Dir.class.getSimpleName());
-        orientation5RadioButton.setActionCommand(Arrow135CanEsq.class.getSimpleName());
-
-        profile0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
-        profile1RadioButton.setActionCommand("op1");
-        profile2RadioButton.setActionCommand("op2");
-        profile3RadioButton.setActionCommand("op3");
-        profile4RadioButton.setActionCommand("op4");
-        profile5RadioButton.setActionCommand("op5");
-    }
-
-    public void resetPainelsRadioButtos() {
-        texturaButtonGroup.clearSelection();
-        corButtonGroup.clearSelection();
-        formaButtonGroup.clearSelection();
-        textoButtonGroup.clearSelection();
-        posicaoButtonGroup.clearSelection();
-        orientacaoButtonGroup.clearSelection();
-        profileButtonGroup.clearSelection();
-    }
-
-    public void changeConfigs() {
-        resetPainelsRadioButtos();
-
-        painelEsquerda.setInputConfigs(configs);
-
-        contadorLabel.setText(painelEsquerda.getContTarefasRealizadas() + " / " + numAmostras);
-    }
-
-    public boolean isSelectedRadioButton(ButtonGroup buttonGroup) {
-        boolean selected = false;
-        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
-            AbstractButton button = buttons.nextElement();
-
-            if (button.isSelected()) {
-                selected = true;
-                break;
-            }
-        }
-
-        return selected;
     }
 
     /**
@@ -340,10 +203,10 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         position1RadioButton = new javax.swing.JRadioButton();
         position0RadioButton = new javax.swing.JRadioButton();
         profileGlyphPanel = new javax.swing.JPanel();
-        profileGlyphLabel0 = new javax.swing.JLabel();
+        profileGlyphLabel3 = new javax.swing.JLabel();
         profileGlyphLabel1 = new javax.swing.JLabel();
         profileGlyphLabel2 = new javax.swing.JLabel();
-        profileGlyphLabel3 = new javax.swing.JLabel();
+        profileGlyphLabel5 = new javax.swing.JLabel();
         profileGlyphLabel4 = new javax.swing.JLabel();
         profile1RadioButton = new javax.swing.JRadioButton();
         profile2RadioButton = new javax.swing.JRadioButton();
@@ -988,20 +851,45 @@ public class VisibilityTesteView extends javax.swing.JFrame {
 
         profileGlyphPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        profileGlyphLabel0.setBackground(new java.awt.Color(255, 204, 204));
-        profileGlyphLabel0.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        profileGlyphLabel3.setBackground(new java.awt.Color(255, 204, 204));
+        profileGlyphLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        profileGlyphLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                profileGlyphLabel3MouseClicked(evt);
+            }
+        });
 
         profileGlyphLabel1.setBackground(new java.awt.Color(255, 204, 204));
         profileGlyphLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        profileGlyphLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                profileGlyphLabel1MouseClicked(evt);
+            }
+        });
 
         profileGlyphLabel2.setBackground(new java.awt.Color(255, 204, 204));
         profileGlyphLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        profileGlyphLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                profileGlyphLabel2MouseClicked(evt);
+            }
+        });
 
-        profileGlyphLabel3.setBackground(new java.awt.Color(255, 204, 204));
-        profileGlyphLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        profileGlyphLabel5.setBackground(new java.awt.Color(255, 204, 204));
+        profileGlyphLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        profileGlyphLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                profileGlyphLabel5MouseClicked(evt);
+            }
+        });
 
         profileGlyphLabel4.setBackground(new java.awt.Color(255, 204, 204));
         profileGlyphLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        profileGlyphLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                profileGlyphLabel4MouseClicked(evt);
+            }
+        });
 
         profile0RadioButton.setText("Não identifiquei/apresenta");
 
@@ -1023,7 +911,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 .addGap(41, 41, 41)
                 .addComponent(profile3RadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(profileGlyphLabel0, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(profileGlyphLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62)
                 .addComponent(profile4RadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1031,11 +919,11 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 .addGap(59, 59, 59)
                 .addComponent(profile5RadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(profileGlyphLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(profileGlyphLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         profileGlyphPanelLayout.setVerticalGroup(
             profileGlyphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(profileGlyphLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(profileGlyphLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(profileGlyphLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(profileGlyphPanelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
@@ -1045,7 +933,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 .addComponent(profile5RadioButton)
                 .addGap(16, 16, 16))
             .addGroup(profileGlyphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(profileGlyphLabel0, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(profileGlyphLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(profileGlyphLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(profileGlyphLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profileGlyphPanelLayout.createSequentialGroup()
@@ -1065,7 +953,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         panelOpcoesRadios.setLayout(panelOpcoesRadiosLayout);
         panelOpcoesRadiosLayout.setHorizontalGroup(
             panelOpcoesRadiosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(texturasPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
+            .addComponent(texturasPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
             .addComponent(coresPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(orientationPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(textPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1170,6 +1058,132 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void configButtonGroups() {
+        texturaButtonGroup.add(textura0RadioButton);
+        texturaButtonGroup.add(textura1RadioButton);
+        texturaButtonGroup.add(textura2RadioButton);
+        texturaButtonGroup.add(textura3RadioButton);
+        texturaButtonGroup.add(textura4RadioButton);
+        texturaButtonGroup.add(textura5RadioButton);
+
+        corButtonGroup.add(cor0RadioButton);
+        corButtonGroup.add(cor1RadioButton);
+        corButtonGroup.add(cor2RadioButton);
+        corButtonGroup.add(cor3RadioButton);
+        corButtonGroup.add(cor4RadioButton);
+        corButtonGroup.add(cor5RadioButton);
+
+        formaButtonGroup.add(forma0RadioButton);
+        formaButtonGroup.add(forma1RadioButton);
+        formaButtonGroup.add(forma2RadioButton);
+        formaButtonGroup.add(forma3RadioButton);
+        formaButtonGroup.add(forma4RadioButton);
+        formaButtonGroup.add(forma5RadioButton);
+
+        textoButtonGroup.add(text0RadioButton);
+        textoButtonGroup.add(text1RadioButton);
+        textoButtonGroup.add(text2RadioButton);
+        textoButtonGroup.add(text3RadioButton);
+        textoButtonGroup.add(text4RadioButton);
+        textoButtonGroup.add(text5RadioButton);
+
+        posicaoButtonGroup.add(position0RadioButton);
+        posicaoButtonGroup.add(position1RadioButton);
+        posicaoButtonGroup.add(position2RadioButton);
+        posicaoButtonGroup.add(position3RadioButton);
+        posicaoButtonGroup.add(position4RadioButton);
+        posicaoButtonGroup.add(position5RadioButton);
+
+        orientacaoButtonGroup.add(orientation0RadioButton);
+        orientacaoButtonGroup.add(orientation1RadioButton);
+        orientacaoButtonGroup.add(orientation2RadioButton);
+        orientacaoButtonGroup.add(orientation3RadioButton);
+        orientacaoButtonGroup.add(orientation4RadioButton);
+        orientacaoButtonGroup.add(orientation5RadioButton);
+
+        profileButtonGroup.add(profile0RadioButton);
+        profileButtonGroup.add(profile1RadioButton);
+        profileButtonGroup.add(profile2RadioButton);
+        profileButtonGroup.add(profile3RadioButton);
+        profileButtonGroup.add(profile4RadioButton);
+        profileButtonGroup.add(profile5RadioButton);
+    }
+
+    public void configRadioButtonsActionCommand() {
+        textura0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
+        textura1RadioButton.setActionCommand(CirculoTextura_2x2.class.getSimpleName());
+        textura2RadioButton.setActionCommand(CirculoTextura_4x4.class.getSimpleName());
+        textura3RadioButton.setActionCommand(CirculoTextura_6x6.class.getSimpleName());
+        textura4RadioButton.setActionCommand(CirculoTextura_8x8.class.getSimpleName());
+        textura5RadioButton.setActionCommand(CirculoTextura_10x10.class.getSimpleName());
+
+        cor0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
+        cor1RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[0]);
+        cor2RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[1]);
+        cor3RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[2]);
+        cor4RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[3]);
+        cor5RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[4]);
+
+        forma0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
+        forma1RadioButton.setActionCommand(Circulo.class.getSimpleName());
+        forma2RadioButton.setActionCommand(Serrilhado.class.getSimpleName());
+        forma3RadioButton.setActionCommand(Cruz.class.getSimpleName());
+        forma4RadioButton.setActionCommand(Estrela.class.getSimpleName());
+        forma5RadioButton.setActionCommand(Quadrado.class.getSimpleName());
+
+        text0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
+        text1RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[0]);
+        text2RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[1]);
+        text3RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[2]);
+        text4RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[3]);
+        text5RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[4]);
+
+        position0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
+        position1RadioButton.setActionCommand(Constantes.POSICOES.ESQ_INF.name());
+        position2RadioButton.setActionCommand(Constantes.POSICOES.DIR_SUP.name());
+        position3RadioButton.setActionCommand(Constantes.POSICOES.DIR_INF.name());
+        position4RadioButton.setActionCommand(Constantes.POSICOES.ESQ_SUP.name());
+        position5RadioButton.setActionCommand(Constantes.POSICOES.CENTRO.name());
+
+        orientation0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
+        orientation1RadioButton.setActionCommand(Arrow90Cima.class.getSimpleName());
+        orientation2RadioButton.setActionCommand(Arrow180Esq.class.getSimpleName());
+        orientation3RadioButton.setActionCommand(Arrow45CanDir.class.getSimpleName());
+        orientation4RadioButton.setActionCommand(Arrow0Dir.class.getSimpleName());
+        orientation5RadioButton.setActionCommand(Arrow135CanEsq.class.getSimpleName());
+
+        profile0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
+        profile1RadioButton.setActionCommand("op1");
+        profile2RadioButton.setActionCommand("op2");
+        profile3RadioButton.setActionCommand("op3");
+        profile4RadioButton.setActionCommand("op4");
+        profile5RadioButton.setActionCommand("op5");
+    }
+
+    public void resetPainelsRadioButtos() {
+        texturaButtonGroup.clearSelection();
+        corButtonGroup.clearSelection();
+        formaButtonGroup.clearSelection();
+        textoButtonGroup.clearSelection();
+        posicaoButtonGroup.clearSelection();
+        orientacaoButtonGroup.clearSelection();
+        profileButtonGroup.clearSelection();
+    }
+
+    public boolean isSelectedRadioButton(ButtonGroup buttonGroup) {
+        boolean selected = false;
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                selected = true;
+                break;
+            }
+        }
+
+        return selected;
+    }
+
     public String[] parseListString2Array(ListModel<String> lista) {
         String[] convertida = new String[lista.getSize()];
         for (int i = 0; i < convertida.length; i++) {
@@ -1200,88 +1214,6 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             valid = false;
         }
         return valid;
-    }
-
-    public void setData() {
-        float aspect = configs.get("height") > configs.get("width")
-                    ? (configs.get("width") * 1.f) / configs.get("height")
-                    : (configs.get("height") * 1.f) / configs.get("width");
-        
-        String[] areaVisivelVarVisuais = calcularAreaVisivel(painelEsquerda.getFamilia2Desenho()).replace("[", "").replace("]", "").split(",");
-
-        data.append("\n").
-                append(configs.get("texture") >= 0 ? 1 : 0).append(",").
-                append(configs.get("colorhue") >= 0 ? 1 : 0).append(",").
-                append(configs.get("geometricshape") >= 0 ? 1 : 0).append(",").
-                append(configs.get("text") >= 0 ? 1 : 0).append(",").
-                append(configs.get("position") >= 0 ? 1 : 0).append(",").
-                append(configs.get("orientation") >= 0 ? 1 : 0).append(",").
-                append(configs.get("profileglyph") > 0 ? 1 : 0).append(",").
-                append(configs.get("height")).append(",").
-                append(configs.get("width")).append(",").
-                append(configs.get("width") * configs.get("height")).append(",").
-                append(aspect).append(",").
-                append(configs.get("coritem") >= 0 ? 1 : 0).append(",").
-                append(areas.get("texture")).append(",").
-                append(areas.get("colorhue")).append(",").
-                append(areas.get("geometricshape")).append(",").
-                append(areas.get("text")).append(",").
-                append(areas.get("position")).append(",").
-                append(areas.get("orientation")).append(",").
-                append(areas.get("profileglyph")).append(",").
-                //                append(checkboxTexture.isSelected() ? 1 : 0).append(",").
-                //                append(checkboxColorHue.isSelected() ? 1 : 0).append(",").
-                //                append(checkboxShape.isSelected() ? 1 : 0).append(",").
-                //                append(checkboxText.isSelected() ? 1 : 0).append(",").
-                //                append(checkboxPosition.isSelected() ? 1 : 0).append(",").
-                //                append(checkboxOrientation.isSelected() ? 1 : 0).append(",").
-                //                append(checkboxProfileGlyph.isSelected() ? 1 : 0).append(",").
-                append(painelEsquerda.getFamilia2Desenho().toString().replace(",", ">").replace("[", "").replace("]", "")).append(",").
-                append(texturaButtonGroup.getSelection().getActionCommand()).append(","). //"TexturaValor"
-                append(corButtonGroup.getSelection().getActionCommand()).append(","). //"CorValor"
-                append(formaButtonGroup.getSelection().getActionCommand()).append(","). //"FormaValor"
-                append(textoButtonGroup.getSelection().getActionCommand()).append(","). //"TextoValor"
-                append(posicaoButtonGroup.getSelection().getActionCommand()).append(","). //"PosicaoValor"
-                append(orientacaoButtonGroup.getSelection().getActionCommand()).append(",").//"OrientacaoValor"
-                //                append(profileButtonGroup.getSelection().getActionCommand()).append(",").//"profileGlyphValor"
-                append(",").append(areaVisivelVarVisuais[0]). //area visivel Textura
-                append(",").append(areaVisivelVarVisuais[1]). //area visivel cor
-                append(",").append(areaVisivelVarVisuais[2]). //area visivel forma
-                append(",").append(areaVisivelVarVisuais[3]). //area visivel Texto
-                append(",").append(areaVisivelVarVisuais[4]). //area visivel Posicao
-                append(",").append(areaVisivelVarVisuais[5]) //area visivel Orientacao
-                ;
-    }
-
-    public void saveDataInFile() {
-        PrintWriter writer = null;
-        Calendar calendar = new GregorianCalendar(Locale.getDefault());
-        Date trialTime = new Date();
-        calendar.setTime(trialTime);
-        int ano = calendar.get(Calendar.YEAR);
-        int mes = calendar.get(Calendar.MONTH);
-        int dia = calendar.get(Calendar.DATE);
-        int hora = calendar.get(Calendar.HOUR);
-        int min = calendar.get(Calendar.MINUTE);
-        try {
-            nomeArquivo = "result_" + System.getProperty("user.name") + "_" + ano + mes + dia + "_" + hora + "_" + min + ".csv";
-            File f = new File("testVisibility" + File.separator);
-            if (!f.exists()) {
-                f.mkdir();
-            } else {
-                File file = new File("testVisibility" + File.separator + nomeArquivo);
-                writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-                writer.print(data);
-                writer.flush();
-                writer.close();
-                JOptionPane.showMessageDialog(null, "Thank you for participating.", "Thanks!", JOptionPane.INFORMATION_MESSAGE);
-            }
-            this.dispose();
-        } catch (IOException ex) {
-            Logger.getLogger(VisibilityTesteView.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            writer.close();
-        }
     }
 
     /**
@@ -1321,21 +1253,119 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 + textAreaVisivel + "," + orientationAreaVisivel + "," + positionAreaVisivel;
     }
 
+    public void setData(String userScore) {
+        float aspect = configs.get("height") > configs.get("width")
+                ? (configs.get("width") * 1.f) / configs.get("height")
+                : (configs.get("height") * 1.f) / configs.get("width");
+
+        String[] areaVisivelVarVisuais = calcularAreaVisivel(visibilityTestMB.getFamily2Draw()).replace("[", "").replace("]", "").split(",");
+
+        data.append("\n").
+                append(configs.get("texture") >= 0 ? 1 : 0).append(",").
+                append(configs.get("colorhue") >= 0 ? 1 : 0).append(",").
+                append(configs.get("geometricshape") >= 0 ? 1 : 0).append(",").
+                append(configs.get("text") >= 0 ? 1 : 0).append(",").
+                append(configs.get("position") >= 0 ? 1 : 0).append(",").
+                append(configs.get("orientation") >= 0 ? 1 : 0).append(",").
+                append(configs.get("profileglyph") > 0 ? 1 : 0).append(",").
+                append(configs.get("height")).append(",").
+                append(configs.get("width")).append(",").
+                append(configs.get("width") * configs.get("height")).append(",").
+                append(aspect).append(",").
+                append(configs.get("coritem") >= 0 ? 1 : 0).append(",").
+                append(areas.get("texture")).append(",").
+                append(areas.get("colorhue")).append(",").
+                append(areas.get("geometricshape")).append(",").
+                append(areas.get("text")).append(",").
+                append(areas.get("position")).append(",").
+                append(areas.get("orientation")).append(",").
+                append(areas.get("profileglyph")).append(",").
+                append(visibilityTestMB.getFamily2Draw().toString().replace(",", ">").replace("[", "").replace("]", "")).append(",").
+                append(texturaButtonGroup.getSelection().getActionCommand())    .append(","). //"TexturaValor"
+                append(corButtonGroup.getSelection().getActionCommand())        .append(","). //"CorValor"
+                append(formaButtonGroup.getSelection().getActionCommand())      .append(","). //"FormaValor"
+                append(textoButtonGroup.getSelection().getActionCommand())      .append(","). //"TextoValor"
+                append(posicaoButtonGroup.getSelection().getActionCommand())    .append(","). //"PosicaoValor"
+                append(orientacaoButtonGroup.getSelection().getActionCommand()) .append(",").//"OrientacaoValor"
+                append(areaVisivelVarVisuais[0]).append(","). //area visivel Textura
+                append(areaVisivelVarVisuais[1]).append(","). //area visivel cor
+                append(areaVisivelVarVisuais[2]).append(","). //area visivel forma
+                append(areaVisivelVarVisuais[3]).append(","). //area visivel Texto
+                append(areaVisivelVarVisuais[4]).append(","). //area visivel Posicao
+                append(areaVisivelVarVisuais[5]).append(","). //area visivel Orientacao
+                append(visibilityTestMB.getGabarito().get("Texture"))       .append(",").   //gabarito Textura
+                append(visibilityTestMB.getGabarito().get("ColorHue"))      .append(",").   //gabarito cor
+                append(visibilityTestMB.getGabarito().get("GeometricShape")).append(",").   //gabarito forma
+                append(visibilityTestMB.getGabarito().get("Text"))          .append(",").   //gabarito Texto
+                append(visibilityTestMB.getGabarito().get("Position"))      .append(",").   //gabarito Posicao
+                append(visibilityTestMB.getGabarito().get("Orientation"))   .append(",").   //gabarito Orientacao
+                append(userScore)//user score
+                ;
+    }
+
+    public void saveDataInFile() {
+        PrintWriter writer = null;
+        Calendar calendar = new GregorianCalendar(Locale.getDefault());
+        Date trialTime = new Date();
+        calendar.setTime(trialTime);
+        int ano = calendar.get(Calendar.YEAR);
+        int mes = calendar.get(Calendar.MONTH);
+        int dia = calendar.get(Calendar.DATE);
+        int hora = calendar.get(Calendar.HOUR);
+        int min = calendar.get(Calendar.MINUTE);
+        try {
+            nomeArquivo = "result_" + System.getProperty("user.name")
+                    + "_" + ano + mes + dia + "_" + hora + "_" + min + ".csv";
+            File f = new File("testVisibility" + File.separator);
+            if (!f.exists()) {
+                f.mkdir();
+            } else {
+                File file = new File("testVisibility" + File.separator + nomeArquivo);
+                writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+                writer.print(data);
+                writer.flush();
+                writer.close();
+                JOptionPane.showMessageDialog(null, "Thank you for participating.", "Thanks!", JOptionPane.INFORMATION_MESSAGE);
+            }
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(VisibilityTesteView.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            writer.close();
+        }
+    }
+
+    public void changeConfigs() {
+        resetPainelsRadioButtos();
+
+        visibilityTestMB.setInputConfigs(configs);
+        visibilityTestMB.family2Draw();
+        painelEsquerda.repaint();
+        
+        contadorLabel.setText(visibilityTestMB.getContTarefasRealizadas() + " / " + numAmostras);
+    }
+    
+    private HashMap<String, String> atualizarRespostasUsuario(){
+        respostasUsuario.put("Texture"       , texturaButtonGroup.getSelection().getActionCommand()     );
+        respostasUsuario.put("ColorHue"      , corButtonGroup.getSelection().getActionCommand()         );
+        respostasUsuario.put("GeometricShape", formaButtonGroup.getSelection().getActionCommand()       );
+        respostasUsuario.put("Text"          , textoButtonGroup.getSelection().getActionCommand()       );
+        respostasUsuario.put("Position"      , posicaoButtonGroup.getSelection().getActionCommand()     );
+        respostasUsuario.put("Orientation"   , orientacaoButtonGroup.getSelection().getActionCommand()  );
+        respostasUsuario.put("ProfileGlyph"  , profileButtonGroup.getSelection().getActionCommand()     );
+        return respostasUsuario;
+    }
+
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         if (validateRadioButtons()) {
-            
-
-            setData();
-
-            if (painelEsquerda.getContTarefasRealizadas() >= numAmostras) {
+            setData(visibilityTestMB.calculateUserScore(atualizarRespostasUsuario()));
+            if (visibilityTestMB.getContTarefasRealizadas() >= numAmostras) {//se true encerra o teste e salva os dados em arquivo
                 saveDataInFile();
             } else {
                 changeConfigs();
             }
-//            updateOutput();
         }
     }//GEN-LAST:event_btnConfirmActionPerformed
-
 
     private void textura1LabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textura1LabelMouseClicked
         textura1RadioButton.setSelected(true);
@@ -1457,17 +1487,25 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         orientation5RadioButton.setSelected(true);
     }//GEN-LAST:event_orientation5LabelMouseClicked
 
-    private void updateOutput() {
-//        output.put("texture", checkboxTexture.isSelected());
-//        output.put("colorhue", checkboxColorHue.isSelected());
-//        output.put("geometricshape", checkboxShape.isSelected());
-//        output.put("text", checkboxText.isSelected());
-//        output.put("position", checkboxPosition.isSelected());
-//        output.put("orientation", checkboxOrientation.isSelected());
-//        output.put("profileglyph", checkboxProfileGlyph.isSelected());
+    private void profileGlyphLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileGlyphLabel1MouseClicked
+        profile1RadioButton.setSelected(true);
+    }//GEN-LAST:event_profileGlyphLabel1MouseClicked
 
-//        painelEsquerda.updateOutput(output);
-    }
+    private void profileGlyphLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileGlyphLabel2MouseClicked
+        profile2RadioButton.setSelected(true);
+    }//GEN-LAST:event_profileGlyphLabel2MouseClicked
+
+    private void profileGlyphLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileGlyphLabel3MouseClicked
+        profile3RadioButton.setSelected(true);
+    }//GEN-LAST:event_profileGlyphLabel3MouseClicked
+
+    private void profileGlyphLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileGlyphLabel4MouseClicked
+        profile4RadioButton.setSelected(true);
+    }//GEN-LAST:event_profileGlyphLabel4MouseClicked
+
+    private void profileGlyphLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileGlyphLabel5MouseClicked
+        profile5RadioButton.setSelected(true);
+    }//GEN-LAST:event_profileGlyphLabel5MouseClicked
 
     /**
      * @param args the command line arguments
@@ -1582,11 +1620,11 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     private javax.swing.JRadioButton profile4RadioButton;
     private javax.swing.JRadioButton profile5RadioButton;
     private javax.swing.ButtonGroup profileButtonGroup;
-    private javax.swing.JLabel profileGlyphLabel0;
     private javax.swing.JLabel profileGlyphLabel1;
     private javax.swing.JLabel profileGlyphLabel2;
     private javax.swing.JLabel profileGlyphLabel3;
     private javax.swing.JLabel profileGlyphLabel4;
+    private javax.swing.JLabel profileGlyphLabel5;
     private javax.swing.JPanel profileGlyphPanel;
     private javax.swing.JPanel shapePanel;
     private javax.swing.JRadioButton text0RadioButton;
@@ -1619,13 +1657,6 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     */
 
     private javax.swing.JButton btnConfirm;
-//    private javax.swing.JCheckBox checkboxColorHue;
-//    private javax.swing.JCheckBox checkboxShape;
-//    private javax.swing.JCheckBox checkboxText;
-//    private javax.swing.JCheckBox checkboxPosition;
-//    private javax.swing.JCheckBox checkboxOrientation;
-//    private javax.swing.JCheckBox checkboxTexture;
-//    private javax.swing.JCheckBox checkboxProfileGlyph;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextPane pergunta2_TextPane;
     private PainelDeTeste painelEsquerda;
@@ -1714,10 +1745,10 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     private javax.swing.ButtonGroup posicaoButtonGroup;
     private javax.swing.ButtonGroup orientacaoButtonGroup;
     private javax.swing.ButtonGroup profileButtonGroup;
-    private javax.swing.JLabel profileGlyphLabel0;
+    private javax.swing.JLabel profileGlyphLabel3;
     private javax.swing.JLabel profileGlyphLabel1;
     private javax.swing.JLabel profileGlyphLabel2;
-    private javax.swing.JLabel profileGlyphLabel3;
+    private javax.swing.JLabel profileGlyphLabel5;
     private javax.swing.JLabel profileGlyphLabel4;
     private javax.swing.JRadioButton profile0RadioButton;
     private javax.swing.JRadioButton profile1RadioButton;

@@ -8,7 +8,7 @@ package doutorado.tese.view.teste.visibility;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
-import doutorado.tese.control.mb.testeMB.scalabilityMB.SetUpScalabilityTestMB;
+import doutorado.tese.control.mb.testeMB.scalabilityMB.SetUpVisibilityTestMB;
 import doutorado.tese.util.Constantes;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -29,6 +29,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 /**
  *
  * @author Anderson
+ * @deprecated 
  */
 public class ScalabilityTesteView extends javax.swing.JFrame {
 
@@ -124,7 +125,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
         configs.put("height", Math.abs(length - rand.nextInt(100)));
         configs.put("coritem", rand.nextInt(Constantes.getCorTreemap().length));
 
-        SetUpScalabilityTestMB.shuffleArray(glyphlayers2draw);
+        SetUpVisibilityTestMB.shuffleArray(glyphlayers2draw);
         //dependendo da step as camadas serao removidas (representado por -1) do glyph e seu respectivo checkbox sera desabilitado
         for (int i = 0; i < numLayers2remove; i++) {
             configs.put(layers[glyphlayers2draw[i]], -1);
@@ -133,15 +134,16 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
 //            }
         }
         painelEsquerda.setInputConfigs(configs);
-
-        for (int i = 1; i <= painelEsquerda.getFamilia2Desenho().size() - 1; i++) {
-            int index = painelEsquerda.getFamilia2Desenho().get(i).whoAmI().toString().lastIndexOf('.');
-            String nomeClasse = "";
-            if (index > 0) {
-                nomeClasse = painelEsquerda.getFamilia2Desenho().get(i).whoAmI().toString().substring(index + 1).toLowerCase();
-            }
-            checkboxes.get(nomeClasse).setEnabled(true);
-        }
+        
+        //o trecho abaixo foi removido em uma refatoracao
+//        for (int i = 1; i <= painelEsquerda.getFamilia2Desenho().size() - 1; i++) {
+//            int index = painelEsquerda.getFamilia2Desenho().get(i).whoAmI().toString().lastIndexOf('.');
+//            String nomeClasse = "";
+//            if (index > 0) {
+//                nomeClasse = painelEsquerda.getFamilia2Desenho().get(i).whoAmI().toString().substring(index + 1).toLowerCase();
+//            }
+//            checkboxes.get(nomeClasse).setEnabled(true);
+//        }
     }
 
     /**
@@ -408,7 +410,8 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
                 + "," + (checkboxPosition.isSelected() ? 1 : 0)
                 + "," + (checkboxOrientation.isSelected() ? 1 : 0)
                 + "," + (checkboxProfileGlyph.isSelected() ? 1 : 0)
-                + "," + painelEsquerda.getFamilia2Desenho().toString();
+//                + "," + painelEsquerda.getFamilia2Desenho().toString()
+                ;
 
         for (JCheckBox c : checkboxes.values()) {
             c.setSelected(false);

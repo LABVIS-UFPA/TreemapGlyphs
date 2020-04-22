@@ -56,7 +56,12 @@ public class Constantes {
     public static final int LIMITE_TESTES = 100;
     public static int PRESENCA_STAR;
     public static boolean SHOW_GLYPH_ON_DETAILS = false;
-    public static String NAO_IDENTIFICOU = "nao_identificou";
+    /**
+     * Representa quando o participante nao identificar 
+     * uma variavel visual ou quando a variavel nao estiver presente
+     * na familia do glyph
+     */
+    public static String NAO_IDENTIFICOU = "0";
     
 //    private static Color[] cores = {Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
     private static String[] corTreemap = {

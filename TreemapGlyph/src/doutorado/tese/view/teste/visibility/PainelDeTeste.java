@@ -7,7 +7,7 @@ package doutorado.tese.view.teste.visibility;
 
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.util.Constantes;
-import doutorado.tese.control.mb.testeMB.scalabilityMB.SetUpScalabilityTestMB;
+import doutorado.tese.control.mb.testeMB.scalabilityMB.SetUpVisibilityTestMB;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,18 +22,15 @@ import java.util.List;
 public class PainelDeTeste extends javax.swing.JPanel {
 
     private AreaCallback areaCallback;
-    private final SetUpScalabilityTestMB visibilityTestMB;
-    private List<Glyph> familia2Desenho;
+    private SetUpVisibilityTestMB visibilityTestMB;
 
     /**
      * Creates new form PainelDeTeste
      */
     public PainelDeTeste() {
-        visibilityTestMB = new SetUpScalabilityTestMB();
         initComponents();
         this.areaCallback = (HashMap<String, Integer> areas) -> {
         };
-
     }
 
     @Override
@@ -43,23 +40,22 @@ public class PainelDeTeste extends javax.swing.JPanel {
         Color coritem = null;
 
         //desenho esquerda
-//        System.out.println("getInputConfigs(): "+visibilityTestMB.getInputConfigs()+"\n**************************");
-        coritem = visibilityTestMB.getInputConfigs().get("coritem") >= 0
-                ? Color.decode(Constantes.getCorTreemap()[visibilityTestMB.getInputConfigs().get("coritem")])
-                : Color.decode(Constantes.getCorTreemap()[Constantes.getCorTreemap().length - 1]);
+        coritem = getVisibilityTestMB().getInputConfigs().get("coritem") >= 0
+                ? Color.decode(Constantes.getCorTreemap()[getVisibilityTestMB().getInputConfigs().get("coritem")])
+                : Constantes.ALICE_BLUE;
         g2d.setColor(coritem);
-        g2d.fillRect(visibilityTestMB.getInputConfigs().get("x"), visibilityTestMB.getInputConfigs().get("y"),
-                visibilityTestMB.getInputConfigs().get("width"), visibilityTestMB.getInputConfigs().get("height"));
+        g2d.fillRect(getVisibilityTestMB().getInputConfigs().get("x"), getVisibilityTestMB().getInputConfigs().get("y"),
+                getVisibilityTestMB().getInputConfigs().get("width"), getVisibilityTestMB().getInputConfigs().get("height"));
         g2d.setColor(Color.BLACK);
-        g2d.drawRect(visibilityTestMB.getInputConfigs().get("x"), visibilityTestMB.getInputConfigs().get("y"),
-                visibilityTestMB.getInputConfigs().get("width"), visibilityTestMB.getInputConfigs().get("height"));
+        g2d.drawRect(getVisibilityTestMB().getInputConfigs().get("x"), getVisibilityTestMB().getInputConfigs().get("y"),
+                getVisibilityTestMB().getInputConfigs().get("width"), getVisibilityTestMB().getInputConfigs().get("height"));
 
         ArrayList<Glyph> listItemInput = new ArrayList<>();
-        visibilityTestMB.getItemInput().getGlyph().paint(g2d);
-        visibilityTestMB.getItemInput().getGlyph().getChildren(listItemInput);
+        getVisibilityTestMB().getItemInput().getGlyph().paint(g2d);
+//        getVisibilityTestMB().getItemInput().getGlyph().getChildren(listItemInput);
         g2d.setClip(0, 0, getBounds().width, getBounds().height);
 
-        this.areaCallback.areaUpdated(visibilityTestMB.getAreas());
+        this.areaCallback.areaUpdated(getVisibilityTestMB().getAreas());
         //desenho direita
 //        g2d.setColor(coritem);
 //        g2d.fillRect(scalabilityTestMB.getItemOutput().getBounds().x, scalabilityTestMB.getItemOutput().getBounds().y,
@@ -84,14 +80,14 @@ public class PainelDeTeste extends javax.swing.JPanel {
     }
 
     public void setInputConfigs(HashMap<String, Integer> inputConfigs) {
-        visibilityTestMB.setInputConfigs(inputConfigs);
+//        getVisibilityTestMB().setInputConfigs(inputConfigs);
 //        setFamilia2Desenho(visibilityTestMB.configLayersInput());
-        setFamilia2Desenho(visibilityTestMB.getFamily2Draw());
+//        setFamilia2Desenho(getVisibilityTestMB().family2Draw());
         repaint();
     }
 
     public void updateOutput(HashMap<String, Boolean> output) {
-        visibilityTestMB.setOutputConfigs(output);
+        getVisibilityTestMB().setOutputConfigs(output);
 //        scalabilityTestMB.configLayersOutput();
 //        repaint();
     }
@@ -104,6 +100,8 @@ public class PainelDeTeste extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        setBackground(new java.awt.Color(240, 248, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -118,35 +116,17 @@ public class PainelDeTeste extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * @return the familia2Desenho
+     * @return the visibilityTestMB
      */
-    public List<Glyph> getFamilia2Desenho() {
-        return familia2Desenho;
+    public SetUpVisibilityTestMB getVisibilityTestMB() {
+        return visibilityTestMB;
     }
 
     /**
-     * @param familia2Desenho the familia2Desenho to set
+     * @param visibilityTestMB the visibilityTestMB to set
      */
-    public void setFamilia2Desenho(List<Glyph> familia2Desenho) {
-        this.familia2Desenho = familia2Desenho;
-    }
-
-    /**
-     * @return the quantGlyphs
-     */
-    public int getQuantGlyphs() {
-        return visibilityTestMB.getQuantGlyphsBase();
-    }
-
-    /**
-     * @return the glyphLayers2draw
-     */
-    public int[] getGlyphLayers2draw() {
-        return visibilityTestMB.getGlyphLayers2draw();
-    }
-    
-    public int getContTarefasRealizadas() {
-        return visibilityTestMB.getContTarefasRealizadas();
+    public void setVisibilityTestMB(SetUpVisibilityTestMB visibilityTestMB) {
+        this.visibilityTestMB = visibilityTestMB;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

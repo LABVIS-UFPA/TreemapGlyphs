@@ -141,7 +141,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="texturasPanel" alignment="0" pref="779" max="32767" attributes="0"/>
+                  <Component id="texturasPanel" alignment="0" pref="780" max="32767" attributes="0"/>
                   <Component id="coresPanel" alignment="1" max="32767" attributes="0"/>
                   <Component id="orientationPanel" alignment="1" max="32767" attributes="0"/>
                   <Component id="textPanel" alignment="1" max="32767" attributes="0"/>
@@ -1128,7 +1128,7 @@
                           <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                           <Component id="profile3RadioButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="profileGlyphLabel0" min="-2" pref="55" max="-2" attributes="0"/>
+                          <Component id="profileGlyphLabel3" min="-2" pref="55" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                           <Component id="profile4RadioButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -1136,13 +1136,13 @@
                           <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                           <Component id="profile5RadioButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="profileGlyphLabel3" min="-2" pref="55" max="-2" attributes="0"/>
+                          <Component id="profileGlyphLabel5" min="-2" pref="55" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="profileGlyphLabel3" min="-2" pref="55" max="-2" attributes="0"/>
+                      <Component id="profileGlyphLabel5" min="-2" pref="55" max="-2" attributes="0"/>
                       <Component id="profileGlyphLabel4" min="-2" pref="55" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
@@ -1154,7 +1154,7 @@
                           <EmptySpace min="16" pref="16" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                          <Component id="profileGlyphLabel0" min="-2" pref="55" max="-2" attributes="0"/>
+                          <Component id="profileGlyphLabel3" min="-2" pref="55" max="-2" attributes="0"/>
                           <Component id="profileGlyphLabel1" min="-2" pref="55" max="-2" attributes="0"/>
                           <Component id="profileGlyphLabel2" min="-2" pref="55" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
@@ -1177,7 +1177,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="profileGlyphLabel0">
+                <Component class="javax.swing.JLabel" name="profileGlyphLabel3">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="ff" type="rgb"/>
@@ -1188,6 +1188,9 @@
                       </Border>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="profileGlyphLabel3MouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="profileGlyphLabel1">
                   <Properties>
@@ -1200,6 +1203,9 @@
                       </Border>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="profileGlyphLabel1MouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="profileGlyphLabel2">
                   <Properties>
@@ -1212,8 +1218,11 @@
                       </Border>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="profileGlyphLabel2MouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="profileGlyphLabel3">
+                <Component class="javax.swing.JLabel" name="profileGlyphLabel5">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="ff" type="rgb"/>
@@ -1224,6 +1233,9 @@
                       </Border>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="profileGlyphLabel5MouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="profileGlyphLabel4">
                   <Properties>
@@ -1236,6 +1248,9 @@
                       </Border>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="profileGlyphLabel4MouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="profile1RadioButton">
                 </Component>
