@@ -21,6 +21,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -179,6 +180,21 @@ public class LegendaVisualizacao {
         painel.setAlignmentX(labelMin.LEFT_ALIGNMENT);
     }
 
+    public Icon criarLegendaProfileGlyphTest(HashMap<Coluna, String> mapaDetalhesItem){
+        List<String> atributos = new ArrayList();
+        for (Coluna coluna : mapaDetalhesItem.keySet()) {
+            atributos.add(coluna.getName());
+        }
+        
+        IconeLegenda icon = new IconeLegenda();
+        icon.setMaxValorContIcon(10);
+        icon.setMinValorContIcon(10);
+        icon.setAtributosEscolhidosGlyphContinuo(atributos);
+        icon.setVisibilityTest(true);
+        icon.setMapaDetalhesItem(mapaDetalhesItem);
+        return icon;
+    }
+    
     private JPanel criarLegendaGlyphContinuo(JPanel painel, ArrayList<String> atributosEscolhidosGlyphContinuo) {
         IconeLegenda icon = new IconeLegenda();
 //        icon.setDimensaoCategorical(dimensao);

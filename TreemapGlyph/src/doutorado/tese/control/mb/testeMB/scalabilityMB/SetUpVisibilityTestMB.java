@@ -17,15 +17,21 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.continuous
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
+import doutorado.tese.control.business.visualizations.legenda.LegendaVisualizacao;
 import doutorado.tese.control.mb.GlyphMB;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
 import doutorado.tese.model.TreeMapItem;
+import doutorado.tese.model.TreeMapNode;
 import doutorado.tese.util.Constantes;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -33,6 +39,9 @@ import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractButton;
+import javax.swing.Icon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -57,7 +66,7 @@ public class SetUpVisibilityTestMB {
     private Constantes.VAR_VISUAIS_CATEGORICAS[] layersMisturadas;
     private int[] glyphLayers2draw = {0, 1, 2, 3, 4, 5, 6};
     private String[] layers = new String[]{"texture", "colorhue", "geometricshape", "text", "position", "orientation", "coritem"};
-    private final int quantGlyphsBase = 2;//5;
+    private final int quantGlyphsBase = 10;
     private final List<TreeMapItem> listaItensBase;
     private int contTarefasRealizadas = 0;
     private int rodadaRemoveCamada = 0;
@@ -89,7 +98,7 @@ public class SetUpVisibilityTestMB {
 
     public void criarGlyphsBase() {
         for (int i = 0; i < quantGlyphsBase; i++) {
-            criarDadosSimulados();
+            criarDadosSimuladosTreemapItem();
             TreeMapItem item = criarNovoTreemapItem();
 
             Set<Integer> camadasSorteadas = sortearCamadas();
@@ -418,11 +427,46 @@ public class SetUpVisibilityTestMB {
         return pontuacao + "/" + (glyphLayers2draw.length - 1);
     }
 
+    public void createProfileGlyphs(List<JLabel> listaLabels) {
+        int idLabelSorteado = -1;
+
+        List<Glyph> children = getItemInput().getGlyphFamily(getItemInput().getGlyph(), new ArrayList<>());
+        for (Glyph glyph : children) {
+            if (glyph instanceof ProfileGlyph) {
+                idLabelSorteado = rand.nextInt(5);
+                Icon icon = criarIconProfileGlyph(listaLabels.get(idLabelSorteado).getBounds(), getItemInput().mapaDetalhesItem);
+                listaLabels.get(idLabelSorteado).setIcon(icon);
+                System.out.println("+++++++++++ adicionar esse no gabarito: "+idLabelSorteado);
+                
+            }
+        }
+        if (idLabelSorteado == -1) {//se true nao há profile glyph na familia, basta desenhar profiles aleatorios na GUI
+            for (int i = 0; i < listaLabels.size(); i++) {
+                System.out.println("sem profile familia - desenhar aleatorio");
+                Icon icon = criarIconProfileGlyph(listaLabels.get(i).getBounds(), criarDadosSimuladosProfileGlyph());
+                listaLabels.get(i).setIcon(icon);
+            }
+        } else {//senao desenhar apenas 4 profiles, pois um eh do gabarido
+            for (int i = 0; i < listaLabels.size(); i++) {
+                if (i != idLabelSorteado) {
+                    System.out.println("desenhar 4: "+i);
+                    Icon icon = criarIconProfileGlyph(listaLabels.get(i).getBounds(), criarDadosSimuladosProfileGlyph());
+                    listaLabels.get(i).setIcon(icon);
+                }
+            }
+        }
+    }
+
+    public Icon criarIconProfileGlyph(Rectangle bounds, HashMap<Coluna, String> mapaDetalhesItem) {
+        LegendaVisualizacao legendaVisualizacao = new LegendaVisualizacao(bounds);
+        return legendaVisualizacao.criarLegendaProfileGlyphTest(mapaDetalhesItem);
+    }
+
     /**
      * @deprecated
      */
     public List<Glyph> configLayersInput() {
-        criarDadosSimulados();
+        criarDadosSimuladosTreemapItem();
         itemInput = criarNovoTreemapItem();
 
         Glyph father = getItemInput().getGlyph();
@@ -564,7 +608,7 @@ public class SetUpVisibilityTestMB {
         }
     }
 
-    private void criarDadosSimulados() {
+    private void criarDadosSimuladosTreemapItem() {
         int valor = 100;
         List<String[]> dadosColunas = new ArrayList<>();
         for (int i = 0; i < colunas.length; i++) {
@@ -586,6 +630,33 @@ public class SetUpVisibilityTestMB {
                 Logger.getLogger(SetUpVisibilityTestMB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    public HashMap<Coluna, String> criarDadosSimuladosProfileGlyph(){
+        HashMap<Coluna, String> newMapa = new HashMap<>();
+        int valor = 100;
+        List<String[]> dadosColunas = new ArrayList<>();
+        for (int i = 0; i < colunas.length; i++) {
+            String[] simulados = new String[3];
+            for (int j = 0; j < simulados.length; j++) {
+                simulados[j]
+                        = (rand.nextInt(2) == 0)
+                        ? "" + (rand.nextInt(valor) * (-1))
+                        : "" + rand.nextInt(valor);
+            }
+            dadosColunas.add(simulados);
+        }
+        int linha = rand.nextInt(3);//escolhe entre as linhas 0, 1, e 2 
+        for (int i = 0; i < dadosColunas.size(); i++) {
+            try {
+                System.out.println(colunas[i]+" -> "+dadosColunas.get(i)[linha]);
+                newMapa.put(colunas[i], dadosColunas.get(i)[linha]);
+                colunas[i].configurarDescricao(dadosColunas.get(i));
+            } catch (Exception ex) {
+                Logger.getLogger(SetUpVisibilityTestMB.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return newMapa;
     }
 
     /**

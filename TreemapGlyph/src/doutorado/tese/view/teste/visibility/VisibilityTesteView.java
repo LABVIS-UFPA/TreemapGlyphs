@@ -37,6 +37,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
@@ -48,6 +49,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
@@ -95,10 +97,10 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         initComponents();
         configButtonGroups();
         numAmostras = visibilityTestMB.getQuantGlyphsBase() * (visibilityTestMB.getGlyphLayers2draw().length - 1);
-
+        
         changeConfigs();
         configRadioButtonsActionCommand();
-
+        
         this.painelEsquerda.setVisibilityTestMB(visibilityTestMB);
         this.painelEsquerda.setAreaCallback(new PainelDeTeste.AreaCallback() {
             @Override
@@ -1058,6 +1060,16 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private List<JLabel> labelsProfileGlyphGroup(){
+        List<JLabel> lista = new ArrayList<>();
+        lista.add(profileGlyphLabel1);
+        lista.add(profileGlyphLabel2);
+        lista.add(profileGlyphLabel3);
+        lista.add(profileGlyphLabel4);
+        lista.add(profileGlyphLabel5);
+        return lista;
+    }
+    
     private void configButtonGroups() {
         texturaButtonGroup.add(textura0RadioButton);
         texturaButtonGroup.add(textura1RadioButton);
@@ -1337,9 +1349,11 @@ public class VisibilityTesteView extends javax.swing.JFrame {
 
     public void changeConfigs() {
         resetPainelsRadioButtos();
-
+        
         visibilityTestMB.setInputConfigs(configs);
         visibilityTestMB.family2Draw();
+        visibilityTestMB.createProfileGlyphs(labelsProfileGlyphGroup());
+        
         painelEsquerda.repaint();
         
         contadorLabel.setText(visibilityTestMB.getContTarefasRealizadas() + " / " + numAmostras);

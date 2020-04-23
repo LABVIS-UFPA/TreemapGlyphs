@@ -20,6 +20,8 @@ import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvi
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory.ARROW;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory.TEXTURE;
+import doutorado.tese.dao.ManipuladorArquivo;
+import doutorado.tese.model.Coluna;
 import doutorado.tese.util.ColorInterpolator;
 import static doutorado.tese.util.Constantes.VAR_VISUAIS_CATEGORICAS.TEXTURE;
 import java.awt.BasicStroke;
@@ -29,6 +31,7 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.Icon;
 
@@ -52,6 +55,8 @@ public class IconeLegenda implements Icon {
     private Constantes.POSICOES posicao;
     private ARROW.GLYPH_ORIENTACAO orientacao;
     private TEXTURE.GLYPH_TEXTURAS valorTextura;
+    private boolean visibilityTest = false;
+    private HashMap<Coluna, String> mapaDetalhesItem;
 
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
@@ -82,7 +87,11 @@ public class IconeLegenda implements Icon {
             }
         } else {
             if (getAtributosEscolhidosGlyphContinuo() != null && !getAtributosEscolhidosGlyphContinuo().isEmpty()) {//legenda profile glyph
-                montarIconeProfileGlyph(g2d, bounds);
+                if (!isVisibilityTest()) {
+                    montarIconeProfileGlyph(g2d, bounds);
+                }else{
+                    montarIconeProfileGlyph(g2d, bounds, mapaDetalhesItem);                    
+                }
             } else if (Constantes.SHOW_GLYPH_ON_DETAILS && getGlyph() != null) {
                 getGlyph().setBounds(bounds);
                 getGlyph().paint(g2d);
@@ -204,6 +213,26 @@ public class IconeLegenda implements Icon {
         bar.setBounds(r);
         bar.paint(g2d);
     }
+    
+    private void montarIconeProfileGlyph(Graphics2D g2d, Rectangle bounds, HashMap<Coluna, String> mapaDetalhesItem) {
+        ProfileGlyph profile = new ProfileGlyph(getAtributosEscolhidosGlyphContinuo());
+        profile.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
+        profile.setPectSobreposicao(1f);
+        profile.setOverlappingActivated(true);
+        
+        for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
+            String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
+            Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
+            double dado = Double.parseDouble(mapaDetalhesItem.get(coluna));
+            double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
+            double dadoMinVal = coluna.getMapaMaiorMenor().get(coluna.getName())[1];
+            System.out.println("(dados: "+dado+" - max: "+dadoMaxVal+" - min: "+dadoMinVal+")");
+            profile.getBarras()[i] = new Bar(dado, dadoMaxVal, dadoMinVal);
+        }
+        Rectangle r = new Rectangle(bounds.x*11, bounds.y, bounds.width, bounds.height);
+        profile.setBounds(r);
+        profile.paint(g2d);
+    }
 
     /**
      * @param width the width to set
@@ -302,5 +331,34 @@ public class IconeLegenda implements Icon {
     public void setGlyph(Glyph glyph) {
         this.glyph = glyph;
     }
+
+    /**
+     * @return the visibilityTest
+     */
+    public boolean isVisibilityTest() {
+        return visibilityTest;
+    }
+
+    /**
+     * @param visibilityTest the visibilityTest to set
+     */
+    public void setVisibilityTest(boolean visibilityTest) {
+        this.visibilityTest = visibilityTest;
+    }
+
+    /**
+     * @return the mapaDetalhesItem
+     */
+    public HashMap<Coluna, String> getMapaDetalhesItem() {
+        return mapaDetalhesItem;
+    }
+
+    /**
+     * @param mapaDetalhesItem the mapaDetalhesItem to set
+     */
+    public void setMapaDetalhesItem(HashMap<Coluna, String> mapaDetalhesItem) {
+        this.mapaDetalhesItem = mapaDetalhesItem;
+    }
+
 
 }
