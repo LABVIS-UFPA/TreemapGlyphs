@@ -112,8 +112,9 @@ public class Coluna {
         return description;
     }
 
-    private double findMax(Object dadoColuna, double max) {
-        return Math.max(Double.valueOf(dadoColuna.toString()), max);
+    private double findMax(double dadoColuna, double max) {
+//        return (dadoColuna >= max) ? dadoColuna : max;        
+        return Math.max(dadoColuna, max);
     }
 
     private double findMin(Object dadoColuna, double min) {
@@ -155,7 +156,7 @@ public class Coluna {
         if (getDescription() == Metadados.Descricao.CONTINUOUS
                 || (getDescription() == Metadados.Descricao.CATEGORICAL && type.equals(Metadados.TipoDados.Integer))
                 || (getDescription() == Metadados.Descricao.CATEGORICAL && type.equals(Metadados.TipoDados.Double))) {
-            double higher = Double.MIN_VALUE;
+            double higher = Integer.MIN_VALUE;
             double lower = Integer.MAX_VALUE;
             for (int i = 0; i < dadosColunas.length; i++) {
 //                System.out.println("linha["+i+"]: "+dadosColunas[i]);

@@ -1122,54 +1122,54 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     }
 
     public void configRadioButtonsActionCommand() {
-        textura0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
+        textura0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU_NAO_APRESENTA);
         textura1RadioButton.setActionCommand(CirculoTextura_2x2.class.getSimpleName());
         textura2RadioButton.setActionCommand(CirculoTextura_4x4.class.getSimpleName());
         textura3RadioButton.setActionCommand(CirculoTextura_6x6.class.getSimpleName());
         textura4RadioButton.setActionCommand(CirculoTextura_8x8.class.getSimpleName());
         textura5RadioButton.setActionCommand(CirculoTextura_10x10.class.getSimpleName());
 
-        cor0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
+        cor0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU_NAO_APRESENTA);
         cor1RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[0]);
         cor2RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[1]);
         cor3RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[2]);
         cor4RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[3]);
         cor5RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[4]);
 
-        forma0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
+        forma0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU_NAO_APRESENTA);
         forma1RadioButton.setActionCommand(Circulo.class.getSimpleName());
         forma2RadioButton.setActionCommand(Serrilhado.class.getSimpleName());
         forma3RadioButton.setActionCommand(Cruz.class.getSimpleName());
         forma4RadioButton.setActionCommand(Estrela.class.getSimpleName());
         forma5RadioButton.setActionCommand(Quadrado.class.getSimpleName());
 
-        text0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
+        text0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU_NAO_APRESENTA);
         text1RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[0]);
         text2RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[1]);
         text3RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[2]);
         text4RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[3]);
         text5RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[4]);
 
-        position0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
+        position0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU_NAO_APRESENTA);
         position1RadioButton.setActionCommand(Constantes.POSICOES.ESQ_INF.name());
         position2RadioButton.setActionCommand(Constantes.POSICOES.DIR_SUP.name());
         position3RadioButton.setActionCommand(Constantes.POSICOES.DIR_INF.name());
         position4RadioButton.setActionCommand(Constantes.POSICOES.ESQ_SUP.name());
         position5RadioButton.setActionCommand(Constantes.POSICOES.CENTRO.name());
 
-        orientation0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
+        orientation0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU_NAO_APRESENTA);
         orientation1RadioButton.setActionCommand(Arrow90Cima.class.getSimpleName());
         orientation2RadioButton.setActionCommand(Arrow180Esq.class.getSimpleName());
         orientation3RadioButton.setActionCommand(Arrow45CanDir.class.getSimpleName());
         orientation4RadioButton.setActionCommand(Arrow0Dir.class.getSimpleName());
         orientation5RadioButton.setActionCommand(Arrow135CanEsq.class.getSimpleName());
 
-        profile0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU);
-        profile1RadioButton.setActionCommand("op1");
-        profile2RadioButton.setActionCommand("op2");
-        profile3RadioButton.setActionCommand("op3");
-        profile4RadioButton.setActionCommand("op4");
-        profile5RadioButton.setActionCommand("op5");
+        profile0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU_NAO_APRESENTA);
+        profile1RadioButton.setActionCommand("1");
+        profile2RadioButton.setActionCommand("2");
+        profile3RadioButton.setActionCommand("3");
+        profile4RadioButton.setActionCommand("4");
+        profile5RadioButton.setActionCommand("5");
     }
 
     public void resetPainelsRadioButtos() {

@@ -124,6 +124,7 @@ public class ManipuladorArquivo {
         for (Coluna coluna : colunas) {
             if (coluna.getName().equalsIgnoreCase(nomeColuna)) {
                 c = coluna;
+                break;
             }
         }
         return c;
@@ -228,8 +229,8 @@ public class ManipuladorArquivo {
             } else if (tipos[i].equalsIgnoreCase(Metadados.TipoDados.Boolean.name())) {
                 type = Metadados.TipoDados.Boolean.name();
             } else {
-                System.err.println("nome coluna: "+nomeColunas[i]);
-                System.err.println("tipo: "+tipos[i]);
+                System.err.println("nome coluna: " + nomeColunas[i]);
+                System.err.println("tipo: " + tipos[i]);
                 System.err.println("Fail to create the column, the type does not exist!");
             }
             colunas[i] = new Coluna(this, nomeColunas[i], type);
@@ -243,15 +244,9 @@ public class ManipuladorArquivo {
      * @throws Exception
      */
     public static Coluna[] montarColunas() throws Exception {
-        String[] atributos = new String[3];
-        atributos[0] = "a1";
-        atributos[1] = "a2";
-        atributos[2] = "a3";
-        colunas = new Coluna[atributos.length];
-        for (int i = 0; i < atributos.length; i++) {
-            Coluna c = new Coluna(atributos[i]);
-//            c.setDadosColuna(getDadosColuna(cabecalho[i]));
-//            c.configurarDescricao(getDadosColuna(atributo[i]));
+        colunas = new Coluna[3];
+        for (int i = 0; i < colunas.length; i++) {
+            Coluna c = new Coluna("a" + (i + 1));
             colunas[i] = c;
         }
         return colunas;

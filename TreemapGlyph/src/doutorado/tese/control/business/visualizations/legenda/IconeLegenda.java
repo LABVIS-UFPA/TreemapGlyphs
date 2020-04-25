@@ -31,6 +31,7 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.Icon;
@@ -57,6 +58,7 @@ public class IconeLegenda implements Icon {
     private TEXTURE.GLYPH_TEXTURAS valorTextura;
     private boolean visibilityTest = false;
     private HashMap<Coluna, String> mapaDetalhesItem;
+    private ProfileGlyph profileGlyph;
 
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
@@ -89,14 +91,17 @@ public class IconeLegenda implements Icon {
             if (getAtributosEscolhidosGlyphContinuo() != null && !getAtributosEscolhidosGlyphContinuo().isEmpty()) {//legenda profile glyph
                 if (!isVisibilityTest()) {
                     montarIconeProfileGlyph(g2d, bounds);
-                }else{
-                    montarIconeProfileGlyph(g2d, bounds, mapaDetalhesItem);                    
+                } else {
+//                    System.out.println("paint icon: " + mapaDetalhesItem);
+//                    montarIconeProfileGlyph(g2d, bounds, mapaDetalhesItem);                    
                 }
             } else if (Constantes.SHOW_GLYPH_ON_DETAILS && getGlyph() != null) {
                 getGlyph().setBounds(bounds);
                 getGlyph().paint(g2d);
             } else if (Constantes.LEGENDA_COR_TREEMAP) {//legenda da cor do treemap
                 montarIconeCorTreemap(g2d, x, y, bounds);
+            } else if (isVisibilityTest()) {
+                montarIconeProfileGlyph(g2d, bounds, profileGlyph);
             }
         }
         g2d.dispose();
@@ -213,24 +218,34 @@ public class IconeLegenda implements Icon {
         bar.setBounds(r);
         bar.paint(g2d);
     }
-    
+
     private void montarIconeProfileGlyph(Graphics2D g2d, Rectangle bounds, HashMap<Coluna, String> mapaDetalhesItem) {
         ProfileGlyph profile = new ProfileGlyph(getAtributosEscolhidosGlyphContinuo());
         profile.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
         profile.setPectSobreposicao(1f);
         profile.setOverlappingActivated(true);
-        
+
         for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
             String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
             Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
+            System.out.println("dados da coluna para desenhar: " + Arrays.asList(coluna.getDadosColuna()));
             double dado = Double.parseDouble(mapaDetalhesItem.get(coluna));
             double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
             double dadoMinVal = coluna.getMapaMaiorMenor().get(coluna.getName())[1];
-            System.out.println("(dados: "+dado+" - max: "+dadoMaxVal+" - min: "+dadoMinVal+")");
+            System.out.println("nomeColunaEscolhida: " + nomeColunaEscolhida + " - (dados: " + dado + " - max: " + dadoMaxVal + " - min: " + dadoMinVal + ")");
             profile.getBarras()[i] = new Bar(dado, dadoMaxVal, dadoMinVal);
         }
-        Rectangle r = new Rectangle(bounds.x*11, bounds.y, bounds.width, bounds.height);
+        Rectangle r = new Rectangle(bounds.x * 11, bounds.y, bounds.width, bounds.height);
         profile.setBounds(r);
+        profile.paint(g2d);
+    }
+
+    private void montarIconeProfileGlyph(Graphics2D g2d, Rectangle bounds, ProfileGlyph profile) {
+        System.out.println("bounds: " + bounds);
+        Rectangle r = new Rectangle(bounds.x, bounds.y, bounds.width, bounds.height);
+        profile.setBounds(r);
+        profile.setPectSobreposicao(1f);
+        profile.setOverlappingActivated(true);
         profile.paint(g2d);
     }
 
@@ -360,5 +375,11 @@ public class IconeLegenda implements Icon {
         this.mapaDetalhesItem = mapaDetalhesItem;
     }
 
+    /**
+     * @param profileGlyph the profileGlyph to set
+     */
+    public void setProfileGlyph(ProfileGlyph profileGlyph) {
+        this.profileGlyph = profileGlyph;
+    }
 
 }

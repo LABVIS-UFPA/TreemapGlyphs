@@ -5,6 +5,7 @@
  */
 package doutorado.tese.control.business.visualizations.legenda;
 
+import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
 import doutorado.tese.util.Constantes;
@@ -185,13 +186,19 @@ public class LegendaVisualizacao {
         for (Coluna coluna : mapaDetalhesItem.keySet()) {
             atributos.add(coluna.getName());
         }
-        
+        System.out.println("criarLegenda - mapaDetalhesItem: "+mapaDetalhesItem);
         IconeLegenda icon = new IconeLegenda();
-        icon.setMaxValorContIcon(10);
-        icon.setMinValorContIcon(10);
         icon.setAtributosEscolhidosGlyphContinuo(atributos);
         icon.setVisibilityTest(true);
         icon.setMapaDetalhesItem(mapaDetalhesItem);
+        return icon;
+    }
+    
+    public Icon criarLegendaProfileGlyphTest(ProfileGlyph glyph){
+        IconeLegenda icon = new IconeLegenda();
+        icon.setProfileGlyph(glyph);
+        icon.setVisibilityTest(true);
+        System.out.println("criarLegenda");
         return icon;
     }
     

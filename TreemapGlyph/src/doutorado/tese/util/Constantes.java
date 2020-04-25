@@ -61,7 +61,7 @@ public class Constantes {
      * uma variavel visual ou quando a variavel nao estiver presente
      * na familia do glyph
      */
-    public static String NAO_IDENTIFICOU = "0";
+    public static String NAO_IDENTIFICOU_NAO_APRESENTA = "0";
     
 //    private static Color[] cores = {Color.BLUE, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
     private static String[] corTreemap = {
