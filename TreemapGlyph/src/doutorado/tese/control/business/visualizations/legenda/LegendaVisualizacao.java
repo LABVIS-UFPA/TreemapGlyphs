@@ -5,7 +5,7 @@
  */
 package doutorado.tese.control.business.visualizations.legenda;
 
-import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
+import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
 import doutorado.tese.util.Constantes;
@@ -13,16 +13,16 @@ import doutorado.tese.util.Metadados;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory.ARROW;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
+import doutorado.tese.model.TreeMapItem;
 import static doutorado.tese.util.Constantes.VAR_VISUAIS_CATEGORICAS.COLOR_HUE;
 import doutorado.tese.util.Util;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -39,7 +39,7 @@ public class LegendaVisualizacao {
 
     HashMap<Constantes.VAR_VISUAIS_CATEGORICAS, Object> atributosEscolhidosGlyph = null;
     private Rectangle bounds = null;
-    private ArrayList<String> listaContinuos = null;
+    private List<String> listaContinuos = null;
 
     public LegendaVisualizacao(Rectangle bound) {
         this.bounds = null;
@@ -181,28 +181,29 @@ public class LegendaVisualizacao {
         painel.setAlignmentX(labelMin.LEFT_ALIGNMENT);
     }
 
-    public Icon criarLegendaProfileGlyphTest(HashMap<Coluna, String> mapaDetalhesItem){
-        List<String> atributos = new ArrayList();
-        for (Coluna coluna : mapaDetalhesItem.keySet()) {
-            atributos.add(coluna.getName());
+    public Icon criarLegendaProfileGlyphTest(Glyph profile) {
+        IconeLegenda icon = new IconeLegenda();
+        icon.setVisibilityTest(true);
+        icon.setGlyph(profile);
+        return icon;
+    }
+
+    public Icon criarLegendaProfileGlyphTest() {
+        IconeLegenda icon = new IconeLegenda();
+        icon.setAtributosEscolhidosGlyphContinuo(this.listaContinuos);
+        icon.setVisibilityTest(true);
+        HashMap<String, Double> mapa = new HashMap<>();
+        for (int i = 0; i < 3; i++) {
+            int sorteio = (int) (Math.random() * 2);
+            int dado = (int) (Math.random() * 101);
+            double valor = sorteio == 0 ? (dado * -1) : dado;
+            mapa.put("a"+i, valor);
         }
-        System.out.println("criarLegenda - mapaDetalhesItem: "+mapaDetalhesItem);
-        IconeLegenda icon = new IconeLegenda();
-        icon.setAtributosEscolhidosGlyphContinuo(atributos);
-        icon.setVisibilityTest(true);
-        icon.setMapaDetalhesItem(mapaDetalhesItem);
+        icon.setMapaDetalhesItem(mapa);
         return icon;
     }
-    
-    public Icon criarLegendaProfileGlyphTest(ProfileGlyph glyph){
-        IconeLegenda icon = new IconeLegenda();
-        icon.setProfileGlyph(glyph);
-        icon.setVisibilityTest(true);
-        System.out.println("criarLegenda");
-        return icon;
-    }
-    
-    private JPanel criarLegendaGlyphContinuo(JPanel painel, ArrayList<String> atributosEscolhidosGlyphContinuo) {
+
+    private JPanel criarLegendaGlyphContinuo(JPanel painel, List<String> atributosEscolhidosGlyphContinuo) {
         IconeLegenda icon = new IconeLegenda();
 //        icon.setDimensaoCategorical(dimensao);
         icon.setMaxValorContIcon(10);
@@ -242,7 +243,7 @@ public class LegendaVisualizacao {
         return this.bounds;
     }
 
-    public void setAtributosGlyphsContinuos(ArrayList<String> listaContinuos) {
+    public void setAtributosGlyphsContinuos(List<String> listaContinuos) {
         this.listaContinuos = listaContinuos;
     }
 }

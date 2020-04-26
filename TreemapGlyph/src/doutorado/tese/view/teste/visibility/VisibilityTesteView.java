@@ -280,7 +280,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        textura0RadioButton.setText("Não identifiquei/apresenta");
+        textura0RadioButton.setText("Não apresenta");
 
         javax.swing.GroupLayout texturasPanelLayout = new javax.swing.GroupLayout(texturasPanel);
         texturasPanel.setLayout(texturasPanelLayout);
@@ -384,7 +384,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        cor0RadioButton.setText("Não identifiquei/apresenta");
+        cor0RadioButton.setText("Não apresenta");
 
         javax.swing.GroupLayout coresPanelLayout = new javax.swing.GroupLayout(coresPanel);
         coresPanel.setLayout(coresPanelLayout);
@@ -487,7 +487,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        orientation0RadioButton.setText("Não identifiquei/apresenta");
+        orientation0RadioButton.setText("Não apresenta");
 
         javax.swing.GroupLayout orientationPanelLayout = new javax.swing.GroupLayout(orientationPanel);
         orientationPanel.setLayout(orientationPanelLayout);
@@ -588,7 +588,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        text0RadioButton.setText("Não identifiquei/apresenta");
+        text0RadioButton.setText("Não apresenta");
 
         javax.swing.GroupLayout textPanelLayout = new javax.swing.GroupLayout(textPanel);
         textPanel.setLayout(textPanelLayout);
@@ -689,7 +689,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        forma0RadioButton.setText("Não identifiquei/apresenta");
+        forma0RadioButton.setText("Não apresenta");
 
         javax.swing.GroupLayout shapePanelLayout = new javax.swing.GroupLayout(shapePanel);
         shapePanel.setLayout(shapePanelLayout);
@@ -789,7 +789,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        position0RadioButton.setText("Não identifiquei/apresenta");
+        position0RadioButton.setText("Não apresenta");
 
         javax.swing.GroupLayout positionPanelLayout = new javax.swing.GroupLayout(positionPanel);
         positionPanel.setLayout(positionPanelLayout);
@@ -893,7 +893,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
         });
 
-        profile0RadioButton.setText("Não identifiquei/apresenta");
+        profile0RadioButton.setText("Não apresenta");
 
         javax.swing.GroupLayout profileGlyphPanelLayout = new javax.swing.GroupLayout(profileGlyphPanel);
         profileGlyphPanel.setLayout(profileGlyphPanelLayout);
@@ -1331,7 +1331,8 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             File f = new File("testVisibility" + File.separator);
             if (!f.exists()) {
                 f.mkdir();
-            } else {
+            } 
+            if(f.exists()){
                 File file = new File("testVisibility" + File.separator + nomeArquivo);
                 writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
                 writer.print(data);
@@ -1353,7 +1354,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         visibilityTestMB.setInputConfigs(configs);
         visibilityTestMB.family2Draw();
         visibilityTestMB.createProfileGlyphs(labelsProfileGlyphGroup());
-        
+        visibilityTestMB.configurarGabarito();
         painelEsquerda.repaint();
         
         contadorLabel.setText(visibilityTestMB.getContTarefasRealizadas() + " / " + numAmostras);

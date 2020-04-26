@@ -22,6 +22,7 @@ import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvi
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory.TEXTURE;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
+import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.util.ColorInterpolator;
 import static doutorado.tese.util.Constantes.VAR_VISUAIS_CATEGORICAS.TEXTURE;
 import java.awt.BasicStroke;
@@ -31,6 +32,7 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -57,8 +59,8 @@ public class IconeLegenda implements Icon {
     private ARROW.GLYPH_ORIENTACAO orientacao;
     private TEXTURE.GLYPH_TEXTURAS valorTextura;
     private boolean visibilityTest = false;
-    private HashMap<Coluna, String> mapaDetalhesItem;
-    private ProfileGlyph profileGlyph;
+    private HashMap<String, Double> mapaDetalhesItem;
+    private TreeMapItem item;
 
     @Override
     public void paintIcon(Component c, Graphics g, int x, int y) {
@@ -91,9 +93,8 @@ public class IconeLegenda implements Icon {
             if (getAtributosEscolhidosGlyphContinuo() != null && !getAtributosEscolhidosGlyphContinuo().isEmpty()) {//legenda profile glyph
                 if (!isVisibilityTest()) {
                     montarIconeProfileGlyph(g2d, bounds);
-                } else {
-//                    System.out.println("paint icon: " + mapaDetalhesItem);
-//                    montarIconeProfileGlyph(g2d, bounds, mapaDetalhesItem);                    
+                }else{
+                    montarIconeProfileGlyphAleatorio(g2d, bounds);
                 }
             } else if (Constantes.SHOW_GLYPH_ON_DETAILS && getGlyph() != null) {
                 getGlyph().setBounds(bounds);
@@ -101,7 +102,9 @@ public class IconeLegenda implements Icon {
             } else if (Constantes.LEGENDA_COR_TREEMAP) {//legenda da cor do treemap
                 montarIconeCorTreemap(g2d, x, y, bounds);
             } else if (isVisibilityTest()) {
-                montarIconeProfileGlyph(g2d, bounds, profileGlyph);
+//                montarIconeProfileGlyph(g2d, item);
+//                montarIconeProfileGlyph(g2d, bounds, mapaDetalhesItem);
+                montarIconeProfileGlyph(g2d, glyph, bounds);
             }
         }
         g2d.dispose();
@@ -202,50 +205,59 @@ public class IconeLegenda implements Icon {
     }
 
     private void montarIconeProfileGlyph(Graphics2D g2d, Rectangle bounds) {
-        ProfileGlyph bar = new ProfileGlyph(getAtributosEscolhidosGlyphContinuo());
-        bar.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
-        bar.setPectSobreposicao(0.85f);
-        bar.setOverlappingActivated(true);
+        ProfileGlyph profile = new ProfileGlyph(getAtributosEscolhidosGlyphContinuo());
+        profile.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
+        profile.setPectSobreposicao(0.85f);
+        profile.setOverlappingActivated(true);
         double dado = 20;
         for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
             dado -= 2;
             double dadoMaxVal = 20;//0 - maxValue; 1 - minValue
             double dadoMinVal = -10;
-            bar.getBarras()[i] = new Bar(dado, dadoMaxVal, dadoMinVal);
+            profile.getBarras()[i] = new Bar(dado, dadoMaxVal, dadoMinVal);
         }
         Rectangle r = new Rectangle(10, 10, bounds.width * 3, bounds.height * 4);
 
-        bar.setBounds(r);
-        bar.paint(g2d);
+        profile.setBounds(r);
+        profile.paint(g2d);
     }
 
-    private void montarIconeProfileGlyph(Graphics2D g2d, Rectangle bounds, HashMap<Coluna, String> mapaDetalhesItem) {
+    private void montarIconeProfileGlyph(Graphics2D g2d, Glyph glyph, Rectangle newBounds) {
+        ProfileGlyph profile = (ProfileGlyph) glyph;
+        List<String> lista = new ArrayList<>();
+        lista.add("a1");
+        lista.add("a2");
+        lista.add("a3");
+        ProfileGlyph newProfile = new ProfileGlyph(lista);
+        newProfile.setQuantVar(lista.size());
+        newProfile.setPectSobreposicao(1f);
+        newProfile.setOverlappingActivated(true);
+        for (int i = 0; i < profile.getBarras().length; i++) {
+            Bar barra = profile.getBarras()[i];
+            double dado = barra.getDado();
+            double dadoMaxVal = barra.getDadoMaxVal();//0 - maxValue; 1 - minValue
+            double dadoMinVal = barra.getDadoMinVal();
+            newProfile.getBarras()[i] = new Bar(dado, dadoMaxVal, dadoMinVal);
+        }
+        Rectangle r = new Rectangle(newBounds.x * 11, newBounds.y, newBounds.width, newBounds.height);
+        newProfile.setBounds(r);
+        newProfile.paint(g2d);
+    }
+    
+    private void montarIconeProfileGlyphAleatorio(Graphics2D g2d, Rectangle bounds) {
         ProfileGlyph profile = new ProfileGlyph(getAtributosEscolhidosGlyphContinuo());
         profile.setQuantVar(getAtributosEscolhidosGlyphContinuo().size());
         profile.setPectSobreposicao(1f);
         profile.setOverlappingActivated(true);
 
         for (int i = 0; i < getAtributosEscolhidosGlyphContinuo().size(); i++) {
-            String nomeColunaEscolhida = getAtributosEscolhidosGlyphContinuo().get(i);
-            Coluna coluna = ManipuladorArquivo.getColuna(nomeColunaEscolhida);
-            System.out.println("dados da coluna para desenhar: " + Arrays.asList(coluna.getDadosColuna()));
-            double dado = Double.parseDouble(mapaDetalhesItem.get(coluna));
-            double dadoMaxVal = coluna.getMapaMaiorMenor().get(coluna.getName())[0];//0 - maxValue; 1 - minValue
-            double dadoMinVal = coluna.getMapaMaiorMenor().get(coluna.getName())[1];
-            System.out.println("nomeColunaEscolhida: " + nomeColunaEscolhida + " - (dados: " + dado + " - max: " + dadoMaxVal + " - min: " + dadoMinVal + ")");
+            double dado = mapaDetalhesItem.get("a"+i);
+            double dadoMaxVal = 100;//0 - maxValue; 1 - minValue
+            double dadoMinVal = -100;
             profile.getBarras()[i] = new Bar(dado, dadoMaxVal, dadoMinVal);
         }
         Rectangle r = new Rectangle(bounds.x * 11, bounds.y, bounds.width, bounds.height);
         profile.setBounds(r);
-        profile.paint(g2d);
-    }
-
-    private void montarIconeProfileGlyph(Graphics2D g2d, Rectangle bounds, ProfileGlyph profile) {
-        System.out.println("bounds: " + bounds);
-        Rectangle r = new Rectangle(bounds.x, bounds.y, bounds.width, bounds.height);
-        profile.setBounds(r);
-        profile.setPectSobreposicao(1f);
-        profile.setOverlappingActivated(true);
         profile.paint(g2d);
     }
 
@@ -364,22 +376,19 @@ public class IconeLegenda implements Icon {
     /**
      * @return the mapaDetalhesItem
      */
-    public HashMap<Coluna, String> getMapaDetalhesItem() {
+    public HashMap<String, Double> getMapaDetalhesItem() {
         return mapaDetalhesItem;
     }
 
     /**
      * @param mapaDetalhesItem the mapaDetalhesItem to set
      */
-    public void setMapaDetalhesItem(HashMap<Coluna, String> mapaDetalhesItem) {
+    public void setMapaDetalhesItem(HashMap<String, Double> mapaDetalhesItem) {
         this.mapaDetalhesItem = mapaDetalhesItem;
     }
 
-    /**
-     * @param profileGlyph the profileGlyph to set
-     */
-    public void setProfileGlyph(ProfileGlyph profileGlyph) {
-        this.profileGlyph = profileGlyph;
+    public void setItem(TreeMapItem item) {
+        this.item = item;
     }
 
 }

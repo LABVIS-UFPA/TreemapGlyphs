@@ -59,7 +59,7 @@ public class Constantes {
     /**
      * Representa quando o participante nao identificar 
      * uma variavel visual ou quando a variavel nao estiver presente
-     * na familia do glyph
+     * na familia do glyph. Valor = 0 (zero).
      */
     public static String NAO_IDENTIFICOU_NAO_APRESENTA = "0";
     

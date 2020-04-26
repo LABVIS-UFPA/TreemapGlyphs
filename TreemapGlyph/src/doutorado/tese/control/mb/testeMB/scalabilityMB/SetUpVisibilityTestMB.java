@@ -26,7 +26,6 @@ import doutorado.tese.util.Constantes;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -56,12 +55,15 @@ public class SetUpVisibilityTestMB {
     private final boolean overlappingActivated;
     private int areaTextura = 0, areaColorHue = 0, areaForma = 0, areaText = 0, areaPosition = 0, areaOrientation = 0, areaProfileGlyph = 0;
     private List<String> atributosEscolhidosGlyphContinuo;
-//    private Coluna[] colunas = null;
+    private Coluna[] colunas = null;
     private Random rand;
     private Constantes.VAR_VISUAIS_CATEGORICAS[] layersMisturadas;
     private int[] glyphLayers2draw = {0, 1, 2, 3, 4, 5, 6};
     private String[] layers = new String[]{"texture", "colorhue", "geometricshape", "text", "position", "orientation", "coritem"};
-    private final int quantGlyphsBase = 10;
+    /**
+     * Essa variavel determina quantos glyphs base serao criados
+     */
+    private final int quantGlyphsBase = 5;
     private final List<TreeMapItem> listaItensBase;
     private int contTarefasRealizadas = 0;
     private int rodadaRemoveCamada = 0;
@@ -82,6 +84,7 @@ public class SetUpVisibilityTestMB {
 
 //        listaFamilias = new ArrayList<>();
         listaItensBase = new ArrayList<>();
+        colunas = prepararColunas();
         criarGlyphsBase();
     }
 
@@ -107,17 +110,19 @@ public class SetUpVisibilityTestMB {
         int w = 0;
         int h = 0;
 //        while(w == 0 || h == 0){
-        while (w <= 50 || h <= 50) {
+        while (w <= 30 || h <= 30) {
             w = Math.abs(length - (rand.nextInt(151)));
             h = Math.abs(length - (rand.nextInt(151)));
         }
-        Rectangle bounds = new Rectangle(50, 50, w, h);
+        Rectangle bounds = new Rectangle(20, 50, w, h);
 
         TreeMapItem item = new TreeMapItem(1, 0);
         item.setBounds(bounds);
         item.setMapaDetalhesItem(simularDados());
+
         Glyph glyphConcrete = new GlyphConcrete();
         glyphConcrete.setNodeTreemap(item);
+
         item.setGlyph(glyphConcrete);
         item.getGlyph().setBounds(item.getBounds());
         item.setColor(posicaoVetorCorItem == -1
@@ -188,36 +193,36 @@ public class SetUpVisibilityTestMB {
         for (String var : familia) {
             Glyph child = null;
             switch (var) {
-//                case "Texture":
-//                    valor = rand.nextInt(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values().length);
-//                    child = getGlyphMB().defineTexture(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values()[valor]);
-//                    child.setNodeTreemap(item);
-//                    break;
-//                case "Color_Hue":
-//                    valor = rand.nextInt(Constantes.getColorHueGlyphs().length);
-//                    child = getGlyphMB().defineColorHue(Color.decode(Constantes.getColorHueGlyphs()[valor]));
-//                    child.setNodeTreemap(item);
-//                    break;
-//                case "Shape":
-//                    valor = rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length);
-//                    child = getGlyphMB().defineShape(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[valor]);
-//                    child.setNodeTreemap(item);
-//                    break;
-//                case "Text":
-//                    valor = rand.nextInt(Constantes.LETRAS_ALFABETO.length);
-//                    child = getGlyphMB().defineText(Constantes.LETRAS_ALFABETO[valor]);
-//                    child.setNodeTreemap(item);
-//                    break;
+                case "Texture":
+                    valor = rand.nextInt(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values().length);
+                    child = getGlyphMB().defineTexture(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values()[valor]);
+                    child.setNodeTreemap(item);
+                    break;
+                case "Color_Hue":
+                    valor = rand.nextInt(Constantes.getColorHueGlyphs().length);
+                    child = getGlyphMB().defineColorHue(Color.decode(Constantes.getColorHueGlyphs()[valor]));
+                    child.setNodeTreemap(item);
+                    break;
+                case "Shape":
+                    valor = rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length);
+                    child = getGlyphMB().defineShape(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[valor]);
+                    child.setNodeTreemap(item);
+                    break;
+                case "Text":
+                    valor = rand.nextInt(Constantes.LETRAS_ALFABETO.length);
+                    child = getGlyphMB().defineText(Constantes.LETRAS_ALFABETO[valor]);
+                    child.setNodeTreemap(item);
+                    break;
                 case "Position":
                     valor = rand.nextInt(Constantes.POSICOES.values().length);
                     child = getGlyphMB().definePosition(Constantes.POSICOES.values()[valor]);
                     child.setNodeTreemap(item);
                     break;
-//                case "Orientation":
-//                    valor = rand.nextInt(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length);
-//                    child = getGlyphMB().defineOrientation(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values()[valor]);
-//                    child.setNodeTreemap(item);
-//                    break;
+                case "Orientation":
+                    valor = rand.nextInt(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length);
+                    child = getGlyphMB().defineOrientation(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values()[valor]);
+                    child.setNodeTreemap(item);
+                    break;
                 case "Profile":
                     getGlyphMB().setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
                     child = getGlyphMB().configureProfileGlyph(item);
@@ -306,20 +311,15 @@ public class SetUpVisibilityTestMB {
                     break;
                 case "ProfileGlyph":
                     getInputConfigs().put("profileglyph", 1);
-                    Glyph cloneProfile = null;
                     try {
-                        cloneProfile = glyph.clone();
+                        child = glyph.clone();
+                        if (child != null) {
+                            child.setNodeTreemap(item);
+                            break;
+                        }
                     } catch (CloneNotSupportedException ex) {
                         Logger.getLogger(SetUpVisibilityTestMB.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
-//                    getGlyphMB().setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
-//                    child = getGlyphMB().configureProfileGlyph(item);
-//                    child.setNodeTreemap(item);
-                    child = cloneProfile;
-                    child.setNodeTreemap(item);
-                    break;
-
             }
             if (child != null) {
                 father.appendChild(child);
@@ -362,8 +362,6 @@ public class SetUpVisibilityTestMB {
                 ? Constantes.ALICE_BLUE
                 : Color.decode(Constantes.getCorTreemap()[getInputConfigs().get("coritem")]));
         try {
-//            newItem.setMapaDetalhesItem(item.getMapaDetalhesItem());
-
             Set<Coluna> conjuntoColunas = item.getMapaDetalhesItem().keySet();
             for (Coluna coluna : conjuntoColunas) {
                 String dado = item.getMapaDetalhesItem().get(coluna);
@@ -387,10 +385,8 @@ public class SetUpVisibilityTestMB {
     private List<Glyph> criarItemMaisGlyph(int camadasRemover, int controle) {
         itemInput = null;
         itemInput = recuperarCaracteristicasItemBase(listaItensBase.get(controle));
-        System.out.println("itemInput: " + itemInput);
-        System.out.println("itemInput dados: " + itemInput.mapaDetalhesItem);
         Glyph father = remontarGlyph(itemInput, camadasRemover);
-        setGabarito();
+//        configurarGabarito();
         return itemInput.getGlyphFamily(father, new ArrayList<>());
     }
 
@@ -433,9 +429,9 @@ public class SetUpVisibilityTestMB {
         }
         System.out.println("-----> usuario: " + respostasUsuario.get("ProfileGlyph"));
         System.out.println("=====> gabarito: " + getGabarito().get("ProfileGlyph"));
-        return pontuacao + "/" + (glyphLayers2draw.length - 1);
+        return pontuacao + "/" + (glyphLayers2draw.length);
     }
-
+   
     public void createProfileGlyphs(List<JLabel> listaLabels) {
         List<Glyph> children = getItemInput().getGlyphFamily(getItemInput().getGlyph(), new ArrayList<>());
         boolean profileNaFamilia = false;
@@ -443,45 +439,43 @@ public class SetUpVisibilityTestMB {
             if (glyph instanceof ProfileGlyph) {
                 profileNaFamilia = true;
                 idRadioButtonResposta = rand.nextInt(5);
-                System.out.println("item: " + getItemInput());
-                System.out.println("mapa: " + getItemInput().mapaDetalhesItem);
-                ProfileGlyph cloneProfile = null;
+                Glyph clone = null;
                 try {
-                    cloneProfile = (ProfileGlyph) glyph.clone();
+                    clone = glyph.clone();
                 } catch (CloneNotSupportedException ex) {
                     Logger.getLogger(SetUpVisibilityTestMB.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                Icon icon = criarIconProfileGlyph(listaLabels.get(idRadioButtonResposta).getBounds(), cloneProfile);
+                Icon icon = criarIconProfileGlyph(listaLabels.get(idRadioButtonResposta).getBounds(), clone);
                 listaLabels.get(idRadioButtonResposta).setIcon(icon);
                 idRadioButtonResposta++;//a GUI possui 6 radio buttons e 5 labels, logo: label 0 -> radio 1, label 1 -> radio 2, label 2 -> radio 3 ...
-                System.out.println("\t+++++++++++ adicionar esse no gabarito: " + idRadioButtonResposta);
                 break;
             }
         }
-//        if (!profileNaFamilia) {//desenhar profiles aleatorios na GUI
-//            for (int i = 0; i < listaLabels.size(); i++) {
-//                System.out.println("sem profile familia - desenhar aleatorio");
-//                Icon icon = criarIconProfileGlyph(listaLabels.get(i).getBounds(), simularDados());
-//                listaLabels.get(i).setIcon(icon);
-//            }
-//        } else {//senao desenhar apenas 4 profiles, pois um eh do gabarido
-//            for (int i = 0; i < listaLabels.size(); i++) {
-//                if (i != (idRadioButtonResposta - 1)) {
-//                    System.out.println("desenhar 4: " + i);
-//                    Icon icon = criarIconProfileGlyph(listaLabels.get(i).getBounds(), simularDados());
-//                    listaLabels.get(i).setIcon(icon);
-//                }
-//            }
-//        }
+        if (!profileNaFamilia) {//desenhar profiles aleatorios na GUI
+            for (int i = 0; i < listaLabels.size(); i++) {
+                Icon icon = criarIconProfileGlyph(listaLabels.get(i).getBounds());
+                listaLabels.get(i).setIcon(icon);
+            }
+        } else {//senao desenhar apenas 4 profiles, pois um eh do gabarido
+            for (int i = 0; i < listaLabels.size(); i++) {
+                if (i != (idRadioButtonResposta - 1)) {
+                    Icon icon = criarIconProfileGlyph(listaLabels.get(i).getBounds());
+                    listaLabels.get(i).setIcon(icon);
+                }
+            }
+        }
     }
 
-    public Icon criarIconProfileGlyph(Rectangle bounds, ProfileGlyph cloneProfile) {
-        System.out.println("bar:0 "+cloneProfile.getBarras()[0].getDado());
-        System.out.println("bar:1"+cloneProfile.getBarras()[1].getDado());
-        System.out.println("bar:2 "+cloneProfile.getBarras()[2].getDado());
-        LegendaVisualizacao legendaVisualizacao = new LegendaVisualizacao(bounds);
-//        return legendaVisualizacao.criarLegendaProfileGlyphTest(mapaDetalhesItem);
-        return legendaVisualizacao.criarLegendaProfileGlyphTest(cloneProfile);
+    public Icon criarIconProfileGlyph(Rectangle bounds, Glyph profile) {
+        Rectangle newRectangle = new Rectangle(bounds.x * 11, bounds.y, bounds.width, bounds.height);
+        LegendaVisualizacao legendaVisualizacao = new LegendaVisualizacao(newRectangle);
+        return legendaVisualizacao.criarLegendaProfileGlyphTest(profile);
+    }
+
+    public Icon criarIconProfileGlyph(Rectangle boundsLabel) {
+        LegendaVisualizacao legendaVisualizacao = new LegendaVisualizacao(boundsLabel);
+        legendaVisualizacao.setAtributosGlyphsContinuos(atributosEscolhidosGlyphContinuo);
+        return legendaVisualizacao.criarLegendaProfileGlyphTest();
     }
 
     /**
@@ -630,35 +624,10 @@ public class SetUpVisibilityTestMB {
         }
     }
 
-//    private void criarDadosSimuladosTreemapItem() {
-//        int valor = 100;
-//        List<String[]> dadosColunas = new ArrayList<>();
-//        for (int i = 0; i < colunas.length; i++) {
-//            dadosSimulados = new String[3];
-//            for (int j = 0; j < dadosSimulados.length; j++) {
-//                dadosSimulados[j]
-//                        = (rand.nextInt(2) == 0)
-//                        ? "" + (rand.nextInt(valor) * (-1))
-//                        : "" + rand.nextInt(valor);
-//            }
-//            dadosColunas.add(dadosSimulados);
-//        }
-//        int linha = rand.nextInt(3);//escolhe entre as linhas 0, 1, e 2 
-//        for (int i = 0; i < dadosColunas.size(); i++) {
-//            try {
-//                dadosTreemapItem.put(colunas[i], dadosColunas.get(i)[linha]);
-//                colunas[i].configurarDescricao(dadosColunas.get(i));
-//            } catch (Exception ex) {
-//                Logger.getLogger(SetUpVisibilityTestMB.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//    }
-    public List<Coluna> prepararColunas() {
+    public Coluna[] prepararColunas() {
         atributosEscolhidosGlyphContinuo = new ArrayList<>();
-        List<Coluna> colunas = new ArrayList<>();
         try {
-            Coluna[] vetorColunas = ManipuladorArquivo.montarColunas();
-            colunas.addAll(Arrays.asList(vetorColunas));
+            colunas = ManipuladorArquivo.montarColunas();
         } catch (Exception ex) {
             Logger.getLogger(SetUpVisibilityTestMB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -670,10 +639,14 @@ public class SetUpVisibilityTestMB {
 
     public HashMap<Coluna, String> simularDados() {
         HashMap<Coluna, String> newMapa = new HashMap<>();
-        List<Coluna> colunas = prepararColunas();
+//        List<Coluna> colunas = prepararColunas();
         int valor = 100;
         List<String[]> dadosColunas = new ArrayList<>();
-        for (int i = 0; i < colunas.size(); i++) {
+//        for (int i = 0; i < colunas.size(); i++) {
+        if (colunas == null) {
+            colunas = prepararColunas();
+        }
+        for (int i = 0; i < colunas.length; i++) {
             String[] simulados = new String[3];
             for (int j = 0; j < simulados.length; j++) {
                 simulados[j]
@@ -683,15 +656,16 @@ public class SetUpVisibilityTestMB {
             }
             dadosColunas.add(simulados);
         }
-        System.out.println(Arrays.asList(dadosColunas.get(0)));
-        System.out.println(Arrays.asList(dadosColunas.get(1)));
-        System.out.println(Arrays.asList(dadosColunas.get(2)));
+//        System.out.println(Arrays.asList(dadosColunas.get(0)));
+//        System.out.println(Arrays.asList(dadosColunas.get(1)));
+//        System.out.println(Arrays.asList(dadosColunas.get(2)));
         int linha = rand.nextInt(3);//escolhe entre as linhas 0, 1, e 2 
-        System.out.println("linha escolhida: " + linha);
+//        System.out.println("linha escolhida: " + linha);
         for (int i = 0; i < dadosColunas.size(); i++) {
             try {
-                newMapa.put(colunas.get(i), dadosColunas.get(i)[linha]);
-                colunas.get(i).configurarDescricao(dadosColunas.get(i));
+//                newMapa.put(colunas.get(i), dadosColunas.get(i)[linha]);
+                newMapa.put(colunas[i], dadosColunas.get(i)[linha]);
+                colunas[i].configurarDescricao(dadosColunas.get(i));
             } catch (Exception ex) {
                 Logger.getLogger(SetUpVisibilityTestMB.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -924,7 +898,7 @@ public class SetUpVisibilityTestMB {
     /**
      * @param gabarito the gabarito to set
      */
-    private void setGabarito() {
+    public void configurarGabarito() {
         this.gabarito = new HashMap<>();
         gabarito.put("Texture", getInputConfigs().get("texture") == -1
                 ? Constantes.NAO_IDENTIFICOU_NAO_APRESENTA
@@ -947,6 +921,7 @@ public class SetUpVisibilityTestMB {
         gabarito.put("ProfileGlyph", getIdRadioButtonResposta() == -1
                 ? Constantes.NAO_IDENTIFICOU_NAO_APRESENTA
                 : getIdRadioButtonResposta() + "");
+        idRadioButtonResposta = -1;//reiniciando o valor do radio do profile glyph
     }
 
 }

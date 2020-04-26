@@ -148,7 +148,7 @@ public abstract class Glyph implements Cloneable {
         this.bounds = bounds;
         if (this.getChild() != null) {
             this.getChild().setBounds(
-                    new Rectangle(
+                    new Rectangle(  
                             bounds.x + Math.round(((bounds.width * (1 - pectSobreposicao)) / 2)),
                             bounds.y + Math.round(((bounds.height * (1 - pectSobreposicao)) / 2)),
                             Math.round(bounds.width * pectSobreposicao),

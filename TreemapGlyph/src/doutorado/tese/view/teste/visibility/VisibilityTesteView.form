@@ -326,7 +326,7 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="textura0RadioButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="N&#xe3;o identifiquei/apresenta"/>
+                    <Property name="text" type="java.lang.String" value="N&#xe3;o apresenta"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -482,7 +482,7 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="cor0RadioButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="N&#xe3;o identifiquei/apresenta"/>
+                    <Property name="text" type="java.lang.String" value="N&#xe3;o apresenta"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -635,7 +635,7 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="orientation0RadioButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="N&#xe3;o identifiquei/apresenta"/>
+                    <Property name="text" type="java.lang.String" value="N&#xe3;o apresenta"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -788,7 +788,7 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="text0RadioButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="N&#xe3;o identifiquei/apresenta"/>
+                    <Property name="text" type="java.lang.String" value="N&#xe3;o apresenta"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -941,7 +941,7 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="forma0RadioButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="N&#xe3;o identifiquei/apresenta"/>
+                    <Property name="text" type="java.lang.String" value="N&#xe3;o apresenta"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1097,7 +1097,7 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="position0RadioButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="N&#xe3;o identifiquei/apresenta"/>
+                    <Property name="text" type="java.lang.String" value="N&#xe3;o apresenta"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1264,7 +1264,7 @@
                 </Component>
                 <Component class="javax.swing.JRadioButton" name="profile0RadioButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="N&#xe3;o identifiquei/apresenta"/>
+                    <Property name="text" type="java.lang.String" value="N&#xe3;o apresenta"/>
                   </Properties>
                 </Component>
               </SubComponents>
