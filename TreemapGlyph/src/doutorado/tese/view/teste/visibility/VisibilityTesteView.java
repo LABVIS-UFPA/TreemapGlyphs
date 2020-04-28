@@ -24,11 +24,11 @@ import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvi
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Estrela;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Quadrado;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Serrilhado;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_10x10;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_2x2;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_2x2_Branco;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_3x3;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_3x3_Branco;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_4x4;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_6x6;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_8x8;
 import doutorado.tese.control.mb.testeMB.scalabilityMB.SetUpVisibilityTestMB;
 import doutorado.tese.util.Constantes;
 import java.io.BufferedWriter;
@@ -82,7 +82,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 + "AreaTextura,AreaCor,AreaForma,AreaTexto,AreaPosicao,AreaOrientacao,AreaProfileGlyph,"
                 //+ "ViuTextura,ViuCor,ViuForma,ViuTexto,ViuPosicao,ViuOrientacao,ViuProfileGlyph,"
                 + "FamiliaGlyph,"
-                + "TexturaValorUsuario,CorValorUsuario,FormaValorUsuario,TextoValorUsuario,PosicaoValorUsuario,OrientacaoValorUsuario,"
+                + "TexturaValorUsuario,CorValorUsuario,FormaValorUsuario,TextoValorUsuario,PosicaoValorUsuario,OrientacaoValorUsuario,achouProfileCorreto,"
                 + "areaVisivel_Textura,areaVisivel_Cor,areaVisivel_Forma,areaVisivel_Texto,areaVisivel_Posicao,areaVisivel_Orientacao,"
                 + "TexturaValorGabarito,CorValorGabarito,FormaValorGabarito,TextoValorGabarito,PosicaoValorGabarito,OrientacaoValorGabarito,"
                 + "userScore"
@@ -1124,10 +1124,10 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     public void configRadioButtonsActionCommand() {
         textura0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU_NAO_APRESENTA);
         textura1RadioButton.setActionCommand(CirculoTextura_2x2.class.getSimpleName());
-        textura2RadioButton.setActionCommand(CirculoTextura_4x4.class.getSimpleName());
-        textura3RadioButton.setActionCommand(CirculoTextura_6x6.class.getSimpleName());
-        textura4RadioButton.setActionCommand(CirculoTextura_8x8.class.getSimpleName());
-        textura5RadioButton.setActionCommand(CirculoTextura_10x10.class.getSimpleName());
+        textura2RadioButton.setActionCommand(CirculoTextura_3x3_Branco.class.getSimpleName());
+        textura3RadioButton.setActionCommand(CirculoTextura_4x4.class.getSimpleName());
+        textura4RadioButton.setActionCommand(CirculoTextura_2x2_Branco.class.getSimpleName());
+        textura5RadioButton.setActionCommand(CirculoTextura_3x3.class.getSimpleName());
 
         cor0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU_NAO_APRESENTA);
         cor1RadioButton.setActionCommand(Constantes.getColorHueGlyphs()[0]);
@@ -1299,6 +1299,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 append(textoButtonGroup.getSelection().getActionCommand())      .append(","). //"TextoValor"
                 append(posicaoButtonGroup.getSelection().getActionCommand())    .append(","). //"PosicaoValor"
                 append(orientacaoButtonGroup.getSelection().getActionCommand()) .append(",").//"OrientacaoValor"
+                append(visibilityTestMB.isAchouProfileCorreto() == true ? "1" : "0") .append(",").//"achouProfileCorreto?"
                 append(areaVisivelVarVisuais[0]).append(","). //area visivel Textura
                 append(areaVisivelVarVisuais[1]).append(","). //area visivel cor
                 append(areaVisivelVarVisuais[2]).append(","). //area visivel forma

@@ -63,13 +63,14 @@ public class SetUpVisibilityTestMB {
     /**
      * Essa variavel determina quantos glyphs base serao criados
      */
-    private final int quantGlyphsBase = 5;
+    private final int quantGlyphsBase = 9;
     private final List<TreeMapItem> listaItensBase;
     private int contTarefasRealizadas = 0;
     private int rodadaRemoveCamada = 0;
     private int controleGlyphBase = -1;
     private int idRadioButtonResposta = -1;
     private List<Glyph> family2Draw;
+    private boolean usuarioAchouProfileCorreto;
 
     public SetUpVisibilityTestMB() {
         areas = new HashMap<>();
@@ -110,7 +111,7 @@ public class SetUpVisibilityTestMB {
         int w = 0;
         int h = 0;
 //        while(w == 0 || h == 0){
-        while (w <= 30 || h <= 30) {
+        while (w <= 25 || h <= 25) {
             w = Math.abs(length - (rand.nextInt(151)));
             h = Math.abs(length - (rand.nextInt(151)));
         }
@@ -125,9 +126,9 @@ public class SetUpVisibilityTestMB {
 
         item.setGlyph(glyphConcrete);
         item.getGlyph().setBounds(item.getBounds());
-        item.setColor(posicaoVetorCorItem == -1
-                ? Constantes.ALICE_BLUE
-                : Color.decode(Constantes.getCorTreemap()[posicaoVetorCorItem]));
+        item.setColor(//posicaoVetorCorItem == -1 ? 
+                Constantes.ALICE_BLUE);
+                //: Color.decode(Constantes.getCorTreemap()[posicaoVetorCorItem]));
         return item;
     }
 
@@ -406,6 +407,7 @@ public class SetUpVisibilityTestMB {
 
     public String calculateUserScore(HashMap<String, String> respostasUsuario) {
         int pontuacao = 0;
+        usuarioAchouProfileCorreto = false;
         if (respostasUsuario.get("Texture").equalsIgnoreCase(getGabarito().get("Texture"))) {
             pontuacao++;
         }
@@ -425,10 +427,9 @@ public class SetUpVisibilityTestMB {
             pontuacao++;
         }
         if (respostasUsuario.get("ProfileGlyph").equalsIgnoreCase(getGabarito().get("ProfileGlyph"))) {
+            usuarioAchouProfileCorreto = true;
             pontuacao++;
         }
-        System.out.println("-----> usuario: " + respostasUsuario.get("ProfileGlyph"));
-        System.out.println("=====> gabarito: " + getGabarito().get("ProfileGlyph"));
         return pontuacao + "/" + (glyphLayers2draw.length);
     }
    
@@ -922,6 +923,10 @@ public class SetUpVisibilityTestMB {
                 ? Constantes.NAO_IDENTIFICOU_NAO_APRESENTA
                 : getIdRadioButtonResposta() + "");
         idRadioButtonResposta = -1;//reiniciando o valor do radio do profile glyph
+    }
+
+    public boolean isAchouProfileCorreto() {
+        return usuarioAchouProfileCorreto;
     }
 
 }

@@ -1322,7 +1322,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         //Gerar o .jar clicando com o botao direito no arquivo build.xml ->
         //executar destino -> outros destinos -> package-for-store
         //o arquivo .jar sera gerado em uma pasta TreemapGlyph\store
-        JOptionPane.showMessageDialog(null, "Version 18.0\n"
+        JOptionPane.showMessageDialog(null, "Version 19.0\n"
                 + "Developed by LabVis ( http://www.labvis.ufpa.br/ )");
     }//GEN-LAST:event_version_jMenuItemActionPerformed
 
