@@ -14,7 +14,7 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.categorica
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
-import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometricalFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
 import doutorado.tese.control.business.visualizations.legenda.LegendaVisualizacao;
@@ -205,8 +205,8 @@ public class SetUpVisibilityTestMB {
                     child.setNodeTreemap(item);
                     break;
                 case "Shape":
-                    valor = rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length);
-                    child = getGlyphMB().defineShape(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[valor]);
+                    valor = rand.nextInt(GeometricalFactory.FORMAS.GLYPH_FORMAS.values().length);
+                    child = getGlyphMB().defineShape(GeometricalFactory.FORMAS.GLYPH_FORMAS.values()[valor]);
                     child.setNodeTreemap(item);
                     break;
                 case "Text":
@@ -271,13 +271,13 @@ public class SetUpVisibilityTestMB {
                     child.setNodeTreemap(item);
                     break;
                 case "GeometricShape":
-                    for (int j = 0; j <= GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
-                        if (GeometryFactory.FORMAS.GLYPH_FORMAS.values()[j].shapeName().equals(glyph.getVarValue())) {
+                    for (int j = 0; j <= GeometricalFactory.FORMAS.GLYPH_FORMAS.values().length - 1; j++) {
+                        if (GeometricalFactory.FORMAS.GLYPH_FORMAS.values()[j].shapeName().equals(glyph.getVarValue())) {
                             inputConfigs.put("geometricshape", j);
                             break;
                         }
                     }
-                    child = getGlyphMB().defineShape(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[getInputConfigs().get("geometricshape")]);
+                    child = getGlyphMB().defineShape(GeometricalFactory.FORMAS.GLYPH_FORMAS.values()[getInputConfigs().get("geometricshape")]);
                     child.setNodeTreemap(item);
                     break;
                 case "Text":
@@ -509,7 +509,7 @@ public class SetUpVisibilityTestMB {
                     break;
                 case SHAPE:
                     if (getInputConfigs().get("geometricshape") >= 0) {
-                        child = getGlyphMB().defineShape(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[getInputConfigs().get("geometricshape")]);
+                        child = getGlyphMB().defineShape(GeometricalFactory.FORMAS.GLYPH_FORMAS.values()[getInputConfigs().get("geometricshape")]);
                         child.setNodeTreemap(getItemInput());
                     }
                     break;
@@ -586,7 +586,7 @@ public class SetUpVisibilityTestMB {
                     break;
                 case SHAPE:
                     if (getOutputConfigs().get("geometricshape") && getInputConfigs().get("geometricshape") >= 0) {
-                        child = getGlyphMB().defineShape(GeometryFactory.FORMAS.GLYPH_FORMAS.values()[getInputConfigs().get("geometricshape")]);
+                        child = getGlyphMB().defineShape(GeometricalFactory.FORMAS.GLYPH_FORMAS.values()[getInputConfigs().get("geometricshape")]);
                         child.setNodeTreemap(getItemOutput());
                     }
                     break;
@@ -909,7 +909,7 @@ public class SetUpVisibilityTestMB {
                 : Constantes.getColorHueGlyphs()[getInputConfigs().get("colorhue")]);
         gabarito.put("GeometricShape", getInputConfigs().get("geometricshape") == -1
                 ? Constantes.NAO_IDENTIFICOU_NAO_APRESENTA
-                : GeometryFactory.FORMAS.GLYPH_FORMAS.values()[getInputConfigs().get("geometricshape")].shapeName());
+                : GeometricalFactory.FORMAS.GLYPH_FORMAS.values()[getInputConfigs().get("geometricshape")].shapeName());
         gabarito.put("Text", getInputConfigs().get("text") == -1
                 ? Constantes.NAO_IDENTIFICOU_NAO_APRESENTA
                 : Constantes.LETRAS_ALFABETO[getInputConfigs().get("text")]);

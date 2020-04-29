@@ -10,7 +10,7 @@ import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
 import doutorado.tese.util.Constantes;
 import doutorado.tese.util.Metadados;
-import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometricalFactory.FORMAS;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory.ARROW;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
 import doutorado.tese.model.TreeMapItem;

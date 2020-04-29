@@ -7,21 +7,20 @@ package doutorado.tese.control.business.visualizations.legenda;
 
 import doutorado.tese.util.Constantes;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.color.ColorHue;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.orientation.Orientation;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
-import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
-import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometricalFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometricalFactory.FORMAS;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.Bar;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.ProfileGlyph;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory.ARROW;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory.TEXTURE;
-import doutorado.tese.dao.ManipuladorArquivo;
-import doutorado.tese.model.Coluna;
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.util.ColorInterpolator;
 import static doutorado.tese.util.Constantes.VAR_VISUAIS_CATEGORICAS.TEXTURE;
@@ -33,7 +32,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.Icon;
@@ -121,25 +119,16 @@ public class IconeLegenda implements Icon {
             g2d.setColor(Color.black);
             g2d.drawRect(x, y, 100, height);
         } else {
-            GeometricShape iconColorTreemap = new GeometricShape();
-            iconColorTreemap.setDrawBehavior(GeometryFactory.create(FORMAS.GLYPH_FORMAS.QUADRADO));
-            iconColorTreemap.setPectSobreposicao(0.65f);
-            iconColorTreemap.setOverlappingActivated(true);
-            iconColorTreemap.setCorLegenda(Color.decode(valor));
-            iconColorTreemap.setLegenda(true);
-            iconColorTreemap.setBounds(bounds);
-            iconColorTreemap.paint(g2d);
+            ColorHue cor = new ColorHue();
+            cor.setCor(Color.decode(valor));
+            cor.setPectSobreposicao(0.65f);
+            cor.setOverlappingActivated(true);
+            cor.setBounds(bounds);
+            cor.paint(g2d);
         }
     }
 
     private void montarIconeGlyphTextura(Graphics2D g2d, TEXTURE.GLYPH_TEXTURAS valor, Rectangle bounds) {
-//    private void montarIconeGlyphTextura(Graphics2D g2d, String valor, Rectangle bounds) {
-//        Texture_old textura = new Texture_old(Color.GRAY, Color.WHITE);
-//        textura.setNomeTextura(valor);
-//        textura.setPectSobreposicao(0.84f);
-//        textura.setOverlappingActivated(true);
-//        textura.setBounds(bounds);
-//        textura.paint(g2d);
         Texture textura = new Texture();
         textura.setDrawBehavior(TexturesFactory.create(valor));
         textura.setPectSobreposicao(0.99f);
@@ -157,21 +146,19 @@ public class IconeLegenda implements Icon {
             g2d.setColor(Color.black);
             g2d.drawRect(x, y, 100, height);
         } else {
-            GeometricShape shapeColor = new GeometricShape();
-            shapeColor.setDrawBehavior(GeometryFactory.create(FORMAS.GLYPH_FORMAS.QUADRADO));
-            shapeColor.setPectSobreposicao(0.65f);
-            shapeColor.setOverlappingActivated(true);
-            shapeColor.setCorLegenda(Color.decode(valor));
-            shapeColor.setLegenda(true);
-            shapeColor.setBounds(bounds);
-            shapeColor.paint(g2d);
+            ColorHue cor = new ColorHue();
+            cor.setCor(Color.decode(valor));
+            cor.setPectSobreposicao(0.65f);
+            cor.setOverlappingActivated(true);
+            cor.setBounds(bounds);
+            cor.paint(g2d);
         }
     }
 
     private void montarIconeGlyphForma(Graphics2D g2d, FORMAS.GLYPH_FORMAS valorForma, Rectangle bounds) {
         GeometricShape shapeIcon = new GeometricShape();
-        shapeIcon.setDrawBehavior(GeometryFactory.create(valorForma));
-        shapeIcon.setPectSobreposicao(0.65f);
+        shapeIcon.setDrawBehavior(GeometricalFactory.create(valorForma));
+        shapeIcon.setPectSobreposicao(0.99f);
         shapeIcon.setOverlappingActivated(true);
         shapeIcon.setBounds(bounds);
         shapeIcon.paint(g2d);
@@ -180,7 +167,7 @@ public class IconeLegenda implements Icon {
     private void montarIconeGlyphOrientacao(Graphics2D g2d, ARROW.GLYPH_ORIENTACAO valor, Rectangle bounds) {
         Orientation iconOrientacao = new Orientation();
         iconOrientacao.setDrawBehavior(OrientationFactory.create(valor));
-        iconOrientacao.setPectSobreposicao(0.65f);
+        iconOrientacao.setPectSobreposicao(0.99f);
         iconOrientacao.setOverlappingActivated(true);
         iconOrientacao.setBounds(bounds);
         iconOrientacao.paint(g2d);
@@ -189,7 +176,7 @@ public class IconeLegenda implements Icon {
     private void montarIconeGlyphText(Graphics2D g2d, String valor, Rectangle bounds) {
         Text letra = new Text();
         letra.setLetra(valor);
-        letra.setPectSobreposicao(0.65f);
+        letra.setPectSobreposicao(0.99f);
         letra.setOverlappingActivated(true);
         letra.setBounds(bounds);
         letra.paint(g2d);

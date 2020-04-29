@@ -9,6 +9,7 @@ import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvi
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Cruz;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.DrawBehavior;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Estrela;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Pentagono;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Quadrado;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Serrilhado;
 
@@ -16,7 +17,7 @@ import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvi
  *
  * @author Gustavo
  */
-public class GeometryFactory {
+public class GeometricalFactory {
 
     public static final class FORMAS {
 
@@ -25,10 +26,10 @@ public class GeometryFactory {
             CRUZ("Cruz"),
             ESTRELA("Estrela"),
             QUADRADO_SERRILHADO("Serrilhado"),
-            QUADRADO("Quadrado");
+            PENTAGONO("Pentagono");
+            //QUADRADO("Quadrado");
             //LOSANGO("LOSANGO"),
             //TRAPEZIO("TRAPEZIO"),
-            //PENTAGONO("PENTAGONO"),
             //HEXAGONO("HEXAGONO"),
             //ELLIPSE("ELLIPSE");
 
@@ -44,7 +45,7 @@ public class GeometryFactory {
         }
     }
 
-    private GeometryFactory() {
+    private GeometricalFactory() {
     }
 
     public static DrawBehavior create(FORMAS.GLYPH_FORMAS forma) {
@@ -53,8 +54,8 @@ public class GeometryFactory {
                 return new Circulo();
             case CRUZ:
                 return new Cruz();
-            case QUADRADO:
-                return new Quadrado();
+//            case QUADRADO:
+//                return new Quadrado();
             case ESTRELA:
                 return new Estrela();
             case QUADRADO_SERRILHADO:
@@ -65,8 +66,8 @@ public class GeometryFactory {
 //                return new Hexagono();
 //            case LOSANGO:
 //                return new Losango();
-//            case PENTAGONO:
-//                return new Pentagono();
+            case PENTAGONO:
+                return new Pentagono();
 //            case TRAPEZIO:
 //                return new Trapezio();
             default:

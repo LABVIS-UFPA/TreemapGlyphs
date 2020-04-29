@@ -7,7 +7,7 @@ package doutorado.tese.control.mb;
 
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.control.business.visualizations.glyph.GlyphConcrete;
-import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometricalFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
@@ -94,9 +94,9 @@ public class SetUpMB {
                 }
                 break;
             case SHAPE:
-                GeometryFactory.FORMAS.GLYPH_FORMAS[] formas = new GeometryFactory.FORMAS.GLYPH_FORMAS[GeometryFactory.FORMAS.GLYPH_FORMAS.values().length];
+                GeometricalFactory.FORMAS.GLYPH_FORMAS[] formas = new GeometricalFactory.FORMAS.GLYPH_FORMAS[GeometricalFactory.FORMAS.GLYPH_FORMAS.values().length];
                 for (int i = 0; i < formas.length; i++) {
-                    formas[i] = GeometryFactory.FORMAS.GLYPH_FORMAS.values()[i];
+                    formas[i] = GeometricalFactory.FORMAS.GLYPH_FORMAS.values()[i];
                 }
                 analisarQuantAtributosCategoricos(list, formas);
                 break;

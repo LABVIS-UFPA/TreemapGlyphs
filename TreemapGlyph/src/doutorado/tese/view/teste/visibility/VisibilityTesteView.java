@@ -22,6 +22,7 @@ import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvi
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Circulo;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Cruz;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Estrela;
+import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Pentagono;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Quadrado;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Serrilhado;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_2x2;
@@ -1141,7 +1142,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         forma2RadioButton.setActionCommand(Serrilhado.class.getSimpleName());
         forma3RadioButton.setActionCommand(Cruz.class.getSimpleName());
         forma4RadioButton.setActionCommand(Estrela.class.getSimpleName());
-        forma5RadioButton.setActionCommand(Quadrado.class.getSimpleName());
+        forma5RadioButton.setActionCommand(Pentagono.class.getSimpleName());
 
         text0RadioButton.setActionCommand(Constantes.NAO_IDENTIFICOU_NAO_APRESENTA);
         text1RadioButton.setActionCommand(Constantes.LETRAS_ALFABETO[0]);

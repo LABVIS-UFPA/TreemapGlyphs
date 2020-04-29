@@ -33,8 +33,8 @@ import doutorado.tese.control.business.visualizations.glyph.decorator.continuous
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.EixoPolarStarGlyph;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.PieChartGlyph;
 import doutorado.tese.control.business.visualizations.glyph.decorator.continuous.Slice;
-import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
-import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory.FORMAS;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometricalFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometricalFactory.FORMAS;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory.ARROW;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
@@ -429,7 +429,7 @@ public final class GlyphMB {
     }
 
     public Glyph prepareDimensaoShapeDinamico(Coluna col, TreeMapItem item, List<String> dadosDistintos) {
-        for (int j = 0; j < GeometryFactory.FORMAS.GLYPH_FORMAS.values().length; j++) {
+        for (int j = 0; j < GeometricalFactory.FORMAS.GLYPH_FORMAS.values().length; j++) {
             if (item.getMapaDetalhesItem().get(col).equalsIgnoreCase(dadosDistintos.get(j))) {
                 Glyph shape = defineShape(FORMAS.GLYPH_FORMAS.values()[j]);
                 shape.setNodeTreemap(item);
@@ -512,7 +512,7 @@ public final class GlyphMB {
 
     public Glyph defineShape(FORMAS.GLYPH_FORMAS forma) {
         GeometricShape shape = new GeometricShape();
-        shape.setDrawBehavior(GeometryFactory.create(forma));
+        shape.setDrawBehavior(GeometricalFactory.create(forma));
 //        shape.setPectSobreposicao(0.65f);
         shape.setOverlappingActivated(overlappingActivated);
         return shape;

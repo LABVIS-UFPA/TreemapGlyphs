@@ -5,7 +5,7 @@
  */
 package doutorado.tese.view.teste.visibility;
 
-import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometryFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometricalFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
 import doutorado.tese.control.mb.testeMB.scalabilityMB.SetUpVisibilityTestMB;
@@ -113,7 +113,7 @@ public class ScalabilityTesteView extends javax.swing.JFrame {
 
         configs.put("texture", rand.nextInt(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values().length));
         configs.put("colorhue", rand.nextInt(Constantes.getColorHueGlyphs().length));
-        configs.put("geometricshape", rand.nextInt(GeometryFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
+        configs.put("geometricshape", rand.nextInt(GeometricalFactory.FORMAS.GLYPH_FORMAS.values().length - 1));
         configs.put("text", rand.nextInt(Constantes.LETRAS_ALFABETO.length));
         configs.put("position", rand.nextInt(Constantes.POSICOES.values().length));
         configs.put("orientation", rand.nextInt(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length));

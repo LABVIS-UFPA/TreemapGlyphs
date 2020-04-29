@@ -8,7 +8,9 @@ package doutorado.tese.view;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.control.business.visualizations.glyph.GlyphConcrete;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.orientation.Orientation;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometricalFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
 import doutorado.tese.model.TreeMapItem;
@@ -49,8 +51,10 @@ public class TestesGui extends javax.swing.JPanel {
 
         Glyph father = item.getGlyph();
 //        Glyph child = criarOrientacao(OrientationFactory.ARROW.GLYPH_ORIENTACAO.ARROW90);
-        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_3x3);
+//        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_3x3);
 //        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_3x3_BRANCO);
+        Glyph child = criarForma(GeometricalFactory.FORMAS.GLYPH_FORMAS.PENTAGONO);
+        
 
         child.setNodeTreemap(item);
 
@@ -59,6 +63,13 @@ public class TestesGui extends javax.swing.JPanel {
         if (father.getBounds() != null) {
             father.setBounds(father.getBounds());
         }
+    }
+    
+    private GeometricShape criarForma(GeometricalFactory.FORMAS.GLYPH_FORMAS forma){
+        GeometricShape s = new GeometricShape();
+        s.setDrawBehavior(GeometricalFactory.create(forma));
+        s.setOverlappingActivated(true);
+        return s;
     }
 
     private Orientation criarOrientacao(OrientationFactory.ARROW.GLYPH_ORIENTACAO orientacao) {
@@ -76,6 +87,8 @@ public class TestesGui extends javax.swing.JPanel {
         o.setOverlappingActivated(true);
         return o;
     }
+    
+    
 
     private TreeMapItem criarTreemapItem(TreeMapItem item) {
         Rectangle bounds = new Rectangle(

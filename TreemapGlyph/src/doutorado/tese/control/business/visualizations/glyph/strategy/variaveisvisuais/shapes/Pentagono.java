@@ -19,8 +19,10 @@ public class Pentagono implements DrawBehavior {
     private int[] yPoints;
     private Polygon p;
     private Rectangle bounds;
+    private Color cor;
 
     public Pentagono() {
+        this.cor = Color.decode("#f0f0f0");
     }
 
     @Override
@@ -29,7 +31,7 @@ public class Pentagono implements DrawBehavior {
 
         g2d.setPaint(Color.BLACK);
 
-        g2d.setColor(Color.white);
+        g2d.setColor(getCor());
         g2d.fillPolygon(p);
         g2d.setColor(Color.BLACK);
         g2d.drawPolygon(p);
@@ -60,7 +62,6 @@ public class Pentagono implements DrawBehavior {
         int halfWidth = width / 2;
         int halfHeight = height / 2;
         int innerWidth = width / 4;
-        int innerHeight = height / 4;
 
         halfWidth += rect.x + rect.width / 2 - width / 2;
         halfHeight += rect.y + rect.height / 2 - height / 2;
@@ -104,7 +105,9 @@ public class Pentagono implements DrawBehavior {
 
     @Override
     public int getArea() {
-        return (xPoints[4] - xPoints[1]) * (yPoints[3] - yPoints[0]);
+        int base = (xPoints[4] - xPoints[1]);
+        int altura = (yPoints[3] - yPoints[0]);
+        return base * altura;
     }
 
     @Override
@@ -133,5 +136,19 @@ public class Pentagono implements DrawBehavior {
     public String toString() {
         super.toString();
         return Pentagono.class.getSimpleName();
+    }
+
+    /**
+     * @return the cor
+     */
+    public Color getCor() {
+        return cor;
+    }
+
+    /**
+     * @param cor the cor to set
+     */
+    public void setCor(Color cor) {
+        this.cor = cor;
     }
 }
