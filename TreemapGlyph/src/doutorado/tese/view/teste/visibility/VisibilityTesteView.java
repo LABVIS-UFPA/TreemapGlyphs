@@ -32,6 +32,7 @@ import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvi
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_4x4;
 import doutorado.tese.control.mb.testeMB.scalabilityMB.SetUpVisibilityTestMB;
 import doutorado.tese.util.Constantes;
+import doutorado.tese.view.Main;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -55,6 +56,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import org.apache.logging.log4j.LogManager;
 
 /**
  *
@@ -62,6 +64,8 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class VisibilityTesteView extends javax.swing.JFrame {
 
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(VisibilityTesteView.class);
+    
     private HashMap<String, Integer> configs;
     private HashMap<String, String> respostasUsuario;
     private StringBuilder data;
@@ -74,6 +78,9 @@ public class VisibilityTesteView extends javax.swing.JFrame {
      * Creates new form Main
      */
     public VisibilityTesteView() {
+        logger.info(VisibilityTesteView.class.getName());//.log(Level.SEVERE, null, ex);
+        
+        respostasUsuario = new HashMap<>();
         visibilityTestMB = new SetUpVisibilityTestMB();
         data = new StringBuilder();
         data.append(
@@ -89,7 +96,6 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 + "userScore"
         );
         configs = new HashMap<>();
-        respostasUsuario = new HashMap<>();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -1267,6 +1273,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     }
 
     public void setData(String userScore) {
+        logger.info("Salvando dados em memoria. Tarefa realizadas: "+visibilityTestMB.getContTarefasRealizadas());
         float aspect = configs.get("height") > configs.get("width")
                 ? (configs.get("width") * 1.f) / configs.get("height")
                 : (configs.get("height") * 1.f) / configs.get("width");
@@ -1331,10 +1338,13 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             nomeArquivo = "result_" + System.getProperty("user.name")
                     + "_" + ano + mes + dia + "_" + hora + "_" + min + ".csv";
             File f = new File("testVisibility" + File.separator);
+            logger.info("Tryng to create the dir: testVisibility");
             if (!f.exists()) {
+                logger.info("Creating dir: testVisibility");
                 f.mkdir();
             } 
             if(f.exists()){
+                logger.info("Saving the .csv file!");
                 File file = new File("testVisibility" + File.separator + nomeArquivo);
                 writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
                 writer.print(data);
@@ -1344,6 +1354,9 @@ public class VisibilityTesteView extends javax.swing.JFrame {
             }
             this.dispose();
         } catch (IOException ex) {
+            logger.error("Fail to create the dir ou save the .csv file."+ex.getCause());
+            logger.error("The directory testVisibility or the file .csv can not be created! - Try it again!\n" + ex.getMessage());
+            logger.error(ex.getMessage());
             Logger.getLogger(VisibilityTesteView.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             writer.close();
@@ -1351,11 +1364,16 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     }
 
     public void changeConfigs() {
+        logger.info("Change configurations");
+        logger.info("Reset RadioButtos");
         resetPainelsRadioButtos();
         
         visibilityTestMB.setInputConfigs(configs);
+        logger.info("Generating glyph family to draw.");
         visibilityTestMB.family2Draw();
+        logger.info("Generation randon profile glyphs options.");
         visibilityTestMB.createProfileGlyphs(labelsProfileGlyphGroup());
+        logger.info("Generating test feedback.");
         visibilityTestMB.configurarGabarito();
         painelEsquerda.repaint();
         
@@ -1377,6 +1395,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         if (validateRadioButtons()) {
             setData(visibilityTestMB.calculateUserScore(atualizarRespostasUsuario()));
             if (visibilityTestMB.getContTarefasRealizadas() >= numAmostras) {//se true encerra o teste e salva os dados em arquivo
+                logger.info("Setting data to the file.");
                 saveDataInFile();
             } else {
                 changeConfigs();
