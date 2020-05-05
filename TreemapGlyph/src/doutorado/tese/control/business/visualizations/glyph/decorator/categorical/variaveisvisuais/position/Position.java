@@ -7,6 +7,7 @@ package doutorado.tese.control.business.visualizations.glyph.decorator.categoric
 
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.util.Constantes;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -87,11 +88,25 @@ public class Position extends Glyph {
         if (isVisible()) {
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+//            g2d.setStroke(new BasicStroke(1.5f));
+//            g2d.setColor(Color.white);
+//            g2d.draw(p);//desenha circulo branco
+//            
+//            g2d.setColor(Color.BLACK);
+//            g2d.fill(p);//pinta circulo preto
+//            g2d.setStroke(new BasicStroke(1f));
+//            g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);//desenha quadrado preto
+            g2d.setColor(Color.BLACK);
+            g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);//desenha quadrado preto
+            
+            g2d.setColor(Color.decode("#545454"));
+            g2d.fill(p);//pinta circulo
+
+            g2d.setStroke(new BasicStroke(1.5f));
             g2d.setColor(Color.white);
             g2d.draw(p);//desenha circulo branco
-            g2d.setColor(Color.black);
-            g2d.fill(p);//pinta circulo preto
-            g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);//desenha quadrado preto
+
+            g2d.setStroke(new BasicStroke(1f));
         }
         super.paint(g2d);
     }
@@ -136,10 +151,14 @@ public class Position extends Glyph {
     public void setPosicao(Constantes.POSICOES posicao) {
         this.posicao = posicao;
     }
-    
+
     @Override
     public int getArea() {
         return xPoints[1] * yPoints[1];
     }
 
+    @Override
+    public int presenca() {
+        return Constantes.PRESENCA_POSICAO;
+    }
 }

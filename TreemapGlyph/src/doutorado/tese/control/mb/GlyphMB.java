@@ -5,13 +5,6 @@
  */
 package doutorado.tese.control.mb;
 
-import doutorado.tese.control.business.machinelearning.tree.DTViuCor;
-import doutorado.tese.control.business.machinelearning.tree.DTViuForma;
-import doutorado.tese.control.business.machinelearning.tree.DTViuOrientacao;
-import doutorado.tese.control.business.machinelearning.tree.DTViuPosicao;
-import doutorado.tese.control.business.machinelearning.tree.DTViuProfile;
-import doutorado.tese.control.business.machinelearning.tree.DTViuTexto;
-import doutorado.tese.control.business.machinelearning.tree.DTViuTextura;
 import doutorado.tese.control.business.machinelearning.tree.DecisionTreeClassifier;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
@@ -45,7 +38,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import net.bouthier.treemapAWT.TMNodeEncapsulator;
@@ -156,6 +148,7 @@ public final class GlyphMB {
         features[Constantes.FEATURE_ASPECT] = aspect;
 
         List<Glyph> glyphFamily = item.getGlyphFamily(item.getGlyph(), new ArrayList<>());
+        features[Constantes.NUM_CAMADAS] = glyphFamily.size() - 1;
         glyphFamily.forEach((glyph) -> {
             if (glyph instanceof Texture) {
 //                System.out.println("item: "+item.getLabel() + " - AREA_GLYPH: "+glyph.getArea());
@@ -198,7 +191,7 @@ public final class GlyphMB {
                 features[Constantes.PRESENCA_ORIENTACAO] = Constantes.PRESENTE;
                 if (glyphFamily.indexOf(glyph) != glyphFamily.size() - 1) {
                     features[Constantes.AREA_VISIVEL_ORIENTACAO] = glyph.getArea() - (glyph.getArea() * glyph.getPectSobreposicao());
-                }else{
+                } else {
                     features[Constantes.AREA_VISIVEL_ORIENTACAO] = glyph.getArea();
                 }
             } else if (glyph instanceof ProfileGlyph) {
@@ -206,30 +199,23 @@ public final class GlyphMB {
                 features[Constantes.PRESENCA_PROFILE_GLYPH] = Constantes.PRESENTE;
             }
         });
-//        int[] predictions = DecisionTreeClassifier.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA]        = DTViuTextura.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_COR]            = DTViuCor.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_FORMA]          = DTViuForma.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_TEXTO]          = DTViuTexto.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_POSICAO]        = DTViuPosicao.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_ORIENTACAO]     = DTViuOrientacao.predict(features);
-        item.getWhat2Draw()[Constantes.PRESENCA_PROFILE_GLYPH]  = DTViuProfile.predict(features);
-//        item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA]        = predictions[Constantes.PRESENCA_TEXTURA];
-//        item.getWhat2Draw()[Constantes.PRESENCA_COR]            = predictions[Constantes.PRESENCA_COR];
-//        item.getWhat2Draw()[Constantes.PRESENCA_FORMA]          = predictions[Constantes.PRESENCA_FORMA];
-//        item.getWhat2Draw()[Constantes.PRESENCA_TEXTO]          = predictions[Constantes.PRESENCA_TEXTO];
-//        item.getWhat2Draw()[Constantes.PRESENCA_POSICAO]        = predictions[Constantes.PRESENCA_POSICAO];
-//        item.getWhat2Draw()[Constantes.PRESENCA_ORIENTACAO]     = predictions[Constantes.PRESENCA_ORIENTACAO];
-//        item.getWhat2Draw()[Constantes.PRESENCA_PROFILE_GLYPH]  = predictions[Constantes.PRESENCA_PROFILE_GLYPH];
-        
-        System.out.print(item.getWhat2Draw()[Constantes.PRESENCA_TEXTURA]      +"-");
-        System.out.print(item.getWhat2Draw()[Constantes.PRESENCA_COR]          +"-");
-        System.out.print(item.getWhat2Draw()[Constantes.PRESENCA_FORMA]        +"-");
-        System.out.print(item.getWhat2Draw()[Constantes.PRESENCA_TEXTO]        +"-");
-        System.out.print(item.getWhat2Draw()[Constantes.PRESENCA_POSICAO]      +"-");
-        System.out.print(item.getWhat2Draw()[Constantes.PRESENCA_ORIENTACAO]   +"-");
-        System.out.println(item.getWhat2Draw()[Constantes.PRESENCA_PROFILE_GLYPH]);
-        
+        int numCamadasRetirar = 0;
+//        double[] subFeatures = new double[]{features[Constantes.NUM_CAMADAS], features[Constantes.FEATURE_AREA], features[Constantes.FEATURE_ASPECT]};
+        double[] subFeatures = new double[]{features[Constantes.NUM_CAMADAS], features[Constantes.FEATURE_AREA], 
+        features[Constantes.FEATURE_ALTURA] > features[Constantes.FEATURE_LARGURA]
+                ? features[Constantes.FEATURE_LARGURA]
+                : features[Constantes.FEATURE_ALTURA]};
+        int predictions = DecisionTreeClassifier.predict(subFeatures);
+
+        while (predictions == 0 && numCamadasRetirar <= features[Constantes.NUM_CAMADAS]) {
+            Glyph ultimo = glyphFamily.get(glyphFamily.size() - 1 - numCamadasRetirar);
+            item.getWhat2Draw()[ultimo.presenca()] = 0;
+            
+            numCamadasRetirar++;
+            subFeatures = new double[]{features[Constantes.NUM_CAMADAS] - numCamadasRetirar, features[Constantes.FEATURE_AREA], features[Constantes.FEATURE_ASPECT]};
+            predictions = DecisionTreeClassifier.predict(subFeatures);
+        }
+
         return features;
     }
 
@@ -266,7 +252,7 @@ public final class GlyphMB {
             father.setBounds(father.getBounds());
         }
         if (Constantes.DECISION_TREE_ACTIVATED) {
-            double[] features = new double[24];
+            double[] features = new double[25];
             getFeatures(item, features);
         }
         if (item.hasGlyphResposta(father)) {

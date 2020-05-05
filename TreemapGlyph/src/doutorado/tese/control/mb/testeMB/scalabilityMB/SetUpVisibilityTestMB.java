@@ -23,6 +23,7 @@ import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.util.Constantes;
+import doutorado.tese.view.teste.visibility.VisibilityTesteView;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JLabel;
+import org.apache.logging.log4j.LogManager;
 
 /**
  *
@@ -43,6 +45,7 @@ import javax.swing.JLabel;
  */
 public class SetUpVisibilityTestMB {
 
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(SetUpVisibilityTestMB.class);
     private TreeMapItem itemInput = null;
     private TreeMapItem itemOutput = null;
     private HashMap<String, Integer> inputConfigs;
@@ -63,7 +66,7 @@ public class SetUpVisibilityTestMB {
     /**
      * Essa variavel determina quantos glyphs base serao criados
      */
-    private final int quantGlyphsBase = 9;
+    private final int quantGlyphsBase = 70;
     private final List<TreeMapItem> listaItensBase;
     private int contTarefasRealizadas = 0;
     private int rodadaRemoveCamada = 0;
@@ -73,6 +76,7 @@ public class SetUpVisibilityTestMB {
     private boolean usuarioAchouProfileCorreto;
 
     public SetUpVisibilityTestMB() {
+        logger.info(SetUpVisibilityTestMB.class.getName());
         areas = new HashMap<>();
 //        dadosTreemapItem = new HashMap<>();
         inputConfigs = new HashMap<>();
@@ -86,7 +90,7 @@ public class SetUpVisibilityTestMB {
 //        listaFamilias = new ArrayList<>();
         listaItensBase = new ArrayList<>();
         colunas = prepararColunas();
-        criarGlyphsBase();
+//        criarGlyphsBase();
     }
 
     public void criarGlyphsBase() {
@@ -105,16 +109,27 @@ public class SetUpVisibilityTestMB {
         }
     }
 
+//    public static void main(String[] args) {
+//        Random rand = new Random(System.currentTimeMillis());
+//        for (int i = 0; i < 2001; i++) {
+//            int x = rand.nextInt(120) + 5;
+//            System.out.println(x);            
+//        }
+//    }
+    
     public TreeMapItem criarNovoTreemapItem() {
-        int length = rand.nextInt(51) + 30;
+        int length = rand.nextInt(120) + 5;//5 a 125
+        
         int posicaoVetorCorItem = rand.nextInt(2) == 0 ? -1 : rand.nextInt(Constantes.getCorTreemap().length);
-        int w = 0;
-        int h = 0;
+        int w = length;
+        int h = length;
+//        int a = 0;
 //        while(w == 0 || h == 0){
-        while (w <= 25 || h <= 25) {
-            w = Math.abs(length - (rand.nextInt(151)));
-            h = Math.abs(length - (rand.nextInt(151)));
-        }
+//        while (w <= 10 || h <= 10 || a < 0.5) {
+//            w = Math.abs(length - (rand.nextInt(151)));
+//            h = Math.abs(length - (rand.nextInt(151)));
+//            a = w < h ? w / h : h / w;
+//        }
         Rectangle bounds = new Rectangle(20, 50, w, h);
 
         TreeMapItem item = new TreeMapItem(1, 0);
@@ -128,7 +143,7 @@ public class SetUpVisibilityTestMB {
         item.getGlyph().setBounds(item.getBounds());
         item.setColor(//posicaoVetorCorItem == -1 ? 
                 Constantes.ALICE_BLUE);
-                //: Color.decode(Constantes.getCorTreemap()[posicaoVetorCorItem]));
+        //: Color.decode(Constantes.getCorTreemap()[posicaoVetorCorItem]));
         return item;
     }
 
@@ -161,13 +176,26 @@ public class SetUpVisibilityTestMB {
         getAreas().put("profileglyph", getAreaProfileGlyph());
     }
 
+    /**
+     * Sorteia a quantidade de camadas que ira para o glyph.
+     * Também sorteia quais camadas irao para o glyph.
+     * @return conjunto de camadas sorteadas
+     */
     public Set<Integer> sortearCamadas() {
         Set numeros = new TreeSet();
-
+        
+        
         Random sorteio = new Random();
-        //sortear 6 números de 0 até 6 sem repetição
-        while (numeros.size() < getGlyphLayers2draw().length - 1) {
-            numeros.add(sorteio.nextInt(getGlyphLayers2draw().length));
+        
+        //sorteia a quantidade de camadas que irao para o glyph
+        int quantidadeCamadas = sorteio.nextInt(getGlyphLayers2draw().length);
+        while(quantidadeCamadas == 0){
+            quantidadeCamadas = sorteio.nextInt(getGlyphLayers2draw().length);
+        }
+        
+        while (numeros.size() < quantidadeCamadas) {
+            //sortear N números de 0 (fechado) até 7 (aberto) sem repetição
+            numeros.add(sorteio.nextInt(getGlyphLayers2draw().length));//GlyphLayers2draw.length eh 7 
         }
 
         return numeros;
@@ -198,36 +226,43 @@ public class SetUpVisibilityTestMB {
                     valor = rand.nextInt(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values().length);
                     child = getGlyphMB().defineTexture(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values()[valor]);
                     child.setNodeTreemap(item);
+                    inputConfigs.put("texture", valor);
                     break;
                 case "Color_Hue":
                     valor = rand.nextInt(Constantes.getColorHueGlyphs().length);
                     child = getGlyphMB().defineColorHue(Color.decode(Constantes.getColorHueGlyphs()[valor]));
                     child.setNodeTreemap(item);
+                    inputConfigs.put("colorhue", valor);
                     break;
                 case "Shape":
                     valor = rand.nextInt(GeometricalFactory.FORMAS.GLYPH_FORMAS.values().length);
                     child = getGlyphMB().defineShape(GeometricalFactory.FORMAS.GLYPH_FORMAS.values()[valor]);
                     child.setNodeTreemap(item);
+                    inputConfigs.put("geometricshape", valor);
                     break;
                 case "Text":
                     valor = rand.nextInt(Constantes.LETRAS_ALFABETO.length);
                     child = getGlyphMB().defineText(Constantes.LETRAS_ALFABETO[valor]);
                     child.setNodeTreemap(item);
+                    inputConfigs.put("text", valor);
                     break;
                 case "Position":
                     valor = rand.nextInt(Constantes.POSICOES.values().length);
                     child = getGlyphMB().definePosition(Constantes.POSICOES.values()[valor]);
                     child.setNodeTreemap(item);
+                    inputConfigs.put("position", valor);
                     break;
                 case "Orientation":
                     valor = rand.nextInt(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values().length);
                     child = getGlyphMB().defineOrientation(OrientationFactory.ARROW.GLYPH_ORIENTACAO.values()[valor]);
                     child.setNodeTreemap(item);
+                    inputConfigs.put("orientation", valor);
                     break;
                 case "Profile":
                     getGlyphMB().setAtributosEscolhidosGlyphContinuo(atributosEscolhidosGlyphContinuo);
                     child = getGlyphMB().configureProfileGlyph(item);
                     child.setNodeTreemap(item);
+                    getInputConfigs().put("profileglyph", 1);
                     break;
             }
 
@@ -238,6 +273,7 @@ public class SetUpVisibilityTestMB {
         if (father.getBounds() != null) {
             father.setBounds(father.getBounds());
         }
+        procurarAreaGlyphFilhos(item);
         return father;
     }
 
@@ -384,14 +420,28 @@ public class SetUpVisibilityTestMB {
     }
 
     private List<Glyph> criarItemMaisGlyph(int camadasRemover, int controle) {
+//        itemInput = null;
+//        itemInput = recuperarCaracteristicasItemBase(listaItensBase.get(controle));
+//        Glyph father = remontarGlyph(itemInput, camadasRemover);
+////        configurarGabarito();
+//        return itemInput.getGlyphFamily(father, new ArrayList<>());
         itemInput = null;
-        itemInput = recuperarCaracteristicasItemBase(listaItensBase.get(controle));
-        Glyph father = remontarGlyph(itemInput, camadasRemover);
-//        configurarGabarito();
-        return itemInput.getGlyphFamily(father, new ArrayList<>());
+        itemInput = criarNovoTreemapItem();
+
+        Set<Integer> camadasSorteadas = sortearCamadas();
+        boolean profilePresent = camadasSorteadas.contains(6);//6 eh a camada do profile glyph
+        if (profilePresent) {
+            camadasSorteadas.remove(6);//remove o profile glyph para adiciona-lo na ultima camada
+        }
+
+        montarGlyphBase(itemInput, defineCamadasGlyph(camadasSorteadas, profilePresent));
+        atualizarInputConfigs(itemInput);
+        
+        return itemInput.getGlyphFamily(itemInput.getGlyph(), new ArrayList<>());
     }
 
     public void family2Draw() {
+        logger.info("Generating glyph family to draw.");
         contTarefasRealizadas++;
         controleGlyphBase++;
         if (controleGlyphBase > quantGlyphsBase - 1) {
@@ -432,7 +482,7 @@ public class SetUpVisibilityTestMB {
         }
         return pontuacao + "/" + (glyphLayers2draw.length);
     }
-   
+
     public void createProfileGlyphs(List<JLabel> listaLabels) {
         List<Glyph> children = getItemInput().getGlyphFamily(getItemInput().getGlyph(), new ArrayList<>());
         boolean profileNaFamilia = false;

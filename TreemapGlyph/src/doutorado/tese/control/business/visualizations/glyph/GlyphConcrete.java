@@ -51,5 +51,10 @@ public class GlyphConcrete extends Glyph {
         return this.getClass();
     }
 
+    @Override
+    public int presenca() {
+        return -1;
+    }
+
 
 }

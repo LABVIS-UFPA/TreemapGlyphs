@@ -6,6 +6,7 @@
 package doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.numbers;
 
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
+import doutorado.tese.util.Constantes;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -19,9 +20,10 @@ import java.awt.font.FontRenderContext;
 import java.awt.image.BufferedImage;
 
 /**
- *
+ * 
  * @author Anderson Soares
  */
+@Deprecated
 public class Numeral extends Glyph {
 
     private String letra;
@@ -174,5 +176,10 @@ public class Numeral extends Glyph {
     @Override
     public String getVarValue() {
         return getLetra();
+    }
+    
+    @Override
+    public int presenca() {
+        return -1;
     }
 }

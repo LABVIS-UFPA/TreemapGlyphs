@@ -259,5 +259,7 @@ public abstract class Glyph implements Cloneable {
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
+    
+    public abstract int presenca();
 
 }

@@ -8,12 +8,15 @@ package doutorado.tese.view;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.control.business.visualizations.glyph.GlyphConcrete;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.orientation.Orientation;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.position.Position;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.shapes.GeometricShape;
+import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text.Text;
 import doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.texture.Texture;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometricalFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
 import doutorado.tese.model.TreeMapItem;
+import doutorado.tese.util.Constantes;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -53,9 +56,10 @@ public class TestesGui extends javax.swing.JPanel {
 //        Glyph child = criarOrientacao(OrientationFactory.ARROW.GLYPH_ORIENTACAO.ARROW90);
 //        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_3x3);
 //        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_3x3_BRANCO);
-        Glyph child = criarForma(GeometricalFactory.FORMAS.GLYPH_FORMAS.PENTAGONO);
+//        Glyph child = criarForma(GeometricalFactory.FORMAS.GLYPH_FORMAS.PENTAGONO);
+        Glyph child = criarPosicao(Constantes.POSICOES.DIR_INF);
+//        Glyph child = criarTexto(Constantes.LETRAS_ALFABETO[4]);
         
-
         child.setNodeTreemap(item);
 
         father.appendChild(child);
@@ -88,8 +92,20 @@ public class TestesGui extends javax.swing.JPanel {
         return o;
     }
     
-    
+    private Position criarPosicao(Constantes.POSICOES posicao) {
+        Position p = new Position();
+        p.setPosicao(posicao);
+        p.setOverlappingActivated(true);
+        return p;
+    }
 
+    private Text criarTexto(String letra) {
+        Text t = new Text();
+        t.setLetra(letra);
+        t.setOverlappingActivated(true);
+        return t;
+    }
+    
     private TreeMapItem criarTreemapItem(TreeMapItem item) {
         Rectangle bounds = new Rectangle(
                 this.getBounds().x,
@@ -132,7 +148,7 @@ public class TestesGui extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(153, 153, 153));
+        setBackground(new java.awt.Color(51, 51, 51));
         setPreferredSize(new java.awt.Dimension(500, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

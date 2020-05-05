@@ -8,6 +8,7 @@ package doutorado.tese.control.business.visualizations.glyph.decorator.categoric
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.DrawBehavior;
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Quadrado;
+import doutorado.tese.util.Constantes;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -162,4 +163,8 @@ public class Orientation extends Glyph {
         this.cor = cor;
     }
 
+    @Override
+    public int presenca() {
+        return Constantes.PRESENCA_ORIENTACAO;
+    }
 }

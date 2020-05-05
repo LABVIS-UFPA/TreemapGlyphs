@@ -22,6 +22,7 @@ import java.awt.image.WritableRaster;
  *
  * @author Anderson Soares
  */
+@Deprecated
 public class Texture_old extends Glyph {
 
     private String nomeTextura;
@@ -145,5 +146,10 @@ public class Texture_old extends Glyph {
     @Override
     public String getVarValue() {
         return getNomeTextura();
+    }
+
+    @Override
+    public int presenca() {
+        return -1;
     }
 }

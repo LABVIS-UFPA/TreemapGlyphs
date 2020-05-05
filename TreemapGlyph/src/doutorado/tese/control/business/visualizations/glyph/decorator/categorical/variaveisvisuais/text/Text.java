@@ -6,6 +6,8 @@
 package doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.text;
 
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
+import doutorado.tese.util.Constantes;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -48,11 +50,22 @@ public class Text extends Glyph {
 
             g2d.setColor(corTexto);
             g2d.fillRect(newBounds.x, newBounds.y, newBounds.width, newBounds.height);
-            g2d.setColor(Color.white);
-            g2d.draw(shapeLetra);
-
+            
+            
+//            g2d.setColor(Color.white);
+//            g2d.draw(shapeLetra);
+//
+//            g2d.setColor(Color.black);
+//            g2d.fill(shapeLetra);
+            
             g2d.setColor(Color.black);
             g2d.fill(shapeLetra);
+            
+            g2d.setStroke(new BasicStroke(1.08f));
+            g2d.setColor(Color.white);
+            g2d.draw(shapeLetra);
+            g2d.setStroke(new BasicStroke(1f));
+
         }
         super.paint(g2d);
     }
@@ -186,5 +199,10 @@ public class Text extends Glyph {
     @Override
     public String getVarValue() {
         return getLetra();
+    }
+    
+    @Override
+    public int presenca() {
+        return Constantes.PRESENCA_TEXTO;
     }
 }

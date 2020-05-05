@@ -6,6 +6,7 @@
 package doutorado.tese.control.business.visualizations.glyph.decorator.categorical.variaveisvisuais.color;
 
 import doutorado.tese.control.business.visualizations.glyph.Glyph;
+import doutorado.tese.util.Constantes;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -109,6 +110,11 @@ public class ColorHue extends Glyph {
     public String getVarValue() {
 //        return "R:" + getCor().getRed() + " G:" + getCor().getGreen() + " B:" + getCor().getBlue();
         return getCor()+"";
+    }
+
+    @Override
+    public int presenca() {
+        return Constantes.PRESENCA_COR;
     }
 
 }

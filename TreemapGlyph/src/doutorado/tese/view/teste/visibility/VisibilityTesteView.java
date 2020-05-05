@@ -23,7 +23,6 @@ import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvi
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Cruz;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Estrela;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Pentagono;
-import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Quadrado;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.shapes.Serrilhado;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_2x2;
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_2x2_Branco;
@@ -32,7 +31,6 @@ import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvi
 import doutorado.tese.control.business.visualizations.glyph.strategy.variaveisvisuais.texture.CirculoTextura_4x4;
 import doutorado.tese.control.mb.testeMB.scalabilityMB.SetUpVisibilityTestMB;
 import doutorado.tese.util.Constantes;
-import doutorado.tese.view.Main;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -85,6 +83,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         data = new StringBuilder();
         data.append(
                 "Textura,Cor,Forma,Texto,Posicao,Orientacao,ProfileGlyph,"
+                + "NumCamadas,"
                 + "Altura,Largura,"
                 + "AreaItem,AspectoItem,CorItem,"
                 + "AreaTextura,AreaCor,AreaForma,AreaTexto,AreaPosicao,AreaOrientacao,AreaProfileGlyph,"
@@ -93,7 +92,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 + "TexturaValorUsuario,CorValorUsuario,FormaValorUsuario,TextoValorUsuario,PosicaoValorUsuario,OrientacaoValorUsuario,achouProfileCorreto,"
                 + "areaVisivel_Textura,areaVisivel_Cor,areaVisivel_Forma,areaVisivel_Texto,areaVisivel_Posicao,areaVisivel_Orientacao,"
                 + "TexturaValorGabarito,CorValorGabarito,FormaValorGabarito,TextoValorGabarito,PosicaoValorGabarito,OrientacaoValorGabarito,"
-                + "userScore"
+                + "userScore,saida"
         );
         configs = new HashMap<>();
         try {
@@ -103,7 +102,8 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         }
         initComponents();
         configButtonGroups();
-        numAmostras = visibilityTestMB.getQuantGlyphsBase() * (visibilityTestMB.getGlyphLayers2draw().length - 1);
+//        numAmostras = visibilityTestMB.getQuantGlyphsBase() * (visibilityTestMB.getGlyphLayers2draw().length - 1);
+        numAmostras = visibilityTestMB.getQuantGlyphsBase();
         
         changeConfigs();
         configRadioButtonsActionCommand();
@@ -572,7 +572,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
         });
 
         texto4Label.setBackground(new java.awt.Color(255, 255, 255));
-        texto4Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/texto/K.PNG"))); // NOI18N
+        texto4Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/visibilityIcons/texto/T.PNG"))); // NOI18N
         texto4Label.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 texto4LabelMouseClicked(evt);
@@ -1180,6 +1180,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     }
 
     public void resetPainelsRadioButtos() {
+        logger.info("Reset RadioButtos");
         texturaButtonGroup.clearSelection();
         corButtonGroup.clearSelection();
         formaButtonGroup.clearSelection();
@@ -1214,22 +1215,25 @@ public class VisibilityTesteView extends javax.swing.JFrame {
     private boolean validateRadioButtons() {
         boolean valid = true;
         if (!isSelectedRadioButton(texturaButtonGroup)) {
-            JOptionPane.showMessageDialog(null, "Please, choose one of the Texture values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please, choose one of the \"Texture\" values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
             valid = false;
         } else if (!isSelectedRadioButton(corButtonGroup)) {
-            JOptionPane.showMessageDialog(null, "Please, choose one of the Color-hue values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please, choose one of the \"Color-hue\" values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
             valid = false;
         } else if (!isSelectedRadioButton(formaButtonGroup)) {
-            JOptionPane.showMessageDialog(null, "Please, choose one of the Shape values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please, choose one of the \"Shape\" values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
             valid = false;
         } else if (!isSelectedRadioButton(textoButtonGroup)) {
-            JOptionPane.showMessageDialog(null, "Please, choose one of the Text values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please, choose one of the \"Text\" values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
             valid = false;
         } else if (!isSelectedRadioButton(posicaoButtonGroup)) {
-            JOptionPane.showMessageDialog(null, "Please, choose one of the Position values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please, choose one of the \"Position\" values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
             valid = false;
         } else if (!isSelectedRadioButton(orientacaoButtonGroup)) {
-            JOptionPane.showMessageDialog(null, "Please, choose one of the Orientation values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please, choose one of the \"Orientation\" values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
+            valid = false;
+        } else if (!isSelectedRadioButton(profileButtonGroup)) {
+            JOptionPane.showMessageDialog(null, "Please, choose one of the \"Profile Glyph\" values.", "Warning !!!", JOptionPane.WARNING_MESSAGE);
             valid = false;
         }
         return valid;
@@ -1279,7 +1283,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 : (configs.get("height") * 1.f) / configs.get("width");
 
         String[] areaVisivelVarVisuais = calcularAreaVisivel(visibilityTestMB.getFamily2Draw()).replace("[", "").replace("]", "").split(",");
-
+        
         data.append("\n").
                 append(configs.get("texture") >= 0 ? 1 : 0).append(",").
                 append(configs.get("colorhue") >= 0 ? 1 : 0).append(",").
@@ -1288,6 +1292,7 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 append(configs.get("position") >= 0 ? 1 : 0).append(",").
                 append(configs.get("orientation") >= 0 ? 1 : 0).append(",").
                 append(configs.get("profileglyph") > 0 ? 1 : 0).append(",").
+                append(visibilityTestMB.getFamily2Draw().size() - 1).append(",").
                 append(configs.get("height")).append(",").
                 append(configs.get("width")).append(",").
                 append(configs.get("width") * configs.get("height")).append(",").
@@ -1320,7 +1325,8 @@ public class VisibilityTesteView extends javax.swing.JFrame {
                 append(visibilityTestMB.getGabarito().get("Text"))          .append(",").   //gabarito Texto
                 append(visibilityTestMB.getGabarito().get("Position"))      .append(",").   //gabarito Posicao
                 append(visibilityTestMB.getGabarito().get("Orientation"))   .append(",").   //gabarito Orientacao
-                append(userScore)//user score
+                append(userScore).append(",").//user score
+                append(userScore.equals("7/7") ? "1" : "0")
                 ;
     }
 
@@ -1365,29 +1371,48 @@ public class VisibilityTesteView extends javax.swing.JFrame {
 
     public void changeConfigs() {
         logger.info("Change configurations");
-        logger.info("Reset RadioButtos");
-        resetPainelsRadioButtos();
         
+        resetPainelsRadioButtos();
+            
         visibilityTestMB.setInputConfigs(configs);
-        logger.info("Generating glyph family to draw.");
+        
         visibilityTestMB.family2Draw();
+        
         logger.info("Generation randon profile glyphs options.");
         visibilityTestMB.createProfileGlyphs(labelsProfileGlyphGroup());
-        logger.info("Generating test feedback.");
+        
+        logger.info("Generating test feedback.");        
         visibilityTestMB.configurarGabarito();
+        
+        logger.info("Repaint the glyph.");        
         painelEsquerda.repaint();
         
         contadorLabel.setText(visibilityTestMB.getContTarefasRealizadas() + " / " + numAmostras);
     }
     
     private HashMap<String, String> atualizarRespostasUsuario(){
+        logger.info("Updating user responses.");
         respostasUsuario.put("Texture"       , texturaButtonGroup.getSelection().getActionCommand()     );
+        logger.info("Texture: "+texturaButtonGroup.getSelection().getActionCommand());
+        
         respostasUsuario.put("ColorHue"      , corButtonGroup.getSelection().getActionCommand()         );
+        logger.info("ColorHue: "+corButtonGroup.getSelection().getActionCommand());
+        
         respostasUsuario.put("GeometricShape", formaButtonGroup.getSelection().getActionCommand()       );
+        logger.info("Shape: "+formaButtonGroup.getSelection().getActionCommand());
+        
         respostasUsuario.put("Text"          , textoButtonGroup.getSelection().getActionCommand()       );
+        logger.info("Text: "+textoButtonGroup.getSelection().getActionCommand());
+        
         respostasUsuario.put("Position"      , posicaoButtonGroup.getSelection().getActionCommand()     );
+        logger.info("Posicao: "+posicaoButtonGroup.getSelection().getActionCommand());
+        
         respostasUsuario.put("Orientation"   , orientacaoButtonGroup.getSelection().getActionCommand()  );
+        logger.info("Orientation: "+orientacaoButtonGroup.getSelection().getActionCommand());
+        
         respostasUsuario.put("ProfileGlyph"  , profileButtonGroup.getSelection().getActionCommand()     );
+        logger.info("Profile glyph: "+profileButtonGroup.getSelection().getActionCommand());
+        
         return respostasUsuario;
     }
 

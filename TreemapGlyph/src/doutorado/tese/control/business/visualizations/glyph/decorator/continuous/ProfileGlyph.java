@@ -242,4 +242,9 @@ public class ProfileGlyph extends Glyph {
         this.quantBarras = quantBarras;
     }
 
+    @Override
+    public int presenca() {
+        return Constantes.PRESENCA_PROFILE_GLYPH;
+    }
+
 }
