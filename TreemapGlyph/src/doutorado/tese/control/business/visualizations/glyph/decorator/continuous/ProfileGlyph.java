@@ -55,6 +55,8 @@ public class ProfileGlyph extends Glyph {
     @Override
     public void paint(Graphics2D g2d) {
         if (isVisible()) {
+            g2d.setColor(Color.WHITE);
+            g2d.fillRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
             if (getQuantVar() != 0) {
                 for (int i = 0; i < getQuantVar(); i++) {
                     g2d.setColor(Color.decode(Constantes.getColorContinuousGlyphs()[i]));

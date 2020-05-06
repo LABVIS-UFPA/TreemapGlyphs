@@ -38,6 +38,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import net.bouthier.treemapAWT.TMNodeEncapsulator;
@@ -201,16 +202,23 @@ public final class GlyphMB {
         });
         int numCamadasRetirar = 0;
 //        double[] subFeatures = new double[]{features[Constantes.NUM_CAMADAS], features[Constantes.FEATURE_AREA], features[Constantes.FEATURE_ASPECT]};
-        double[] subFeatures = new double[]{features[Constantes.NUM_CAMADAS], features[Constantes.FEATURE_AREA], 
-        features[Constantes.FEATURE_ALTURA] > features[Constantes.FEATURE_LARGURA]
-                ? features[Constantes.FEATURE_LARGURA]
-                : features[Constantes.FEATURE_ALTURA]};
+        double[] subFeatures = new double[]{features[Constantes.NUM_CAMADAS], features[Constantes.FEATURE_AREA],
+            features[Constantes.FEATURE_ALTURA] > features[Constantes.FEATURE_LARGURA]
+            ? features[Constantes.FEATURE_LARGURA]
+            : features[Constantes.FEATURE_ALTURA]};
         int predictions = DecisionTreeClassifier.predict(subFeatures);
 
-        while (predictions == 0 && numCamadasRetirar <= features[Constantes.NUM_CAMADAS]) {
+        // 0 = nao desenha   ;      1 = desenha   ;
+        while (predictions == 0 && numCamadasRetirar < features[Constantes.NUM_CAMADAS]) {
             Glyph ultimo = glyphFamily.get(glyphFamily.size() - 1 - numCamadasRetirar);
-            item.getWhat2Draw()[ultimo.presenca()] = 0;
-            
+            try {
+                item.getWhat2Draw()[ultimo.presenca()] = 0;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.err.println("ultimo: " + ultimo.whoAmI().toString());
+                System.err.println("ultimo.presenca(): " + ultimo.presenca());
+                System.err.println(e.getMessage());
+            }
+
             numCamadasRetirar++;
             subFeatures = new double[]{features[Constantes.NUM_CAMADAS] - numCamadasRetirar, features[Constantes.FEATURE_AREA], features[Constantes.FEATURE_ASPECT]};
             predictions = DecisionTreeClassifier.predict(subFeatures);
@@ -255,8 +263,11 @@ public final class GlyphMB {
             double[] features = new double[25];
             getFeatures(item, features);
         }
-        if (item.hasGlyphResposta(father)) {
-            item.setPossuiGlyphResposta(true);
+
+        if (father != null) {
+            if (item.hasGlyphResposta(father)) {
+                item.setPossuiGlyphResposta(true);
+            }
         }
         return item;
     }

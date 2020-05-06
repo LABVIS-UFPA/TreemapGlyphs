@@ -61,7 +61,7 @@ public class Text extends Glyph {
             g2d.setColor(Color.black);
             g2d.fill(shapeLetra);
             
-            g2d.setStroke(new BasicStroke(1.08f));
+            g2d.setStroke(new BasicStroke(0.4f));
             g2d.setColor(Color.white);
             g2d.draw(shapeLetra);
             g2d.setStroke(new BasicStroke(1f));

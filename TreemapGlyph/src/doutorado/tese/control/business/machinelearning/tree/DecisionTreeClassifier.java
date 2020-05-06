@@ -23,7 +23,7 @@ public class DecisionTreeClassifier {
         return index;
     }
     
-    public static int predict(double[] features) {
+    public static int predict_v1_MenorLado(double[] features) {
         int[] classes = new int[2];
             
         if (features[0] <= 3.5) {
@@ -67,7 +67,7 @@ public class DecisionTreeClassifier {
         return findMax(classes);
     }
 
-    public static int predict1(double[] features) {
+    public static int predict_v1_Aspecto(double[] features) {
         int[] classes = new int[2];
 
         if (features[0] <= 3.5) {
@@ -146,6 +146,84 @@ public class DecisionTreeClassifier {
         return findMax(classes);
     }
 
+    public static int predict(double[] features) {//predict_v1_MenorLado
+        int[] classes = new int[2];
+            
+        if (features[0] <= 3.5) {
+            if (features[2] <= 25.5) {
+                if (features[0] <= 1.5) {
+                    if (features[1] <= 65.0) {
+                        classes[0] = 7; 
+                        classes[1] = 0; 
+                    } else {
+                        classes[0] = 4; 
+                        classes[1] = 26; 
+                    }
+                } else {
+                    if (features[2] <= 19.5) {
+                        classes[0] = 53; 
+                        classes[1] = 1; 
+                    } else {
+                        classes[0] = 14; 
+                        classes[1] = 8; 
+                    }
+                }
+            } else {
+                if (features[0] <= 1.5) {
+                    if (features[1] <= 6162.5) {
+                        classes[0] = 3; 
+                        classes[1] = 86; 
+                    } else {
+                        classes[0] = 0; 
+                        classes[1] = 81; 
+                    }
+                } else {
+                    if (features[2] <= 46.5) {
+                        classes[0] = 27; 
+                        classes[1] = 52; 
+                    } else {
+                        classes[0] = 32; 
+                        classes[1] = 263; 
+                    }
+                }
+            }
+        } else {
+            if (features[1] <= 2550.5) {
+                if (features[1] <= 1260.5) {
+                    classes[0] = 181; 
+                    classes[1] = 0; 
+                } else {
+                    if (features[0] <= 4.5) {
+                        classes[0] = 30; 
+                        classes[1] = 6; 
+                    } else {
+                        classes[0] = 60; 
+                        classes[1] = 0; 
+                    }
+                }
+            } else {
+                if (features[0] <= 5.5) {
+                    if (features[2] <= 81.5) {
+                        classes[0] = 82; 
+                        classes[1] = 53; 
+                    } else {
+                        classes[0] = 68; 
+                        classes[1] = 108; 
+                    }
+                } else {
+                    if (features[2] <= 104.5) {
+                        classes[0] = 103; 
+                        classes[1] = 8; 
+                    } else {
+                        classes[0] = 28; 
+                        classes[1] = 16; 
+                    }
+                }
+            }
+        }
+    
+        return findMax(classes);
+    }
 //    public static void main(String[] args) {
 //        if (args.length == 3) {
 //

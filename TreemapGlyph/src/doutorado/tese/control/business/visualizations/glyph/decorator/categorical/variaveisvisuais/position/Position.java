@@ -102,11 +102,11 @@ public class Position extends Glyph {
             g2d.setColor(Color.decode("#545454"));
             g2d.fill(p);//pinta circulo
 
-            g2d.setStroke(new BasicStroke(1.5f));
+//            g2d.setStroke(new BasicStroke(1.5f));
             g2d.setColor(Color.white);
             g2d.draw(p);//desenha circulo branco
 
-            g2d.setStroke(new BasicStroke(1f));
+//            g2d.setStroke(new BasicStroke(1f));
         }
         super.paint(g2d);
     }

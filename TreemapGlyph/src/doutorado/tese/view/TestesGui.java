@@ -57,8 +57,8 @@ public class TestesGui extends javax.swing.JPanel {
 //        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_3x3);
 //        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_3x3_BRANCO);
 //        Glyph child = criarForma(GeometricalFactory.FORMAS.GLYPH_FORMAS.PENTAGONO);
-        Glyph child = criarPosicao(Constantes.POSICOES.DIR_INF);
-//        Glyph child = criarTexto(Constantes.LETRAS_ALFABETO[4]);
+//        Glyph child = criarPosicao(Constantes.POSICOES.DIR_INF);
+        Glyph child = criarTexto(Constantes.LETRAS_ALFABETO[4]);
         
         child.setNodeTreemap(item);
 
