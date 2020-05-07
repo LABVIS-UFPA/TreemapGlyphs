@@ -146,7 +146,7 @@ public class DecisionTreeClassifier {
         return findMax(classes);
     }
 
-    public static int predict(double[] features) {//predict_v2_MenorLado
+    public static int predict_v2_MenorLado(double[] features) {//predict_v2_MenorLado --> melhor resultado
         int[] classes = new int[2];
             
         if (features[0] <= 3.5) {
@@ -301,6 +301,185 @@ public class DecisionTreeClassifier {
                     } else {
                         classes[0] = 29; 
                         classes[1] = 17; 
+                    }
+                }
+            }
+        }
+    
+        return findMax(classes);
+    }
+
+    public static int predict(double[] features) {//predict_v2_MenorLado_6_7_e_6_7
+        int[] classes = new int[2];
+            
+        if (features[1] <= 1122.5) {
+            if (features[0] <= 2.5) {
+                if (features[2] <= 11.5) {
+                    if (features[0] <= 1.5) {
+                        classes[0] = 1; 
+                        classes[1] = 11; 
+                    } else {
+                        classes[0] = 17; 
+                        classes[1] = 2; 
+                    }
+                } else {
+                    if (features[0] <= 1.5) {
+                        classes[0] = 0; 
+                        classes[1] = 51; 
+                    } else {
+                        if (features[2] <= 26.5) {
+                            classes[0] = 8; 
+                            classes[1] = 20; 
+                        } else {
+                            classes[0] = 0; 
+                            classes[1] = 21; 
+                        }
+                    }
+                }
+            } else {
+                if (features[0] <= 3.5) {
+                    if (features[2] <= 22.5) {
+                        if (features[1] <= 342.5) {
+                            classes[0] = 32; 
+                            classes[1] = 0; 
+                        } else {
+                            classes[0] = 7; 
+                            classes[1] = 3; 
+                        }
+                    } else {
+                        classes[0] = 9; 
+                        classes[1] = 15; 
+                    }
+                } else {
+                    if (features[0] <= 4.5) {
+                        if (features[1] <= 420.5) {
+                            classes[0] = 30; 
+                            classes[1] = 0; 
+                        } else {
+                            if (features[1] <= 930.5) {
+                                classes[0] = 26; 
+                                classes[1] = 5; 
+                            } else {
+                                classes[0] = 7; 
+                                classes[1] = 0; 
+                            }
+                        }
+                    } else {
+                        classes[0] = 135; 
+                        classes[1] = 0; 
+                    }
+                }
+            }
+        } else {
+            if (features[0] <= 4.5) {
+                if (features[0] <= 3.5) {
+                    if (features[0] <= 2.5) {
+                        if (features[1] <= 4970.5) {
+                            if (features[1] <= 4830.5) {
+                                classes[0] = 0; 
+                                classes[1] = 137; 
+                            } else {
+                                classes[0] = 1; 
+                                classes[1] = 2; 
+                            }
+                        } else {
+                            classes[0] = 0; 
+                            classes[1] = 254; 
+                        }
+                    } else {
+                        if (features[1] <= 11556.5) {
+                            if (features[2] <= 46.5) {
+                                classes[0] = 2; 
+                                classes[1] = 28; 
+                            } else {
+                                classes[0] = 1; 
+                                classes[1] = 123; 
+                            }
+                        } else {
+                            if (features[1] <= 12210.5) {
+                                classes[0] = 3; 
+                                classes[1] = 10; 
+                            } else {
+                                classes[0] = 0; 
+                                classes[1] = 41; 
+                            }
+                        }
+                    }
+                } else {
+                    if (features[1] <= 1806.5) {
+                        classes[0] = 10; 
+                        classes[1] = 13; 
+                    } else {
+                        if (features[2] <= 123.5) {
+                            if (features[1] <= 2550.5) {
+                                classes[0] = 4; 
+                                classes[1] = 17; 
+                            } else {
+                                classes[0] = 8; 
+                                classes[1] = 152; 
+                            }
+                        } else {
+                            classes[0] = 1; 
+                            classes[1] = 1; 
+                        }
+                    }
+                }
+            } else {
+                if (features[1] <= 4556.5) {
+                    if (features[2] <= 48.5) {
+                        classes[0] = 58; 
+                        classes[1] = 0; 
+                    } else {
+                        if (features[0] <= 5.5) {
+                            if (features[1] <= 3782.5) {
+                                classes[0] = 8; 
+                                classes[1] = 22; 
+                            } else {
+                                classes[0] = 12; 
+                                classes[1] = 11; 
+                            }
+                        } else {
+                            if (features[2] <= 65.5) {
+                                classes[0] = 30; 
+                                classes[1] = 0; 
+                            } else {
+                                classes[0] = 3; 
+                                classes[1] = 2; 
+                            }
+                        }
+                    }
+                } else {
+                    if (features[0] <= 5.5) {
+                        if (features[1] <= 14762.5) {
+                            if (features[2] <= 72.5) {
+                                classes[0] = 3; 
+                                classes[1] = 9; 
+                            } else {
+                                classes[0] = 12; 
+                                classes[1] = 104; 
+                            }
+                        } else {
+                            classes[0] = 2; 
+                            classes[1] = 4; 
+                        }
+                    } else {
+                        if (features[2] <= 89.5) {
+                            if (features[2] <= 76.5) {
+                                classes[0] = 11; 
+                                classes[1] = 11; 
+                            } else {
+                                classes[0] = 24; 
+                                classes[1] = 8; 
+                            }
+                        } else {
+                            if (features[1] <= 15006.5) {
+                                classes[0] = 26; 
+                                classes[1] = 50; 
+                            } else {
+                                classes[0] = 0; 
+                                classes[1] = 6; 
+                            }
+                        }
                     }
                 }
             }
