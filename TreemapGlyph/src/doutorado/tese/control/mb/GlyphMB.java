@@ -206,21 +206,28 @@ public final class GlyphMB {
             features[Constantes.FEATURE_ALTURA] > features[Constantes.FEATURE_LARGURA]
             ? features[Constantes.FEATURE_LARGURA]
             : features[Constantes.FEATURE_ALTURA]};
+        //'NumCamadas','AreaItem','AreaTextura','AreaCor','AreaForma','AreaTexto','AreaPosicao','AreaOrientacao','AreaProfileGlyph'
+//        double[] subFeatures = new double[]{
+//            features[Constantes.NUM_CAMADAS], features[Constantes.FEATURE_AREA],
+//            features[Constantes.AREA_TEXTURA], features[Constantes.AREA_COR], features[Constantes.AREA_SHAPE],
+//            features[Constantes.AREA_TEXTO], features[Constantes.AREA_POSICAO], features[Constantes.AREA_ORIENTACAO],
+//            features[Constantes.AREA_PROFILE_GLYPH]
+//        };
+        item.setWhat2Draw(new int[]{1, 1, 1, 1, 1, 1, 1});
         int predictions = DecisionTreeClassifier.predict(subFeatures);
 
         // 0 = nao desenha   ;      1 = desenha   ;
         while (predictions == 0 && numCamadasRetirar < features[Constantes.NUM_CAMADAS]) {
             Glyph ultimo = glyphFamily.get(glyphFamily.size() - 1 - numCamadasRetirar);
-            try {
-                item.getWhat2Draw()[ultimo.presenca()] = 0;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.err.println("ultimo: " + ultimo.whoAmI().toString());
-                System.err.println("ultimo.presenca(): " + ultimo.presenca());
-                System.err.println(e.getMessage());
-            }
-
+            item.getWhat2Draw()[ultimo.presenca()] = 0;
+            
             numCamadasRetirar++;
             subFeatures = new double[]{features[Constantes.NUM_CAMADAS] - numCamadasRetirar, features[Constantes.FEATURE_AREA], features[Constantes.FEATURE_ASPECT]};
+//            subFeatures = new double[]{
+//                features[Constantes.NUM_CAMADAS], features[Constantes.FEATURE_AREA],
+//                features[Constantes.AREA_TEXTURA], features[Constantes.AREA_COR], features[Constantes.AREA_SHAPE],
+//                features[Constantes.AREA_TEXTO], features[Constantes.AREA_POSICAO], features[Constantes.AREA_ORIENTACAO],
+//                features[Constantes.AREA_PROFILE_GLYPH]};            
             predictions = DecisionTreeClassifier.predict(subFeatures);
         }
 

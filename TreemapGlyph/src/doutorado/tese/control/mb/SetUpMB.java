@@ -9,6 +9,7 @@ import doutorado.tese.control.business.visualizations.glyph.Glyph;
 import doutorado.tese.control.business.visualizations.glyph.GlyphConcrete;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.GeometricalFactory;
 import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.OrientationFactory;
+import doutorado.tese.control.business.visualizations.glyph.factorys.variaveisvisuais.TexturesFactory;
 import doutorado.tese.dao.ManipuladorArquivo;
 import doutorado.tese.model.Coluna;
 import doutorado.tese.model.TreeMapItem;
@@ -33,7 +34,7 @@ public class SetUpMB {
 
     public SetUpMB() {
     }
-    
+
     /**
      * Metodo que cria cada item do treemap, associa os dados da base de dados
      * ao item correspondete, e define um objeto GlyphConcreto para esse item.
@@ -84,8 +85,11 @@ public class SetUpMB {
         ArrayList<String> list = new ArrayList<>();
         switch (varVisual) {
             case TEXTURE:
-                analisarQuantAtributosCategoricos(list, Constantes.TIPO_TEXTURA);
+                TexturesFactory.TEXTURE.GLYPH_TEXTURAS[] texturas = new TexturesFactory.TEXTURE.GLYPH_TEXTURAS[TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values().length];
+                System.arraycopy(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.values(), 0, texturas, 0, texturas.length);
+                analisarQuantAtributosCategoricos(list, texturas);
                 break;
+
             case COLOR_HUE:
                 if (glyph) {
                     analisarQuantAtributosCategoricos(list, Constantes.getColorHueGlyphs());
@@ -95,11 +99,10 @@ public class SetUpMB {
                 break;
             case SHAPE:
                 GeometricalFactory.FORMAS.GLYPH_FORMAS[] formas = new GeometricalFactory.FORMAS.GLYPH_FORMAS[GeometricalFactory.FORMAS.GLYPH_FORMAS.values().length];
-                for (int i = 0; i < formas.length; i++) {
-                    formas[i] = GeometricalFactory.FORMAS.GLYPH_FORMAS.values()[i];
-                }
+                System.arraycopy(GeometricalFactory.FORMAS.GLYPH_FORMAS.values(), 0, formas, 0, formas.length);
                 analisarQuantAtributosCategoricos(list, formas);
                 break;
+
             case TEXT:
                 analisarQuantAtributosCategoricos(list, Constantes.LETRAS_ALFABETO);
                 break;
@@ -232,5 +235,5 @@ public class SetUpMB {
     public static void setItensTreemap(TreeMapItem[] itensTreemap) {
         SetUpMB.itensTreemap = itensTreemap;
     }
-    
+
 }
