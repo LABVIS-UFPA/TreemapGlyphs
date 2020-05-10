@@ -44,8 +44,8 @@ public class ColorHue extends Glyph {
             }
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
-            g2d.setColor(Color.BLACK);
-            g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
+//            g2d.setColor(Color.BLACK);
+//            g2d.drawRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
         }
         super.paint(g2d);
     }

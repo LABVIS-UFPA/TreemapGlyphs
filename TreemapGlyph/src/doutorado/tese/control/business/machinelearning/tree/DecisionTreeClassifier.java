@@ -309,7 +309,7 @@ public class DecisionTreeClassifier {
         return findMax(classes);
     }
 
-    public static int predict(double[] features) {//predict_v2_MenorLado_6_7_e_6_7
+    public static int predict_v2_MenorLado_6_7_e_6_7(double[] features) {//
         int[] classes = new int[2];
             
         if (features[1] <= 1122.5) {
@@ -480,6 +480,80 @@ public class DecisionTreeClassifier {
                                 classes[1] = 6; 
                             }
                         }
+                    }
+                }
+            }
+        }
+    
+        return findMax(classes);
+    }
+
+    public static int predict(double[] features) {
+        int[] classes = new int[2];
+            
+        if (features[2] <= 72.5) {
+            if (features[0] <= 1.5) {
+                if (features[2] <= 56.5) {
+                    classes[0] = 0; 
+                    classes[1] = 11; 
+                } else {
+                    classes[0] = 1; 
+                    classes[1] = 6; 
+                }
+            } else {
+                if (features[2] <= 56.5) {
+                    if (features[0] <= 2.5) {
+                        classes[0] = 21; 
+                        classes[1] = 7; 
+                    } else {
+                        classes[0] = 301; 
+                        classes[1] = 5; 
+                    }
+                } else {
+                    if (features[0] <= 4.5) {
+                        classes[0] = 21; 
+                        classes[1] = 14; 
+                    } else {
+                        classes[0] = 28; 
+                        classes[1] = 6; 
+                    }
+                }
+            }
+        } else {
+            if (features[2] <= 132.5) {
+                if (features[1] <= 61.5) {
+                    if (features[2] <= 90.5) {
+                        classes[0] = 17; 
+                        classes[1] = 23; 
+                    } else {
+                        classes[0] = 13; 
+                        classes[1] = 47; 
+                    }
+                } else {
+                    if (features[1] <= 89.5) {
+                        classes[0] = 39; 
+                        classes[1] = 30; 
+                    } else {
+                        classes[0] = 2; 
+                        classes[1] = 7; 
+                    }
+                }
+            } else {
+                if (features[0] <= 4.5) {
+                    if (features[2] <= 380.5) {
+                        classes[0] = 13; 
+                        classes[1] = 183; 
+                    } else {
+                        classes[0] = 8; 
+                        classes[1] = 663; 
+                    }
+                } else {
+                    if (features[0] <= 5.5) {
+                        classes[0] = 20; 
+                        classes[1] = 120; 
+                    } else {
+                        classes[0] = 23; 
+                        classes[1] = 51; 
                     }
                 }
             }
