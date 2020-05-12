@@ -1273,15 +1273,16 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             limparResquiciosBasesAnteriores();
 
             selectedFile = chooser.getSelectedFile();
-            progressoBarra.setVisible(true);
-            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            logger.info("Arquivo selecionado: " + selectedFile);
-            //Instances of javax.swing.SwingWorker are not reusuable, so
-            //we create new instances as needed.
-            setTitle("Treemap Glyphs - " + selectedFile.getName());
-            task = new Task();
-            task.addPropertyChangeListener(this);
-            task.execute();
+//            progressoBarra.setVisible(true);
+//            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+//            logger.info("Arquivo selecionado: " + selectedFile);
+//            //Instances of javax.swing.SwingWorker are not reusuable, so
+//            //we create new instances as needed.
+//            setTitle("Treemap Glyphs - " + selectedFile.getName());
+//            task = new Task();
+//            task.addPropertyChangeListener(this);
+//            task.execute();
+            runSubTasks();
         } else {
             JOptionPane.showMessageDialog(null, "The file type can not be read.", "Erro!", JOptionPane.ERROR_MESSAGE);
             logger.error("The file type can not be read. - Try it again!");
@@ -1295,11 +1296,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_decisionTreeActivateActionPerformed
 
     private void startMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startMenuItemActionPerformed
+        ManipuladorGUITeste testeGUI = new ManipuladorGUITeste();
+        selectedFile = testeGUI.carregarBaseDados();
+        runSubTasks();
+        testeGUI.setMainGUI(this);
+        
         MainScreenLog screenLog = new MainScreenLog();
         screenLog.setVisible(true);
-        JOptionPane.showMessageDialog(null, "To start testing, make sure that the answersTraining.tsv "
-                + "and answers.tsv files are in the same directory as the .jar file.",
-                "Files TSV", JOptionPane.WARNING_MESSAGE);
+        screenLog.setManipuladorTesteGUI(testeGUI);
+        
+//        JOptionPane.showMessageDialog(null, "To start testing, make sure that the answersTraining.tsv "
+//                + "and answers.tsv files are in the same directory as the .jar file.",
+//                "Files TSV", JOptionPane.WARNING_MESSAGE);
         ManipuladorLog.setTesteAcontecendo(true);
     }//GEN-LAST:event_startMenuItemActionPerformed
 
@@ -1322,7 +1330,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         //Gerar o .jar clicando com o botao direito no arquivo build.xml ->
         //executar destino -> outros destinos -> package-for-store
         //o arquivo .jar sera gerado em uma pasta TreemapGlyph\store
-        JOptionPane.showMessageDialog(null, "Version 19.1\n"
+        JOptionPane.showMessageDialog(null, "Version 20\n"
                 + "Developed by LabVis ( http://www.labvis.ufpa.br/ )");
     }//GEN-LAST:event_version_jMenuItemActionPerformed
 
@@ -2137,7 +2145,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JButton baixoButton;
     private javax.swing.JButton botaoGerarCategoricalGlyphs;
     private javax.swing.JButton botaoGerarContinuosGlyphs;
-    private javax.swing.JButton botaoGerarTreemap;
+    public javax.swing.JButton botaoGerarTreemap;
     private javax.swing.JButton categoricalFilterButton;
     private javax.swing.JCheckBox checkCategoricalGlyph;
     private javax.swing.JCheckBox checkContinuousGlyph;
@@ -2256,6 +2264,46 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private GlyphMB glyphMB;
     private SetUpMB setupMB;
 
+    public void simularCliqueBotaoTreemap(){
+        cleanAllVisualizations();
+
+        loadSetupTreemap();
+
+        visualizationTreemap = new DrawAreaMB(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
+                manipulador, itemTamanho, itensHierarquia, itemLegenda, itemCor, itensDetalhes, () -> {
+                });
+        Constantes.QUANT_HIERARQUIAS = itensHierarquia.length;
+        painelEsquerda.add(layerPane);
+        view = visualizationTreemap.getView();//view eh o Jpanel do treemap
+        layerPane.setBounds(view.getBounds());
+
+        atualizarLegendaTreemap(itemCor);
+        progressoBarra.setVisible(false);
+        checkCategoricalGlyph.setEnabled(true);
+        checkContinuousGlyph.setEnabled(true);
+
+        configGlassPanelClick();
+        configDetalhesSobDemanda();
+    }
+    
+    public void carregarHierarquiasTreemapTeste(String[] hierarquias){
+        List<Object> newListaVarVisuais = new ArrayList<>();
+        reloadListGUI(hierarquias, colunasHierarquicasList2);
+        colunasHierarquicasList2.setEnabled(true);
+
+        //remover o conteudo da lista de atributos original
+        ListModel<String> modelOriginal = colunasHierarquicasList1.getModel();
+        List<String> selectedValuesList = Arrays.asList(hierarquias);
+        for (int i = 0; i < modelOriginal.getSize(); i++) {
+            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
+                newListaVarVisuais.add(modelOriginal.getElementAt(i));
+            }
+        }
+        reloadListGUI(newListaVarVisuais.toArray(), colunasHierarquicasList1);
+        
+        //simularCliqueBotaoTreemap();
+    }
+    
     private void atualizarLegendaCategoricalGlyphs(HashMap<Constantes.VAR_VISUAIS_CATEGORICAS, Object> atributosEscolhidosGlyph) {
         painelLegendaVis.removeAll();
         atualizarLegendaTreemap(itemCor);
@@ -2420,7 +2468,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         colunasDetalhesList2.setEnabled(true);
     }
 
-    private void limparResquiciosBasesAnteriores() {
+    public void limparResquiciosBasesAnteriores() {
         limparPainelEsquerda();
         checkCategoricalGlyph.setEnabled(false);
         checkContinuousGlyph.setEnabled(false);
@@ -2710,6 +2758,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }
 
+    public void runSubTasks() {
+        progressoBarra.setVisible(true);
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        logger.info("Arquivo selecionado: " + selectedFile);
+        //Instances of javax.swing.SwingWorker are not reusuable, so
+        //we create new instances as needed.
+        setTitle("Treemap Glyphs - " + selectedFile.getName());
+        task = new Task();
+        task.addPropertyChangeListener(this);
+        task.execute();
+    }
+
     class Task extends SwingWorker<Void, Void> {
 
         /*
@@ -2759,54 +2819,54 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 break;
             case 2:
                 try {
-                    logger.info("Montando Objetos coluna.");
-                    manipulador.montarColunas(manipulador.getCabecalho(), manipulador.getTipos());
-                } catch (Exception e) {
-                    logger.error("Erro montar objetos COLUNA. \n", e);
-                    e.printStackTrace();
-                }
-                porcentagem = (ordem * 100) / tarefas;
-                progressoBarra.setToolTipText("Montando colunas: " + porcentagem + "%");
-                break;
+                logger.info("Montando Objetos coluna.");
+                manipulador.montarColunas(manipulador.getCabecalho(), manipulador.getTipos());
+            } catch (Exception e) {
+                logger.error("Erro montar objetos COLUNA. \n", e);
+                e.printStackTrace();
+            }
+            porcentagem = (ordem * 100) / tarefas;
+            progressoBarra.setToolTipText("Montando colunas: " + porcentagem + "%");
+            break;
             case 3:
                 try {
-                    logger.info("Carregando itens no treemap e define um GlyphConcreto a cada item.");
-                    setupMB.carregarItensTreemap();
-                } catch (Throwable e) {
-                    logger.error("Erro ao criar itens no treemap. \n", e);
-                    e.printStackTrace();
-                }
-                porcentagem = (ordem * 100) / tarefas;
-                progressoBarra.setToolTipText("Carregando itens no TreeMap: " + porcentagem + "%");
-                break;
+                logger.info("Carregando itens no treemap e define um GlyphConcreto a cada item.");
+                setupMB.carregarItensTreemap();
+            } catch (Throwable e) {
+                logger.error("Erro ao criar itens no treemap. \n", e);
+                e.printStackTrace();
+            }
+            porcentagem = (ordem * 100) / tarefas;
+            progressoBarra.setToolTipText("Carregando itens no TreeMap: " + porcentagem + "%");
+            break;
             case 4:
                 try {
-                    logger.info("Definindo a descrição das colunas.");
-                    for (int i = 0; i < manipulador.getColunas().length; i++) {
-                        Coluna c = manipulador.getColunas()[i];
-                        if (c != null) {
-                            c.configurarDescricao(manipulador.getDadosColuna(manipulador.getCabecalho()[i]));
-                        } else {
-                            throw new Exception();
-                        }
+                logger.info("Definindo a descrição das colunas.");
+                for (int i = 0; i < manipulador.getColunas().length; i++) {
+                    Coluna c = manipulador.getColunas()[i];
+                    if (c != null) {
+                        c.configurarDescricao(manipulador.getDadosColuna(manipulador.getCabecalho()[i]));
+                    } else {
+                        throw new Exception();
                     }
-                } catch (Exception e) {
-                    logger.error("Erro ao definir a descrição das colunas. \n", e);
-                    JOptionPane.showMessageDialog(null,
-                            "There was an error reading your file. \nPlease, "
-                            + "make sure your file is set up correctly \n"
-                            + "and try again. \n"
-                            + "-Make sure your file has headers (Column Name and Data Type, each in a row, first Column Name then Data Type) \n"
-                            + "-Data types are written with the first letter uppercase and the rest lowercase (e.g. String, Double) \n"
-                            + "-The accepted data types are: Integer, Double, String, Float, Boolean",
-                            "There is a problem with your file !.",
-                            JOptionPane.ERROR_MESSAGE);
-                    e.printStackTrace();
-                    break;
                 }
-                porcentagem = (ordem * 100) / tarefas;
-                progressoBarra.setToolTipText("Definindo a descrição das colunas: " + porcentagem + "%");
+            } catch (Exception e) {
+                logger.error("Erro ao definir a descrição das colunas. \n", e);
+                JOptionPane.showMessageDialog(null,
+                        "There was an error reading your file. \nPlease, "
+                        + "make sure your file is set up correctly \n"
+                        + "and try again. \n"
+                        + "-Make sure your file has headers (Column Name and Data Type, each in a row, first Column Name then Data Type) \n"
+                        + "-Data types are written with the first letter uppercase and the rest lowercase (e.g. String, Double) \n"
+                        + "-The accepted data types are: Integer, Double, String, Float, Boolean",
+                        "There is a problem with your file !.",
+                        JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
                 break;
+            }
+            porcentagem = (ordem * 100) / tarefas;
+            progressoBarra.setToolTipText("Definindo a descrição das colunas: " + porcentagem + "%");
+            break;
             case 5:
                 logger.info("Preparando atributos contínuos.");
                 setupMB.loadContinuousAttributes();

@@ -201,18 +201,13 @@ public final class GlyphMB {
             }
         });
         int numCamadasRetirar = 0;
-//        double[] subFeatures = new double[]{features[Constantes.NUM_CAMADAS], features[Constantes.FEATURE_AREA], features[Constantes.FEATURE_ASPECT]};
-//        double[] subFeatures = new double[]{features[Constantes.NUM_CAMADAS], features[Constantes.FEATURE_AREA],
-//            features[Constantes.FEATURE_ALTURA] > features[Constantes.FEATURE_LARGURA]
-//            ? features[Constantes.FEATURE_LARGURA]
-//            : features[Constantes.FEATURE_ALTURA]};
+        
         Glyph ultimaCamada = glyphFamily.get(glyphFamily.size() - 1);
         double menorLado = features[Constantes.FEATURE_ALTURA] > features[Constantes.FEATURE_LARGURA]
             ? features[Constantes.FEATURE_LARGURA]
             : features[Constantes.FEATURE_ALTURA];
         double[] subFeatures = new double[]{features[Constantes.NUM_CAMADAS], menorLado, ultimaCamada.getArea()};
-        //'NumCamadas','AreaItem','AreaTextura','AreaCor','AreaForma','AreaTexto','AreaPosicao','AreaOrientacao','AreaProfileGlyph'
-
+        
         item.setWhat2Draw(new int[]{1, 1, 1, 1, 1, 1, 1});
         int predictions = DecisionTreeClassifier.predict(subFeatures);
 
@@ -222,9 +217,6 @@ public final class GlyphMB {
             item.getWhat2Draw()[ultimo.presenca()] = 0;
 
             numCamadasRetirar++;
-//            subFeatures = new double[]{features[Constantes.NUM_CAMADAS] - numCamadasRetirar, 
-//                features[Constantes.FEATURE_AREA], 
-//                features[Constantes.FEATURE_ASPECT]};
             subFeatures = new double[]{features[Constantes.NUM_CAMADAS] - numCamadasRetirar,
                 menorLado, ultimo.getArea()};
 

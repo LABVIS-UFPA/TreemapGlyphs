@@ -11,6 +11,7 @@ import doutorado.tese.control.business.userTest.ManipuladorLog;
 import doutorado.tese.model.teste.PerguntasTesteEnum;
 import doutorado.tese.model.teste.PerguntasTreinamentoEnum;
 import doutorado.tese.util.ColunasLog;
+import doutorado.tese.view.ManipuladorGUITeste;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import java.time.LocalDateTime;
@@ -30,6 +31,7 @@ public class MainScreenLog extends javax.swing.JFrame {
 //    private LoggerMB loggerMB;
     private String[] colunaLog;
     private String[] itens;
+    private ManipuladorGUITeste testeGUI;
 
     public MainScreenLog() {
         initComponents();
@@ -226,11 +228,18 @@ public class MainScreenLog extends javax.swing.JFrame {
             perguntaMB.managerPerguntasTreinamento();
             textoPergunta.setText(perguntaMB.getPerguntasTreinamento()[contQuestaoTreinamento].getTexto());
             updateStartLog(contQuestaoTreinamento);
+            
+            testeGUI.carregarAtributosTreemapTreinamento(contQuestaoTreinamento);
+            
             contQuestaoTreinamento++;
         } else {
             perguntaMB.managerPerguntasTeste();
             textoPergunta.setText(perguntaMB.getPerguntasTeste()[contQuestaoTeste].getTexto());
             updateStartLog(contQuestaoTeste);
+            
+            testeGUI.carregarHierarquiasTreemap();
+            testeGUI.carregarAtributosTreemapTeste(contQuestaoTeste + 1);
+            
             contQuestaoTeste++;
         }
         submit_Button.setEnabled(true);
@@ -431,4 +440,8 @@ public class MainScreenLog extends javax.swing.JFrame {
     private javax.swing.JLabel textoPergunta;
     private javax.swing.JRadioButton treinamentoRadioButton;
     // End of variables declaration//GEN-END:variables
+
+    public void setManipuladorTesteGUI(ManipuladorGUITeste testeGUI) {
+        this.testeGUI = testeGUI;
+    }
 }

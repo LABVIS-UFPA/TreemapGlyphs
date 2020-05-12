@@ -78,7 +78,7 @@
     //o arquivo .jar sera gerado em uma pasta TreemapGlyph\store
     -->
     <target name="package-for-store" depends="jar"> 
-        <property name="store.jar.name" value="TreemapGlyph_v19_1"/> 
+        <property name="store.jar.name" value="TreemapGlyph_v20"/> 
         <property name="store.dir" value="store"/> 
         <property name="store.jar" value="${store.dir}/${store.jar.name}.jar"/> 
         <echo message="Packaging ${application.title} into a single JAR at ${store.jar}"/> 
