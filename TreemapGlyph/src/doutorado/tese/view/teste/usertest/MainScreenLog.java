@@ -238,7 +238,14 @@ public class MainScreenLog extends javax.swing.JFrame {
             updateStartLog(contQuestaoTeste);
             
             testeGUI.carregarHierarquiasTreemap();
+            testeGUI.carregarSizesTreemap();
+            testeGUI.carregarCoresTreemap();
             testeGUI.carregarAtributosTreemapTeste(contQuestaoTeste + 1);
+            
+            testeGUI.usarGlyphCategorico();
+            testeGUI.carregarGlyphsConfig();
+            testeGUI.carregarAtributosVarVisuais(contQuestaoTeste + 1);
+            
             
             contQuestaoTeste++;
         }

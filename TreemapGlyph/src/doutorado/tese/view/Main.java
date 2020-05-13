@@ -14,6 +14,7 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.control.business.visualizations.legenda.LegendaVisualizacao;
 import doutorado.tese.control.mb.GlyphMB;
 import doutorado.tese.control.mb.SetUpMB;
+import doutorado.tese.control.mb.testeMB.usertest.FinishedSetupCallBack;
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.model.TreeMapNode;
 import doutorado.tese.util.Util;
@@ -30,6 +31,7 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
@@ -1456,8 +1458,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void updateDetailsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDetailsButtonActionPerformed
         String[] valoresEscolhidos = Util.parseListModel2ArrayString(colunasDetalhesList2.getModel());
-        visualizationTreemap.setColunasDetalhesDemanda(valoresEscolhidos);
-        visualizationTreemap.updateDetalhesDemanda();
+        getVisualizationTreemap().setColunasDetalhesDemanda(valoresEscolhidos);
+        getVisualizationTreemap().updateDetalhesDemanda();
 
         botaoGerarTreemapActionPerformed(evt);
     }//GEN-LAST:event_updateDetailsButtonActionPerformed
@@ -2039,7 +2041,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 });
         Constantes.QUANT_HIERARQUIAS = itensHierarquia.length;
         painelEsquerda.add(layerPane);
-        view = visualizationTreemap.getView();//view eh o Jpanel do treemap
+        view = getVisualizationTreemap().getView();//view eh o Jpanel do treemap
         layerPane.setBounds(view.getBounds());
 
         atualizarLegendaTreemap(itemCor);
@@ -2270,13 +2272,16 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         loadSetupTreemap();
 
         visualizationTreemap = new DrawAreaMB(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
-                manipulador, itemTamanho, itensHierarquia, itemLegenda, itemCor, itensDetalhes, () -> {
-                });
+                manipulador, itemTamanho, itensHierarquia, itemLegenda, itemCor, itensDetalhes, new FinishedSetupCallBack() {
+            @Override
+            public void onFinished() {
+            }
+        });
         Constantes.QUANT_HIERARQUIAS = itensHierarquia.length;
         painelEsquerda.add(layerPane);
-        view = visualizationTreemap.getView();//view eh o Jpanel do treemap
+        view = getVisualizationTreemap().getView();//view eh o Jpanel do treemap
         layerPane.setBounds(view.getBounds());
-
+        
         atualizarLegendaTreemap(itemCor);
         progressoBarra.setVisible(false);
         checkCategoricalGlyph.setEnabled(true);
@@ -2284,6 +2289,82 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         configGlassPanelClick();
         configDetalhesSobDemanda();
+    }
+    
+    public void simularCliqueBotaoCategorialGlyph(){
+        //zerando tudo
+        variaveisVisuaisEscolhidas = null;
+        //acoes para configurar os glyphs
+        variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
+
+        if (Constantes.CATEGORICAL_GLYPH_ACTIVATED) {
+            createGlassPanel();
+            configGlassPanelClick();
+            configDetalhesSobDemanda();
+//            varVisuaisList1.setEnabled(true);
+        }
+//        createGlassPanel();
+//        configGlassPanelClick();
+//        configDetalhesSobDemanda();
+
+        glassPanel.setManipulador(manipulador);
+        glassPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
+        //Acoes para desenhar os glyphs
+        glassPanel.setBounds(painelEsquerda.getBounds());
+        Constantes.DECISION_TREE_ACTIVATED = decisionTreeActivate.isSelected();
+
+        atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
+        if (!esqueceuSelecionarAtributo()) {
+            if (Constantes.CONTINUOUS_GLYPH_ACTIVATED && !desenhouContinuousGlyph) {
+                JOptionPane.showMessageDialog(null, "You forget to set up the continuous glyph!", "Opps!", JOptionPane.WARNING_MESSAGE);
+            } else {
+                glassPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
+                glassPanel.setVisible(true);
+                atualizarLegendaCategoricalGlyphs(atributosEscolhidosGlyph);
+                glassPanel.repaint();
+            }
+        } else {
+            if (glassPanel != null) {
+                JOptionPane.showMessageDialog(null, "Please, select a attribute!", "Select a attribute", JOptionPane.WARNING_MESSAGE);
+            } else {
+                System.err.println("esqueceu de selecionar um atributo... e o glyphPanel ta null");
+            }
+        }
+    }
+    
+    public void marcarCheckGlyphCategorico(boolean marcar){
+        checkCategoricalGlyph.setSelected(marcar);
+        
+//        checkCategoricalGlyphActionPerformed(null);
+        Constantes.CATEGORICAL_GLYPH_ACTIVATED = checkCategoricalGlyph.isSelected();
+        if (checkCategoricalGlyph.isSelected() || checkContinuousGlyph.isSelected()) {
+            showGlyphOnDetailsCheckBox.setEnabled(true);
+        }
+        if (Constantes.CATEGORICAL_GLYPH_ACTIVATED) {
+//            createGlassPanel();
+//            configGlassPanelClick();
+//            configDetalhesSobDemanda();
+            varVisuaisList1.setEnabled(true);
+        } else {
+            cleanCacheCategoricalGlyph();
+        }
+    }
+    
+    public void carregarFamiliaGlyph(String[] familia){
+        List<Object> newListaVarVisuais = new ArrayList<>();        
+        reloadListGUI(familia, varVisuaisList2);
+        varVisuaisList2.setEnabled(true);
+        habilitarVarVisuaisUtilizadasGUI(Arrays.asList(familia));
+
+        //remover o conteudo da lista de atributos original
+        ListModel<String> modelOriginal = varVisuaisList1.getModel();
+        List<String> selectedValuesList = Arrays.asList(familia);
+        for (int i = 0; i < modelOriginal.getSize(); i++) {
+            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
+                newListaVarVisuais.add(modelOriginal.getElementAt(i));
+            }
+        }
+        reloadListGUI(newListaVarVisuais.toArray(), varVisuaisList1);
     }
     
     public void carregarHierarquiasTreemapTeste(String[] hierarquias){
@@ -2299,9 +2380,15 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 newListaVarVisuais.add(modelOriginal.getElementAt(i));
             }
         }
-        reloadListGUI(newListaVarVisuais.toArray(), colunasHierarquicasList1);
-        
-        //simularCliqueBotaoTreemap();
+        reloadListGUI(newListaVarVisuais.toArray(), colunasHierarquicasList1);        
+    }
+    
+    public void carregarSizeTreemapTeste(String atributo){
+        tamanhoTreemapComboBox.setSelectedItem(atributo);        
+    }
+    
+    public void carregarCorTreemapteste(String atributo){
+        corTreemapComboBox.setSelectedItem(atributo);
     }
     
     private void atualizarLegendaCategoricalGlyphs(HashMap<Constantes.VAR_VISUAIS_CATEGORICAS, Object> atributosEscolhidosGlyph) {
@@ -2746,7 +2833,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         if (clickPanel == null) {
             clickPanel = new GlassPanelClick();
             clickPanel.setTMView(view);
-            clickPanel.setListaItensClicados(visualizationTreemap.getNodosSelecionadosUsuario());
+            clickPanel.setListaItensClicados(getVisualizationTreemap().getNodosSelecionadosUsuario());
             clickPanel.setBounds(view.getBounds());
             layerPane.add(view, new Integer(0), 0);
             layerPane.add(clickPanel, new Integer(1), 0);
@@ -2999,5 +3086,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             int progress = (Integer) evt.getNewValue();
             progressoBarra.setValue(progress);
         }
+    }
+
+    /**
+     * @return the visualizationTreemap
+     */
+    public DrawAreaMB getVisualizationTreemap() {
+        return visualizationTreemap;
     }
 }

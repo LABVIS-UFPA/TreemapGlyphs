@@ -51,7 +51,7 @@ public class DrawAreaMB {
     private String labelColumn = "";
     private TreeMapNode root = null;
     private TreeMapNode fixedRoot = null;
-    boolean call = false;
+    public boolean call = false;
     private List<TreeMapNode> listClickedItems = null;
 
 //variaveis para a API do Treemap
