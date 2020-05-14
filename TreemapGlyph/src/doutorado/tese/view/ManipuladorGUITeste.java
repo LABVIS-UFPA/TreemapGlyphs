@@ -7,7 +7,9 @@ package doutorado.tese.view;
 
 import doutorado.tese.util.io.Leitor;
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import net.bouthier.treemapAWT.TMOnDrawFinished;
 import net.bouthier.treemapAWT.TMUpdaterConcrete;
 import net.bouthier.treemapAWT.TMView;
@@ -70,11 +72,34 @@ public class ManipuladorGUITeste {
 
     }
 
-    public void usarGlyphCategorico() {
-//        callListner();
-        mainGUI.marcarCheckGlyphCategorico(true);  
-    }   
-    
+    public boolean usarGlyphCategorico(int contQuestaoTeste) {
+        boolean usaGlyphCategorico = verificarGlyphCategoricoFamilia(contQuestaoTeste);
+        if (usaGlyphCategorico) {
+            mainGUI.marcarCheckGlyphCategorico(true);
+        }
+        return usaGlyphCategorico;
+    }
+
+    public boolean verificarGlyphCategoricoFamilia(int contQuestaoTeste) {
+        boolean usa = false;
+        String[] familia = getMapaGlyphsFamily().get(contQuestaoTeste).split(";");
+        List<String> asList = Arrays.asList(familia);
+        if (asList.contains("Texture")) {
+            usa = true;
+        } else if (asList.contains("Color")) {
+            usa = true;
+        } else if (asList.contains("Shape")) {
+            usa = true;
+        } else if (asList.contains("Text")) {
+            usa = true;
+        } else if (asList.contains("Position")) {
+            usa = true;
+        } else if (asList.contains("Orientation")) {
+            usa = true;
+        }
+        return usa;
+    }
+
     public void carregarAtributosTreemapTeste(int contQuestaoTeste) {
         String[] listaHierarquias = getMapaHiearquiasTreemap().get(contQuestaoTeste).split(";");
         mainGUI.carregarHierarquiasTreemapTeste(listaHierarquias);
@@ -88,15 +113,56 @@ public class ManipuladorGUITeste {
         mainGUI.simularCliqueBotaoTreemap();
         setView(mainGUI.getVisualizationTreemap().getView());
     }
-    
-    public void carregarAtributosVarVisuais(int contQuestaoTeste){
+
+    public void carregarAtributosVarVisuais(int contQuestaoTeste) {
         String[] familia = getMapaGlyphsFamily().get(contQuestaoTeste).split(";");
         mainGUI.carregarFamiliaGlyph(familia);
-        
-        //fazer a chamada dos atributos aqui para as var visuais
+
+        varrerFamiliaGlyph(familia, contQuestaoTeste);
+        mainGUI.simularCliqueBotaoCategorialGlyph();
     }
 
-    public void carregarGlyphsConfig(){
+    public void carregarAtributosProfileGlyph(int contQuestaoTeste) {
+        mainGUI.carregarAtributosProfileGlyph(getMapaProfileGlyphs().get(contQuestaoTeste).split(";"));
+        mainGUI.simularCliqueBotaoGerarProfileGlyph();
+    }
+
+    public boolean verificarProfileGlyphFamilia(int contQuestaoTeste) {
+        boolean possui = false;
+        String[] familia = getMapaGlyphsFamily().get(contQuestaoTeste).split(";");
+        if (Arrays.asList(familia).contains("ProfileGlyph")) {
+            possui = true;
+            mainGUI.carregarProfileGlyph();
+        }
+        return possui;
+    }
+
+    public void varrerFamiliaGlyph(String[] familia, int contQuestaoTeste) {
+        for (String var : familia) {
+            switch (var) {
+                case "Texture":
+                    mainGUI.carregarTexturaGlyph(getMapaTexturaGlyphs().get(contQuestaoTeste));
+                    break;
+                case "Color":
+                    mainGUI.carregarCorGlyph(getMapaCorGlyphs().get(contQuestaoTeste));
+                    break;
+                case "Shape":
+                    mainGUI.carregarFormaGlyph(getMapaFormaGlyphs().get(contQuestaoTeste));
+                    break;
+                case "Text":
+                    mainGUI.carregarTextoGlyph(getMapaTextoGlyphs().get(contQuestaoTeste));
+                    break;
+                case "Position":
+                    mainGUI.carregarPosicaoGlyph(getMapaPosicaoGlyphs().get(contQuestaoTeste));
+                    break;
+                case "Orientation":
+                    mainGUI.carregarOrientacaoGlyph(getMapaOrientacaoGlyphs().get(contQuestaoTeste));
+                    break;
+            }
+        }
+    }
+
+    public void carregarGlyphsConfig() {
         Leitor.lerArquivo(new File(getArquivoGlyphsConfigTeste()));
         String[] linhas = Leitor.getLinhas();
 
@@ -112,7 +178,7 @@ public class ManipuladorGUITeste {
             getMapaProfileGlyphs().put(i, colunas[8]);
         }
     }
-    
+
     public void carregarHierarquiasTreemap() {
         Leitor.lerArquivo(new File(getArquivoHierarquiaTreemapTeste()));
         String[] linhas = Leitor.getLinhas();

@@ -14,6 +14,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.TexturePaint;
+import java.util.Arrays;
 
 /**
  *
@@ -42,6 +43,9 @@ public class ColorHue extends Glyph {
                     g2d.setColor(getCor());
                 }
             }
+            
+//            System.err.println("x0:" + xPoints[0] + " - y0: " + yPoints[0]);
+//            System.err.println("x1:" + xPoints[1] + " - y1: " + yPoints[1]);
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.fillRect(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
 //            g2d.setColor(Color.BLACK);
@@ -109,7 +113,7 @@ public class ColorHue extends Glyph {
     @Override
     public String getVarValue() {
 //        return "R:" + getCor().getRed() + " G:" + getCor().getGreen() + " B:" + getCor().getBlue();
-        return getCor()+"";
+        return getCor() + "";
     }
 
     @Override

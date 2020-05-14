@@ -102,9 +102,11 @@ public final class GlyphMB {
             TMNodeEncapsulator nodeEncapsulator = (TMNodeEncapsulator) nodo.getNode();
             TreeMapItem item = (TreeMapItem) nodeEncapsulator.getNode();
             ArrayList<Glyph> list = new ArrayList<>();
-            item.getGlyph().paint(g2d);
-            item.getGlyph().getChildren(list);
-            g2d.setClip(0, 0, getBounds().width, getBounds().height);
+            if (item.getGlyph().getBounds() != null) {
+                item.getGlyph().paint(g2d);
+                item.getGlyph().getChildren(list);
+                g2d.setClip(0, 0, getBounds().width, getBounds().height);
+            }
         }
     }
 
@@ -201,13 +203,13 @@ public final class GlyphMB {
             }
         });
         int numCamadasRetirar = 0;
-        
+
         Glyph ultimaCamada = glyphFamily.get(glyphFamily.size() - 1);
         double menorLado = features[Constantes.FEATURE_ALTURA] > features[Constantes.FEATURE_LARGURA]
-            ? features[Constantes.FEATURE_LARGURA]
-            : features[Constantes.FEATURE_ALTURA];
+                ? features[Constantes.FEATURE_LARGURA]
+                : features[Constantes.FEATURE_ALTURA];
         double[] subFeatures = new double[]{features[Constantes.NUM_CAMADAS], menorLado, ultimaCamada.getArea()};
-        
+
         item.setWhat2Draw(new int[]{1, 1, 1, 1, 1, 1, 1});
         int predictions = DecisionTreeClassifier.predict(subFeatures);
 

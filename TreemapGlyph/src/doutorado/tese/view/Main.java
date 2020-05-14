@@ -1302,11 +1302,11 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         selectedFile = testeGUI.carregarBaseDados();
         runSubTasks();
         testeGUI.setMainGUI(this);
-        
+
         MainScreenLog screenLog = new MainScreenLog();
         screenLog.setVisible(true);
         screenLog.setManipuladorTesteGUI(testeGUI);
-        
+
 //        JOptionPane.showMessageDialog(null, "To start testing, make sure that the answersTraining.tsv "
 //                + "and answers.tsv files are in the same directory as the .jar file.",
 //                "Files TSV", JOptionPane.WARNING_MESSAGE);
@@ -2266,22 +2266,19 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private GlyphMB glyphMB;
     private SetUpMB setupMB;
 
-    public void simularCliqueBotaoTreemap(){
+    public void simularCliqueBotaoTreemap() {
         cleanAllVisualizations();
 
         loadSetupTreemap();
 
         visualizationTreemap = new DrawAreaMB(painelEsquerda.getWidth(), painelEsquerda.getHeight(),
-                manipulador, itemTamanho, itensHierarquia, itemLegenda, itemCor, itensDetalhes, new FinishedSetupCallBack() {
-            @Override
-            public void onFinished() {
-            }
-        });
+                manipulador, itemTamanho, itensHierarquia, itemLegenda, itemCor, itensDetalhes, () -> {
+                });
         Constantes.QUANT_HIERARQUIAS = itensHierarquia.length;
         painelEsquerda.add(layerPane);
         view = getVisualizationTreemap().getView();//view eh o Jpanel do treemap
         layerPane.setBounds(view.getBounds());
-        
+
         atualizarLegendaTreemap(itemCor);
         progressoBarra.setVisible(false);
         checkCategoricalGlyph.setEnabled(true);
@@ -2290,8 +2287,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         configGlassPanelClick();
         configDetalhesSobDemanda();
     }
-    
-    public void simularCliqueBotaoCategorialGlyph(){
+
+    public void simularCliqueBotaoCategorialGlyph() {
         //zerando tudo
         variaveisVisuaisEscolhidas = null;
         //acoes para configurar os glyphs
@@ -2332,13 +2329,35 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
     }
     
-    public void marcarCheckGlyphCategorico(boolean marcar){
+    public void simularCliqueBotaoGerarProfileGlyph(){
+        createGlassPanel();
+        configGlassPanelClick();
+        configDetalhesSobDemanda();
+
+        glassPanel.setManipulador(manipulador);
+        glassPanel.setTipoGlyphContinuoEscolhido(String.valueOf(glyphContinuosType.getSelectedItem()));
+        variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
+        glassPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
+        atributosEscolhidosContinuousGlyph = parseListModelString2Array(listaAtributosContinuousGlyph2.getModel());
+        glassPanel.setAtributosEscolhidosContinuousGlyph(atributosEscolhidosContinuousGlyph);
+
+        //Acoes para desenhar os glyphs
+        glassPanel.setBounds(painelEsquerda.getBounds());
+        atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
+        glassPanel.setAtributosEscolhidos(atributosEscolhidosGlyph);
+        glassPanel.setVisible(true);
+        glassPanel.repaint();
+        atualizarLegendaCategoricalGlyphs(atributosEscolhidosGlyph);
+        desenhouContinuousGlyph = atualizarLegendaGlyphsContinuos(atributosEscolhidosContinuousGlyph);
+    }
+
+    public void marcarCheckGlyphCategorico(boolean marcar) {
         checkCategoricalGlyph.setSelected(marcar);
-        
-//        checkCategoricalGlyphActionPerformed(null);
+
         Constantes.CATEGORICAL_GLYPH_ACTIVATED = checkCategoricalGlyph.isSelected();
         if (checkCategoricalGlyph.isSelected() || checkContinuousGlyph.isSelected()) {
             showGlyphOnDetailsCheckBox.setEnabled(true);
+//            showGlyphOnDetailsCheckBox.setSelected(true);
         }
         if (Constantes.CATEGORICAL_GLYPH_ACTIVATED) {
 //            createGlassPanel();
@@ -2349,9 +2368,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             cleanCacheCategoricalGlyph();
         }
     }
-    
-    public void carregarFamiliaGlyph(String[] familia){
-        List<Object> newListaVarVisuais = new ArrayList<>();        
+
+    public void carregarFamiliaGlyph(String[] familia) {
+        List<Object> newListaVarVisuais = new ArrayList<>();
         reloadListGUI(familia, varVisuaisList2);
         varVisuaisList2.setEnabled(true);
         habilitarVarVisuaisUtilizadasGUI(Arrays.asList(familia));
@@ -2366,8 +2385,76 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         }
         reloadListGUI(newListaVarVisuais.toArray(), varVisuaisList1);
     }
-    
-    public void carregarHierarquiasTreemapTeste(String[] hierarquias){
+
+    public void carregarTexturaGlyph(String atributo) {
+        textureGlyphComboBox.setSelectedItem(atributo);
+    }
+
+    public void carregarCorGlyph(String atributo) {
+        colorGlyphComboBox.setSelectedItem(atributo);
+    }
+
+    public void carregarFormaGlyph(String atributo) {
+        shapeGlyphComboBox.setSelectedItem(atributo);
+    }
+
+    public void carregarTextoGlyph(String atributo) {
+        textGlyphComboBox.setSelectedItem(atributo);
+    }
+
+    public void carregarPosicaoGlyph(String atributo) {
+        positionGlyphComboBox.setSelectedItem(atributo);
+    }
+
+    public void carregarOrientacaoGlyph(String atributo) {
+        orientationGlyphComboBox.setSelectedItem(atributo);
+    }
+
+    public void carregarProfileGlyph() {
+        simularCheckGlyphQuantitativo();
+    }
+
+    public void carregarAtributosProfileGlyph(String[] atributos) {
+        List<Object> newListaVarVisuais = new ArrayList<>();
+        reloadListGUI(atributos, listaAtributosContinuousGlyph2);
+        listaAtributosContinuousGlyph2.setEnabled(true);
+
+        //remover o conteudo da lista de atributos original
+        ListModel<String> modelOriginal = listaAtributosContinuousGlyph.getModel();
+        List<String> selectedValuesList = Arrays.asList(atributos);
+        for (int i = 0; i < modelOriginal.getSize(); i++) {
+            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
+                newListaVarVisuais.add(modelOriginal.getElementAt(i));
+            }
+        }
+        reloadListGUI(newListaVarVisuais.toArray(), listaAtributosContinuousGlyph);
+        botaoGerarContinuosGlyphs.setEnabled(true);
+    }
+
+    public void simularCheckGlyphQuantitativo() {
+        checkContinuousGlyph.setSelected(true);
+        Constantes.CONTINUOUS_GLYPH_ACTIVATED = checkContinuousGlyph.isSelected();
+        if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
+            if (glassPanel == null) {
+                createGlassPanel();
+                configGlassPanelClick();
+                configDetalhesSobDemanda();
+            }
+            glyphContinuosType.setEnabled(true);
+            glyphContinuosType.setSelectedIndex(1);//escolhendo profileGlyph
+        }
+//        else {
+//            cleanCacheContinuousGlyph();
+//            if (verificarGlyphCategoricoAtivo()) {
+//                createGlassPanel();
+//                configGlassPanelClick();
+//                configDetalhesSobDemanda();
+//                botaoGerarCategoricalGlyphsActionPerformed(evt);
+//            }
+//        }
+    }
+
+    public void carregarHierarquiasTreemapTeste(String[] hierarquias) {
         List<Object> newListaVarVisuais = new ArrayList<>();
         reloadListGUI(hierarquias, colunasHierarquicasList2);
         colunasHierarquicasList2.setEnabled(true);
@@ -2380,17 +2467,17 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 newListaVarVisuais.add(modelOriginal.getElementAt(i));
             }
         }
-        reloadListGUI(newListaVarVisuais.toArray(), colunasHierarquicasList1);        
+        reloadListGUI(newListaVarVisuais.toArray(), colunasHierarquicasList1);
     }
-    
-    public void carregarSizeTreemapTeste(String atributo){
-        tamanhoTreemapComboBox.setSelectedItem(atributo);        
+
+    public void carregarSizeTreemapTeste(String atributo) {
+        tamanhoTreemapComboBox.setSelectedItem(atributo);
     }
-    
-    public void carregarCorTreemapteste(String atributo){
+
+    public void carregarCorTreemapteste(String atributo) {
         corTreemapComboBox.setSelectedItem(atributo);
     }
-    
+
     private void atualizarLegendaCategoricalGlyphs(HashMap<Constantes.VAR_VISUAIS_CATEGORICAS, Object> atributosEscolhidosGlyph) {
         painelLegendaVis.removeAll();
         atualizarLegendaTreemap(itemCor);

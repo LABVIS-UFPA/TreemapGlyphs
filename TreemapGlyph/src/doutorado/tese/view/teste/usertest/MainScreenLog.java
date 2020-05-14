@@ -200,11 +200,11 @@ public class MainScreenLog extends javax.swing.JFrame {
     private void fecharMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharMenuItemActionPerformed
         ManipuladorLog.setTesteAcontecendo(false);
         if (contQuestaoTeste <= PerguntasTesteEnum.values().length - 1) {
-                next_Button.setEnabled(false);
-                System.err.println("Fechando a ferramenta de testes devido a uma emergência!");
-                System.err.println("O log foi salvo até a questao "+contQuestaoTeste +"!");
-                LoggerMB.salvarLog();                
-            }
+            next_Button.setEnabled(false);
+            System.err.println("Fechando a ferramenta de testes devido a uma emergência!");
+            System.err.println("O log foi salvo até a questao " + contQuestaoTeste + "!");
+            LoggerMB.salvarLog();
+        }
         this.dispose();
     }//GEN-LAST:event_fecharMenuItemActionPerformed
 
@@ -228,25 +228,30 @@ public class MainScreenLog extends javax.swing.JFrame {
             perguntaMB.managerPerguntasTreinamento();
             textoPergunta.setText(perguntaMB.getPerguntasTreinamento()[contQuestaoTreinamento].getTexto());
             updateStartLog(contQuestaoTreinamento);
-            
+
             testeGUI.carregarAtributosTreemapTreinamento(contQuestaoTreinamento);
-            
+
             contQuestaoTreinamento++;
         } else {
-            perguntaMB.managerPerguntasTeste();
-            textoPergunta.setText(perguntaMB.getPerguntasTeste()[contQuestaoTeste].getTexto());
-            updateStartLog(contQuestaoTeste);
-            
             testeGUI.carregarHierarquiasTreemap();
             testeGUI.carregarSizesTreemap();
             testeGUI.carregarCoresTreemap();
             testeGUI.carregarAtributosTreemapTeste(contQuestaoTeste + 1);
-            
-            testeGUI.usarGlyphCategorico();
+
             testeGUI.carregarGlyphsConfig();
-            testeGUI.carregarAtributosVarVisuais(contQuestaoTeste + 1);
-            
-            
+            boolean usaGlyphCategorico = testeGUI.usarGlyphCategorico(contQuestaoTeste + 1);
+            if (usaGlyphCategorico) {
+                testeGUI.carregarAtributosVarVisuais(contQuestaoTeste + 1);
+            }
+            boolean usaGlyphQuantitativo = testeGUI.verificarProfileGlyphFamilia(contQuestaoTeste + 1);
+            if (usaGlyphQuantitativo) {
+                testeGUI.carregarAtributosProfileGlyph(contQuestaoTeste + 1);
+            }
+
+            perguntaMB.managerPerguntasTeste();
+            textoPergunta.setText(perguntaMB.getPerguntasTeste()[contQuestaoTeste].getTexto());
+            updateStartLog(contQuestaoTeste);
+
             contQuestaoTeste++;
         }
         submit_Button.setEnabled(true);
@@ -299,7 +304,7 @@ public class MainScreenLog extends javax.swing.JFrame {
             } else if (contQuestaoTeste == (PerguntasTesteEnum.values().length / 2)) {//pergunta 7
                 respostaUsuarioExtraComboBox.setVisible(true);
 //                itens = new String[]{"Responda","Baixa", "Alta"};
-                itens = new String[]{"Choose","Low", "High"};
+                itens = new String[]{"Choose", "Low", "High"};
                 atualizarComboBox(respostaUsuarioExtraComboBox, itens);
             } else {
                 respostaUsuarioExtraComboBox.setVisible(false);
