@@ -1293,7 +1293,12 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
     private void decisionTreeActivateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decisionTreeActivateActionPerformed
         Constantes.DECISION_TREE_ACTIVATED = decisionTreeActivate.isSelected();
-        botaoGerarCategoricalGlyphsActionPerformed(evt);
+        if (Constantes.CATEGORICAL_GLYPH_ACTIVATED) {
+            botaoGerarCategoricalGlyphsActionPerformed(evt);
+        }
+        if(Constantes.CONTINUOUS_GLYPH_ACTIVATED){
+            botaoGerarContinuosGlyphsActionPerformed(evt);
+        }
         logger.info("Arvore de decisao esta ativada? " + Constantes.DECISION_TREE_ACTIVATED);
     }//GEN-LAST:event_decisionTreeActivateActionPerformed
 
@@ -2288,27 +2293,30 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         configDetalhesSobDemanda();
     }
 
+    public void simularCliqueCheckGlyphAdaptativo() {
+        decisionTreeActivate.setSelected(true);
+        Constantes.DECISION_TREE_ACTIVATED = decisionTreeActivate.isSelected();
+    }
+
     public void simularCliqueBotaoCategorialGlyph() {
         //zerando tudo
         variaveisVisuaisEscolhidas = null;
         //acoes para configurar os glyphs
         variaveisVisuaisEscolhidas = parseListModelString2Array(varVisuaisList2.getModel());
 
-        if (Constantes.CATEGORICAL_GLYPH_ACTIVATED) {
-            createGlassPanel();
-            configGlassPanelClick();
-            configDetalhesSobDemanda();
-//            varVisuaisList1.setEnabled(true);
-        }
-//        createGlassPanel();
-//        configGlassPanelClick();
-//        configDetalhesSobDemanda();
+//        if (Constantes.CATEGORICAL_GLYPH_ACTIVATED) {
+        createGlassPanel();
+        configGlassPanelClick();
+        configDetalhesSobDemanda();
+        showGlyphOnDetailsCheckBox.setSelected(true);
+        Constantes.SHOW_GLYPH_ON_DETAILS = showGlyphOnDetailsCheckBox.isSelected();
+//        }
 
         glassPanel.setManipulador(manipulador);
         glassPanel.setVariaveisVisuaisEscolhidas(variaveisVisuaisEscolhidas);
         //Acoes para desenhar os glyphs
         glassPanel.setBounds(painelEsquerda.getBounds());
-        Constantes.DECISION_TREE_ACTIVATED = decisionTreeActivate.isSelected();
+//        Constantes.DECISION_TREE_ACTIVATED = decisionTreeActivate.isSelected();
 
         atributosEscolhidosGlyph = getAtributosEscolhidosGlyph();
         if (!esqueceuSelecionarAtributo()) {
@@ -2328,8 +2336,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
             }
         }
     }
-    
-    public void simularCliqueBotaoGerarProfileGlyph(){
+
+    public void simularCliqueBotaoGerarProfileGlyph() {
         createGlassPanel();
         configGlassPanelClick();
         configDetalhesSobDemanda();
@@ -2357,7 +2365,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         Constantes.CATEGORICAL_GLYPH_ACTIVATED = checkCategoricalGlyph.isSelected();
         if (checkCategoricalGlyph.isSelected() || checkContinuousGlyph.isSelected()) {
             showGlyphOnDetailsCheckBox.setEnabled(true);
-//            showGlyphOnDetailsCheckBox.setSelected(true);
         }
         if (Constantes.CATEGORICAL_GLYPH_ACTIVATED) {
 //            createGlassPanel();

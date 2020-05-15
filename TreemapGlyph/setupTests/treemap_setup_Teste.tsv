@@ -1,0 +1,13 @@
+ID_TASK	Hierarquia	Size	Cor	Label
+1	Regiao;	NumeroVitimas	Temperatura_CAT	---
+2	Localidade;Temperatura_CAT;	NumeroVitimas	IntensidadeVento_CAT	---
+3	Regiao;	NumeroVitimas	IntensidadeVento_CAT	---
+4	EstacaoAno;	VolumeChuva_mm/h	MediaUmidadeAr_%	---
+5	Regiao;Localidade;Temperatura_CAT;	IntensidadeVento_CAT	---	---
+6	Regiao;	NumeroVitimas	Temperatura_CAT	---
+
+
+
+
+
+

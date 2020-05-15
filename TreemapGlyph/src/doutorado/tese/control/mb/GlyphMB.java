@@ -242,20 +242,22 @@ public final class GlyphMB {
         father.killAllChild();//e feito um kill para garantir que nao ha filhos
         Constantes.CONTINUOUS_GLYPH_TYPE glyphContinuo = getGlyphContinuoEscolhido();
 
-        for (int i = 0; i < getVariaveisVisuaisEscolhidas().size(); i++) {
-            Constantes.VAR_VISUAIS_CATEGORICAS varVisual = getVariaveisVisuaisEscolhidas().get(i);
-            Glyph child = setLayerInGlyph(item, varVisual, null);
-            father.appendChild(child);
-            if (i == getVariaveisVisuaisEscolhidas().size() - 1) {//se ja estiver na ultima camada
-                if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
-                    Glyph childContinuousGlyph = setLayerInGlyph(item, varVisual, glyphContinuo);
-                    father.appendChild(childContinuousGlyph);
+        if (getVariaveisVisuaisEscolhidas() != null) {
+            for (int i = 0; i < getVariaveisVisuaisEscolhidas().size(); i++) {
+                Constantes.VAR_VISUAIS_CATEGORICAS varVisual = getVariaveisVisuaisEscolhidas().get(i);
+                Glyph child = setLayerInGlyph(item, varVisual, null);
+                father.appendChild(child);
+                if (i == getVariaveisVisuaisEscolhidas().size() - 1) {//se ja estiver na ultima camada
+                    if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
+                        Glyph childContinuousGlyph = setLayerInGlyph(item, varVisual, glyphContinuo);
+                        father.appendChild(childContinuousGlyph);
+                    }
                 }
             }
-        }
-        if (getVariaveisVisuaisEscolhidas().isEmpty()) {//se nao escolher nenhuma var visual, mas vai usar o profile glyph
-            Glyph childContinuousGlyph = setLayerInGlyph(item, null, glyphContinuo);
-            father.appendChild(childContinuousGlyph);
+            if (getVariaveisVisuaisEscolhidas().isEmpty()) {//se nao escolher nenhuma var visual, mas vai usar o profile glyph
+                Glyph childContinuousGlyph = setLayerInGlyph(item, null, glyphContinuo);
+                father.appendChild(childContinuousGlyph);
+            }
         }
         if (father.getBounds() != null) {
             father.setBounds(father.getBounds());

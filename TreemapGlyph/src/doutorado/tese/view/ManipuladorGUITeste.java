@@ -5,6 +5,7 @@
  */
 package doutorado.tese.view;
 
+import doutorado.tese.util.Constantes;
 import doutorado.tese.util.io.Leitor;
 import java.io.File;
 import java.util.Arrays;
@@ -28,6 +29,7 @@ public class ManipuladorGUITeste {
     private HashMap<Integer, String> mapaHierarquiasTreemap;
     private HashMap<Integer, String> mapaSizesTreemap;
     private HashMap<Integer, String> mapaCorTreemap;
+    private HashMap<Integer, String> mapaLabelTreemap;
     private HashMap<Integer, String> mapaGlyphsFamily;
     private HashMap<Integer, String> mapaTexturaGlyphs;
     private HashMap<Integer, String> mapaCorGlyphs;
@@ -36,15 +38,14 @@ public class ManipuladorGUITeste {
     private HashMap<Integer, String> mapaPosicaoGlyphs;
     private HashMap<Integer, String> mapaOrientacaoGlyphs;
     private HashMap<Integer, String> mapaProfileGlyphs;
-    private String arquivoHierarquiaTreemapTeste;
-    private String arquivoSizeTreemapTeste;
-    private String arquivoCorTreemapTeste;
     private String arquivoGlyphsConfigTeste;
+    private String arquivoTreemapConfigTeste;
 
     public ManipuladorGUITeste() {
         mapaHierarquiasTreemap = new HashMap<>();
         mapaSizesTreemap = new HashMap<>();
         mapaCorTreemap = new HashMap<>();
+        mapaLabelTreemap = new HashMap<>();
         mapaGlyphsFamily = new HashMap<>();
         mapaTexturaGlyphs = new HashMap<>();
         mapaCorGlyphs = new HashMap<>();
@@ -53,10 +54,8 @@ public class ManipuladorGUITeste {
         mapaPosicaoGlyphs = new HashMap<>();
         mapaOrientacaoGlyphs = new HashMap<>();
         mapaProfileGlyphs = new HashMap<>();
-        arquivoHierarquiaTreemapTeste = "setupTests" + File.separator + "treemapHierarquiasTeste.tsv";
-        arquivoSizeTreemapTeste = "setupTests" + File.separator + "treemapSizesTeste.tsv";
-        arquivoCorTreemapTeste = "setupTests" + File.separator + "treemapCoresTeste.tsv";
         arquivoGlyphsConfigTeste = "setupTests" + File.separator + "glyphs_setup_Teste.tsv";
+        arquivoTreemapConfigTeste = "setupTests" + File.separator + "treemap_setup_Teste.tsv";
     }
 
     public File carregarBaseDados() {
@@ -120,11 +119,15 @@ public class ManipuladorGUITeste {
 
         varrerFamiliaGlyph(familia, contQuestaoTeste);
         mainGUI.simularCliqueBotaoCategorialGlyph();
+
+        mainGUI.simularCliqueCheckGlyphAdaptativo();
     }
 
     public void carregarAtributosProfileGlyph(int contQuestaoTeste) {
         mainGUI.carregarAtributosProfileGlyph(getMapaProfileGlyphs().get(contQuestaoTeste).split(";"));
         mainGUI.simularCliqueBotaoGerarProfileGlyph();
+
+//        mainGUI.simularCliqueCheckGlyphAdaptativo();
     }
 
     public boolean verificarProfileGlyphFamilia(int contQuestaoTeste) {
@@ -132,12 +135,25 @@ public class ManipuladorGUITeste {
         String[] familia = getMapaGlyphsFamily().get(contQuestaoTeste).split(";");
         if (Arrays.asList(familia).contains("ProfileGlyph")) {
             possui = true;
+            if(!Constantes.CATEGORICAL_GLYPH_ACTIVATED){
+                resetAtributosVarVisuais();
+            }
             mainGUI.carregarProfileGlyph();
         }
         return possui;
     }
 
+    public void resetAtributosVarVisuais() {
+        mainGUI.carregarTexturaGlyph("---");
+        mainGUI.carregarCorGlyph("---");
+        mainGUI.carregarFormaGlyph("---");
+        mainGUI.carregarTextoGlyph("---");
+        mainGUI.carregarPosicaoGlyph("---");
+        mainGUI.carregarOrientacaoGlyph("---");
+    }
+
     public void varrerFamiliaGlyph(String[] familia, int contQuestaoTeste) {
+        resetAtributosVarVisuais();
         for (String var : familia) {
             switch (var) {
                 case "Texture":
@@ -179,36 +195,46 @@ public class ManipuladorGUITeste {
         }
     }
 
-    public void carregarHierarquiasTreemap() {
-        Leitor.lerArquivo(new File(getArquivoHierarquiaTreemapTeste()));
+    public void carregarTreemapConfig() {
+        Leitor.lerArquivo(new File(getArquivoTreemapConfigTeste()));
         String[] linhas = Leitor.getLinhas();
 
         for (int i = 1; i < linhas.length; i++) {
             String[] colunas = linhas[i].split("\t");
             getMapaHiearquiasTreemap().put(i, colunas[1]);
+            getMapaSizesTreemap().put(i, colunas[2]);
+            getMapaCorTreemap().put(i, colunas[3]);
+            getMapaLabelTreemap().put(i, colunas[4]);
         }
     }
 
-    public void carregarSizesTreemap() {
-        Leitor.lerArquivo(new File(getArquivoSizeTreemapTeste()));
-        String[] linhas = Leitor.getLinhas();
-
-        for (int i = 1; i < linhas.length; i++) {
-            String[] colunas = linhas[i].split("\t");
-            getMapaSizesTreemap().put(i, colunas[1]);
-        }
-    }
-
-    public void carregarCoresTreemap() {
-        Leitor.lerArquivo(new File(getArquivoCorTreemapTeste()));
-        String[] linhas = Leitor.getLinhas();
-
-        for (int i = 1; i < linhas.length; i++) {
-            String[] colunas = linhas[i].split("\t");
-            getMapaCorTreemap().put(i, colunas[1]);
-        }
-    }
-
+//    public void carregarHierarquiasTreemap() {
+//        Leitor.lerArquivo(new File(getArquivoHierarquiaTreemapTeste()));
+//        String[] linhas = Leitor.getLinhas();
+//
+//        for (int i = 1; i < linhas.length; i++) {
+//            String[] colunas = linhas[i].split("\t");
+//            getMapaHiearquiasTreemap().put(i, colunas[1]);
+//        }
+//    }
+//    public void carregarSizesTreemap() {
+//        Leitor.lerArquivo(new File(getArquivoSizeTreemapTeste()));
+//        String[] linhas = Leitor.getLinhas();
+//
+//        for (int i = 1; i < linhas.length; i++) {
+//            String[] colunas = linhas[i].split("\t");
+//            getMapaSizesTreemap().put(i, colunas[1]);
+//        }
+//    }
+//    public void carregarCoresTreemap() {
+//        Leitor.lerArquivo(new File(getArquivoCorTreemapTeste()));
+//        String[] linhas = Leitor.getLinhas();
+//
+//        for (int i = 1; i < linhas.length; i++) {
+//            String[] colunas = linhas[i].split("\t");
+//            getMapaCorTreemap().put(i, colunas[1]);
+//        }
+//    }
     /**
      * @return the mainGUI
      */
@@ -223,14 +249,12 @@ public class ManipuladorGUITeste {
         this.mainGUI = mainGUI;
     }
 
-    public String getArquivoHierarquiaTreemapTeste() {
-        return this.arquivoHierarquiaTreemapTeste;
-    }
-
-    public void setArquivoHierarquiaTreemapTeste(String arquivoHierarquiaTreemapTeste) {
-        this.arquivoHierarquiaTreemapTeste = arquivoHierarquiaTreemapTeste;
-    }
-
+//    public String getArquivoHierarquiaTreemapTeste() {
+//        return this.arquivoHierarquiaTreemapTeste;
+//    }
+//    public void setArquivoHierarquiaTreemapTeste(String arquivoHierarquiaTreemapTeste) {
+//        this.arquivoHierarquiaTreemapTeste = arquivoHierarquiaTreemapTeste;
+//    }
     public HashMap<Integer, String> getMapaHiearquiasTreemap() {
         return this.mapaHierarquiasTreemap;
     }
@@ -242,17 +266,15 @@ public class ManipuladorGUITeste {
     /**
      * @return the arquivoSizeTreemapTeste
      */
-    public String getArquivoSizeTreemapTeste() {
-        return arquivoSizeTreemapTeste;
-    }
-
+//    public String getArquivoSizeTreemapTeste() {
+//        return arquivoSizeTreemapTeste;
+//    }
     /**
      * @param arquivoSizeTreemapTeste the arquivoSizeTreemapTeste to set
      */
-    public void setArquivoSizeTreemapTeste(String arquivoSizeTreemapTeste) {
-        this.arquivoSizeTreemapTeste = arquivoSizeTreemapTeste;
-    }
-
+//    public void setArquivoSizeTreemapTeste(String arquivoSizeTreemapTeste) {
+//        this.arquivoSizeTreemapTeste = arquivoSizeTreemapTeste;
+//    }
     /**
      * @return the mapaSizesTreemap
      */
@@ -284,17 +306,15 @@ public class ManipuladorGUITeste {
     /**
      * @return the arquivoCorTreemapTeste
      */
-    public String getArquivoCorTreemapTeste() {
-        return arquivoCorTreemapTeste;
-    }
-
+//    public String getArquivoCorTreemapTeste() {
+//        return arquivoCorTreemapTeste;
+//    }
     /**
      * @param arquivoCorTreemapTeste the arquivoCorTreemapTeste to set
      */
-    public void setArquivoCorTreemapTeste(String arquivoCorTreemapTeste) {
-        this.arquivoCorTreemapTeste = arquivoCorTreemapTeste;
-    }
-
+//    public void setArquivoCorTreemapTeste(String arquivoCorTreemapTeste) {
+//        this.arquivoCorTreemapTeste = arquivoCorTreemapTeste;
+//    }
     /**
      * @return the view
      */
@@ -433,5 +453,33 @@ public class ManipuladorGUITeste {
      */
     public void setMapaProfileGlyphs(HashMap<Integer, String> mapaProfileGlyphs) {
         this.mapaProfileGlyphs = mapaProfileGlyphs;
+    }
+
+    /**
+     * @return the arquivoTreemapConfigTeste
+     */
+    public String getArquivoTreemapConfigTeste() {
+        return arquivoTreemapConfigTeste;
+    }
+
+    /**
+     * @param arquivoTreemapConfigTeste the arquivoTreemapConfigTeste to set
+     */
+    public void setArquivoTreemapConfigTeste(String arquivoTreemapConfigTeste) {
+        this.arquivoTreemapConfigTeste = arquivoTreemapConfigTeste;
+    }
+
+    /**
+     * @return the mapaLabelTreemap
+     */
+    public HashMap<Integer, String> getMapaLabelTreemap() {
+        return mapaLabelTreemap;
+    }
+
+    /**
+     * @param mapaLabelTreemap the mapaLabelTreemap to set
+     */
+    public void setMapaLabelTreemap(HashMap<Integer, String> mapaLabelTreemap) {
+        this.mapaLabelTreemap = mapaLabelTreemap;
     }
 }

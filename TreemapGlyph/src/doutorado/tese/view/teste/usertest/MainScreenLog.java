@@ -12,11 +12,16 @@ import doutorado.tese.model.teste.PerguntasTesteEnum;
 import doutorado.tese.model.teste.PerguntasTreinamentoEnum;
 import doutorado.tese.util.ColunasLog;
 import doutorado.tese.view.ManipuladorGUITeste;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import java.time.LocalDateTime;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 
 /**
  *
@@ -51,6 +56,8 @@ public class MainScreenLog extends javax.swing.JFrame {
         botaoDIreitoMousePopupMenu = new javax.swing.JPopupMenu();
         fecharMenuItem = new javax.swing.JMenuItem();
         buttonGroup = new javax.swing.ButtonGroup();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        msgFinalEditorPane = new javax.swing.JEditorPane();
         fundoPanel = new javax.swing.JPanel();
         textoPergunta = new javax.swing.JLabel();
         start_Button = new javax.swing.JButton();
@@ -72,6 +79,8 @@ public class MainScreenLog extends javax.swing.JFrame {
 
         buttonGroup.add(treinamentoRadioButton);
         buttonGroup.add(testeRadioButton);
+
+        jScrollPane1.setViewportView(msgFinalEditorPane);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Questions Test");
@@ -233,20 +242,10 @@ public class MainScreenLog extends javax.swing.JFrame {
 
             contQuestaoTreinamento++;
         } else {
-            testeGUI.carregarHierarquiasTreemap();
-            testeGUI.carregarSizesTreemap();
-            testeGUI.carregarCoresTreemap();
-            testeGUI.carregarAtributosTreemapTeste(contQuestaoTeste + 1);
-
+            testeGUI.carregarTreemapConfig();
             testeGUI.carregarGlyphsConfig();
-            boolean usaGlyphCategorico = testeGUI.usarGlyphCategorico(contQuestaoTeste + 1);
-            if (usaGlyphCategorico) {
-                testeGUI.carregarAtributosVarVisuais(contQuestaoTeste + 1);
-            }
-            boolean usaGlyphQuantitativo = testeGUI.verificarProfileGlyphFamilia(contQuestaoTeste + 1);
-            if (usaGlyphQuantitativo) {
-                testeGUI.carregarAtributosProfileGlyph(contQuestaoTeste + 1);
-            }
+
+            configGUI(contQuestaoTeste);
 
             perguntaMB.managerPerguntasTeste();
             textoPergunta.setText(perguntaMB.getPerguntasTeste()[contQuestaoTeste].getTexto());
@@ -295,6 +294,8 @@ public class MainScreenLog extends javax.swing.JFrame {
         } else {
             updateNextLog(contQuestaoTeste);
             textoPergunta.setText(perguntaMB.getPerguntasTeste()[contQuestaoTeste].getTexto());
+
+            configGUI(contQuestaoTeste);
 
             if (contQuestaoTeste == ((PerguntasTesteEnum.values().length / 2) - 3)) {//pergunta 4
                 respostaUsuarioExtraComboBox.setVisible(true);
@@ -359,12 +360,35 @@ public class MainScreenLog extends javax.swing.JFrame {
             if (contQuestaoTeste > PerguntasTesteEnum.values().length - 1) {
                 next_Button.setEnabled(false);
                 LoggerMB.salvarLog();
-                textoPergunta.setText("The test is over. Thanks! [Fim do teste. Obrigado!]");
+//                textoPergunta.setText("The test is over. Thanks! [Fim do teste. Obrigado!]");
+                textoPergunta.setText("Fim do teste. Obrigado!");
+                
+                msgFinalEditorPane.setEditable(true);
+                msgFinalEditorPane.setContentType("text/html");
+                msgFinalEditorPane.setText("Fim do teste. Obrigado! "
+                        + "Por favor, responda ao formulário qualitativo em"
+                        + " <a href='https://forms.gle/SXRzK8vThpZSQ4Ru5'>Teste qualitativo</a>");
+                msgFinalEditorPane.setEditable(false);
+                msgFinalEditorPane.addHyperlinkListener(new HTMLListener());
+                JOptionPane.showMessageDialog(null, msgFinalEditorPane);
             } else {
                 next_Button.setEnabled(true);
             }
         }
     }//GEN-LAST:event_submit_ButtonActionPerformed
+
+    private class HTMLListener implements HyperlinkListener {
+      @Override
+      public void hyperlinkUpdate(HyperlinkEvent e) {
+        if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+            try {
+                Desktop.getDesktop().browse(e.getURL().toURI());
+            } catch (IOException | URISyntaxException ex) {
+                ex.printStackTrace();
+            }
+        }
+      }
+    }
 
     private void updateSubmitLog() {
         LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_FIM.getId()] = LocalDateTime.now() + "";
@@ -443,7 +467,9 @@ public class MainScreenLog extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JMenuItem fecharMenuItem;
     private javax.swing.JPanel fundoPanel;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JEditorPane msgFinalEditorPane;
     private javax.swing.JButton next_Button;
     private javax.swing.JComboBox<String> respostaUsuarioExtraComboBox;
     private javax.swing.JButton start_Button;
@@ -455,5 +481,18 @@ public class MainScreenLog extends javax.swing.JFrame {
 
     public void setManipuladorTesteGUI(ManipuladorGUITeste testeGUI) {
         this.testeGUI = testeGUI;
+    }
+
+    public void configGUI(int contQuestaoTeste) {
+        testeGUI.carregarAtributosTreemapTeste(contQuestaoTeste + 1);
+
+        boolean usaGlyphCategorico = testeGUI.usarGlyphCategorico(contQuestaoTeste + 1);
+        if (usaGlyphCategorico) {
+            testeGUI.carregarAtributosVarVisuais(contQuestaoTeste + 1);
+        }
+        boolean usaGlyphQuantitativo = testeGUI.verificarProfileGlyphFamilia(contQuestaoTeste + 1);
+        if (usaGlyphQuantitativo) {
+            testeGUI.carregarAtributosProfileGlyph(contQuestaoTeste + 1);
+        }
     }
 }

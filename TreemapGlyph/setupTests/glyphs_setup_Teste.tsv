@@ -1,5 +1,7 @@
 ID_TASK	GlyphFamily	Texture	Color	Shape	Text	Position	Orientation	ProfileGlyph
-1	Color;Shape;	---	IntensidadeChuva	AlertaDefesaCivil	---	---	---	PhChuva;MediaUmidadeAr_%;Temperatura_C;
+1	Color;Shape;	---	IntensidadeChuva	AlertaDefesaCivil	---	---	---	---
 2	Shape;Text;	---	---	IntensidadeChuva	AlertaDefesaCivil	---	---	---
 3	Texture;Color;Shape;Text;	Localidade	IntensidadeChuva	Temperatura_CAT	AlertaDefesaCivil	---	---	---
 4	Color;Text;	---	Regiao	---	AlertaDefesaCivil	---	---	---
+5	ProfileGlyph;	---	---	---	---	---	---	PhChuva;MediaUmidadeAr_%;Temperatura_C;
+6	Color;ProfileGlyph	---	Regiao	---	---	---	---	PhChuva;MediaUmidadeAr_%;Temperatura_C;
