@@ -87,7 +87,9 @@ public class Constantes {
         //"#FF0101", "#2C2CFF", "#EBC089", "#FFFF01", "#41BA2F"
         
         //D3 --> d3.schemePaired
-        "#1F78B4", "#33A02C", "#E31A1C", "#FDBF6F", "#FFFF99"
+        "#1F78B4", "#33A02C", "#E31A1C", "#B15928",//"#FFFF99",
+        "#FF7F00"//"#FDBF6F", 
+        
         //cores MDPI information
         //"#B51212", "#fae768", "#174580", "#00a1d7", "#15d400", "#ff3797", "#8c8589", "#000000"
     };

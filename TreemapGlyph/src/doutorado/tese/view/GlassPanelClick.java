@@ -187,7 +187,8 @@ public class GlassPanelClick extends JPanel {
                 g2d.setColor(Color.BLACK);
                 g2d.drawRect(treeMapNode.getBounds().x + 4, treeMapNode.getBounds().y + 4,
                         treeMapNode.getBounds().width - 8, treeMapNode.getBounds().height - 8);
-                g2d.setColor(new Color(50, 205, 50));//limon green
+//                g2d.setColor(new Color(50, 205, 50));//limon green
+                g2d.setColor(Color.decode("#000000"));//preto
                 g2d.setStroke(new BasicStroke(3f));
                 g2d.drawRect(treeMapNode.getBounds().x + 2, treeMapNode.getBounds().y + 2,
                         treeMapNode.getBounds().width - 4, treeMapNode.getBounds().height - 4);

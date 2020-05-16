@@ -14,7 +14,6 @@ import doutorado.tese.util.Constantes;
 import doutorado.tese.control.business.visualizations.legenda.LegendaVisualizacao;
 import doutorado.tese.control.mb.GlyphMB;
 import doutorado.tese.control.mb.SetUpMB;
-import doutorado.tese.control.mb.testeMB.usertest.FinishedSetupCallBack;
 import doutorado.tese.model.TreeMapItem;
 import doutorado.tese.model.TreeMapNode;
 import doutorado.tese.util.Util;
@@ -26,18 +25,19 @@ import doutorado.tese.view.teste.visibility.VisibilityTesteView;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -46,6 +46,7 @@ import java.util.logging.Level;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLayeredPane;
@@ -56,6 +57,8 @@ import javax.swing.ListModel;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.StyleConstants;
 import net.bouthier.treemapAWT.TMView;
@@ -110,6 +113,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane10 = new javax.swing.JScrollPane();
+        msgVersaoEditorPane = new javax.swing.JEditorPane();
         separadorEsqueDir_jSplitPane = new javax.swing.JSplitPane();
         painelEsquerda = new javax.swing.JPanel();
         painelDireita = new javax.swing.JPanel();
@@ -219,6 +224,8 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         aboutMenu = new javax.swing.JMenu();
         screenshotMenuItem = new javax.swing.JMenuItem();
         version_jMenuItem = new javax.swing.JMenuItem();
+
+        jScrollPane10.setViewportView(msgVersaoEditorPane);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Treemap Glyphs");
@@ -1296,7 +1303,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         if (Constantes.CATEGORICAL_GLYPH_ACTIVATED) {
             botaoGerarCategoricalGlyphsActionPerformed(evt);
         }
-        if(Constantes.CONTINUOUS_GLYPH_ACTIVATED){
+        if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
             botaoGerarContinuosGlyphsActionPerformed(evt);
         }
         logger.info("Arvore de decisao esta ativada? " + Constantes.DECISION_TREE_ACTIVATED);
@@ -1337,9 +1344,33 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         //Gerar o .jar clicando com o botao direito no arquivo build.xml ->
         //executar destino -> outros destinos -> package-for-store
         //o arquivo .jar sera gerado em uma pasta TreemapGlyph\store
-        JOptionPane.showMessageDialog(null, "Version 20\n"
-                + "Developed by LabVis ( http://www.labvis.ufpa.br/ )");
+
+        ImageIcon icon = new ImageIcon(getClass().getResource("/icon/logo_LABVIS.png"));
+        
+        String versao = "21";
+        
+        msgVersaoEditorPane.setEditable(true);
+        msgVersaoEditorPane.setContentType("text/html");
+        msgVersaoEditorPane.setText("Version "+versao+" - "
+                + "Developed by <a href='http://www.labvis.ufpa.br'>LabVis (Laboratório de Visualização, Interação e Sistemas Inteligentes)</a>");
+        msgVersaoEditorPane.setEditable(false);
+        msgVersaoEditorPane.addHyperlinkListener(new Main.HTMLListener());
+        JOptionPane.showMessageDialog(null, msgVersaoEditorPane, "Version "+versao, JOptionPane.INFORMATION_MESSAGE, icon);
     }//GEN-LAST:event_version_jMenuItemActionPerformed
+
+    private class HTMLListener implements HyperlinkListener {
+
+        @Override
+        public void hyperlinkUpdate(HyperlinkEvent e) {
+            if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                try {
+                    Desktop.getDesktop().browse(e.getURL().toURI());
+                } catch (IOException | URISyntaxException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
 
     private void screenshotMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_screenshotMenuItemActionPerformed
         BufferedImage combined;
@@ -2199,6 +2230,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
@@ -2215,6 +2247,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JComboBox<String> legendaComboBox;
     private javax.swing.JList<String> listaAtributosContinuousGlyph;
     private javax.swing.JList<String> listaAtributosContinuousGlyph2;
+    private javax.swing.JEditorPane msgVersaoEditorPane;
     private javax.swing.JComboBox<String> orientationGlyphComboBox;
     private javax.swing.JTabbedPane painelAbas_jTabbedPane;
     private javax.swing.JPanel painelCima;

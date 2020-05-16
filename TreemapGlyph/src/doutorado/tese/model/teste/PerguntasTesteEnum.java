@@ -10,12 +10,12 @@ package doutorado.tese.model.teste;
  * @author Anderson Soares
  */
 public enum PerguntasTesteEnum {
-    Q1("Localize a região em que houve o registro de apenas uma chuva ácida com temperatura baixa."),//categorica
-    Q2("Localize as três regiões com mais registros de chuva ácida."),//categorica
-    Q3("Localize a região em que registrou a ocorrência de apenas um furacão."),//categorica
-    Q4("Encontre (Clique) o registro de furação no nordeste e descubra se o alerta da defesa civil foi ativado."),//categorica
-    Q5("Localize a região que ocorreu o registro de chuva base com ventos massivos e que tenham ativado o alerta da defesa civil."),//categorica
-    Q6("Na região norte, encontre o registro de furacão que ativou a defesa civil com chuva de PH básico e temperatura baixa.");//categorica
+    Q1("Localize as regiões que o alerta da defesa civil foi ativado em registros de furacão."),//categorica
+    Q2("Localize a região que ocorreu o registro de 2 furacoes na localidade rual e o alerta da defesa não foi ativado."),//categorica
+    Q3("Dado as regiões nordeste e centro-oeste, descubra a unica relação entre o número de vitimas dessas regiões."),//categorica
+    Q4("Localize a região que registrou um único fucacão que não ativou o alerta da defesa civil, com temperatura mediana na localidade rural."),//categorica
+    Q5("Identifique a diferença entre os registros de furacoes na região Centro-oeste."),//categorica
+    Q6("Localize a regiao que registrou apenas ventos Massivos e Muito Fortes, com temperaturas Mediana, nao registrou chuvas de PH neutro.");//categorica
 //    Q7("Qual o padrão na Intensidade do vento na localidade Rural da região centro-oeste?"),//categorica e continua
 //    Q8("Durante a primavera, qual região apresentou as menores médias de umidade do ar (%)?"),//categorica e continua
 //    Q9("Na região norte durante o verão, selecione as três maiores intensidades de vento."),//categorica e continua

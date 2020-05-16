@@ -13,6 +13,7 @@ import doutorado.tese.model.teste.PerguntasTreinamentoEnum;
 import doutorado.tese.util.ColunasLog;
 import doutorado.tese.view.ManipuladorGUITeste;
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javax.swing.JOptionPane;
@@ -85,7 +86,7 @@ public class MainScreenLog extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Questions Test");
         setAlwaysOnTop(true);
-        setLocation(new java.awt.Point(150, 0));
+        setLocation(new java.awt.Point(5, 0));
         setUndecorated(true);
         setResizable(false);
 
@@ -168,7 +169,7 @@ public class MainScreenLog extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(fundoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(respostaUsuarioExtraComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(respostaUsuarioExtraComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -181,7 +182,7 @@ public class MainScreenLog extends javax.swing.JFrame {
                 .addComponent(treinamentoRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(testeRadioButton)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +273,7 @@ public class MainScreenLog extends javax.swing.JFrame {
         start_Button.setEnabled(true);
         submit_Button.setEnabled(false);
 //        ManipuladorLog.setArquivoGabarito("respostasTreinamento.tsv");
-        ManipuladorLog.setArquivoGabarito("answersTraining.tsv");
+        ManipuladorLog.setArquivoGabarito("setupTests" + File.separator + "answersTraining.tsv");
         ManipuladorLog.setTreinamentoAcontecendo(true);
     }//GEN-LAST:event_treinamentoRadioButtonActionPerformed
 
@@ -282,7 +283,7 @@ public class MainScreenLog extends javax.swing.JFrame {
         next_Button.setEnabled(false);
         submit_Button.setEnabled(false);
 //        ManipuladorLog.setArquivoGabarito("respostas.tsv");//answers.tsv
-        ManipuladorLog.setArquivoGabarito("answers.tsv");
+        ManipuladorLog.setArquivoGabarito("setupTests" + File.separator + "answers.tsv");
         ManipuladorLog.setTreinamentoAcontecendo(false);
     }//GEN-LAST:event_testeRadioButtonActionPerformed
 
@@ -297,15 +298,25 @@ public class MainScreenLog extends javax.swing.JFrame {
 
             configGUI(contQuestaoTeste);
 
-            if (contQuestaoTeste == ((PerguntasTesteEnum.values().length / 2) - 3)) {//pergunta 4
+            if (contQuestaoTeste == ((PerguntasTesteEnum.values().length / 2) - 1)) {//pergunta 3
                 respostaUsuarioExtraComboBox.setVisible(true);
-//                itens = new String[]{"Responda","Ativou", "Nao ativou"};
-                itens = new String[]{"Choose", "Activated", "Non-activated"};
+                itens = new String[]{"Responda",
+                                     "O alerta da defesa civil nao ativou", 
+                                     "A temperatura e alta",
+                                     "Intensidade da chuva e moderada"};
+//                itens = new String[]{"Choose", "Activated", "Non-activated"};
                 atualizarComboBox(respostaUsuarioExtraComboBox, itens);
-            } else if (contQuestaoTeste == (PerguntasTesteEnum.values().length / 2)) {//pergunta 7
+            } else if (contQuestaoTeste == (PerguntasTesteEnum.values().length / 2)) {//pergunta 4
                 respostaUsuarioExtraComboBox.setVisible(true);
-//                itens = new String[]{"Responda","Baixa", "Alta"};
-                itens = new String[]{"Choose", "Low", "High"};
+                itens = new String[]{"Responda","Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"};
+//                itens = new String[]{"Choose", "Low", "High"};
+                atualizarComboBox(respostaUsuarioExtraComboBox, itens);
+            } else if (contQuestaoTeste == (PerguntasTesteEnum.values().length / 2) + 1) {//pergunta 5
+                respostaUsuarioExtraComboBox.setVisible(true);
+                itens = new String[]{"Responda",
+                                     "Entre localidades",
+                                     "Entre o alerta da defesa civil",
+                                     "Entre temperaturas"};
                 atualizarComboBox(respostaUsuarioExtraComboBox, itens);
             } else {
                 respostaUsuarioExtraComboBox.setVisible(false);
@@ -362,7 +373,7 @@ public class MainScreenLog extends javax.swing.JFrame {
                 LoggerMB.salvarLog();
 //                textoPergunta.setText("The test is over. Thanks! [Fim do teste. Obrigado!]");
                 textoPergunta.setText("Fim do teste. Obrigado!");
-                
+
                 msgFinalEditorPane.setEditable(true);
                 msgFinalEditorPane.setContentType("text/html");
                 msgFinalEditorPane.setText("Fim do teste. Obrigado! "
@@ -378,16 +389,17 @@ public class MainScreenLog extends javax.swing.JFrame {
     }//GEN-LAST:event_submit_ButtonActionPerformed
 
     private class HTMLListener implements HyperlinkListener {
-      @Override
-      public void hyperlinkUpdate(HyperlinkEvent e) {
-        if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-            try {
-                Desktop.getDesktop().browse(e.getURL().toURI());
-            } catch (IOException | URISyntaxException ex) {
-                ex.printStackTrace();
+
+        @Override
+        public void hyperlinkUpdate(HyperlinkEvent e) {
+            if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                try {
+                    Desktop.getDesktop().browse(e.getURL().toURI());
+                } catch (IOException | URISyntaxException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
-      }
     }
 
     private void updateSubmitLog() {
@@ -396,21 +408,25 @@ public class MainScreenLog extends javax.swing.JFrame {
         LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL_CALCULADO.getId()]
                 = (Long.parseLong(LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL.getId()])
                 - Long.parseLong(LoggerMB.getColunaLog()[ColunasLog.TEMPO_INICIO.getId()])) + "";
-        if ((contQuestaoTeste - 1) == ((PerguntasTesteEnum.values().length / 2) - 3)) {//pergunta 4
+        if ((contQuestaoTeste - 1) == ((PerguntasTesteEnum.values().length / 2) - 1) //pergunta 3
+                || (contQuestaoTeste - 1) == (PerguntasTesteEnum.values().length / 2) //pergunta 4
+                || (contQuestaoTeste - 1) == (PerguntasTesteEnum.values().length / 2) + 1 //pergunta 5
+                ) {
             String respostaUsuario = respostaUsuarioExtraComboBox.getSelectedItem().toString();
             LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = ManipuladorLog.verificarResposta(respostaUsuario, contQuestaoTeste) + "";
             LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = System.currentTimeMillis() + "";
             LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = LocalDateTime.now() + "";
             ManipuladorLog.getRespostaUsuarioTemp().add(respostaUsuario);
             respostaUsuarioExtraComboBox.setVisible(false);
-        } else if ((contQuestaoTeste - 1) == (PerguntasTesteEnum.values().length / 2)) {//pergunta 7
-            String respostaUsuario = respostaUsuarioExtraComboBox.getSelectedItem().toString();
-            LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = ManipuladorLog.verificarResposta(respostaUsuario, contQuestaoTeste) + "";
-            LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = System.currentTimeMillis() + "";
-            LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = LocalDateTime.now() + "";
-            ManipuladorLog.getRespostaUsuarioTemp().add(respostaUsuario);
-            respostaUsuarioExtraComboBox.setVisible(false);
-        } else {
+        } //        else if ((contQuestaoTeste - 1) == (PerguntasTesteEnum.values().length / 2)) {//pergunta 7
+        //            String respostaUsuario = respostaUsuarioExtraComboBox.getSelectedItem().toString();
+        //            LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = ManipuladorLog.verificarResposta(respostaUsuario, contQuestaoTeste) + "";
+        //            LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = System.currentTimeMillis() + "";
+        //            LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = LocalDateTime.now() + "";
+        //            ManipuladorLog.getRespostaUsuarioTemp().add(respostaUsuario);
+        //            respostaUsuarioExtraComboBox.setVisible(false);
+        //        } 
+        else {
             LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = "null";
             LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = "null";
             LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = "null";

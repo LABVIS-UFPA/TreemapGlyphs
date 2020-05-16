@@ -43,7 +43,7 @@
     <Property name="title" type="java.lang.String" value="Questions Test"/>
     <Property name="alwaysOnTop" type="boolean" value="true"/>
     <Property name="location" type="java.awt.Point" editor="org.netbeans.beaninfo.editors.PointEditor">
-      <Point value="[150, 0]"/>
+      <Point value="[5, 0]"/>
     </Property>
     <Property name="undecorated" type="boolean" value="true"/>
     <Property name="resizable" type="boolean" value="false"/>
@@ -70,7 +70,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="fundoPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="respostaUsuarioExtraComboBox" min="-2" pref="88" max="-2" attributes="0"/>
+              <Component id="respostaUsuarioExtraComboBox" min="-2" pref="187" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="11" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -83,7 +83,7 @@
               <Component id="treinamentoRadioButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="testeRadioButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="50" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
