@@ -868,7 +868,7 @@ String	String	Integer	Double	Integer	String	String	Integer	Integer	String	String
 "Outono"	"Centro-Oeste"	5	41.44391047520513	24	"Alta"	"Urbana"	10	1	"Moderado"	"NaoAtivou"	"Acida"	"Moderada"	157
 "Primavera"	"Sul"	2	1.2754968462378038	27	"Alta"	"Rural"	20	116	"Massivo"	"NaoAtivou"	"Acida"	"Moderada"	127
 "Outono"	"Sul"	2	1.6472416153765375	27	"Alta"	"Rural"	22	95	"Massivo"	"NaoAtivou"	"Acida"	"Moderada"	108
-"Verao"	"Sudeste"	3	27.912867141429835	15	"Mediana"	"Urbana"	1	88	"Massivo"	"Ativou"	"Acida"	"Muito Forte"	587
+"Verao"	"Sudeste"	3	27.912867141429835	15	"Mediana"	"Urbana"	1	88	"Massivo"	"Ativou"	"Acida"	"Muito Forte"	57
 "Outono"	"Norte"	13	18.411617797900053	-13	"Baixa"	"Urbana"	12	22	"Forte"	"NaoAtivou"	"Base"	"Moderada"	235
 "Primavera"	"Sudeste"	2	26.95208633450032	15	"Mediana"	"Rural"	25	97	"Massivo"	"Ativou"	"Acida"	"Moderada"	507
 "Outono"	"Sudeste"	3	31.43481114831203	19	"Mediana"	"Urbana"	24	77	"Muito Forte"	"NaoAtivou"	"Acida"	"Moderada"	134

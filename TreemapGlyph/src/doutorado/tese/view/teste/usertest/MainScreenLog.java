@@ -298,29 +298,31 @@ public class MainScreenLog extends javax.swing.JFrame {
 
             configGUI(contQuestaoTeste);
 
-            if (contQuestaoTeste == ((PerguntasTesteEnum.values().length / 2) - 1)) {//pergunta 3
-                respostaUsuarioExtraComboBox.setVisible(true);
-                itens = new String[]{"Responda",
-                                     "O alerta da defesa civil nao ativou", 
-                                     "A temperatura e alta",
-                                     "Intensidade da chuva e moderada"};
-//                itens = new String[]{"Choose", "Activated", "Non-activated"};
-                atualizarComboBox(respostaUsuarioExtraComboBox, itens);
-            } else if (contQuestaoTeste == (PerguntasTesteEnum.values().length / 2)) {//pergunta 4
-                respostaUsuarioExtraComboBox.setVisible(true);
-                itens = new String[]{"Responda","Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"};
-//                itens = new String[]{"Choose", "Low", "High"};
-                atualizarComboBox(respostaUsuarioExtraComboBox, itens);
-            } else if (contQuestaoTeste == (PerguntasTesteEnum.values().length / 2) + 1) {//pergunta 5
-                respostaUsuarioExtraComboBox.setVisible(true);
-                itens = new String[]{"Responda",
-                                     "Entre localidades",
-                                     "Entre o alerta da defesa civil",
-                                     "Entre temperaturas"};
-                atualizarComboBox(respostaUsuarioExtraComboBox, itens);
-            } else {
-                respostaUsuarioExtraComboBox.setVisible(false);
-            }
+//            if (contQuestaoTeste == ((PerguntasTesteEnum.values().length / 2) - 1)) {//pergunta 3
+////                respostaUsuarioExtraComboBox.setVisible(true);
+////                itens = new String[]{"Responda",
+////                                     "O alerta da defesa civil nao ativou", 
+////                                     "A temperatura e alta",
+////                                     "Intensidade da chuva e moderada"};
+////                itens = new String[]{"Choose", "Activated", "Non-activated"};
+//                atualizarComboBox(respostaUsuarioExtraComboBox, itens);
+//            } else 
+//             if (contQuestaoTeste == (PerguntasTesteEnum.values().length / 2)) {//pergunta 4
+//                respostaUsuarioExtraComboBox.setVisible(true);
+//                itens = new String[]{"Responda","Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"};
+////                itens = new String[]{"Choose", "Low", "High"};
+//                atualizarComboBox(respostaUsuarioExtraComboBox, itens);
+//            } else 
+//            if (contQuestaoTeste == (PerguntasTesteEnum.values().length / 2) + 1) {//pergunta 5
+//                respostaUsuarioExtraComboBox.setVisible(true);
+//                itens = new String[]{"Responda",
+//                    "Entre localidades",
+//                    "Entre o alerta da defesa civil",
+//                    "Entre temperaturas"};
+//                atualizarComboBox(respostaUsuarioExtraComboBox, itens);
+//            } else {
+            respostaUsuarioExtraComboBox.setVisible(false);
+//            }
             contQuestaoTeste++;
         }
         next_Button.setEnabled(false);
@@ -408,17 +410,13 @@ public class MainScreenLog extends javax.swing.JFrame {
         LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL_CALCULADO.getId()]
                 = (Long.parseLong(LoggerMB.getColunaLog()[ColunasLog.TEMPO_FINAL.getId()])
                 - Long.parseLong(LoggerMB.getColunaLog()[ColunasLog.TEMPO_INICIO.getId()])) + "";
-        if ((contQuestaoTeste - 1) == ((PerguntasTesteEnum.values().length / 2) - 1) //pergunta 3
-                || (contQuestaoTeste - 1) == (PerguntasTesteEnum.values().length / 2) //pergunta 4
-                || (contQuestaoTeste - 1) == (PerguntasTesteEnum.values().length / 2) + 1 //pergunta 5
-                ) {
-            String respostaUsuario = respostaUsuarioExtraComboBox.getSelectedItem().toString();
-            LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = ManipuladorLog.verificarResposta(respostaUsuario, contQuestaoTeste) + "";
-            LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = System.currentTimeMillis() + "";
-            LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = LocalDateTime.now() + "";
-            ManipuladorLog.getRespostaUsuarioTemp().add(respostaUsuario);
-            respostaUsuarioExtraComboBox.setVisible(false);
-        } //        else if ((contQuestaoTeste - 1) == (PerguntasTesteEnum.values().length / 2)) {//pergunta 7
+//        String respostaUsuario = respostaUsuarioExtraComboBox.getSelectedItem().toString();
+//        LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = ManipuladorLog.verificarResposta(respostaUsuario, contQuestaoTeste) + "";
+        LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = System.currentTimeMillis() + "";
+        LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = LocalDateTime.now() + "";
+//        ManipuladorLog.getRespostaUsuarioTemp().add(respostaUsuario);
+        respostaUsuarioExtraComboBox.setVisible(false);
+        //        } //        else if ((contQuestaoTeste - 1) == (PerguntasTesteEnum.values().length / 2)) {//pergunta 7
         //            String respostaUsuario = respostaUsuarioExtraComboBox.getSelectedItem().toString();
         //            LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = ManipuladorLog.verificarResposta(respostaUsuario, contQuestaoTeste) + "";
         //            LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = System.currentTimeMillis() + "";
@@ -426,11 +424,11 @@ public class MainScreenLog extends javax.swing.JFrame {
         //            ManipuladorLog.getRespostaUsuarioTemp().add(respostaUsuario);
         //            respostaUsuarioExtraComboBox.setVisible(false);
         //        } 
-        else {
-            LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = "null";
-            LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = "null";
-            LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = "null";
-        }
+//        else {
+        LoggerMB.getColunaLog()[ColunasLog.RESPOSTA_CORRETA.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.TEMPO_QUANDO_CLICOU.getId()] = "null";
+        LoggerMB.getColunaLog()[ColunasLog.TIMESTAMP_QUANDO_CLICOU.getId()] = "null";
+//        }
         LoggerMB.getColunaLog()[ColunasLog.ID_TREEMAP_ITEM.getId()] = "null";
         LoggerMB.getColunaLog()[ColunasLog.SELECIONADO.getId()] = "null";
         LoggerMB.getColunaLog()[ColunasLog.TREEMAP_LABEL.getId()] = "null";

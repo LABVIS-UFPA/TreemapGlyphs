@@ -11,11 +11,11 @@ package doutorado.tese.model.teste;
  */
 public enum PerguntasTesteEnum {
     Q1("Localize as regiões que o alerta da defesa civil foi ativado em registros de furacão."),//categorica
-    Q2("Localize a região que ocorreu o registro de 2 furacoes na localidade rual e o alerta da defesa não foi ativado."),//categorica
-    Q3("Dado as regiões nordeste e centro-oeste, descubra a unica relação entre o número de vitimas dessas regiões."),//categorica
-    Q4("Localize a região que registrou um único fucacão que não ativou o alerta da defesa civil, com temperatura mediana na localidade rural."),//categorica
-    Q5("Identifique a diferença entre os registros de furacoes na região Centro-oeste."),//categorica
-    Q6("Localize a regiao que registrou apenas ventos Massivos e Muito Fortes, com temperaturas Mediana, nao registrou chuvas de PH neutro.");//categorica
+    Q2("Localize a região com o maior número de registros de furacoes em localidade rural e o alerta da defesa não ativado."),//categorica
+    Q3("Localize o único registro que apresentou intensidade da chuva muito forte, temperatura mediana, e ativou o alerta da defesa civil."),//categorica
+    Q4("Localize o único registro de furacão que não ativou o alerta da defesa civil, com temperatura mediana na localidade rural."),//categorica
+    Q5("Identifique o registro que apresenta intensidade do vento e da chuva moderado, com temperatura alta, na localidade urbana, e que não ativou o alerta da defesa civil."),//categorica
+    Q6("Localize a região que registrou apenas ventos Massivos e Muito Fortes, somente temperaturas Mediana, e não registrou chuvas de PH neutro.");//categorica
 //    Q7("Qual o padrão na Intensidade do vento na localidade Rural da região centro-oeste?"),//categorica e continua
 //    Q8("Durante a primavera, qual região apresentou as menores médias de umidade do ar (%)?"),//categorica e continua
 //    Q9("Na região norte durante o verão, selecione as três maiores intensidades de vento."),//categorica e continua

@@ -3,5 +3,5 @@ ID_TASK	GlyphFamily	Texture	Color	Shape	Text	Position	Orientation	ProfileGlyph
 2	Color;Shape;Text;	---	IntensidadeVento_CAT	Localidade	AlertaDefesaCivil	---	---	---
 3	Color;Shape;Text;	---	IntensidadeChuva	AlertaDefesaCivil	Temperatura_CAT	---	---	---
 4	Color;Texture;Shape;Text;	IntensidadeVento_CAT	Regiao	IntensidadeChuva	AlertaDefesaCivil	---	---	---
-5	Texture;Color;Orientation;Shape;Text;	Localidade	IntensidadeVento_CAT	Temperatura_CAT	AlertaDefesaCivil	---	IntensidadeChuva	---
-6	Color;Orientation;Shape;Position;Texture;Text;	IntensidadeChuva	IntensidadeVento_CAT	PhChuva_Cat	AlertaDefesaCivil	EstacaoAno	Temperatura_CAT	---
+5	Color;Shape;Texture;Orientation;Text;	Localidade	IntensidadeVento_CAT	Temperatura_CAT	AlertaDefesaCivil	---	IntensidadeChuva	---
+6	Texture;Orientation;Color;Position;Shape;Text;	IntensidadeChuva	IntensidadeVento_CAT	PhChuva_Cat	AlertaDefesaCivil	EstacaoAno	Temperatura_CAT	---
