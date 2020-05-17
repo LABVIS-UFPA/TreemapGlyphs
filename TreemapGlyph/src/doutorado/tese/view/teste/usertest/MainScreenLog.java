@@ -11,7 +11,7 @@ import doutorado.tese.control.business.userTest.ManipuladorLog;
 import doutorado.tese.model.teste.PerguntasTesteEnum;
 import doutorado.tese.model.teste.PerguntasTreinamentoEnum;
 import doutorado.tese.util.ColunasLog;
-import doutorado.tese.view.ManipuladorGUITeste;
+import doutorado.tese.control.business.userTest.ManipuladorGUITeste;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;

@@ -1,10 +1,10 @@
-ID_TASK	Hierarquia	Size	Cor	Label
-1	Regiao	MediaUmidadeAr_%	---	---
-2	Regiao	VolumeChuva_mm/h	---	---
-3	Regiao;	NumeroVitimas	---	---
-4	Localidade;Temperatura_CAT;	NumeroVitimas	---	---
-5	Regiao;	NumeroVitimas	---	---
-6	Regiao;	VolumeChuva_mm/h	---	---
+ID_TASK	Hierarquia	Size	Cor	Label	DetalhesDemanda
+1	Regiao	MediaUmidadeAr_%	---	---	Regiao;MediaUmidadeAr_%;AlertaDefesaCivil;IntensidadeVento_CAT
+2	Regiao	VolumeChuva_mm/h	---	---	Regiao;VolumeChuva_mm/h;IntensidadeVento_CAT;Localidade;AlertaDefesaCivil
+3	Regiao;	NumeroVitimas	---	---	Regiao;NumeroVitimas;IntensidadeChuva;AlertaDefesaCivil;Temperatura_CAT
+4	Localidade;Temperatura_CAT;	NumeroVitimas	---	---	Localidade;Temperatura_CAT;NumeroVitimas;IntensidadeVento_CAT;Regiao;IntensidadeChuva;AlertaDefesaCivil
+5	Regiao;	NumeroVitimas	---	---	Regiao;NumeroVitimas;Localidade;IntensidadeVento_CAT;Temperatura_CAT;AlertaDefesaCivil;IntensidadeChuva
+6	Regiao;	VolumeChuva_mm/h	---	---	Regiao;VolumeChuva_mm/h;IntensidadeChuva;IntensidadeVento_CAT;PhChuva_Cat;AlertaDefesaCivil;EstacaoAno;Temperatura_CAT
 
 
 

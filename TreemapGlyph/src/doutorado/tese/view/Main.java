@@ -5,6 +5,7 @@
  */
 package doutorado.tese.view;
 
+import doutorado.tese.control.business.userTest.ManipuladorGUITeste;
 import doutorado.tese.control.mb.DrawAreaMB;
 import doutorado.tese.view.detalhessobdemanda.DetailsOnDemandVisao;
 import doutorado.tese.control.business.userTest.ManipuladorLog;
@@ -1346,16 +1347,16 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         //o arquivo .jar sera gerado em uma pasta TreemapGlyph\store
 
         ImageIcon icon = new ImageIcon(getClass().getResource("/icon/logo_LABVIS.png"));
-        
+
         String versao = "21";
-        
+
         msgVersaoEditorPane.setEditable(true);
         msgVersaoEditorPane.setContentType("text/html");
-        msgVersaoEditorPane.setText("Version "+versao+" - "
+        msgVersaoEditorPane.setText("Version " + versao + " - "
                 + "Developed by <a href='http://www.labvis.ufpa.br'>LabVis (Laboratório de Visualização, Interação e Sistemas Inteligentes)</a>");
         msgVersaoEditorPane.setEditable(false);
         msgVersaoEditorPane.addHyperlinkListener(new Main.HTMLListener());
-        JOptionPane.showMessageDialog(null, msgVersaoEditorPane, "Version "+versao, JOptionPane.INFORMATION_MESSAGE, icon);
+        JOptionPane.showMessageDialog(null, msgVersaoEditorPane, "Version " + versao, JOptionPane.INFORMATION_MESSAGE, icon);
     }//GEN-LAST:event_version_jMenuItemActionPerformed
 
     private class HTMLListener implements HyperlinkListener {
@@ -2492,6 +2493,31 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 //                botaoGerarCategoricalGlyphsActionPerformed(evt);
 //            }
 //        }
+    }
+
+    public void configAtributosDetalhesDemanda(String[] atributosDetalhes) {
+        List<Object> newListaAtribTreemap = new ArrayList<>();
+//        List<Object> atributosEscolhidos = new ArrayList<>();
+//        for (int i = 0; i < colunasDetalhesList2.getModel().getSize(); i++) {
+//            String elementAt = colunasDetalhesList2.getModel().getElementAt(i);
+//            atributosEscolhidos.add(elementAt);
+//        }
+//        atributosEscolhidos.addAll(colunasDetalhesList1.getSelectedValuesList());
+//        atributosEscolhidos.sort(null);
+        reloadListGUI(atributosDetalhes, colunasDetalhesList2);
+        colunasDetalhesList2.setEnabled(true);
+        //        botaoGerarVisualizacao.setEnabled(true);
+
+        //remover o conteudo da lista de atributos original
+        ListModel<String> modelOriginal = colunasDetalhesList1.getModel();
+        List<String> selectedValuesList = Arrays.asList(atributosDetalhes);
+        for (int i = 0; i < modelOriginal.getSize(); i++) {
+            if (!selectedValuesList.contains(modelOriginal.getElementAt(i))) {
+                newListaAtribTreemap.add(modelOriginal.getElementAt(i));
+            }
+        }
+        loadItensDetalhes(newListaAtribTreemap.toArray());
+        updateDetailsButton.setEnabled(true);
     }
 
     public void carregarHierarquiasTreemapTeste(String[] hierarquias) {

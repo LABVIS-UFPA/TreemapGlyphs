@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package doutorado.tese.view;
+package doutorado.tese.control.business.userTest;
 
 import doutorado.tese.util.Constantes;
 import doutorado.tese.util.io.Leitor;
+import doutorado.tese.view.Main;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class ManipuladorGUITeste {
     private HashMap<Integer, String> mapaSizesTreemap;
     private HashMap<Integer, String> mapaCorTreemap;
     private HashMap<Integer, String> mapaLabelTreemap;
+    private HashMap<Integer, String> mapaDetalhesSobDemanda;
     private HashMap<Integer, String> mapaGlyphsFamily;
     private HashMap<Integer, String> mapaTexturaGlyphs;
     private HashMap<Integer, String> mapaCorGlyphs;
@@ -46,6 +48,7 @@ public class ManipuladorGUITeste {
         mapaSizesTreemap = new HashMap<>();
         mapaCorTreemap = new HashMap<>();
         mapaLabelTreemap = new HashMap<>();
+        mapaDetalhesSobDemanda = new HashMap<>();
         mapaGlyphsFamily = new HashMap<>();
         mapaTexturaGlyphs = new HashMap<>();
         mapaCorGlyphs = new HashMap<>();
@@ -108,7 +111,10 @@ public class ManipuladorGUITeste {
 
         String corTreemap = getMapaCorTreemap().get(contQuestaoTeste);
         mainGUI.carregarCorTreemapteste(corTreemap);
-
+        
+        String[] atributosDetalhes = getMapaDetalhesSobDemanda().get(contQuestaoTeste).split(";");
+        mainGUI.configAtributosDetalhesDemanda(atributosDetalhes);
+        
         mainGUI.simularCliqueBotaoTreemap();
         setView(mainGUI.getVisualizationTreemap().getView());
     }
@@ -205,6 +211,7 @@ public class ManipuladorGUITeste {
             getMapaSizesTreemap().put(i, colunas[2]);
             getMapaCorTreemap().put(i, colunas[3]);
             getMapaLabelTreemap().put(i, colunas[4]);
+            getMapaDetalhesSobDemanda().put(i, colunas[5]);
         }
     }
 
@@ -481,5 +488,19 @@ public class ManipuladorGUITeste {
      */
     public void setMapaLabelTreemap(HashMap<Integer, String> mapaLabelTreemap) {
         this.mapaLabelTreemap = mapaLabelTreemap;
+    }
+
+    /**
+     * @return the mapaDetalhesSobDemanda
+     */
+    public HashMap<Integer, String> getMapaDetalhesSobDemanda() {
+        return mapaDetalhesSobDemanda;
+    }
+
+    /**
+     * @param mapaDetalhesSobDemanda the mapaDetalhesSobDemanda to set
+     */
+    public void setMapaDetalhesSobDemanda(HashMap<Integer, String> mapaDetalhesSobDemanda) {
+        this.mapaDetalhesSobDemanda = mapaDetalhesSobDemanda;
     }
 }
