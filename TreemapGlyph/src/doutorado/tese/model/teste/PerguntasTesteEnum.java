@@ -14,7 +14,7 @@ public enum PerguntasTesteEnum {
     Q2("Localize a região com o maior número de registros de furacoes em localidade rural e o alerta da defesa não ativado."),//categorica
     Q3("Localize o único registro que apresentou intensidade da chuva muito forte, temperatura mediana, e ativou o alerta da defesa civil."),//categorica
     Q4("Localize o único registro de furacão que não ativou o alerta da defesa civil, com temperatura mediana na localidade rural."),//categorica
-    Q5("Identifique o registro que apresenta intensidade do vento e da chuva moderado, com temperatura alta, na localidade urbana, e que não ativou o alerta da defesa civil."),//categorica
+    Q5("Na região sul, identifique o único registro que apresenta intensidade do vento e da chuva moderado, com temperatura alta, na localidade urbana, e que não ativou o alerta da defesa civil."),//categorica
     Q6("Localize a região que registrou apenas ventos Massivos e Muito Fortes, somente temperaturas Mediana, e não registrou chuvas de PH neutro.");//categorica
 //    Q7("Qual o padrão na Intensidade do vento na localidade Rural da região centro-oeste?"),//categorica e continua
 //    Q8("Durante a primavera, qual região apresentou as menores médias de umidade do ar (%)?"),//categorica e continua
