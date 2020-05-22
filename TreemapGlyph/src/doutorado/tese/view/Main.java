@@ -1303,9 +1303,13 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         Constantes.DECISION_TREE_ACTIVATED = decisionTreeActivate.isSelected();
         if (Constantes.CATEGORICAL_GLYPH_ACTIVATED) {
             botaoGerarCategoricalGlyphsActionPerformed(evt);
+            showGlyphOnDetailsCheckBox.setSelected(true);
+            Constantes.SHOW_GLYPH_ON_DETAILS = showGlyphOnDetailsCheckBox.isSelected();
         }
         if (Constantes.CONTINUOUS_GLYPH_ACTIVATED) {
             botaoGerarContinuosGlyphsActionPerformed(evt);
+            showGlyphOnDetailsCheckBox.setSelected(true);
+            Constantes.SHOW_GLYPH_ON_DETAILS = showGlyphOnDetailsCheckBox.isSelected();
         }
         logger.info("Arvore de decisao esta ativada? " + Constantes.DECISION_TREE_ACTIVATED);
     }//GEN-LAST:event_decisionTreeActivateActionPerformed
