@@ -10,8 +10,8 @@ package doutorado.tese.model.teste;
  * @author Anderson Soares
  */
 public enum PerguntasTesteEnum {
-    Q1("Localize as regiões que o alerta da defesa civil foi ativado em registros de furacão."),//categorica
-    Q2("Localize a região com o maior número de registros de furacoes em localidade rural e o alerta da defesa não ativado."),//categorica
+    Q1("Localize a região com o maior número de registros de furacoes em localidade rural e o alerta da defesa não ativado."),//categorica
+    Q2("Localize as regiões que o alerta da defesa civil foi ativado em registros de furacão."),//categorica
     Q3("Localize o único registro que apresentou intensidade da chuva muito forte, temperatura mediana, e ativou o alerta da defesa civil."),//categorica
     Q4("Localize o único registro de furacão que não ativou o alerta da defesa civil, com temperatura mediana na localidade rural."),//categorica
     Q5("Na região sul, identifique o único registro que apresenta intensidade do vento e da chuva moderado, com temperatura alta, na localidade urbana, e que não ativou o alerta da defesa civil."),//categorica
