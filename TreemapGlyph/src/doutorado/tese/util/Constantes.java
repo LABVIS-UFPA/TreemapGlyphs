@@ -79,7 +79,7 @@ public class Constantes {
 //        "#80b1d3", "#fdb462", "#fccde5", "#ccebc5"
             
         //D3 -> d3.schemePastel2
-        "#B3E2CD", "#FDCDAC", "#CBD5E8", "#F4CAE4", "#E6F5C9", "#FFF2AE", "#F1E2CC", "#CCCCCC"
+        "#FFF2AE", "#B3E2CD",  "#CBD5E8", "#F4CAE4", "#E6F5C9", "#FDCDAC", "#F1E2CC", "#CCCCCC"
     };
 
     private static String[] colorHueGlyphs = {

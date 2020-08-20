@@ -23,6 +23,7 @@ public class Pentagono implements DrawBehavior {
 
     public Pentagono() {
         this.cor = Color.decode("#f0f0f0");
+//        this.cor = Color.BLACK;
     }
 
     @Override

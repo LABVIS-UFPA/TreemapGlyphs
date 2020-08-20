@@ -56,9 +56,9 @@ public class TestesGui extends javax.swing.JPanel {
 //        Glyph child = criarOrientacao(OrientationFactory.ARROW.GLYPH_ORIENTACAO.ARROW90);
 //        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_3x3);
 //        Glyph child = criarTextura(TexturesFactory.TEXTURE.GLYPH_TEXTURAS.CIRCULO_3x3_BRANCO);
-//        Glyph child = criarForma(GeometricalFactory.FORMAS.GLYPH_FORMAS.PENTAGONO);
+        Glyph child = criarForma(GeometricalFactory.FORMAS.GLYPH_FORMAS.PENTAGONO);
 //        Glyph child = criarPosicao(Constantes.POSICOES.DIR_INF);
-        Glyph child = criarTexto(Constantes.LETRAS_ALFABETO[4]);
+//        Glyph child = criarTexto(Constantes.LETRAS_ALFABETO[4]);
         
         child.setNodeTreemap(item);
 
@@ -148,7 +148,7 @@ public class TestesGui extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(51, 51, 51));
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(500, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

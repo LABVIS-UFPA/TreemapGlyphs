@@ -209,7 +209,7 @@ public final class GlyphMB {
                 ? features[Constantes.FEATURE_LARGURA]
                 : features[Constantes.FEATURE_ALTURA];
         double[] subFeatures = new double[]{features[Constantes.NUM_CAMADAS], menorLado, ultimaCamada.getArea()};
-
+        //System.out.println("Pai: "+item.getPaiLevel().getLabel());
         item.setWhat2Draw(new int[]{1, 1, 1, 1, 1, 1, 1});
         int predictions = DecisionTreeClassifier.predict(subFeatures);
 

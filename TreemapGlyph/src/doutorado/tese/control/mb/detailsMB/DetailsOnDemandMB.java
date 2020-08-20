@@ -47,6 +47,7 @@ public class DetailsOnDemandMB {
                     String valorColuna = nodeItem.getMapaDetalhesItem().get(c);
                     tooltipText.append(c.getName()).append(": ").append(valorColuna).append("\n");
                 }
+                tooltipText.append(nodeItem.getBounds()).append("\n").append(nodeItem.getSizeTreemapNode());
             }
             return tooltipText;
         }

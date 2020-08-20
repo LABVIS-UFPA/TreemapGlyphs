@@ -24,6 +24,7 @@ public class Circulo implements DrawBehavior{
 
     public Circulo() {
         this.cor = Color.decode("#f0f0f0");
+//        this.cor = Color.BLACK;
     }
 
     @Override

@@ -24,6 +24,7 @@ public class Serrilhado implements DrawBehavior {
 
     public Serrilhado() {
         cor = Color.decode("#f0f0f0");
+//        cor = Color.BLACK;
     }
 
     @Override

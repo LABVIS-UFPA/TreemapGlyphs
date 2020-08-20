@@ -491,11 +491,11 @@ public class DecisionTreeClassifier {
     public static int predict(double[] features) {
         int[] classes = new int[2];
             
-        if (features[2] <= 72.5) {
-            if (features[0] <= 1.5) {
-                if (features[2] <= 56.5) {
-                    classes[0] = 0; 
-                    classes[1] = 11; 
+        if (features[2] <= 72.5) {//areaUltimaCamada
+            if (features[0] <= 1.5) {//numCamadas
+                if (features[2] <= 56.5) {//AreaUltimaCamada
+                    classes[0] = 11; //nao
+                    classes[1] = 0;//sim 
                 } else {
                     classes[0] = 1; 
                     classes[1] = 6; 
