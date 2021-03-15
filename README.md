@@ -9,6 +9,8 @@ Projeto que objetiva apresentar soluções para mitigar os desafios atuais da t�
 
 **Link for sample database download (test - adaptive glyphs) **: [Click here](https://github.com/LABVIS-UFPA/TreemapGlyphs/blob/varVisualPosicao/TreemapGlyph/database/treemap_glyphs_base_CLIMA_1000_datagen.tsv)
 
+**Link for sample database download (test - summarization glyph) **: [Click here](https://github.com/LABVIS-UFPA/TreemapGlyphs/blob/varVisualPosicao/TreemapGlyph/database/treemap_glyphs_base_CLIMA_1000_summarization_glyph.tsv)
+
 * [Page to Download Application](http://labvis.ufpa.br/treemapglyphs)
 
 ## Team
