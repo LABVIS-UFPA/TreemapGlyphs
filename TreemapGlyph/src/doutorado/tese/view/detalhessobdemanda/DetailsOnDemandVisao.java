@@ -45,7 +45,9 @@ public class DetailsOnDemandVisao extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
 
+        detalhesTextPane.setEditable(false);
         detalhesTextPane.setBackground(new java.awt.Color(237, 242, 176));
+        detalhesTextPane.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane3.setViewportView(detalhesTextPane);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
