@@ -221,6 +221,10 @@ public class Constantes {
     public static String[] getCorTreemap() {
         return corTreemap;
     }
+    
+    public static void setCorTreemap(String[] cor){
+        corTreemap = cor;
+    }
 
     /**
      * Vetor usado no segundo nivel de glyphs

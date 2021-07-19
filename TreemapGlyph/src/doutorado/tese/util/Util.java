@@ -7,7 +7,6 @@ package doutorado.tese.util;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.JTextPane;
 import javax.swing.ListModel;

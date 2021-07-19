@@ -142,9 +142,9 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         legendaComboBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         tamanhoTreemapComboBox = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
         corTreemapComboBox = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
+        corTreemapButton = new javax.swing.JButton();
         abaConfigGlyphs = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -356,8 +356,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         tamanhoTreemapComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         tamanhoTreemapComboBox.setEnabled(false);
 
-        jLabel4.setText("Color:");
-
         corTreemapComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---" }));
         corTreemapComboBox.setEnabled(false);
         corTreemapComboBox.addItemListener(new java.awt.event.ItemListener() {
@@ -373,46 +371,56 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         jLabel5.setText("Available Attributes:");
 
+        corTreemapButton.setText("Color:");
+        corTreemapButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                corTreemapButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout abaTreemapLayout = new javax.swing.GroupLayout(abaTreemap);
         abaTreemap.setLayout(abaTreemapLayout);
         abaTreemapLayout.setHorizontalGroup(
             abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(abaTreemapLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoGerarTreemap, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(abaTreemapLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
+                            .addComponent(botaoGerarTreemap, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(abaTreemapLayout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(removerBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(inserirBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(abaTreemapLayout.createSequentialGroup()
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addGroup(abaTreemapLayout.createSequentialGroup()
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(removerBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(inserirBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jLabel2)
+                                    .addGroup(abaTreemapLayout.createSequentialGroup()
+                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cimaBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(baixoBotao_treemap, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(abaTreemapLayout.createSequentialGroup()
+                                .addComponent(checkLegenda)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(legendaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(abaTreemapLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
                         .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(abaTreemapLayout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel1))
+                            .addComponent(corTreemapButton, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(corTreemapComboBox, 0, 208, Short.MAX_VALUE)
-                            .addComponent(tamanhoTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(abaTreemapLayout.createSequentialGroup()
-                        .addComponent(checkLegenda)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(legendaComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                            .addComponent(tamanhoTreemapComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         abaTreemapLayout.setVerticalGroup(
             abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,10 +452,10 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(abaTreemapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(corTreemapComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(corTreemapButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoGerarTreemap)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Treemap", abaTreemap);
@@ -695,7 +703,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                         .addComponent(textureGlyphComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botaoGerarCategoricalGlyphs)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Categorical Glyph", abaConfigGlyphs);
@@ -828,7 +836,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoGerarContinuosGlyphs)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Continuous Glyph", abaContinuosGlyphs);
@@ -929,7 +937,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(updateDetailsButton)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         painelAbas_jTabbedPane.addTab("Details", abaDetalhes);
@@ -1352,7 +1360,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
 
         ImageIcon icon = new ImageIcon(getClass().getResource("/icon/logo_LABVIS.png"));
 
-        String versao = "21";
+        String versao = "22";
 
         msgVersaoEditorPane.setEditable(true);
         msgVersaoEditorPane.setContentType("text/html");
@@ -2119,6 +2127,18 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
         Constantes.SHOW_GLYPH_ON_DETAILS = showGlyphOnDetailsCheckBox.isSelected();
     }//GEN-LAST:event_showGlyphOnDetailsCheckBoxActionPerformed
 
+    private void corTreemapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corTreemapButtonActionPerformed
+        String codes = JOptionPane.showInputDialog("Please enter at least eight RGB codes, separated by comma (Ex: #3366cc, #dc3912, #ff9900).");
+        String[] vetorCodes = codes.trim().replace(" ", "").split(",");
+        if (vetorCodes.length > 8) {
+            JOptionPane.showMessageDialog(null, "Please enter a maximum of eight RGB codes.",
+                    "Atention!", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Constantes.setCorTreemap(vetorCodes);
+            loadItensCoresTreemap(setupMB.loadColorAttributesTreemap());
+        }
+    }//GEN-LAST:event_corTreemapButtonActionPerformed
+
     private HashMap<Constantes.VAR_VISUAIS_CATEGORICAS, Object> getAtributosEscolhidosGlyph() {
 //        ArrayList<Object> atributosGlyph = new ArrayList<>();
 //        atributosGlyph.add(textureGlyphComboBox.getSelectedItem());
@@ -2203,6 +2223,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JList<String> colunasHierarquicasList2;
     private javax.swing.JMenuItem consoleMenuItem;
     private javax.swing.JButton continuousFilterButton;
+    private javax.swing.JButton corTreemapButton;
     private javax.swing.JComboBox<String> corTreemapComboBox;
     private javax.swing.JCheckBoxMenuItem decisionTreeActivate;
     private javax.swing.JMenu decisionTreeMenu;
@@ -2225,7 +2246,6 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
