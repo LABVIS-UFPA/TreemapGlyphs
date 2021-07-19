@@ -36,6 +36,7 @@ public class ManipuladorArquivo {
     private static Coluna[] colunas;
     private String[] linhas;
     private String extensaoArquivo;
+    private String delimitador = "";
 
     public ManipuladorArquivo() {
         charset = Charset.forName("iso-8859-1");//iso-8859-1
@@ -60,16 +61,26 @@ public class ManipuladorArquivo {
 
             while ((line = reader.readLine()) != null) {
                 if (numLinha == 0) {
-                    cabecalho = getCabecalhoArquivo(line);
+                    cabecalho = getCabecalhoTipoDado(line, numLinha);
                 }
                 if (numLinha == 1) {
-                    tipos = getTiposDadosArquivo(line);
+                    tipos = getCabecalhoTipoDado(line, numLinha);
                     montarMapaCabecalhoTipos(getCabecalho(), tipos);
                 }
-                if (numLinha <= 1) {
+                if (numLinha <= 1) {//feito para ler apenas as linhas que nao sao cabecalhos (linha 0 e 1)
                     bufferArquivo.append(line).append("\n");
                 } else {
-                    bufferArquivo.append(line).append(Constantes.VALUE_SAME_SIZE).append("\n");
+                    switch (delimitador) {
+                        case ",":
+                            bufferArquivo.append(line).append(",").append(Constantes.VALUE_SAME_SIZE).append("\n");
+                            break;
+                        case ";":
+                            bufferArquivo.append(line).append(";").append(Constantes.VALUE_SAME_SIZE).append("\n");
+                            break;
+                        default:
+                            bufferArquivo.append(line).append(Constantes.VALUE_SAME_SIZE).append("\n");
+                            break;
+                    }
                 }
                 numLinha++;
             }
@@ -130,19 +141,26 @@ public class ManipuladorArquivo {
         return c;
     }
 
-    private String[] getCabecalhoArquivo(String line) {
+    private String[] getCabecalhoTipoDado(String line, int numLine) {
         List<String> asList = new ArrayList<>();
         if (extensaoArquivo.equalsIgnoreCase("txt") || extensaoArquivo.equalsIgnoreCase("tsv")) {
             asList.addAll(Arrays.asList(line.replace("\"", "").split("\t")));
+            delimitador = "\t";
         } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
+            asList.clear();
             if (line.contains(",")) {
+                delimitador = ",";
                 asList.addAll(Arrays.asList(line.replace("\t", ",").split(",")));
             } else if (line.contains(";")) {//deve ser ponto e virgula (;)
+                delimitador = ";";
                 asList.addAll(Arrays.asList(line.replace("\t", ";").split(";")));
             }
         }
-        asList.add("SAME_SIZE");
-
+        if (numLine == 0) {
+            asList.add("SAME_SIZE");
+        } else {
+            asList.add("Integer");
+        }
         String[] cabecalhoLocal = new String[asList.size()];
         for (int i = 0; i < cabecalhoLocal.length; i++) {
             cabecalhoLocal[i] = asList.get(i);
@@ -150,36 +168,56 @@ public class ManipuladorArquivo {
         return cabecalhoLocal;
     }
 
-    private String[] getTiposDadosArquivo(String line) {
-        List<String> asList = new ArrayList<>();
-        if (extensaoArquivo.equalsIgnoreCase("txt") || extensaoArquivo.equalsIgnoreCase("tsv")) {
-            asList.addAll(Arrays.asList(line.replace("\"", "").split("\t")));
-        } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
-            asList.clear();
-            if (line.contains(",")) {
-                asList.addAll(Arrays.asList(line.replace("\t", ",").split(",")));
-            } else if (line.contains(";")) {//deve ser ponto e virgula (;)
-                asList.addAll(Arrays.asList(line.replace("\t", ";").split(";")));
-            }
-        }
-        asList.add("Integer");//adicionado aqui para ser o tipo do SAME_SIZE
-
-        String[] tiposLocal = new String[asList.size()];
-        for (int i = 0; i < tiposLocal.length; i++) {
-            tiposLocal[i] = asList.get(i);
-        }
-        return tiposLocal;
-    }
-
+//    private String[] getCabecalhoArquivo(String line) {
+//        List<String> asList = new ArrayList<>();
+//        if (extensaoArquivo.equalsIgnoreCase("txt") || extensaoArquivo.equalsIgnoreCase("tsv")) {
+//            asList.addAll(Arrays.asList(line.replace("\"", "").split("\t")));
+//        } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
+//            if (line.contains(",")) {
+//                asList.addAll(Arrays.asList(line.replace("\t", ",").split(",")));
+//            } else if (line.contains(";")) {//deve ser ponto e virgula (;)
+//                asList.addAll(Arrays.asList(line.replace("\t", ";").split(";")));
+//            }
+//        }
+//        asList.add("SAME_SIZE");
+//
+//        String[] cabecalhoLocal = new String[asList.size()];
+//        for (int i = 0; i < cabecalhoLocal.length; i++) {
+//            cabecalhoLocal[i] = asList.get(i);
+//        }
+//        return cabecalhoLocal;
+//    }
+//
+//    private String[] getTiposDadosArquivo(String line) {
+//        List<String> asList = new ArrayList<>();
+//        if (extensaoArquivo.equalsIgnoreCase("txt") || extensaoArquivo.equalsIgnoreCase("tsv")) {
+//            asList.addAll(Arrays.asList(line.replace("\"", "").split("\t")));
+//        } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
+//            asList.clear();
+//            if (line.contains(",")) {
+//                asList.addAll(Arrays.asList(line.replace("\t", ",").split(",")));
+//            } else if (line.contains(";")) {//deve ser ponto e virgula (;)
+//                asList.addAll(Arrays.asList(line.replace("\t", ";").split(";")));
+//            }
+//        }
+//        asList.add("Integer");//adicionado aqui para ser o tipo do SAME_SIZE
+//
+//        String[] tiposLocal = new String[asList.size()];
+//        for (int i = 0; i < tiposLocal.length; i++) {
+//            tiposLocal[i] = asList.get(i);
+//        }
+//        return tiposLocal;
+//    }
     public String[] getDadosLinha(int numLinha) {
         String[] vetorLinha = null;
         if (extensaoArquivo.equalsIgnoreCase("txt") || extensaoArquivo.equalsIgnoreCase("tsv")) {
             vetorLinha = getLinhas()[numLinha].replace("\"", "").split("\t");
         } else if (extensaoArquivo.equalsIgnoreCase("csv")) {
-            if (getLinhas()[numLinha].contains(",")) {
-                vetorLinha = getLinhas()[numLinha].replace("\t", ",").split(",");
-            } else if (getLinhas()[numLinha].contains(";")) {//deve ser ponto e virgula (;)
-                vetorLinha = getLinhas()[numLinha].replace("\t", ";").split(";");
+            if (delimitador.equals(",")) {
+//                vetorLinha = getLinhas()[numLinha].replace("\t", ",").split(",");
+                vetorLinha = getLinhas()[numLinha].split(",");
+            } else if (delimitador.equals(";")) {//deve ser ponto e virgula (;)
+                vetorLinha = getLinhas()[numLinha].split(";");
             }
         }
         return vetorLinha;
