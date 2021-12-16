@@ -56,17 +56,35 @@ public class StarGlyph extends Glyph {
         return (porcentagemDado * maiorRaio) / 100;
     }
 
+    private void montarRetangulo() {
+        int[] points = new int[2];
+
+        points[0] = getBounds().width;
+        points[1] = getBounds().height;
+
+        transformarRetanguloEmQuadrado(points);
+
+        int ladoInterior = Math.round(points[0] * getPectSobreposicao());
+
+        xPoints = new int[2];
+        yPoints = new int[2];
+
+        xPoints[0] = getBounds().x + Math.round(getBounds().width / 2) - Math.round(ladoInterior / 2);//ponto x inicial retangulo interior
+        yPoints[0] = getBounds().y + Math.round(getBounds().height / 2) - Math.round(ladoInterior / 2);//ponto y inicial retangulo interior
+
+        xPoints[1] = ladoInterior;
+        yPoints[1] = ladoInterior;
+        this.rect = new Rectangle(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);        
+    }
+    
     @Override
     public void setBounds(Rectangle rect) {
-        this.rect = rect;
-        this.rect.x = rect.x + (int) Math.round(rect.width*0.2);
-        this.rect.y = rect.y + (int) Math.round(rect.height*0.2);
-        this.rect.width = (int) Math.round(rect.width *0.6);
-        this.rect.height =(int) Math.round(rect.height *0.6);
-
+        super.setBounds(rect);
+        montarRetangulo();
+        
         center = getCenter();
         maiorRaio = encontrarMaiorRaio();
-        
+
         anguloAcc = 360 / getQuantVar();
         anguloAlfa = 0;
         for (int i = 0; i < eixosPolares.length; i++) {
@@ -77,17 +95,20 @@ public class StarGlyph extends Glyph {
             eixosPolares[i].setPontos(parsePolar2Cartesiana(anguloAlfa, r));
             anguloAlfa += anguloAcc;
         }
-        super.setBounds(this.rect);
     }
-
+    
     @Override
     public void paint(Graphics2D g2d) {
-        if (getQuantVar() != 0) {
-            for (int i = 0; i < getQuantVar(); i++) {
-                g2d.setColor(Color.decode(Constantes.getCorTreemap()[i]));
-                g2d.setStroke(new BasicStroke(4f));
-                getEixosPolares()[i].paint(g2d);
-                g2d.setStroke(new BasicStroke(0.1f));
+        if (isVisible()) {
+            g2d.setColor(Color.WHITE);
+            g2d.fillRect(this.rect.x, this.rect.y, this.rect.width, this.rect.height);
+            if (getQuantVar() != 0) {
+                for (int i = 0; i < getQuantVar(); i++) {
+                    g2d.setColor(Color.decode(Constantes.getColorContinuousGlyphs()[i]));
+                    g2d.setStroke(new BasicStroke(4f));
+                    getEixosPolares()[i].paint(g2d);
+                    g2d.setStroke(new BasicStroke(0.1f));
+                }
             }
         }
     }
@@ -203,12 +224,12 @@ public class StarGlyph extends Glyph {
 
     @Override
     public Object whoAmI() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getClass();
     }
 
     @Override
     public int presenca() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Constantes.PRESENCA_PROFILE_GLYPH;
     }
 
 }

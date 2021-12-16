@@ -2128,7 +2128,7 @@ public class Main extends javax.swing.JFrame implements PropertyChangeListener {
     }//GEN-LAST:event_showGlyphOnDetailsCheckBoxActionPerformed
 
     private void corTreemapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corTreemapButtonActionPerformed
-        String codes = JOptionPane.showInputDialog("Please enter at least eight RGB codes, separated by comma (Ex: #3366cc, #dc3912, #ff9900).");
+        String codes = JOptionPane.showInputDialog("Please, enter a maximum of eight RGB codes, separated by a comma (Ex: #3366cc, #dc3912, #ff9900).");
         String[] vetorCodes = codes.trim().replace(" ", "").split(",");
         if (vetorCodes.length > 8) {
             JOptionPane.showMessageDialog(null, "Please enter a maximum of eight RGB codes.",
