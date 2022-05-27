@@ -35,9 +35,10 @@ public class DetailsOnDemandMB {
                     .append("\n")
                     .append("Leaves: ").append(((TreeMapLevel) node).getChildren().size())
                     .append("\n")
-                    .append("Median: ").append(median(node))
+                    .append("Median: ").append(median(node))                    
                     .append("\n")
-                    .append("Total: ").append(total(node));
+                    .append("Total: ").append(total(node)).append(" (")
+                    .append(percentage(node)).append("%)");
             return tooltipText;
         } else {
             TreeMapItem nodeItem = (TreeMapItem) node;
@@ -62,21 +63,33 @@ public class DetailsOnDemandMB {
         Arrays.sort(vetor);
         double median;
         int middle = vetor.length / 2;
-        if (vetor.length % 2 == 0) {            
-            median =  Math.abs((vetor[middle - 1] + vetor[middle]) / 2);
+        if (vetor.length % 2 == 0) {
+            median = Math.abs((vetor[middle - 1] + vetor[middle]) / 2);
         } else {
             median = vetor[middle];
         }
         return median;
     }
-    
-    private int total(Object node){
-        List<TreeMapNode> children = ((TreeMapLevel) node).getChildren();
+
+    private int total(Object node) {
         int total = 0;
-        for (int i = 0; i < children.size(); i++) {
-            total += children.get(i).getSizeTreemapNode();
+        if (node != null) {
+            List<TreeMapNode> children = ((TreeMapLevel) node).getChildren();
+            for (int i = 0; i < children.size(); i++) {
+                total += children.get(i).getSizeTreemapNode();
+            }
         }
         return total;
+    }
+
+    private float percentage(Object node_filho) {
+        int totalFilhos = total(node_filho);
+        int totalPai = total(((TreeMapLevel) node_filho).getPaiLevel());
+        if (totalPai != 0) {
+            return (100 * totalFilhos) / totalPai;
+        } else {
+            return 100f;
+        }
     }
 
     /**
